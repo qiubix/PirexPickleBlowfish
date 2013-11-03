@@ -1,3 +1,3 @@
-#aux_source_directory(. SRC_LIST)
+add_executable(MoneyTest MoneyTest.cpp)
 
-#add_executable(${PROJECT_NAME} ${SRC_LIST})
+add_test(MoneyTest MoneyTest)
