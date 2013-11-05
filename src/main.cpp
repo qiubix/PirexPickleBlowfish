@@ -1,10 +1,8 @@
 #include <iostream>
 
-using namespace std;
-
 int main()
 {
-    cout << "Hello World!" << endl;
+    std::cout << "Hello World!" << std::endl;
     //Karol właśnie dodał nową linię i się z tego bardzo cieszy.
     //Artur też chce!
     //nowy system test
