@@ -14,6 +14,3 @@ add_library(Dollar Dollar.cpp)
 
 add_subdirectory(test)
 
-#target_link_libraries(${PROJECT_NAME} Test)
-
-add_test(firstTest ${PROJECT_NAME})

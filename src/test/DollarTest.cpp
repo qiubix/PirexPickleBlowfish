@@ -22,3 +22,11 @@ TEST_F(DollarTest, testMultiplication) {
 
     EXPECT_THAT(10, Eq(five->amount));
 }
+
+
+TEST_F(DollarTest, testMultiplication2) {
+    five = new Dollar(6);
+    five->times(2);
+
+    EXPECT_THAT(12, Eq(five->amount));
+}
