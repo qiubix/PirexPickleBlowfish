@@ -12,21 +12,19 @@ protected:
 
     virtual void SetUp(){}
     virtual void TearDown(){}
-
-    Dollar* five;
 };
 
 TEST_F(DollarTest, testMultiplication) {
-    five = new Dollar(5);
-    five->times(2);
+    Dollar* five = new Dollar(5);
+    five -> times(2);
 
     EXPECT_THAT(10, Eq(five->amount));
 }
 
 
 TEST_F(DollarTest, testMultiplication2) {
-    five = new Dollar(6);
-    five->times(2);
+    Dollar* six = new Dollar(6);
+    six -> times(2);
 
-    EXPECT_THAT(12, Eq(five->amount));
+    EXPECT_THAT(12, Eq(six -> amount));
 }
