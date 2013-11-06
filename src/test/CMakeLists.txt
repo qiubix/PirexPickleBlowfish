@@ -1,3 +1,5 @@
+# PATH: PirexPickleBlowfish/src/test/CMakeLists.txt
+
 set(GMOCK_DIR "../../../../gmock-1.7.0"
     CACHE PATH "The path to the GoogleMock test framework.")
 
