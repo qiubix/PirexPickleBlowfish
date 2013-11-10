@@ -1,3 +1,7 @@
+# Binary and build directories
+bin/
+build/
+
 # Compiled Object files
 *.slo
 *.lo
@@ -11,3 +15,6 @@
 *.lai
 *.la
 *.a
+
+# Temporary files (ending with ~)
+*~
