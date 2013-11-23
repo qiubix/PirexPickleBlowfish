@@ -18,6 +18,7 @@ build/
 
 # Temporary files (ending with ~)
 *~
+*.autosave
 
 # User files from QtCreator
 CMakeLists.txt.user
