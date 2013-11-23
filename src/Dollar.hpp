@@ -4,9 +4,9 @@
 class Dollar
 {
 public:
-    static int amount;
-    Dollar(int amount);
-    void times(int multiplier);
+  static int amount;
+  Dollar(int amount);
+  void times(int multiplier);
 };
 
 #endif // DOLLAR_HPP
