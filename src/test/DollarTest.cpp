@@ -39,7 +39,7 @@ TEST_F(DollarTest, testMultiplication1) {
 
 // Test z nonfatal i fatal assertions
 TEST_F(DollarTest, testMultiplication2) {
-  EXPECT_EQ(12, six->amout);
+  EXPECT_EQ(12, six->amount);
   ASSERT_EQ(10, five->amount);
 }
 
