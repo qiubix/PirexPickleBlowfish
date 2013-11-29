@@ -16,3 +16,5 @@ add_library(Dollar Dollar.cpp)
 
 add_subdirectory(test)
 
+add_subdirectory(GUI)
+
