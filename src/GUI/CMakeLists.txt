@@ -7,19 +7,19 @@ endif()
 
 #set(QT5_DIRECTORY "C:\
 find_package(Qt5 REQUIRED)
-INCLUDE(${QT_USE_FILE})
+include_directories(${Qt5Widgets_INCLUDE_DIRS})
+
+set(LIBS ${LIBS} ${QT_QTMAIN_LIBRARY} ${QT_LIBRARIES})
+
+#INCLUDE(${QT_USE_FILE})
 #add_subdirectory(${GMOCK_DIR} ${CMAKE_BINARY_DIR}/gmock)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-#include_directories(SYSTEM ${GMOCK_DIR}/gtest/include
-#                ${GMOCK_DIR}/include)
 
 add_executable(BoardSample BoardSample.cpp)
 
 #qt5_use_modules(BoardSample Widgets)
-#target_link_libraries(DollarTest Dollar gmock_main)
 TARGET_LINK_LIBRARIES(BoardSample ${QT_QTMAIN_LIBRARY} ${QT_LIBRARIES})
-#add_test(DollarTest DollarTest)
 
 IF(WIN32) # Check if we are on Windows
   if(MSVC) # Check if we are using the Visual Studio compiler
