@@ -1,7 +1,15 @@
 # PATH: PirexPickleBlowfish/src/GUI/CMakeLists.txt
-if(Win32)
-	set(CMAKE_MODULE_PATH "C:\Qt\Qt5.1.1")
-endif()
+
+cmake_minimum_required(VERSION 2.8.8)
+
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+#if(WIN32)
+    set(Qt5_DIR "C:/Qt/5.1.1/msvc2012_64_opengl/lib/cmake")
+#endif()
+
+set(CMAKE_AUTOMOC ON)
+
 #set(GMOCK_DIR "../../../../Qt5.1.1
 #    CACHE PATH "The path to the GoogleMock test framework.")
 
@@ -14,7 +22,6 @@ set(LIBS ${LIBS} ${QT_QTMAIN_LIBRARY} ${QT_LIBRARIES})
 #INCLUDE(${QT_USE_FILE})
 #add_subdirectory(${GMOCK_DIR} ${CMAKE_BINARY_DIR}/gmock)
 
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 add_executable(BoardSample BoardSample.cpp)
 
