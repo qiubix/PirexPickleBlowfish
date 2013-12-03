@@ -1,5 +1,4 @@
 #include "BoardSample.hpp"
-#include "ui_BoardSample.h"
 
 BoardSample::BoardSample(QWidget *parent) :
     QWidget(parent),

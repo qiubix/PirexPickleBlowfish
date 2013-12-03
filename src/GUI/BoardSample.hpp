@@ -2,6 +2,7 @@
 #define BOARDSAMPLE_HPP
 
 #include <QWidget>
+#include "ui_BoardSample.h"
 
 namespace Ui {
 class BoardSample;
