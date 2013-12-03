@@ -1,13 +1,14 @@
 #include <iostream>
-#include "Dollar.hpp"
+#include "GUI/BoardSample.hpp"
+#include <QApplication>
 
-int main()
+int main(int argc, char* argv[])
 {
+  QApplication app(argc, argv);
+  BoardSample boardSample;
+  boardSample.show();
   std::cout << "Hello World!" << std::endl;
-  //Karol właśnie dodał nową linię i się z tego bardzo cieszy.
-  //Artur też chce!
-  //nowy system test
-  return 0;
+  return app.exec();
 }
 
 int firstFunction (int argument)
