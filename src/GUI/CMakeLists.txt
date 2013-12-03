@@ -16,7 +16,7 @@ set(UI_LIST BoardSample.ui)
 
 qt5_wrap_ui(UI_H_LIST ${UI_LIST})
 
-add_executable(BoardSample ${SRC_LIST} ${UI_H_LIST})
+add_library(BoardSample ${SRC_LIST} ${UI_H_LIST})
 
 qt5_use_modules(BoardSample Widgets)
 #target_link_libraries(BoardSample Qt5::Widgets)

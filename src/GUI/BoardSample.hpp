@@ -1,8 +1,8 @@
 #ifndef BOARDSAMPLE_HPP
 #define BOARDSAMPLE_HPP
 
-#include <QWidget>
 #include "ui_BoardSample.h"
+#include <QWidget>
 
 namespace Ui {
 class BoardSample;
