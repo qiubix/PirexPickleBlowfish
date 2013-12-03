@@ -4,9 +4,9 @@ cmake_minimum_required(VERSION 2.8.8)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-#if(WIN32)
+if(WIN32)
     set(Qt5_DIR "C:/Qt/5.1.1/msvc2012_64_opengl/lib/cmake")
-#endif()
+endif()
 
 set(CMAKE_AUTOMOC ON)
 
@@ -14,10 +14,10 @@ set(CMAKE_AUTOMOC ON)
 #    CACHE PATH "The path to the GoogleMock test framework.")
 
 #set(QT5_DIRECTORY "C:\
-find_package(Qt5 REQUIRED)
-include_directories(${Qt5Widgets_INCLUDE_DIRS})
+find_package(Qt5Widgets REQUIRED)
+#include_directories(${Qt5Widgets_INCLUDE_DIRS})
 
-set(LIBS ${LIBS} ${QT_QTMAIN_LIBRARY} ${QT_LIBRARIES})
+#set(LIBS ${LIBS} ${QT_QTMAIN_LIBRARY} ${QT_LIBRARIES})
 
 #INCLUDE(${QT_USE_FILE})
 #add_subdirectory(${GMOCK_DIR} ${CMAKE_BINARY_DIR}/gmock)
@@ -25,8 +25,8 @@ set(LIBS ${LIBS} ${QT_QTMAIN_LIBRARY} ${QT_LIBRARIES})
 
 add_executable(BoardSample BoardSample.cpp)
 
-#qt5_use_modules(BoardSample Widgets)
-TARGET_LINK_LIBRARIES(BoardSample ${QT_QTMAIN_LIBRARY} ${QT_LIBRARIES})
+qt5_use_modules(BoardSample Widgets)
+#TARGET_LINK_LIBRARIES(BoardSample ${QT_QTMAIN_LIBRARY} ${QT_LIBRARIES})
 
 IF(WIN32) # Check if we are on Windows
   if(MSVC) # Check if we are using the Visual Studio compiler
