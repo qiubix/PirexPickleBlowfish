@@ -1,23 +1,56 @@
 # PATH: PirexPickleBlowfish/src/CMakeLists.txt
 
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-#FILE(GLOB files *.cpp)
+# =========================================================
+# USING NEW CMAKE
+# =========================================================
+cmake_minimum_required(VERSION 2.8.8)
+
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_AUTOMOC ON)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 find_package(Qt5Widgets REQUIRED)
 
-#aux_source_directory(. SRC_LIST)
 set(SRC_LIST main.cpp)
+set(BOARD_SAMPLE_SRC_LIST BoardSample.cpp)
+set(UI_LIST BoardSample.ui)
+
+qt5_wrap_ui(UI_H_LIST ${UI_LIST})
+
+add_library(BoardSample ${BOARD_SAMPLE_SRC_LIST} ${UI_H_LIST})
+add_library(Dollar Dollar.cpp)
+
+qt5_use_modules(BoardSample Widgets)
+#target_link_libraries(BoardSample Qt5::Widgets)
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
-
-#add_library(Dollar Dollar.cpp)
 target_link_libraries(${PROJECT_NAME} Dollar BoardSample)
 
 add_subdirectory(test)
 
-add_subdirectory(GUI)
-
-add_subdirectory(Dollar)
+# =========================================================
+# OLD structure
+# =========================================================
+#set(CMAKE_INCLUDE_CURRENT_DIR ON)
+#
+##FILE(GLOB files *.cpp)
+#include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+#include_directories(${CMAKE_CURRENT_BINARY_DIR})
+#
+#find_package(Qt5Widgets REQUIRED)
+#
+##aux_source_directory(. SRC_LIST)
+#set(SRC_LIST main.cpp)
+#
+#add_executable(${PROJECT_NAME} ${SRC_LIST})
+#
+##add_library(Dollar Dollar.cpp)
+#target_link_libraries(${PROJECT_NAME} Dollar BoardSample)
+#
+#add_subdirectory(test)
+#
+#add_subdirectory(GUI)
+#
+#add_subdirectory(Dollar)
