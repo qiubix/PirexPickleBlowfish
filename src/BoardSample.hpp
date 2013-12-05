@@ -16,8 +16,13 @@ public:
     explicit BoardSample(QWidget *parent = 0);
     ~BoardSample();
 
+private slots:
+    void on_newGameButton_clicked();
+
+    void on_quitButton_clicked();
+
 private:
-    Ui::BoardSample *ui;
+   Ui::BoardSample *ui;
 };
 
 #endif // BOARDSAMPLE_HPP
