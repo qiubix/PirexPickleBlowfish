@@ -6,51 +6,48 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>532</width>
-    <height>370</height>
+    <width>715</width>
+    <height>469</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="NewGameButton">
+  <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
-     <x>380</x>
-     <y>90</y>
-     <width>80</width>
-     <height>23</height>
+     <x>590</x>
+     <y>10</y>
+     <width>121</width>
+     <height>451</height>
     </rect>
    </property>
-   <property name="text">
-    <string>New Game</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="LoadGameButton">
-   <property name="geometry">
-    <rect>
-     <x>380</x>
-     <y>130</y>
-     <width>80</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Load Game</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="QuitGameButton">
-   <property name="geometry">
-    <rect>
-     <x>380</x>
-     <y>190</y>
-     <width>81</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Quit</string>
-   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QPushButton" name="NewGameButton">
+      <property name="text">
+       <string>New Game</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="LoadGameButton">
+      <property name="text">
+       <string>Load Game</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="QuitGameButton">
+      <property name="text">
+       <string>Quit</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTextBrowser" name="textBrowser"/>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>
