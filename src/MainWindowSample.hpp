@@ -2,6 +2,7 @@
 #define MAINWINDOWSAMPLE_HPP
 
 #include <QWidget>
+#include <QLineEdit>
 
 namespace Ui {
   class MainWindowSample;
@@ -13,6 +14,7 @@ class MainWindowSample : public QWidget
 
 public:
   explicit MainWindowSample(QWidget *parent = 0);
+  QLineEdit* getLineEdit();
   ~MainWindowSample();
 
 private slots:

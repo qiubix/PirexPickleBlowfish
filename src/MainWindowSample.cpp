@@ -8,6 +8,11 @@ MainWindowSample::MainWindowSample(QWidget *parent) :
   ui->setupUi(this);
 }
 
+QLineEdit* MainWindowSample::getLineEdit()
+{
+  return ui->lineEdit;
+}
+
 MainWindowSample::~MainWindowSample()
 {
   delete ui;
