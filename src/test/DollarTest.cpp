@@ -43,4 +43,12 @@ TEST_F(DollarTest, testMultiplication2) {
   ASSERT_EQ(10, five->amount);
 }
 
-// Komentarze do wywalenia po przeczytaniu
+//TODO: Komentarze do wywalenia po przeczytaniu
+/* FIXME: @Artur Widzę, że komentarze wciąż nie usunięte,
+ * czyli nie zajrzałeś tu nawet. Szkoda.
+ * Odpalenie tego testu będzie wywalać warningi/błędy,
+ * bo generalnie nie można używać w jednym test casie
+ * TEST() i TEST_F() obok siebie. W tym przypadku wszystkie
+ * powinne być TEST_F, bo w setupie jest już przeprowadzona
+ * inicjacja.
+ */

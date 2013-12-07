@@ -19,5 +19,4 @@ void BoardSample::on_newGameButton_clicked()
 
 void BoardSample::on_quitButton_clicked()
 {
-  parentWidget()->close();
 }

@@ -16,17 +16,14 @@ set(GUI_TEST_SRC MainWindowSampleTest.cpp)
 set(GUI_TEST_LIBRARIES MainWindowSample
           ${QT_QTTEST_LIBRARY}
           ${QT_LIBRARIES})
-#qt5_automoc(${GUI_TEST_SRC})
 add_executable(GUI_TEST ${GUI_TEST_SRC})
-# add_executable(MainWindowSampleTest MainWindowSampleTest.cpp)
+qt5_use_modules(GUI_TEST Test)
 
 target_link_libraries(DollarTest Dollar gmock_main)
 target_link_libraries(GUI_TEST ${GUI_TEST_LIBRARIES})
 
-qt5_use_modules(GUI_TEST Test)
 
 add_test(DollarTest DollarTest)
 add_test(GUI_TEST GUI_TEST)
-#add_test(MainWindowSampleTest MainWindowSampleTest)
 
 
