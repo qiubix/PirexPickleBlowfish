@@ -17,8 +17,8 @@ void MainWindowSampleTest::testNewGameButtonClick()
   QLineEdit* lineEdit = mainWindowSample.getLineEdit();
 
   QTest::keyClicks(lineEdit, "hello world");
-  QCOMPARE(lineEdit.text(), QString("hello wolrd"));
+  QCOMPARE(lineEdit->text(), QString("hello world"));
 }
 
 QTEST_MAIN(MainWindowSampleTest)
-#include "mainwindowsample.moc"
+#include "MainWindowSampleTest.moc"

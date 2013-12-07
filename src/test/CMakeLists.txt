@@ -23,6 +23,8 @@ add_executable(GUI_TEST ${GUI_TEST_SRC})
 target_link_libraries(DollarTest Dollar gmock_main)
 target_link_libraries(GUI_TEST ${GUI_TEST_LIBRARIES})
 
+qt5_use_modules(GUI_TEST Test)
+
 add_test(DollarTest DollarTest)
 add_test(GUI_TEST GUI_TEST)
 #add_test(MainWindowSampleTest MainWindowSampleTest)
