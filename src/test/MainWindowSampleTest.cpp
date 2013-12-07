@@ -14,9 +14,9 @@ private slots:
 void MainWindowSampleTest::testNewGameButtonClick()
 {
   MainWindowSample mainWindowSample;
-  QLineEdit lineEdit = mainWindowSample.getLineEdit();
+  QLineEdit* lineEdit = mainWindowSample.getLineEdit();
 
-  QTest::keyClicks(&lineEdit, "hello world");
+  QTest::keyClicks(lineEdit, "hello world");
   QCOMPARE(lineEdit.text(), QString("hello wolrd"));
 }
 
