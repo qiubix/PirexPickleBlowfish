@@ -23,7 +23,6 @@ add_library(BoardSample ${BOARD_SAMPLE_SRC_LIST} ${UI_H_LIST})
 add_library(Dollar Dollar.cpp)
 
 qt5_use_modules(BoardSample Widgets)
-#target_link_libraries(BoardSample Qt5::Widgets)
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
 target_link_libraries(${PROJECT_NAME} Dollar BoardSample)
