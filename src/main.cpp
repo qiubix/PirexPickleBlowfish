@@ -1,8 +1,6 @@
 #include <iostream>
 #include "Dollar.hpp"
 #include "BoardSample.hpp"
-//#include "GUI/BoardSample.hpp"
-//#include <QApplication>
 
 int main(int argc, char* argv[])
 {
@@ -13,5 +11,4 @@ int main(int argc, char* argv[])
   dollar->times(2);
   std::cout << "Hello World!" << std::endl;
   return app.exec();
-//  return 0;
 }
