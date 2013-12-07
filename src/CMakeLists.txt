@@ -19,17 +19,20 @@ find_package(Qt5Widgets REQUIRED)
 
 set(SRC_LIST main.cpp)
 set(BOARD_SAMPLE_SRC_LIST BoardSample.cpp)
-set(UI_LIST BoardSample.ui)
+set(MAIN_WINDOW_SAMPLE_SRC_LIST MainWindowSample.cpp)
+set(UI_LIST BoardSample.ui MainWindowSample.ui)
 
 qt5_wrap_ui(UI_H_LIST ${UI_LIST})
 
 add_library(BoardSample ${BOARD_SAMPLE_SRC_LIST} ${UI_H_LIST})
+add_library(MainWindowSample ${MAIN_WINDOW_SAMPLE_SRC_LIST} ${UI_H_LIST})
 add_library(Dollar Dollar.cpp)
 
 qt5_use_modules(BoardSample Widgets)
+qt5_use_modules(MainWindowSample Widgets)
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
-target_link_libraries(${PROJECT_NAME} Dollar BoardSample)
+target_link_libraries(${PROJECT_NAME} Dollar BoardSample MainWindowSample)
 
 add_subdirectory(test)
 
