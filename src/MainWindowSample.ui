@@ -24,21 +24,21 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QPushButton" name="NewGameButton">
+     <widget class="QPushButton" name="newGameButton">
       <property name="text">
        <string>New Game</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="LoadGameButton">
+     <widget class="QPushButton" name="loadGameButton">
       <property name="text">
        <string>Load Game</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="QuitGameButton">
+     <widget class="QPushButton" name="quitGameButton">
       <property name="text">
        <string>Quit</string>
       </property>

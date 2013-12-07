@@ -13,6 +13,16 @@ QLineEdit* MainWindowSample::getLineEdit()
   return ui->lineEdit;
 }
 
+QPushButton* MainWindowSample::getNewGameButton()
+{
+  return ui->newGameButton;
+}
+
+QTextBrowser* MainWindowSample::getTextBrowser()
+{
+  return ui->textBrowser;
+}
+
 MainWindowSample::~MainWindowSample()
 {
   delete ui;

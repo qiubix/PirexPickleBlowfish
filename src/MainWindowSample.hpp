@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <QLineEdit>
+#include <QPushButton>
+#include <QTextBrowser>
 
 namespace Ui {
   class MainWindowSample;
@@ -15,6 +17,8 @@ class MainWindowSample : public QWidget
 public:
   explicit MainWindowSample(QWidget *parent = 0);
   QLineEdit* getLineEdit();
+  QPushButton* getNewGameButton();
+  QTextBrowser* getTextBrowser();
   ~MainWindowSample();
 
 private slots:
