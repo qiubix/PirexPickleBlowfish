@@ -6,6 +6,10 @@
 # =========================================================
 cmake_minimum_required(VERSION 2.8.8)
 
+if(WIN32)
+    set(Qt5Widgets_DIR "C:/Qt/5.1.1/msvc2012_64_opengl/lib/cmake/Qt5Widgets")
+endif()
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
