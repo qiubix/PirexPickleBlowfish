@@ -18,6 +18,7 @@ public:
   explicit MainWindowSample(QWidget *parent = 0);
   QLineEdit* getLineEdit();
   QPushButton* getNewGameButton();
+  QPushButton* getQuitGameButton();
   QTextBrowser* getTextBrowser();
   ~MainWindowSample();
 

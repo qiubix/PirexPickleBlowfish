@@ -18,6 +18,11 @@ QPushButton* MainWindowSample::getNewGameButton()
   return ui->newGameButton;
 }
 
+QPushButton*MainWindowSample::getQuitGameButton()
+{
+  return ui->quitGameButton;
+}
+
 QTextBrowser* MainWindowSample::getTextBrowser()
 {
   return ui->textBrowser;
