@@ -22,11 +22,11 @@ public:
   ~MainWindowSample();
 
 private slots:
-  void on_NewGameButton_clicked();
+  void on_newGameButton_clicked();
 
-  void on_LoadGameButton_clicked();
+  void on_loadGameButton_clicked();
 
-  void on_QuitGameButton_clicked();
+  void on_quitGameButton_clicked();
 
 private:
   Ui::MainWindowSample *ui;

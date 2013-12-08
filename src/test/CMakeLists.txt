@@ -1,5 +1,7 @@
 # PATH: PirexPickleBlowfish/src/test/CMakeLists.txt
 
+# setting gmock directory. By default using gmock v1.7.0
+# installed in home directory (~/gmock-1.7.0)
 set(GMOCK_DIR "../../../../gmock-1.7.0"
     CACHE PATH "The path to the GoogleMock test framework.")
 

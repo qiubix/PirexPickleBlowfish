@@ -28,17 +28,17 @@ MainWindowSample::~MainWindowSample()
   delete ui;
 }
 
-void MainWindowSample::on_NewGameButton_clicked()
+void MainWindowSample::on_newGameButton_clicked()
 {
   ui->textBrowser->setText("New Game button clicked");
 }
 
-void MainWindowSample::on_LoadGameButton_clicked()
+void MainWindowSample::on_loadGameButton_clicked()
 {
   ui->textBrowser->setText("Load Game button clicked");
 }
 
-void MainWindowSample::on_QuitGameButton_clicked()
+void MainWindowSample::on_quitGameButton_clicked()
 {
   ui->textBrowser->setText("Quit Game button clicked");
 }
