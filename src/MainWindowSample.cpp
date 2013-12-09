@@ -35,7 +35,7 @@ MainWindowSample::~MainWindowSample()
 
 void MainWindowSample::on_newGameButton_clicked()
 {
-  ui->textBrowser->setText("New Game button clicked");
+  ui->textBrowser->append("New Game button clicked");
 }
 
 void MainWindowSample::on_loadGameButton_clicked()
