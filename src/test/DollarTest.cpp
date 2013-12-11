@@ -1,4 +1,4 @@
-#include "src/Dollar/Dollar.hpp"
+#include "src/logic/Dollar.hpp"
 
 #include <gmock/gmock.h>
 using ::testing::Eq;

@@ -1,7 +1,7 @@
 #include <iostream>
-#include "Dollar.hpp"
-#include "BoardSample.hpp"
-#include "MainWindowSample.hpp"
+#include "logic/Dollar.hpp"
+//#include "gui/BoardSample.hpp"
+#include "gui/MainWindowSample.hpp"
 
 int main(int argc, char* argv[])
 {
