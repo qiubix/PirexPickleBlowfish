@@ -15,7 +15,7 @@ set(CMAKE_AUTOMOC ON)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-#find_package(Qt5Widgets REQUIRED)
+find_package(Qt5Widgets REQUIRED)
 
 set(SRC_LIST main.cpp)
 #set(BOARD_SAMPLE_SRC_LIST BoardSample.cpp)

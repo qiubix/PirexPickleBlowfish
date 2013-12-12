@@ -1,3 +1,5 @@
+#include <QtWidgets>
+#include <QObject>
 #include <iostream>
 #include "logic/Dollar.hpp"
 //#include "gui/BoardSample.hpp"
@@ -9,7 +11,7 @@ int main(int argc, char* argv[])
   //BoardSample boardSample;
   //boardSample.show();
   MainWindowSample mainWindowSample;
-  QObject::connect (mainWindowSample.getQuitGameButton(), SIGNAL(clicked()), qApp, SLOT(quit()));
+  QObject::connect (mainWindowSample.getQuitGameButton(), SIGNAL(clicked()), &app, SLOT(quit()));
   mainWindowSample.show();
   Dollar* dollar = new Dollar(5);
   dollar->times(2);
