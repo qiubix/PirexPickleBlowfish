@@ -4,16 +4,24 @@
 #include "logic/Dollar.hpp"
 #include "gui/MainWindowSample.hpp"
 
-//REVIEW: i know this is the transitional make but we should extract code into meaningful methods
-//here for example: mainWindowInit and dollarInit or something like that
+void mainWindowInit(QApplication* app)
+{
+  MainWindowSample* mainWindowSample = new MainWindowSample;
+  QObject::connect (mainWindowSample->getQuitGameButton(), SIGNAL(clicked()), app, SLOT(quit()));
+  mainWindowSample->show();
+}
+
+void dollarInit(void)
+{
+  Dollar* dollar = new Dollar(5);
+  dollar->times(2);
+}
+
 int main(int argc, char* argv[])
 {
   QApplication app(argc, argv);
-  MainWindowSample mainWindowSample;
-  QObject::connect (mainWindowSample.getQuitGameButton(), SIGNAL(clicked()), &app, SLOT(quit()));
-  mainWindowSample.show();
-  Dollar* dollar = new Dollar(5);
-  dollar->times(2);
+  mainWindowInit(&app);
+  dollarInit();
   std::cout << "Hello World!" << std::endl;
   return app.exec();
 }

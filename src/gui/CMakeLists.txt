@@ -1,16 +1,12 @@
-#REVIEW: do we really need this PATH comment?
-# PATH: PirexPickleBlowfish/src/gui/CMakeLists.txt
-
-#REVIEW: do we really need this USING NEW CMAKE comment?
-# =========================================================
-# USING NEW CMAKE
-# =========================================================
 cmake_minimum_required(VERSION 2.8.8)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(CMAKE_AUTOMOC ON)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
+# Generate GUI classes based on design stored in *.ui files
+# That basically allows to create GUI with QtCreator Designer
+set(CMAKE_AUTOMOC ON)
 
 find_package(Qt5Widgets REQUIRED)
 
