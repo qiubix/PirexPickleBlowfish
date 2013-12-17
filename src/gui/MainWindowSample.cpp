@@ -33,6 +33,7 @@ MainWindowSample::~MainWindowSample()
   delete ui;
 }
 
+//QUESTION: do we keep to Qt naming style on_cameCase_something or to onCamelCaseSomething?
 void MainWindowSample::on_newGameButton_clicked()
 {
   ui->textBrowser->append("New Game button clicked");

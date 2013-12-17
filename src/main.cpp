@@ -4,6 +4,8 @@
 #include "logic/Dollar.hpp"
 #include "gui/MainWindowSample.hpp"
 
+//REVIEW: i know this is the transitional make but we should extract code into meaningful methods
+//here for example: mainWindowInit and dollarInit or something like that
 int main(int argc, char* argv[])
 {
   QApplication app(argc, argv);

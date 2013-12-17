@@ -1,5 +1,7 @@
+#REVIEW: do we really need this PATH comment?
 # PATH: PirexPickleBlowfish/CMakeLists.txt
 
+#REVIEW: do we need these comments?
 # PROJECT NAME
 project(PirexPickleBlowfish)
 

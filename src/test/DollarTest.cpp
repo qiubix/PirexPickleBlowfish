@@ -43,6 +43,7 @@ TEST_F(DollarTest, testMultiplication2) {
   ASSERT_EQ(10, five->amount);
 }
 
+//REVIEW: czytałem, nie miałem czasu naprawić, może dzisiaj zdążę.
 //TODO: Komentarze do wywalenia po przeczytaniu
 /* FIXME: @Artur Widzę, że komentarze wciąż nie usunięte,
  * czyli nie zajrzałeś tu nawet. Szkoda.

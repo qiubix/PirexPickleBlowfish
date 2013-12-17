@@ -1,5 +1,7 @@
+#REVIEW: do we really need this PATH comment?
 # PATH: PirexPickleBlowfish/src/gui/CMakeLists.txt
 
+#REVIEW: do we really need this USING NEW CMAKE comment?
 # =========================================================
 # USING NEW CMAKE
 # =========================================================
