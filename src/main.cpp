@@ -4,8 +4,6 @@
 #include "logic/Dollar.hpp"
 #include "gui/MainWindowSample.hpp"
 #include "Logger.hpp"
-//REVIEW: Does it have to be included here? Isn't Logger.hpp a better place for it?
-#include <boost/log/trivial.hpp>
 
 void mainWindowInit(QApplication* app)
 {
@@ -24,15 +22,12 @@ int main(int argc, char* argv[])
 {
   initLogging();
 
-  /* REVIEW: using BOOST_LOG_TRIVIAL() seems a bit problematic in terms of
-   * its length. Is it possible to map it to LOG()?
-   */
-  BOOST_LOG_TRIVIAL(trace) << "A trace severity message";
-  BOOST_LOG_TRIVIAL(debug) << "A debug severity message";
-  BOOST_LOG_TRIVIAL(info) << "An informational severity message";
-  BOOST_LOG_TRIVIAL(warning) << "A warning severity message";
-  BOOST_LOG_TRIVIAL(error) << "An error severity message";
-  BOOST_LOG_TRIVIAL(fatal) << "A fatal severity message";
+  LOG(trace) << "A trace severity message";
+  LOG(debug) << "A debug severity message";
+  LOG(info) << "An informational severity message";
+  LOG(warning) << "A warning severity message";
+  LOG(error) << "An error severity message";
+  LOG(fatal) << "A fatal severity message";
 
   QApplication app(argc, argv);
   mainWindowInit(&app);
