@@ -2,14 +2,11 @@
 #include <QObject>
 #include <iostream>
 #include "logic/Dollar.hpp"
-//#include "gui/BoardSample.hpp"
 #include "gui/MainWindowSample.hpp"
 
 int main(int argc, char* argv[])
 {
   QApplication app(argc, argv);
-  //BoardSample boardSample;
-  //boardSample.show();
   MainWindowSample mainWindowSample;
   QObject::connect (mainWindowSample.getQuitGameButton(), SIGNAL(clicked()), &app, SLOT(quit()));
   mainWindowSample.show();

@@ -21,7 +21,7 @@ set(GUI_TEST_LIBRARIES MainWindowSample
 add_executable(GuiTest ${GUI_TEST_SRC})
 qt5_use_modules(GuiTest Test)
 
-target_link_libraries(DollarTest Dollar gmock_main)
+target_link_libraries(DollarTest logic gmock_main)
 target_link_libraries(GuiTest ${GUI_TEST_LIBRARIES})
 
 

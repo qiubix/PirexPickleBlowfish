@@ -1,7 +1,7 @@
 #include <QtGui>
 #include <QtTest/QtTest>
 
-#include "MainWindowSample.hpp"
+#include "gui/MainWindowSample.hpp"
 
 class MainWindowSampleTest : public QObject
 {
