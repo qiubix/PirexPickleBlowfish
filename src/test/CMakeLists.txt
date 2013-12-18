@@ -4,6 +4,7 @@ set(GMOCK_DIR "../../../../gmock-1.7.0"
     CACHE PATH "The path to the GoogleMock test framework.")
 
 add_subdirectory(${GMOCK_DIR} ${CMAKE_BINARY_DIR}/gmock)
+set(CMAKE_AUTOMOC ON)
 
 include_directories(SYSTEM ${GMOCK_DIR}/gtest/include ${GMOCK_DIR}/include)
 
