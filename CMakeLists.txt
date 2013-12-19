@@ -2,6 +2,7 @@ project(PirexPickleBlowfish)
 
 cmake_minimum_required(VERSION 2.8)
 
+#REVIEW: what is this?
 # CUSTOM CMAKE FIND LOCATION
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
 
