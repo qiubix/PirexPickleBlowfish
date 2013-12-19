@@ -3,6 +3,7 @@
 #include <iostream>
 #include "logic/Dollar.hpp"
 #include "gui/MainWindowSample.hpp"
+#include "Logger.hpp"
 
 void mainWindowInit(QApplication* app)
 {
@@ -19,6 +20,15 @@ void dollarInit(void)
 
 int main(int argc, char* argv[])
 {
+  initLogging();
+
+  LOG(trace) << "A trace severity message";
+  LOG(debug) << "A debug severity message";
+  LOG(info) << "An informational severity message";
+  LOG(warning) << "A warning severity message";
+  LOG(error) << "An error severity message";
+  LOG(fatal) << "A fatal severity message";
+
   QApplication app(argc, argv);
   mainWindowInit(&app);
   dollarInit();
