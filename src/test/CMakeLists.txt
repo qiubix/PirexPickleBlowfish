@@ -1,11 +1,8 @@
 set(GMOCK_DIR $ENV{GMOCK_ROOT})
-#REVIEW: remove message
-message("GMock directory: ${GMOCK_DIR}")
 
 add_subdirectory(${GMOCK_DIR} ${CMAKE_BINARY_DIR}/gmock)
 set(CMAKE_AUTOMOC ON)
 
-#REVIEW: why we include SYSTEM here? maybe it should be QUESTION tag
 include_directories(SYSTEM ${GMOCK_DIR}/gtest/include ${GMOCK_DIR}/include)
 
 set(DOLLAR_TEST_SRC DollarTest.cpp)
