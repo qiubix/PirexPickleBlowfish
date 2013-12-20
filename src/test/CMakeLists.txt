@@ -1,7 +1,8 @@
 # setting gmock directory. By default using gmock v1.7.0
 # installed in home directory (~/gmock-1.7.0)
-set(GMOCK_DIR "../../../../gmock-1.7.0"
-    CACHE PATH "The path to the GoogleMock test framework.")
+#set(GMOCK_DIR "../../../../gmock-1.7.0"
+#    CACHE PATH "The path to the GoogleMock test framework.")
+find_package(GMock REQUIRED)
 
 add_subdirectory(${GMOCK_DIR} ${CMAKE_BINARY_DIR}/gmock)
 set(CMAKE_AUTOMOC ON)
