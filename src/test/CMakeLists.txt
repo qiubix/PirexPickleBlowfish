@@ -3,11 +3,11 @@
 #set(GMOCK_DIR "../../../../gmock-1.7.0"
 #    CACHE PATH "The path to the GoogleMock test framework.")
 find_package(GMock REQUIRED)
+include_directories(${GMOCK_INCLUDE_DIRS})
 
-add_subdirectory(${GMOCK_DIR} ${CMAKE_BINARY_DIR}/gmock)
-set(CMAKE_AUTOMOC ON)
+#add_subdirectory(${GMOCK_DIR} ${CMAKE_BINARY_DIR}/gmock)
 
-include_directories(SYSTEM ${GMOCK_DIR}/gtest/include ${GMOCK_DIR}/include)
+#include_directories(SYSTEM ${GMOCK_DIR}/gtest/include ${GMOCK_DIR}/include)
 
 set(DOLLAR_TEST_SRC DollarTest.cpp)
 set(GUI_TEST_SRC MainWindowSampleTest.cpp)
@@ -16,7 +16,7 @@ set(GUI_TEST_LIBRARIES MainWindowSample ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES})
 add_executable(DollarTest ${DOLLAR_TEST_SRC})
 add_executable(GuiTest ${GUI_TEST_SRC})
 
-target_link_libraries(DollarTest logic gmock_main)
+target_link_libraries(DollarTest logic ${GMOCK_BOTH_LIBRARIES})
 target_link_libraries(GuiTest ${GUI_TEST_LIBRARIES})
 qt5_use_modules(GuiTest Test)
 
