@@ -22,3 +22,6 @@ build/
 
 # User files from QtCreator
 CMakeLists.txt.user
+
+# cmake temp files
+cmake/
