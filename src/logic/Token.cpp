@@ -1,5 +1,5 @@
 #include "Token.hpp"
 
-army Token::getAffiliation() {
-  return affiliation;
+Army Token::getArmy() {
+  return army;
 }
