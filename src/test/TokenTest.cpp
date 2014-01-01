@@ -5,11 +5,11 @@ using ::testing::Test;
 
 #include "src/logic/BoardToken.hpp"
 
-class TokenTest : public Test
+class BoardTokenTest : public Test
 {
 protected:
-  TokenTest(){}
-  ~TokenTest(){}
+  BoardTokenTest(){}
+  ~BoardTokenTest(){}
 
   BoardToken* token;
   Attribute* initiative;
@@ -23,9 +23,17 @@ protected:
 
   virtual void TearDown() {
     delete token;
+    delete initiative;
   }
 };
 
-TEST_F(TokenTest, testGetAttribute) {
+TEST_F(BoardTokenTest, testGetAttribute) {
   ASSERT_EQ(initiative, token->getAttribute(initiative->getName()));
+}
+
+TEST_F(BoardTokenTest, testAddAttribute) {
+  Attribute* toughness = new Attribute("toughness", 1);
+  token->addAttribute(toughness);
+  ASSERT_EQ(toughness, token->getAttribute(toughness->getName()));
+  delete toughness;
 }

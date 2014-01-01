@@ -24,7 +24,9 @@ public:
   BoardToken();
   BoardToken(std::map <std::string, Attribute*> attributes);
   Field* getField();
+  void setField(Field* field);
   Attribute* getAttribute(std::string name);
+  void addAttribute(Attribute* attribute);
 };
 
 #endif //BOARDTOKEN_HPP
