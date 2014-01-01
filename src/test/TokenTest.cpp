@@ -5,6 +5,35 @@ using ::testing::Test;
 
 #include "src/logic/BoardToken.hpp"
 
+class AttributeTest : public Test
+{
+protected:
+  AttributeTest(){}
+  ~AttributeTest(){}
+
+  Attribute* attribute;
+
+  virtual void SetUp() {
+    attribute = new Attribute("initiative", 2);
+  }
+
+  virtual void TearDown() {
+    delete attribute;
+  }
+};
+
+TEST_F(AttributeTest, testGetName) {
+  ASSERT_EQ("initiative", attribute->getName());
+}
+
+TEST_F(AttributeTest, testGetBaseValue) {
+  ASSERT_EQ(2, attribute->getBaseValue());
+}
+
+TEST_F(AttributeTest, testGetUpgradedValue) {
+  ASSERT_EQ(2, attribute->getUpgradedValue());
+}
+
 class BoardTokenTest : public Test
 {
 protected:
