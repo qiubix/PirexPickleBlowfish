@@ -17,3 +17,8 @@ int Attribute::getBaseValue() {
 int Attribute::getUpgradedValue() {
   return upgradedValue;
 }
+
+void Attribute::upgradeAttribute(int newValue)
+{
+  upgradedValue = newValue;
+}

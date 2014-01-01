@@ -13,6 +13,7 @@ public:
   std::string getName();
   int getBaseValue();
   int getUpgradedValue();
+  void upgradeAttribute(int newValue);
 };
 
 #endif //ATTRIBUTE_HPP

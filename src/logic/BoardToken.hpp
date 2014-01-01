@@ -9,11 +9,11 @@
 
 enum Orientation {
   NORTH,
-  NORTH_WEST,
-  SOUTH_WEST,
-  SOUTH,
+  NORTH_EAST,
   SOUTH_EAST,
-  NORTH_EAST
+  SOUTH,
+  SOUTH_WEST,
+  NORTH_WEST
 };
 
 class BoardToken : public Token
@@ -28,8 +28,11 @@ public:
   void setField(Field* field);
   Attribute* getAttribute(std::string name);
   void addAttribute(Attribute* attribute);
+  void upgradeAttribute(std::string name, int newValue);
   Orientation getRotation();
   void setRotation(Orientation rotation);
+  void rotateClockwise();
+  void rotateAntiClockwise();
 };
 
 #endif //BOARDTOKEN_HPP

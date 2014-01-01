@@ -34,6 +34,11 @@ TEST_F(AttributeTest, testGetUpgradedValue) {
   ASSERT_EQ(2, attribute->getUpgradedValue());
 }
 
+TEST_F(AttributeTest, testUpgradeAttribute) {
+  attribute->upgradeAttribute(3);
+  ASSERT_EQ(3, attribute->getUpgradedValue());
+}
+
 class BoardTokenTest : public Test
 {
 protected:
@@ -67,6 +72,34 @@ TEST_F(BoardTokenTest, testAddAttribute) {
   delete toughness;
 }
 
+TEST_F(BoardTokenTest, testUpgradeAttribute) {
+  token->upgradeAttribute("initiative", 3);
+  ASSERT_EQ(3, token->getAttribute("initiative")->getUpgradedValue());
+}
+
 TEST_F(BoardTokenTest, testGetRotation) {
   ASSERT_EQ(NORTH, token->getRotation());
+}
+
+TEST_F(BoardTokenTest, testSetRotation) {
+  token->setRotation(SOUTH);
+  ASSERT_EQ(SOUTH, token->getRotation());
+}
+
+TEST_F(BoardTokenTest, testRotateClockwise) {
+  token->setRotation(SOUTH);
+  token->rotateClockwise();
+  ASSERT_EQ(SOUTH_WEST, token->getRotation());
+  token->setRotation(NORTH_WEST);
+  token->rotateClockwise();
+  ASSERT_EQ(NORTH, token->getRotation());
+}
+
+TEST_F(BoardTokenTest, testRotateAntiClockwise) {
+  token->setRotation(SOUTH);
+  token->rotateAntiClockwise();
+  ASSERT_EQ(SOUTH_EAST, token->getRotation());
+  token->setRotation(NORTH);
+  token->rotateAntiClockwise();
+  ASSERT_EQ(NORTH_WEST, token->getRotation());
 }
