@@ -22,6 +22,8 @@ protected:
   }
 };
 
+//REVIEW: wouldn't it be better to make one test from these three tests?
+//and also getBaseValue is doubtedly needed at all as i wrote before
 TEST_F(AttributeTest, testGetName) {
   ASSERT_EQ("initiative", attribute->getName());
 }
@@ -34,6 +36,7 @@ TEST_F(AttributeTest, testGetUpgradedValue) {
   ASSERT_EQ(2, attribute->getUpgradedValue());
 }
 
+//REVIEW: change this test after applying review comment from Attribute .hpp file
 TEST_F(AttributeTest, testUpgradeAttribute) {
   attribute->upgradeAttribute(3);
   ASSERT_EQ(3, attribute->getUpgradedValue());
@@ -46,11 +49,21 @@ protected:
   ~BoardTokenTest(){}
 
   BoardToken* token;
+  //REVIEW: for now it should be just in testGetAttribute because we use it only there
   Attribute* initiative;
 
+  //REVIEW: this setUp method is fired before each test in that testCase, but here we initialize initiative which,
+  //as i mentioned above, is used only in one test for now, so it should be done in it
+  //REVIEW: i'm not sure that i remember correctly but order of running test case is:
+  //constructor
+  //each_test (setUp, test, tearDown)
+  //destructor
+  //so maybe initializing token is good to be done in contstructor
   virtual void SetUp() {
     std::map <std::string, Attribute*> attributes;
     initiative = new Attribute("initiative", 2);
+    //REVIEW: this insert looks like shit (because of its length) so it is another reason to wrap attributes map in Attributes class
+    //REVIEW: if you added addAttribute method (i wonder if it is necessary as i wrtoe there) you should also wipe this insert
     attributes.insert(std::make_pair<std::string, Attribute*>(initiative->getName(), initiative));
     token = new BoardToken(attributes);
   }
@@ -61,10 +74,15 @@ protected:
   }
 };
 
+//REVIEW: this assert is really long, maybe initiating variable like: std::string attributeName
+//and Attribute* attribute would make it easier to read
+//REVIEW: test looks fine, we can add asserts to check fields values (e.g. aserrt_eq(initiative->getValue(), attribute->getValue())
+//i'm not sure what else we can test here
 TEST_F(BoardTokenTest, testGetAttribute) {
   ASSERT_EQ(initiative, token->getAttribute(initiative->getName()));
 }
 
+//REVIEW: if we decide to keep addAttribute method it should be tested first and used in other tests
 TEST_F(BoardTokenTest, testAddAttribute) {
   Attribute* toughness = new Attribute("toughness", 1);
   token->addAttribute(toughness);

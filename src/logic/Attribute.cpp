@@ -18,6 +18,7 @@ int Attribute::getUpgradedValue() {
   return upgradedValue;
 }
 
+//REVIEW: in .hpp file
 void Attribute::upgradeAttribute(int newValue)
 {
   upgradedValue = newValue;
