@@ -20,6 +20,7 @@ class BoardToken : public Token
 {
   Field* field;
   std::map <std::string, Attribute*> attributes;
+  Attribute* rotation;
 public:
   BoardToken();
   BoardToken(std::map <std::string, Attribute*> attributes);
@@ -27,6 +28,8 @@ public:
   void setField(Field* field);
   Attribute* getAttribute(std::string name);
   void addAttribute(Attribute* attribute);
+  Orientation getRotation();
+  void setRotation(Orientation rotation);
 };
 
 #endif //BOARDTOKEN_HPP

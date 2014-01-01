@@ -66,3 +66,7 @@ TEST_F(BoardTokenTest, testAddAttribute) {
   ASSERT_EQ(toughness, token->getAttribute(toughness->getName()));
   delete toughness;
 }
+
+TEST_F(BoardTokenTest, testGetRotation) {
+  ASSERT_EQ(NORTH, token->getRotation());
+}
