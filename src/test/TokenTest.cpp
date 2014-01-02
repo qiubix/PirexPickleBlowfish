@@ -3,7 +3,6 @@ using ::testing::Eq;
 #include <gtest/gtest.h>
 using ::testing::Test;
 
-//REVIEW: IMPORTANT: why i had to add ../ before src
 #include "logic/BoardToken.hpp"
 
 const int ATTRIBUTE_VALUE = 4;

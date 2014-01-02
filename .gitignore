@@ -25,3 +25,6 @@ CMakeLists.txt.user
 
 # cmake temp files
 cmake/
+
+# logs
+logs/
