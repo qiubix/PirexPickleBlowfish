@@ -3,23 +3,21 @@
 Attribute::Attribute(std::string name, int baseValue) {
   this->name = name;
   this->baseValue = baseValue;
-  this->upgradedValue = baseValue;
+  this->currentValue = baseValue;
 }
 
-std::string Attribute::getName() {
+std::string Attribute::getName(void) {
   return name;
 }
 
-int Attribute::getBaseValue() {
-  return baseValue;
+int Attribute::getValue(void) {
+  return currentValue;
 }
 
-int Attribute::getUpgradedValue() {
-  return upgradedValue;
+void Attribute::upgradeAttribute(void) {
+  ++currentValue;
 }
 
-//REVIEW: in .hpp file
-void Attribute::upgradeAttribute(int newValue)
-{
-  upgradedValue = newValue;
+void Attribute::downgradeAttribute(void) {
+  --currentValue;
 }

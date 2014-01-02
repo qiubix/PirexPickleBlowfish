@@ -4,12 +4,12 @@
 #include "Token.hpp"
 
 class Field
-//REVIEW: same comment according to sections naming and order as in BoardToken class
 {
-  Token* token;
 public:
-  Field();
-  Token* getToken();
+  Field(void);
+  Token* getToken(void);
+private:
+  Token* token;
 };
 
 #endif //FIELD_HPP
