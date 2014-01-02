@@ -7,7 +7,10 @@ class Field
 {
 public:
   Field(void);
+
+  //getters
   Token* getToken(void);
+
 private:
   Token* token;
 };

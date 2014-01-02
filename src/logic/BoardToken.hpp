@@ -1,8 +1,6 @@
 #ifndef BOARDTOKEN_HPP
 #define BOARDTOKEN_HPP
 
-#include <map>
-#include <string>
 #include "Token.hpp"
 #include "Field.hpp"
 #include "Attributes.hpp"
@@ -19,18 +17,23 @@ enum Side {
 class BoardToken : public Token
 {
 public:
-  BoardToken(Attributes* attributes);
-  ~ BoardToken(void);
-  Field* getField(void);
-  void setField(Field* field);
+  BoardToken(Army army, std::string name, Attributes* attributes);
+  ~BoardToken(void);
+
   Attribute* getAttribute(AttributeName name);
-  void addAttribute(Attribute* attribute);
   void upgradeAttribute(AttributeName name);
   void downgradeAttribute(AttributeName name);
-  Side getOrientation(void);
-  void setOrientation(Side orientation);
   void rotateClockwise(void);
-  void rotateAntiClockwise(void);
+  void rotateAnticlockwise(void);
+
+  //getters
+  Field* getField(void);
+  Side getOrientation(void);
+
+  //setters
+  void setField(Field* field);
+  void setOrientation(Side orientation);
+
 private:
   Field* field;
   Attributes* attributes;

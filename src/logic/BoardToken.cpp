@@ -1,22 +1,13 @@
 #include "BoardToken.hpp"
 
-BoardToken::BoardToken(Attributes* attributes)
-{
+BoardToken::BoardToken(Army army, std::string name, Attributes* attributes)
+  : Token(army, name), attributes(attributes) {
   this->field = NULL;
   this->orientation = NORTH;
-  this->attributes = attributes;
 }
 
 BoardToken::~BoardToken(void) {
   delete attributes;
-}
-
-Field* BoardToken::getField(void) {
-  return field;
-}
-
-void BoardToken::setField(Field* field) {
-  this->field = field;
 }
 
 Attribute* BoardToken::getAttribute(AttributeName name) {
@@ -24,33 +15,41 @@ Attribute* BoardToken::getAttribute(AttributeName name) {
 }
 
 void BoardToken::upgradeAttribute(AttributeName name) {
-  getAttribute(name)->upgradeAttribute();
+  getAttribute(name)->upgrade();
 }
 
 void BoardToken::downgradeAttribute(AttributeName name) {
-  getAttribute(name)->downgradeAttribute();
+  getAttribute(name)->downgrade();
+}
+
+void BoardToken::rotateClockwise(void)
+{
+  int newOrientation = orientation;
+  ++newOrientation %= 6;
+  orientation = static_cast<Side>(newOrientation);
+}
+
+void BoardToken::rotateAnticlockwise(void)
+{
+  int newOrientation = orientation;
+  if (--newOrientation == -1) {
+    newOrientation = 5;
+  }
+  orientation = static_cast<Side>(newOrientation);
+}
+
+Field* BoardToken::getField(void) {
+  return field;
 }
 
 Side BoardToken::getOrientation(void) {
   return orientation;
 }
 
+void BoardToken::setField(Field* field) {
+  this->field = field;
+}
+
 void BoardToken::setOrientation(Side orientation) {
   this->orientation = orientation;
-}
-
-void BoardToken::rotateClockwise(void)
-{
-  int newSide = orientation;
-  newSide = (++newSide)%6;
-  orientation = static_cast<Side>(newSide);
-}
-
-void BoardToken::rotateAntiClockwise(void)
-{
-  int newSide = orientation;
-  if (--newSide == -1) {
-    newSide = 5;
-  }
-  orientation = static_cast<Side>(newSide);
 }

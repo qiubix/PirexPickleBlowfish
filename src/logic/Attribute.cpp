@@ -1,8 +1,7 @@
 #include "Attribute.hpp"
 
-Attribute::Attribute(std::string name, int baseValue) {
-  this->name = name;
-  this->baseValue = baseValue;
+Attribute::Attribute(std::string name, int baseValue)
+  : name(name), baseValue(baseValue){
   this->currentValue = baseValue;
 }
 
@@ -14,10 +13,10 @@ int Attribute::getValue(void) {
   return currentValue;
 }
 
-void Attribute::upgradeAttribute(void) {
-  ++currentValue;
+void Attribute::upgrade(int amount) {
+  currentValue += amount;
 }
 
-void Attribute::downgradeAttribute(void) {
-  --currentValue;
+void Attribute::downgrade(int amount) {
+  currentValue -= amount;
 }

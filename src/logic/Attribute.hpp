@@ -7,10 +7,14 @@ class Attribute
 {
 public:
   Attribute(std::string name, int baseValue);
+
+  void upgrade(int amount = 1);
+  void downgrade(int amount = 1);
+
+  //getters
   std::string getName(void);
   int getValue(void);
-  void upgradeAttribute(void);
-  void downgradeAttribute(void);
+
 private:
   std::string name;
   int baseValue;

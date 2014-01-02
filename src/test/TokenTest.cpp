@@ -3,13 +3,16 @@ using ::testing::Eq;
 #include <gtest/gtest.h>
 using ::testing::Test;
 
-#include "src/logic/BoardToken.hpp"
+//REVIEW: IMPORTANT: why i had to add ../ before src
+#include "logic/BoardToken.hpp"
+
+const int ATTRIBUTE_VALUE = 4;
 
 class AttributeTest : public Test
 {
 protected:
   AttributeTest() {
-    attribute = new Attribute("initiative", 2);
+    attribute = new Attribute("initiative", ATTRIBUTE_VALUE);
   }
   ~AttributeTest() {
     delete attribute;
@@ -23,17 +26,25 @@ protected:
 
 TEST_F(AttributeTest, testGetAttributeValues) {
   ASSERT_EQ("initiative", attribute->getName());
-  ASSERT_EQ(2, attribute->getValue());
+  ASSERT_EQ(ATTRIBUTE_VALUE, attribute->getValue());
 }
 
 TEST_F(AttributeTest, testUpgradeAttribute) {
-  attribute->upgradeAttribute();
-  ASSERT_EQ(3, attribute->getValue());
+  attribute->upgrade();
+  int upgradedValue = ATTRIBUTE_VALUE + 1;
+  ASSERT_EQ(upgradedValue, attribute->getValue());
+  attribute->upgrade(2);
+  upgradedValue += 2;
+  ASSERT_EQ(upgradedValue, attribute->getValue());
 }
 
 TEST_F(AttributeTest, testDowngradeAttribute) {
-  attribute->downgradeAttribute();
-  ASSERT_EQ(1, attribute->getValue());
+  attribute->downgrade();
+  int downgradedValue = ATTRIBUTE_VALUE - 1;
+  ASSERT_EQ(downgradedValue, attribute->getValue());
+  attribute->downgrade(2);
+  downgradedValue -= 2;
+  ASSERT_EQ(downgradedValue, attribute->getValue());
 }
 
 class BoardTokenTest : public Test
@@ -41,9 +52,9 @@ class BoardTokenTest : public Test
 protected:
   BoardTokenTest() {
     Attributes* attributes = new Attributes;
-    initiative = new Attribute("initiative", 2);
+    initiative = new Attribute("initiative", ATTRIBUTE_VALUE);
     attributes->addAttribute(INITIATIVE, initiative);
-    token = new BoardToken(attributes);
+    token = new BoardToken(HEGEMONY, "test board token", attributes);
   }
 
   ~BoardTokenTest() {
@@ -67,9 +78,9 @@ TEST_F(BoardTokenTest, testGetAttribute) {
 
 TEST_F(BoardTokenTest, testModifyAttribute) {
   token->upgradeAttribute(INITIATIVE);
-  ASSERT_EQ(3, token->getAttribute(INITIATIVE)->getValue());
+  ASSERT_EQ(ATTRIBUTE_VALUE + 1, token->getAttribute(INITIATIVE)->getValue());
   token->downgradeAttribute(INITIATIVE);
-  ASSERT_EQ(2, token->getAttribute(INITIATIVE)->getValue());
+  ASSERT_EQ(ATTRIBUTE_VALUE, token->getAttribute(INITIATIVE)->getValue());
 }
 
 TEST_F(BoardTokenTest, testGetOrientation) {
@@ -85,16 +96,10 @@ TEST_F(BoardTokenTest, testRotateClockwise) {
   token->setOrientation(SOUTH);
   token->rotateClockwise();
   ASSERT_EQ(SOUTH_WEST, token->getOrientation());
-  token->setOrientation(NORTH_WEST);
-  token->rotateClockwise();
-  ASSERT_EQ(NORTH, token->getOrientation());
 }
 
-TEST_F(BoardTokenTest, testRotateAntiClockwise) {
+TEST_F(BoardTokenTest, testRotateAnticlockwise) {
   token->setOrientation(SOUTH);
-  token->rotateAntiClockwise();
+  token->rotateAnticlockwise();
   ASSERT_EQ(SOUTH_EAST, token->getOrientation());
-  token->setOrientation(NORTH);
-  token->rotateAntiClockwise();
-  ASSERT_EQ(NORTH_WEST, token->getOrientation());
 }

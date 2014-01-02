@@ -13,8 +13,12 @@ enum AttributeName {
 
 class Attributes {
 public:
+  Attributes(void);
+  ~Attributes(void);
+
   Attribute* getAttribute(AttributeName name);
   void addAttribute(AttributeName name, Attribute* attribute);
+
 private:
   std::map < AttributeName, Attribute*> attributes;
 };
