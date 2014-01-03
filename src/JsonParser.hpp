@@ -5,8 +5,8 @@
 
 class JsonParser{
 public:
-  JsonParser(void);
-  virtual ~JsonParser(void) = 0;
+  JsonParser(void) {}
+  virtual ~JsonParser(void) {}
 
   virtual void readJsonFromFile(std::string fileName) = 0;
   virtual void writeJsonToFile(std::string fileName) = 0;

@@ -2,24 +2,26 @@
 #define BOOSTJSONPARSER_HPP
 
 #include "JsonParser.hpp"
+#include "BoostJson.hpp"
 
 #include <boost/property_tree/ptree.hpp>
-//#include <boost/property_tree/json_parser.hpp>
+#include <boost/property_tree/json_parser.hpp>
+
+//typedef boost::property_tree::ptree Json;
 
 class BoostJsonParser : public JsonParser
 {
 public:
   BoostJsonParser();
-  ~BoostJsonParser();
+  virtual ~BoostJsonParser();
 
-  void readJsonFromFile(std::string fileName);
-  void writeJsonToFile(std::string fileName);
-  std::string getStringValueOfJsonField(std::string field);
-  int getIntegerValueOfJsonField(std::string field);
+  virtual void readJsonFromFile(std::string fileName);
+  virtual void writeJsonToFile(std::string fileName);
+  virtual std::string getStringValueOfJsonField(std::string field);
+  virtual int getIntegerValueOfJsonField(std::string field);
 
-private:
-  typedef boost::property_tree::ptree Json;
-  Json json;
+//private:
+//  Json json;
 };
 
 #endif // BOOSTJSONPARSER_HPP
