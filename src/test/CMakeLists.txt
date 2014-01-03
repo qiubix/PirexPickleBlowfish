@@ -19,6 +19,10 @@ target_link_libraries(TokenTest logic gmock_main)
 target_link_libraries(GuiTest ${GUI_TEST_LIBRARIES})
 qt5_use_modules(GuiTest Test)
 
+install(TARGETS TokenTest DESTINATION ${CMAKE_INSTALL_PREFIX})
+install(TARGETS GuiTest DESTINATION ${CMAKE_INSTALL_PREFIX})
+install(TARGETS JsonParserTest DESTINATION ${CMAKE_INSTALL_PREFIX})
+
 add_test(JsonParserTest JsonParserTest)
 add_test(TokenTest TokenTest)
 add_test(GuiTest GuiTest)
