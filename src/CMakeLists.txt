@@ -24,6 +24,7 @@ add_library(Logger Logger.cpp)
 target_link_libraries(Logger ${Boost_LIBRARIES})
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
+install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX})
 
 target_link_libraries(${PROJECT_NAME} logic MainWindowSample Logger)
 
