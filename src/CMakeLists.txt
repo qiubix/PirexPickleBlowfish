@@ -18,7 +18,7 @@ add_library(BoostJson BoostJson.cpp Json.hpp)
 target_link_libraries(BoostJson ${Boost_LIBRARIES})
 
 add_library(BoostJsonParser BoostJsonParser.cpp JsonParser.hpp)
-target_link_libraries(BoostJsonParser ${Boost_LIBRARIES})
+target_link_libraries(BoostJsonParser BoostJson ${Boost_LIBRARIES})
 
 add_library(Logger Logger.cpp)
 target_link_libraries(Logger ${Boost_LIBRARIES})

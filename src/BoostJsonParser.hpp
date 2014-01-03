@@ -4,11 +4,6 @@
 #include "JsonParser.hpp"
 #include "BoostJson.hpp"
 
-#include <boost/property_tree/ptree.hpp>
-#include <boost/property_tree/json_parser.hpp>
-
-//typedef boost::property_tree::ptree Json;
-
 class BoostJsonParser : public JsonParser
 {
 public:
@@ -20,8 +15,8 @@ public:
   virtual std::string getStringValueOfJsonField(std::string field);
   virtual int getIntegerValueOfJsonField(std::string field);
 
-//private:
-//  Json json;
+private:
+  BoostJson* json;
 };
 
 #endif // BOOSTJSONPARSER_HPP

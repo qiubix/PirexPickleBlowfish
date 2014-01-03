@@ -12,7 +12,6 @@ public:
   virtual void writeJsonToFile(std::string fileName) = 0;
   virtual std::string getStringValueOfJsonField(std::string field) = 0;
   virtual int getIntegerValueOfJsonField(std::string field) = 0;
-
 };
 
 #endif // JSONPARSER_H

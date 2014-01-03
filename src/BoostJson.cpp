@@ -6,18 +6,26 @@ BoostJson::BoostJson() : Json(), ptree()  {
 BoostJson::~BoostJson() {
 }
 
-template<typename T> void BoostJson::addKey(std::string name, T value) {
-//  TODO: throw exception when not supported type
+std::string BoostJson::getStringValue(std::string key) {
+  return this -> get<std::string>(key);
 }
 
-template<> void BoostJson::addKey<bool>(std::string name, bool value) {
-//  this -> put<bool>(name, value);
+int BoostJson::getIntegerValue(std::string key) {
+  return this -> get<int>(key);
 }
 
-template<> void BoostJson::addKey<int>(std::string name, int value) {
-//  this -> put<int>(name, value);
+bool BoostJson::getBooleanValue(std::string key) {
+  return this -> get<bool>(key);
 }
 
-template<> void BoostJson::addKey<std::string>(std::string name, std::string value) {
-//  this -> put<std::string>(name, value);
+void BoostJson::addStringValue(std::string key, std::string value) {
+  this -> put<std::string>(key, value);
+}
+
+void BoostJson::addIntegerValue(std::string key, int value) {
+  this -> put<int>(key, value);
+}
+
+void BoostJson::addBooleanValue(std::string key, bool value) {
+  this -> put<bool>(key, value);
 }

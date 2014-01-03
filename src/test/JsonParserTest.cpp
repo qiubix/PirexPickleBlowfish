@@ -5,96 +5,162 @@ using ::testing::Test;
 using ::testing::Types;
 
 #include "BoostJson.hpp"
+#include "BoostJsonParser.hpp"
 
-const std::string JSON_FILE_TO_READ = "data.json";
+const std::string STRING_KEY = "string";
+const std::string INTEGER_KEY = "integer";
+const std::string BOOLEAN_KEY = "boolean";
+
+const std::string STRING_VALUE = "stringValue";
+const int INTEGER_VALUE = 5;
+const bool BOOLEAN_VALUE = true;
+
+const std::string STRING_KEY_WRITE = "stringWrite";
+const std::string INTEGER_KEY_WRITE  = "integerWrite";
+const std::string BOOLEAN_KEY_WRITE  = "booleanWrite";
+
+template <class T>
+T* CreateJson(void);
+
+template <>
+BoostJson* CreateJson<BoostJson>(void) {
+  BoostJson* json = new BoostJson();
+  json->put(STRING_KEY, STRING_VALUE);
+  json->put(INTEGER_KEY, INTEGER_VALUE);
+  json->put(BOOLEAN_KEY, BOOLEAN_VALUE);
+  return json;
+}
 
 template <typename T>
-class jsonTest : public Test {
-public:
-//  typedef std::list<T> List;
-//  static T shared_;
-//  T value_;
+class JsonTest : public Test {
 protected:
-  jsonTest() {
+  JsonTest() {
+    json = CreateJson<T>();
   }
 
-  ~jsonTest() {
+  virtual ~JsonTest() {
+    delete json;
   }
 
   virtual void SetUp() {}
   virtual void TearDown() {}
+
+  T* json;
 };
 
-typedef Types<BoostJson> jsonTypes;
-TYPED_TEST_CASE(jsonTest, jsonTypes);
+TYPED_TEST_CASE_P(JsonTest);
 
-TYPED_TEST(jsonTest, shouldGetStringValueFromJson) {
-  FAIL();
+TYPED_TEST_P(JsonTest, shouldGetStringValueFromJson) {
+  TypeParam* json = this -> json;
+  std::string returnedStringValue = json -> getStringValue(STRING_KEY);
+  ASSERT_EQ(STRING_VALUE, returnedStringValue);
 }
 
-TYPED_TEST(jsonTest, shouldGetIntegerValueFromJson) {
-  FAIL();
+TYPED_TEST_P(JsonTest, shouldGetIntegerValueFromJson) {
+  TypeParam* json = this -> json;
+  int returnedIntegerValue = json -> getIntegerValue(INTEGER_KEY);
+  ASSERT_EQ(INTEGER_VALUE, returnedIntegerValue);
 }
 
-TYPED_TEST(jsonTest, shouldGetBoolValueFromJson) {
-  FAIL();
+TYPED_TEST_P(JsonTest, shouldGetBoolValueFromJson) {
+  TypeParam* json = this -> json;
+  bool returnedBooleanValue = json -> getBooleanValue(BOOLEAN_KEY);
+  ASSERT_EQ(BOOLEAN_VALUE, returnedBooleanValue);
 }
 
-TYPED_TEST(jsonTest, shouldWriteStringValueToJson) {
-  FAIL();
+TYPED_TEST_P(JsonTest, shouldWriteStringValueToJson) {
+  TypeParam* json = this -> json;
+  json -> addStringValue(STRING_KEY_WRITE, STRING_VALUE);
+  std::string returnedStringValue = json -> getStringValue(STRING_KEY_WRITE);
+  ASSERT_EQ(STRING_VALUE, returnedStringValue);
 }
 
-TYPED_TEST(jsonTest, shouldWriteIntegerValueToJson) {
-  FAIL();
+TYPED_TEST_P(JsonTest, shouldWriteIntegerValueToJson) {
+  TypeParam* json = this -> json;
+  json -> addIntegerValue(INTEGER_KEY_WRITE, INTEGER_VALUE);
+  int returnedIntegerValue = json -> getIntegerValue(INTEGER_KEY_WRITE);
+  ASSERT_EQ(INTEGER_VALUE, returnedIntegerValue);
 }
 
-TYPED_TEST(jsonTest, shouldWriteBoolValueToJson) {
-  FAIL();
+TYPED_TEST_P(JsonTest, shouldWriteBoolValueToJson) {
+  TypeParam* json = this -> json;
+  json -> addBooleanValue(BOOLEAN_KEY_WRITE, BOOLEAN_VALUE);
+  bool returnedBooleanValue = json -> getBooleanValue(BOOLEAN_KEY_WRITE);
+  ASSERT_EQ(BOOLEAN_VALUE, returnedBooleanValue);
 }
 
-TYPED_TEST(jsonTest, shouldThrowExceptionIfTypeNotSupported) {
-  FAIL();
+REGISTER_TYPED_TEST_CASE_P(
+  JsonTest,
+  shouldGetStringValueFromJson,
+  shouldGetIntegerValueFromJson,
+  shouldGetBoolValueFromJson,
+  shouldWriteStringValueToJson,
+  shouldWriteIntegerValueToJson,
+  shouldWriteBoolValueToJson
+);
+
+typedef Types<BoostJson> JsonImplementations;
+INSTANTIATE_TYPED_TEST_CASE_P(BoostJsonTest, JsonTest, JsonImplementations);
+
+const std::string JSON_FILE_TO_READ = "data.json";
+
+template <class T>
+T* CreateJsonParser(void);
+
+template <>
+BoostJsonParser* CreateJsonParser<BoostJsonParser>(void) {
+  BoostJsonParser* jsonParser = new BoostJsonParser();
+  return jsonParser;
 }
 
-//class JsonParserTest : public Test
-//{
-//protected:
-//  JsonParserTest() {
-//    parser = new BoostJsonParser();
-//    json.put("something", "string");
-//  }
+template <typename T>
+class JsonParserTest : public Test {
+protected:
+  JsonParserTest() {
+    jsonParser = CreateJsonParser<T>();
+  }
 
-//  ~JsonParserTest() {
-//  }
+  virtual ~JsonParserTest() {
+    delete jsonParser;
+  }
 
-//  virtual void SetUp() {}
-//  virtual void TearDown() {}
+  virtual void SetUp() {}
+  virtual void TearDown() {}
 
-//  JsonParser* parser;
-//  Json json;
-//};
+  T* jsonParser;
+};
 
-//TEST_F(JsonParserTest, parserReadsJsonFromFile) {
+TYPED_TEST_CASE_P(JsonParserTest);
+
+TYPED_TEST_P(JsonParserTest, shouldReadJsonFromFile) {
 //  parser -> readJsonFromFile(JSON_FILE_TO_READ);
-//  FAIL();
-//}
+  FAIL();
+}
 
-//TEST_F(JsonParserTest, parserWritesJsonToFile) {
-//  FAIL();
-//}
+TYPED_TEST_P(JsonParserTest, shouldWriteJsonToFile) {
+  FAIL();
+}
 
-//TEST_F(JsonParserTest, parserGetsStringFromJson) {
-//  FAIL();
-//}
+TYPED_TEST_P(JsonParserTest, shouldGetStringFromJson) {
+  FAIL();
+}
 
-//TEST_F(JsonParserTest, parserGetsIntegerFromJson) {
-//  FAIL();
-//}
+TYPED_TEST_P(JsonParserTest, shouldGetIntegerFromJson) {
+  FAIL();
+}
 
-//TEST_F(JsonParserTest, parserGetsArrayFromJson) {
-//  FAIL();
-//}
+TYPED_TEST_P(JsonParserTest, shouldGetBooleanFromJson) {
+  FAIL();
+}
 
-//TEST_F(JsonParserTest, parserGetsNodeFromJson) {
-//  FAIL();
-//}
+REGISTER_TYPED_TEST_CASE_P(
+  JsonParserTest,
+  shouldReadJsonFromFile,
+  shouldWriteJsonToFile,
+  shouldGetStringFromJson,
+  shouldGetIntegerFromJson,
+  shouldGetBooleanFromJson
+);
+
+typedef Types<BoostJsonParser> JsonParserImplementations;
+INSTANTIATE_TYPED_TEST_CASE_P(BoostJsonParserTest, JsonParserTest, JsonParserImplementations);

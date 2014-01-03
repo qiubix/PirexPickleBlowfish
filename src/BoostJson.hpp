@@ -10,10 +10,15 @@ class BoostJson : public Json, public ptree
 {
 public:
   BoostJson();
-  ~BoostJson();
+  virtual ~BoostJson();
 
-  template<typename T>
-  void addKey(std::string name, T value);
+  virtual std::string getStringValue(std::string key);
+  virtual int getIntegerValue(std::string key);
+  virtual bool getBooleanValue(std::string key);
+
+  virtual void addStringValue(std::string key, std::string value);
+  virtual void addIntegerValue(std::string key, int value);
+  virtual void addBooleanValue(std::string key, bool value);
 };
 
 #endif // BOOSTJSON_H

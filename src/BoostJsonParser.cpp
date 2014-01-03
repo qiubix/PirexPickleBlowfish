@@ -1,11 +1,15 @@
 #include "BoostJsonParser.hpp"
 
+#include <boost/property_tree/json_parser.hpp>
+
 using boost::property_tree::read_json;
 
 BoostJsonParser::BoostJsonParser() : JsonParser() {
+  json = new BoostJson();
 }
 
 BoostJsonParser::~BoostJsonParser() {
+  delete json;
 }
 
 void BoostJsonParser::readJsonFromFile(std::string fileName) {
