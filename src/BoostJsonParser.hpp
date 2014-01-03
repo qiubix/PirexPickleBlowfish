@@ -10,10 +10,11 @@ public:
   BoostJsonParser();
   virtual ~BoostJsonParser();
 
+  virtual std::string getStringValue(std::string key);
+  virtual int getIntegerValue(std::string key);
+  virtual bool getBooleanValue(std::string key);
   virtual void readJsonFromFile(std::string fileName);
   virtual void writeJsonToFile(std::string fileName);
-  virtual std::string getStringValueOfJsonField(std::string field);
-  virtual int getIntegerValueOfJsonField(std::string field);
 
 private:
   BoostJson* json;

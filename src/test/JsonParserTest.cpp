@@ -7,6 +7,8 @@ using ::testing::Types;
 #include "BoostJson.hpp"
 #include "BoostJsonParser.hpp"
 
+#include <fstream> //ifstream, ofstream
+
 const std::string STRING_KEY = "string";
 const std::string INTEGER_KEY = "integer";
 const std::string BOOLEAN_KEY = "boolean";
@@ -102,7 +104,7 @@ REGISTER_TYPED_TEST_CASE_P(
 typedef Types<BoostJson> JsonImplementations;
 INSTANTIATE_TYPED_TEST_CASE_P(BoostJsonTest, JsonTest, JsonImplementations);
 
-const std::string JSON_FILE_TO_READ = "data.json";
+const std::string JSON_FILE_TO_READ = "jsonToRead.json";
 
 template <class T>
 T* CreateJsonParser(void);
@@ -111,6 +113,18 @@ template <>
 BoostJsonParser* CreateJsonParser<BoostJsonParser>(void) {
   BoostJsonParser* jsonParser = new BoostJsonParser();
   return jsonParser;
+}
+
+void prepareJsonFile(std::string fileName) {
+  std::ofstream jsonFile(fileName.c_str());
+  if (jsonFile.is_open()) {
+   jsonFile << "{" << "\n";
+   jsonFile << "\"" << STRING_KEY_WRITE << "\"" << ": " << "\"" << STRING_VALUE << "\"" << "," << "\n";
+   jsonFile << "\"" << INTEGER_KEY_WRITE << "\"" << ": " << INTEGER_VALUE << "," << "\n";
+   jsonFile << "\"" << BOOLEAN_KEY_WRITE << "\"" << ": " << BOOLEAN_VALUE << "\n";
+   jsonFile << "}" << "\n";
+   jsonFile.close();
+ }
 }
 
 template <typename T>
@@ -132,15 +146,6 @@ protected:
 
 TYPED_TEST_CASE_P(JsonParserTest);
 
-TYPED_TEST_P(JsonParserTest, shouldReadJsonFromFile) {
-//  parser -> readJsonFromFile(JSON_FILE_TO_READ);
-  FAIL();
-}
-
-TYPED_TEST_P(JsonParserTest, shouldWriteJsonToFile) {
-  FAIL();
-}
-
 TYPED_TEST_P(JsonParserTest, shouldGetStringFromJson) {
   FAIL();
 }
@@ -153,13 +158,29 @@ TYPED_TEST_P(JsonParserTest, shouldGetBooleanFromJson) {
   FAIL();
 }
 
+TYPED_TEST_P(JsonParserTest, shouldReadJsonFromFile) {
+  prepareJsonFile(JSON_FILE_TO_READ);
+  TypeParam* parser = this -> jsonParser;
+  parser -> readJsonFromFile(JSON_FILE_TO_READ);
+  std::string readStringValue = parser -> getStringValue(STRING_KEY_WRITE);
+  int readIntegerValue = parser -> getIntegerValue(INTEGER_KEY_WRITE);
+  bool readBooleanValue = parser -> getBooleanValue(BOOLEAN_KEY_WRITE);
+  ASSERT_EQ(STRING_VALUE, readStringValue);
+  ASSERT_EQ(INTEGER_VALUE, readIntegerValue);
+  ASSERT_EQ(BOOLEAN_VALUE, readBooleanValue);
+}
+
+TYPED_TEST_P(JsonParserTest, shouldWriteJsonToFile) {
+  FAIL();
+}
+
 REGISTER_TYPED_TEST_CASE_P(
   JsonParserTest,
-  shouldReadJsonFromFile,
-  shouldWriteJsonToFile,
   shouldGetStringFromJson,
   shouldGetIntegerFromJson,
-  shouldGetBooleanFromJson
+  shouldGetBooleanFromJson,
+  shouldReadJsonFromFile,
+  shouldWriteJsonToFile
 );
 
 typedef Types<BoostJsonParser> JsonParserImplementations;

@@ -12,18 +12,22 @@ BoostJsonParser::~BoostJsonParser() {
   delete json;
 }
 
+std::string BoostJsonParser::getStringValue(std::string key) {
+  return json -> getStringValue(key);
+}
+
+int BoostJsonParser::getIntegerValue(std::string key) {
+  return json -> getIntegerValue(key);
+}
+
+bool BoostJsonParser::getBooleanValue(std::string key) {
+  return json -> getBooleanValue(key);
+}
+
 void BoostJsonParser::readJsonFromFile(std::string fileName) {
-//  read_json(fileName, json);
+  read_json(fileName, *dynamic_cast<ptree*>(json));
 }
 
 void BoostJsonParser::writeJsonToFile(std::string fileName) {
 
-}
-
-std::string BoostJsonParser::getStringValueOfJsonField(std::string field) {
-//  return json.get<std::string>(field);
-}
-
-int BoostJsonParser::getIntegerValueOfJsonField(std::string field) {
-//  return json.get<int>(field);
 }
