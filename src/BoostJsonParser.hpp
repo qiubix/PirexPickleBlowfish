@@ -8,6 +8,7 @@ class BoostJsonParser : public JsonParser
 {
 public:
   BoostJsonParser();
+  BoostJsonParser(Json* json);
   virtual ~BoostJsonParser();
 
   virtual std::string getStringValue(std::string key);
@@ -17,7 +18,9 @@ public:
   virtual void writeJsonToFile(std::string fileName);
 
 private:
-  BoostJson* json;
+  typedef BoostJson JsonType;
+  JsonType* json;
+
 };
 
 #endif // BOOSTJSONPARSER_HPP

@@ -1,11 +1,13 @@
 #include <gmock/gmock.h>
 using ::testing::Eq;
+using ::testing::Return;
 #include <gtest/gtest.h>
 using ::testing::Test;
 using ::testing::Types;
 
 #include "BoostJson.hpp"
 #include "BoostJsonParser.hpp"
+#include "MockBoostJson.hpp"
 
 #include <fstream> //ifstream, ofstream
 
@@ -115,6 +117,15 @@ BoostJsonParser* CreateJsonParser<BoostJsonParser>(void) {
   return jsonParser;
 }
 
+template <class T>
+T* CreateMockJson(void);
+
+template <>
+BoostJson* CreateMockJson<BoostJson>(void) {
+  BoostJson* mockJson = new MockBoostJson();
+  return mockJson;
+}
+
 void prepareJsonFile(std::string fileName) {
   std::ofstream jsonFile(fileName.c_str());
   if (jsonFile.is_open()) {
@@ -147,15 +158,39 @@ protected:
 TYPED_TEST_CASE_P(JsonParserTest);
 
 TYPED_TEST_P(JsonParserTest, shouldGetStringFromJson) {
-  FAIL();
+  MockBoostJson* mockJson = new MockBoostJson();
+  ON_CALL(*mockJson, getStringValue(STRING_KEY))
+    .WillByDefault(Return(STRING_VALUE));
+  EXPECT_CALL(*mockJson, getStringValue(STRING_KEY))
+    .Times(1);
+
+  TypeParam parser(mockJson);
+  std::string returnedStringValue = parser.getStringValue(STRING_KEY);
+  ASSERT_EQ(STRING_VALUE, returnedStringValue);
 }
 
 TYPED_TEST_P(JsonParserTest, shouldGetIntegerFromJson) {
-  FAIL();
+  MockBoostJson* mockJson = new MockBoostJson();
+  ON_CALL(*mockJson, getIntegerValue(INTEGER_KEY))
+    .WillByDefault(Return(INTEGER_VALUE));
+  EXPECT_CALL(*mockJson, getIntegerValue(INTEGER_KEY))
+    .Times(1);
+
+  TypeParam parser(mockJson);
+  int returnedIntegerValue = parser.getIntegerValue(INTEGER_KEY);
+  ASSERT_EQ(INTEGER_VALUE, returnedIntegerValue);
 }
 
 TYPED_TEST_P(JsonParserTest, shouldGetBooleanFromJson) {
-  FAIL();
+  MockBoostJson* mockJson = new MockBoostJson();
+  ON_CALL(*mockJson, getBooleanValue(BOOLEAN_KEY))
+    .WillByDefault(Return(BOOLEAN_VALUE));
+  EXPECT_CALL(*mockJson, getBooleanValue(BOOLEAN_KEY))
+    .Times(1);
+
+  TypeParam parser(mockJson);
+  int returnedBooleanValue = parser.getBooleanValue(BOOLEAN_KEY);
+  ASSERT_EQ(BOOLEAN_VALUE, returnedBooleanValue);
 }
 
 TYPED_TEST_P(JsonParserTest, shouldReadJsonFromFile) {
@@ -170,17 +205,12 @@ TYPED_TEST_P(JsonParserTest, shouldReadJsonFromFile) {
   ASSERT_EQ(BOOLEAN_VALUE, readBooleanValue);
 }
 
-TYPED_TEST_P(JsonParserTest, shouldWriteJsonToFile) {
-  FAIL();
-}
-
 REGISTER_TYPED_TEST_CASE_P(
   JsonParserTest,
   shouldGetStringFromJson,
   shouldGetIntegerFromJson,
   shouldGetBooleanFromJson,
-  shouldReadJsonFromFile,
-  shouldWriteJsonToFile
+  shouldReadJsonFromFile
 );
 
 typedef Types<BoostJsonParser> JsonParserImplementations;

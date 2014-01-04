@@ -8,6 +8,10 @@ BoostJsonParser::BoostJsonParser() : JsonParser() {
   json = new BoostJson();
 }
 
+BoostJsonParser::BoostJsonParser(Json* json) : JsonParser() {
+  this -> json = dynamic_cast<BoostJson*>(json);
+}
+
 BoostJsonParser::~BoostJsonParser() {
   delete json;
 }

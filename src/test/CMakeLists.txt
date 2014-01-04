@@ -5,7 +5,7 @@ set(CMAKE_AUTOMOC ON)
 
 include_directories(SYSTEM ${GMOCK_DIR}/gtest/include ${GMOCK_DIR}/include)
 
-set(JSON_PARSER_TEST_SRC JsonParserTest.cpp)
+set(JSON_PARSER_TEST_SRC JsonParserTest.cpp MockBoostJson.hpp)
 set(TOKEN_TEST_SRC TokenTest.cpp)
 set(GUI_TEST_SRC MainWindowSampleTest.cpp)
 set(GUI_TEST_LIBRARIES MainWindowSample ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES})
