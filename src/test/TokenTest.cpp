@@ -3,6 +3,7 @@ using ::testing::Eq;
 #include <gtest/gtest.h>
 using ::testing::Test;
 
+//REVIEW: maybe having all tested includes in test file is not a bad idea.
 #include "logic/Unit.hpp"
 
 const int ATTRIBUTE_VALUE = 4;
@@ -108,6 +109,8 @@ class UnitTest : public Test
 {
 protected:
   UnitTest() {
+    //REVIEW: this setup is very long
+    //REVIEW: do you need attributes somewhere in test or we can just erase these 3 lines and pass NULL to constructor?
     Attributes* attributes = new Attributes;
     Attribute* initiative = new Attribute("initiative", 2);
     attributes->addAttribute(INITIATIVE, initiative);
@@ -116,6 +119,7 @@ protected:
     Attribute* ranged = new Attribute("ranged", 1);
     northSideAttributes->addAttribute(MELEE, melee);
     northSideAttributes->addAttribute(RANGED, ranged);
+    //REVIEW: sideAttributes are local table if i'm correct so they will be wiped out if we leave this scope
     Attributes* sideAttributes[6];
     sideAttributes[NORTH] = northSideAttributes;
     unit = new Unit(HEGEMONY, "UniversalSoldier", attributes, sideAttributes);
@@ -129,5 +133,6 @@ protected:
 };
 
 TEST_F(UnitTest, testGetSideAttributes) {
+  //REVIEW: this test is not working because you compare two pointers
   ASSERT_EQ(northSideAttributes, unit->getSideAttributes(NORTH));
 }

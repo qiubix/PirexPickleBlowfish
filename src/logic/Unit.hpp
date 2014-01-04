@@ -10,9 +10,11 @@ public:
   ~Unit() {}
 
   //getters
+  //REVIEW: maybe edge is better name
   Attributes* getSideAttributes(Side side);
 
 private:
+  //REVIEW: two derefferentions - messy
   Attributes** side;
 };
 
