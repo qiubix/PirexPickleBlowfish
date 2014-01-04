@@ -121,8 +121,8 @@ template <class T>
 T* CreateMockJson(void);
 
 template <>
-BoostJson* CreateMockJson<BoostJson>(void) {
-  BoostJson* mockJson = new MockBoostJson();
+MockBoostJson* CreateMockJson<MockBoostJson>(void) {
+  MockBoostJson* mockJson = new MockBoostJson();
   return mockJson;
 }
 
@@ -142,7 +142,8 @@ template <typename T>
 class JsonParserTest : public Test {
 protected:
   JsonParserTest() {
-    jsonParser = CreateJsonParser<T>();
+    jsonParser = CreateJsonParser<typename T::ParserType>();
+    mockJson = CreateMockJson<typename T::MockJson>();
   }
 
   virtual ~JsonParserTest() {
@@ -152,50 +153,51 @@ protected:
   virtual void SetUp() {}
   virtual void TearDown() {}
 
-  T* jsonParser;
+  typename T::ParserType * jsonParser;
+  typename T::MockJson * mockJson;
 };
 
 TYPED_TEST_CASE_P(JsonParserTest);
 
 TYPED_TEST_P(JsonParserTest, shouldGetStringFromJson) {
-  MockBoostJson* mockJson = new MockBoostJson();
+  typename TypeParam::MockJson * mockJson = this -> mockJson;
   ON_CALL(*mockJson, getStringValue(STRING_KEY))
     .WillByDefault(Return(STRING_VALUE));
   EXPECT_CALL(*mockJson, getStringValue(STRING_KEY))
     .Times(1);
 
-  TypeParam parser(mockJson);
+  typename TypeParam::ParserType parser(mockJson);
   std::string returnedStringValue = parser.getStringValue(STRING_KEY);
   ASSERT_EQ(STRING_VALUE, returnedStringValue);
 }
 
 TYPED_TEST_P(JsonParserTest, shouldGetIntegerFromJson) {
-  MockBoostJson* mockJson = new MockBoostJson();
+  typename TypeParam::MockJson * mockJson = this -> mockJson;
   ON_CALL(*mockJson, getIntegerValue(INTEGER_KEY))
     .WillByDefault(Return(INTEGER_VALUE));
   EXPECT_CALL(*mockJson, getIntegerValue(INTEGER_KEY))
     .Times(1);
 
-  TypeParam parser(mockJson);
+  typename TypeParam::ParserType parser(mockJson);;
   int returnedIntegerValue = parser.getIntegerValue(INTEGER_KEY);
   ASSERT_EQ(INTEGER_VALUE, returnedIntegerValue);
 }
 
 TYPED_TEST_P(JsonParserTest, shouldGetBooleanFromJson) {
-  MockBoostJson* mockJson = new MockBoostJson();
+  typename TypeParam::MockJson * mockJson = this -> mockJson;
   ON_CALL(*mockJson, getBooleanValue(BOOLEAN_KEY))
     .WillByDefault(Return(BOOLEAN_VALUE));
   EXPECT_CALL(*mockJson, getBooleanValue(BOOLEAN_KEY))
     .Times(1);
 
-  TypeParam parser(mockJson);
+  typename TypeParam::ParserType parser(mockJson);;
   int returnedBooleanValue = parser.getBooleanValue(BOOLEAN_KEY);
   ASSERT_EQ(BOOLEAN_VALUE, returnedBooleanValue);
 }
 
 TYPED_TEST_P(JsonParserTest, shouldReadJsonFromFile) {
   prepareJsonFile(JSON_FILE_TO_READ);
-  TypeParam* parser = this -> jsonParser;
+  typename TypeParam::ParserType * parser = this -> jsonParser;
   parser -> readJsonFromFile(JSON_FILE_TO_READ);
   std::string readStringValue = parser -> getStringValue(STRING_KEY_WRITE);
   int readIntegerValue = parser -> getIntegerValue(INTEGER_KEY_WRITE);
@@ -213,5 +215,10 @@ REGISTER_TYPED_TEST_CASE_P(
   shouldReadJsonFromFile
 );
 
-typedef Types<BoostJsonParser> JsonParserImplementations;
+struct BoostJsonParserWithMockedBoostJson {
+  typedef BoostJsonParser ParserType;
+  typedef MockBoostJson MockJson;
+};
+
+typedef Types<BoostJsonParserWithMockedBoostJson> JsonParserImplementations;
 INSTANTIATE_TYPED_TEST_CASE_P(BoostJsonParserTest, JsonParserTest, JsonParserImplementations);
