@@ -8,7 +8,9 @@ enum AttributeName {
   INITIATIVE,
   TOUGHNESS,
   MELEE,
-  RANGED
+  RANGED,
+  SHIELD,
+  NET
 };
 
 class Attributes {

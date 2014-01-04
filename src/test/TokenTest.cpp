@@ -3,7 +3,7 @@ using ::testing::Eq;
 #include <gtest/gtest.h>
 using ::testing::Test;
 
-#include "logic/BoardToken.hpp"
+#include "logic/Unit.hpp"
 
 const int ATTRIBUTE_VALUE = 4;
 
@@ -101,4 +101,33 @@ TEST_F(BoardTokenTest, testRotateAnticlockwise) {
   token->setOrientation(SOUTH);
   token->rotateAnticlockwise();
   ASSERT_EQ(SOUTH_EAST, token->getOrientation());
+}
+
+
+class UnitTest : public Test
+{
+protected:
+  UnitTest() {
+    Attributes* attributes = new Attributes;
+    Attribute* initiative = new Attribute("initiative", 2);
+    attributes->addAttribute(INITIATIVE, initiative);
+    northSideAttributes = new Attributes;
+    Attribute* melee = new Attribute("melee", 1);
+    Attribute* ranged = new Attribute("ranged", 1);
+    northSideAttributes->addAttribute(MELEE, melee);
+    northSideAttributes->addAttribute(RANGED, ranged);
+    Attributes* sideAttributes[6];
+    sideAttributes[NORTH] = northSideAttributes;
+    unit = new Unit(HEGEMONY, "UniversalSoldier", attributes, sideAttributes);
+  }
+  ~UnitTest() {}
+  void SetUp() {}
+  void TearDown() {}
+
+  Unit* unit;
+  Attributes* northSideAttributes;
+};
+
+TEST_F(UnitTest, testGetSideAttributes) {
+  ASSERT_EQ(northSideAttributes, unit->getSideAttributes(NORTH));
 }
