@@ -17,7 +17,6 @@ http://qt-project.org/
 * CMake (minimum 2.8.8):
 http://www.cmake.org/
 
-//REVIEW: have you tested it on Windows?
 Preparing environment
 ---------------------
 
@@ -31,9 +30,9 @@ Preparing environment
 For example, for home directory installation of x64 version of library:
 `/home/[your_user_name]/Qt5.1.1/5.1.1/gcc_64/lib`
 
-//REVIEW: when I run GuiTest or PirexPickleBlowfish from bin directory i get:
-//./GuiTest: error while loading shared libraries: libQt5Test.so.5: cannot open shared object file: No such file or directory
-//so there is some problem with linking Qt Libraries
+Then you need to run `ldconfig` to build the library cache. 
+
+
 Building and installing
 -----------------------
 
