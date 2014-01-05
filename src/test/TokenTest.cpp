@@ -3,8 +3,9 @@ using ::testing::Eq;
 #include <gtest/gtest.h>
 using ::testing::Test;
 
-//REVIEW: maybe having all tested includes in test file is not a bad idea.
-#include "logic/Unit.hpp"
+#include "logic/Attribute.hpp"
+#include "logic/BoardToken.hpp"
+#include "logic/UnitToken.hpp"
 
 const int ATTRIBUTE_VALUE = 4;
 
@@ -105,34 +106,29 @@ TEST_F(BoardTokenTest, testRotateAnticlockwise) {
 }
 
 
-class UnitTest : public Test
+class UnitTokenTest : public Test
 {
 protected:
-  UnitTest() {
-    //REVIEW: this setup is very long
-    //REVIEW: do you need attributes somewhere in test or we can just erase these 3 lines and pass NULL to constructor?
-    Attributes* attributes = new Attributes;
-    Attribute* initiative = new Attribute("initiative", 2);
-    attributes->addAttribute(INITIATIVE, initiative);
+  UnitTokenTest() {
     northSideAttributes = new Attributes;
     Attribute* melee = new Attribute("melee", 1);
-    Attribute* ranged = new Attribute("ranged", 1);
     northSideAttributes->addAttribute(MELEE, melee);
-    northSideAttributes->addAttribute(RANGED, ranged);
-    //REVIEW: sideAttributes are local table if i'm correct so they will be wiped out if we leave this scope
-    Attributes* sideAttributes[6];
     sideAttributes[NORTH] = northSideAttributes;
-    unit = new Unit(HEGEMONY, "UniversalSoldier", attributes, sideAttributes);
+    unit = new UnitToken(HEGEMONY, "UniversalSoldier", NULL, sideAttributes);
   }
-  ~UnitTest() {}
+  ~UnitTokenTest() {}
   void SetUp() {}
   void TearDown() {}
 
-  Unit* unit;
+  UnitToken* unit;
+  Attributes* sideAttributes[6];
   Attributes* northSideAttributes;
 };
 
-TEST_F(UnitTest, testGetSideAttributes) {
-  //REVIEW: this test is not working because you compare two pointers
-  ASSERT_EQ(northSideAttributes, unit->getSideAttributes(NORTH));
+TEST_F(UnitTokenTest, testGetSideAttributes) {
+  Attributes* attributes = unit->getEdgeAttributes(NORTH);
+  Attribute* melee = northSideAttributes->getAttribute(MELEE);
+  ASSERT_EQ(northSideAttributes, attributes);
+  ASSERT_EQ(melee, attributes->getAttribute(MELEE));
+  ASSERT_EQ(melee->getValue(), attributes->getAttribute(MELEE)->getValue());
 }
