@@ -126,6 +126,7 @@ MockBoostJson* CreateMockJson<MockBoostJson>(void) {
   return mockJson;
 }
 
+//REVIEW: could it be part of test class (JsonParserTest)? it's used by test, so it'll be cleaner, i guess.
 void prepareJsonFile(std::string fileName) {
   std::ofstream jsonFile(fileName.c_str());
   if (jsonFile.is_open()) {
@@ -199,6 +200,7 @@ TYPED_TEST_P(JsonParserTest, shouldReadJsonFromFile) {
   prepareJsonFile(JSON_FILE_TO_READ);
   typename TypeParam::ParserType * parser = this -> jsonParser;
   parser -> readJsonFromFile(JSON_FILE_TO_READ);
+  //REVIEW: names readSomething might be misleading, as they might suggest method name. Maybe resultIntegerValue?
   std::string readStringValue = parser -> getStringValue(STRING_KEY_WRITE);
   int readIntegerValue = parser -> getIntegerValue(INTEGER_KEY_WRITE);
   bool readBooleanValue = parser -> getBooleanValue(BOOLEAN_KEY_WRITE);
