@@ -126,19 +126,7 @@ MockBoostJson* CreateMockJson<MockBoostJson>(void) {
   return mockJson;
 }
 
-//REVIEW: could it be part of test class (JsonParserTest)? it's used by test, so it'll be cleaner, i guess.
-void prepareJsonFile(std::string fileName) {
-  std::ofstream jsonFile(fileName.c_str());
-  if (jsonFile.is_open()) {
-   jsonFile << "{" << "\n";
-   jsonFile << "\"" << STRING_KEY_WRITE << "\"" << ": " << "\"" << STRING_VALUE << "\"" << "," << "\n";
-   jsonFile << "\"" << INTEGER_KEY_WRITE << "\"" << ": " << INTEGER_VALUE << "," << "\n";
-   jsonFile << "\"" << BOOLEAN_KEY_WRITE << "\"" << ": " << BOOLEAN_VALUE << "\n";
-   jsonFile << "}" << "\n";
-   jsonFile.close();
- }
-}
-
+//TODO: figure out how initialize just once all objects necessary in testcase (apply to all other testcases)
 template <typename T>
 class JsonParserTest : public Test {
 protected:
@@ -154,9 +142,24 @@ protected:
   virtual void SetUp() {}
   virtual void TearDown() {}
 
+  void prepareJsonFile(std::string fileName);
+
   typename T::ParserType * jsonParser;
   typename T::MockJson * mockJson;
 };
+
+template<typename T>
+void JsonParserTest<T>::prepareJsonFile(std::string fileName) {
+  std::ofstream jsonFile(fileName.c_str());
+  if (jsonFile.is_open()) {
+   jsonFile << "{" << "\n";
+   jsonFile << "\"" << STRING_KEY_WRITE << "\"" << ": " << "\"" << STRING_VALUE << "\"" << "," << "\n";
+   jsonFile << "\"" << INTEGER_KEY_WRITE << "\"" << ": " << INTEGER_VALUE << "," << "\n";
+   jsonFile << "\"" << BOOLEAN_KEY_WRITE << "\"" << ": " << BOOLEAN_VALUE << "\n";
+   jsonFile << "}" << "\n";
+   jsonFile.close();
+ }
+}
 
 TYPED_TEST_CASE_P(JsonParserTest);
 
@@ -197,16 +200,15 @@ TYPED_TEST_P(JsonParserTest, shouldGetBooleanFromJson) {
 }
 
 TYPED_TEST_P(JsonParserTest, shouldReadJsonFromFile) {
-  prepareJsonFile(JSON_FILE_TO_READ);
+  this -> prepareJsonFile(JSON_FILE_TO_READ);
   typename TypeParam::ParserType * parser = this -> jsonParser;
   parser -> readJsonFromFile(JSON_FILE_TO_READ);
-  //REVIEW: names readSomething might be misleading, as they might suggest method name. Maybe resultIntegerValue?
-  std::string readStringValue = parser -> getStringValue(STRING_KEY_WRITE);
-  int readIntegerValue = parser -> getIntegerValue(INTEGER_KEY_WRITE);
-  bool readBooleanValue = parser -> getBooleanValue(BOOLEAN_KEY_WRITE);
-  ASSERT_EQ(STRING_VALUE, readStringValue);
-  ASSERT_EQ(INTEGER_VALUE, readIntegerValue);
-  ASSERT_EQ(BOOLEAN_VALUE, readBooleanValue);
+  std::string returnedStringValue = parser -> getStringValue(STRING_KEY_WRITE);
+  int returnedIntegerValue = parser -> getIntegerValue(INTEGER_KEY_WRITE);
+  bool returnedBooleanValue = parser -> getBooleanValue(BOOLEAN_KEY_WRITE);
+  ASSERT_EQ(STRING_VALUE, returnedStringValue);
+  ASSERT_EQ(INTEGER_VALUE, returnedIntegerValue);
+  ASSERT_EQ(BOOLEAN_VALUE, returnedBooleanValue);
 }
 
 REGISTER_TYPED_TEST_CASE_P(
