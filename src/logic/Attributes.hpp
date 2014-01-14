@@ -10,7 +10,11 @@ enum AttributeName {
   MELEE,
   RANGED,
   SHIELD,
-  NET
+  NET,
+  MEDIC,
+  MOTHER,
+  MOBILITY,
+  QUARTERMASTER
 };
 
 class Attributes {

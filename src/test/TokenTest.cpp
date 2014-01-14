@@ -6,6 +6,7 @@ using ::testing::Test;
 #include "logic/Attribute.hpp"
 #include "logic/BoardToken.hpp"
 #include "logic/UnitToken.hpp"
+#include "logic/ModuleToken.hpp"
 
 const int ATTRIBUTE_VALUE = 4;
 
@@ -131,4 +132,73 @@ TEST_F(UnitTokenTest, testGetSideAttributes) {
   ASSERT_EQ(northSideAttributes, attributes);
   ASSERT_EQ(melee, attributes->getAttribute(MELEE));
   ASSERT_EQ(melee->getValue(), attributes->getAttribute(MELEE)->getValue());
+}
+
+
+class ModuleTokenTest : public Test
+{
+protected:
+  ModuleTokenTest() {
+    initiative = new Attribute("initiative", 1);
+    mainUnitAttributes = new Attributes;
+    mainUnitAttributes->addAttribute(INITIATIVE, initiative);
+    melee = new Attribute("melee", 1);
+    northSideAttributes = new Attributes;
+    northSideAttributes->addAttribute(MELEE, melee);
+    sideAttributes[NORTH] = northSideAttributes;
+    unit = new UnitToken(HEGEMONY, "UniversalSoldier", mainUnitAttributes, sideAttributes);
+    toughness = new Attribute("toughness", 1);
+    mainModuleAttributes = new Attributes;
+    mainModuleAttributes->addAttribute(TOUGHNESS, toughness);
+  }
+  ~ModuleTokenTest() {
+    delete unit;
+  }
+  void SetUp() {}
+  void TearDown() {}
+
+  Attribute* initiative;
+  Attributes* mainUnitAttributes;
+  Attribute* melee;
+  Attributes* northSideAttributes;
+  Attributes* sideAttributes[6];
+  UnitToken* unit;
+  Attribute* toughness;
+  Attributes* mainModuleAttributes;
+};
+
+TEST_F(ModuleTokenTest, testUpgradeAttribute) {
+  ModuleToken* officer = new ModuleToken(HEGEMONY, "Officer", mainModuleAttributes);
+  ModuleToken* ranger = new ModuleToken(HEGEMONY, "Ranger", mainModuleAttributes);
+  unit->addModule(officer);
+  unit->addModule(ranger);
+  unit->getUpgrades();
+  int newMeleeValue = unit->getAttribute(MELEE)->getValue();
+  int newInitiativeValue = unit->getAttribute(INITIATIVE)->getValue();
+  ASSERT_EQ(2, newMeleeValue);
+  ASSERT_EQ(2, newInitiativeValue);
+}
+
+TEST_F(ModuleTokenTest, testAddAttribute) {
+  ModuleToken* transport = new ModuleToken(HEGEMONY, "Transport", mainModuleAttributes);
+  unit->addModule(transport);
+  unit->getUpgrades();
+  int mobilityValue = unit->getAttribute(MOBILITY)->getValue();
+  ASSERT_EQ(1, mobilityValue);
+}
+
+TEST_F(ModuleTokenTest, testDowngradeEnemyAttribute) {
+  ModuleToken* saboteur = new ModuleToken(OUTPOST, "Saboteur", mainModuleAttributes);
+  unit->addModule(saboteur);
+  unit->getUpgrades();
+  int newInitiativeValue = unit->getAttribute(INITIATIVE)->getValue();
+  ASSERT_EQ(1, newInitiativeValue);
+}
+
+TEST_F(ModuleTokenTest, testCaptureEnemyModule) {
+  ModuleToken* scoper = new ModuleToken(OUTPOST, "Scoper", mainModuleAttributes);
+  unit->addModule(scoper);
+  unit->getUpgrades();
+  Army newUnitAffiliation = unit->getArmy();
+  ASSERT_EQ(OUTPOST, newUnitAffiliation);
 }
