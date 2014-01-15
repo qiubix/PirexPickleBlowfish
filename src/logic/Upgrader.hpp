@@ -1,13 +1,13 @@
-#ifndef UPGRADE_HPP
-#define UPGRADE_HPP
+#ifndef UPGRADER_HPP
+#define UPGRADER_HPP
 
 #include "Module.hpp"
 
-class Upgrade : public Module
+class Upgrader : public Module
 {
 public:
-  Upgrade(Module* module);
-  ~Upgrade() {}
+  Upgrader(Module* module);
+  ~Upgrader() {}
 
   virtual void addBoardToken(BoardToken *token);
   virtual void removeBoardToken(BoardToken *token);
@@ -20,4 +20,4 @@ private:
   Module* module;
 };
 
-#endif //UPGRADE_HPP
+#endif //UPGRADER_HPP

@@ -21,6 +21,7 @@ public:
   ~BoardToken(void);
 
   Attribute* getAttribute(AttributeName name);
+  void addAttribute(AttributeName name, Attribute* attribute);
   void upgradeAttribute(AttributeName name);
   void downgradeAttribute(AttributeName name);
   void rotateClockwise(void);

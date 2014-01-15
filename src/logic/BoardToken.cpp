@@ -14,6 +14,11 @@ Attribute* BoardToken::getAttribute(AttributeName name) {
   return attributes->getAttribute(name);
 }
 
+void BoardToken::addAttribute(AttributeName name, Attribute* attribute)
+{
+  attributes->addAttribute(name, attribute);
+}
+
 void BoardToken::upgradeAttribute(AttributeName name) {
   getAttribute(name)->upgrade();
 }
