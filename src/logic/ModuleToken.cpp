@@ -5,16 +5,6 @@ ModuleToken::ModuleToken(Army army, std::string name, Attributes* attributes)
 {
 }
 
-void ModuleToken::upgrade(BoardToken* token)
-{
-
-}
-
-void ModuleToken::downgrade(BoardToken* token)
-{
-
-}
-
 void ModuleToken::addBoardToken(BoardToken* token)
 {
   boardTokens.push_back(token);

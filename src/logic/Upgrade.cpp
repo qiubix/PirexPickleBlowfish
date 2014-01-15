@@ -7,13 +7,11 @@ Upgrade::Upgrade(Module* module)
 
 void Upgrade::upgrade(BoardToken* token)
 {
-  module->upgrade(token);
 }
 
 
 void Upgrade::downgrade(BoardToken* token)
 {
-  module->downgrade(token);
 }
 
 

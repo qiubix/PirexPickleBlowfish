@@ -10,8 +10,6 @@ public:
   ModuleToken(Army army, std::string name, Attributes* attributes);
   ~ModuleToken() {}
 
-  void upgrade(BoardToken* token);
-  void downgrade(BoardToken* token);
   void addBoardToken(BoardToken* token);
   void removeBoardToken(BoardToken* token);
 

@@ -170,22 +170,29 @@ protected:
 TEST_F(ModuleTokenTest, testUpgradeAttribute) {
   ModuleToken* officer = new ModuleToken(HEGEMONY, "Officer", mainModuleAttributes);
   officer->addBoardToken(unit);
-  int newMeleeValue = unit->getAttribute(MELEE)->getValue();
+  Attribute* melee = unit->getEdgeAttributes(NORTH)->getAttribute(MELEE);
+  int newMeleeValue = melee->getValue();
   ASSERT_EQ(2, newMeleeValue);
   ModuleToken* ranger = new ModuleToken(HEGEMONY, "Ranger", mainModuleAttributes);
   ranger->addBoardToken(unit);
-  int newInitiativeValue = unit->getAttribute(INITIATIVE)->getValue();
+  int newInitiativeValue = unit->getEdgeAttributes(NORTH)->getAttribute(INITIATIVE)->getValue();
   ASSERT_EQ(2, newInitiativeValue);
 }
 
 TEST_F(ModuleTokenTest, testAddAttribute) {
   ModuleToken* transport = new ModuleToken(HEGEMONY, "Transport", mainModuleAttributes);
   transport->addBoardToken(unit);
+  Attribute* mobility = unit->getAttribute(MOBILITY);
+  ASSERT_NE((Attribute*) 0, mobility);
   int mobilityValue = unit->getAttribute(MOBILITY)->getValue();
   ASSERT_EQ(1, mobilityValue);
 }
 
 TEST_F(ModuleTokenTest, testDowngradeEnemyAttribute) {
+  Attribute* initiative = unit->getAttribute(INITIATIVE);
+  ASSERT_NE((Attribute*) 0, initiative);
+  int oldInitiativeValue = initiative->getValue();
+  ASSERT_EQ(2, oldInitiativeValue);
   ModuleToken* saboteur = new ModuleToken(OUTPOST, "Saboteur", mainModuleAttributes);
   saboteur->addBoardToken(unit);
   int newInitiativeValue = unit->getAttribute(INITIATIVE)->getValue();

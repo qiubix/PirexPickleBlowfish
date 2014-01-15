@@ -10,8 +10,6 @@ public:
   Module(Army army, std::string name, Attributes* attributes);
   ~Module() {}
 
-  virtual void upgrade(BoardToken* token) = 0;
-  virtual void downgrade(BoardToken* token) = 0;
   virtual void addBoardToken(BoardToken* token) = 0;
   virtual void removeBoardToken(BoardToken* token) = 0;
 };
