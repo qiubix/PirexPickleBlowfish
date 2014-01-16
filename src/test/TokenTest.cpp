@@ -7,6 +7,7 @@ using ::testing::Test;
 #include "logic/BoardToken.hpp"
 #include "logic/UnitToken.hpp"
 #include "logic/ModuleToken.hpp"
+#include "logic/AddAttributeUpgrader.hpp"
 
 const int ATTRIBUTE_VALUE = 4;
 
@@ -168,22 +169,25 @@ protected:
 };
 
 TEST_F(ModuleTokenTest, testUpgradeAttribute) {
-  ModuleToken* officer = new ModuleToken(HEGEMONY, "Officer", mainModuleAttributes);
+  Module* officer = new ModuleToken(HEGEMONY, "Officer", mainModuleAttributes);
   officer->addBoardToken(unit);
   Attribute* melee = unit->getEdgeAttributes(NORTH)->getAttribute(MELEE);
   int newMeleeValue = melee->getValue();
   ASSERT_EQ(2, newMeleeValue);
-  ModuleToken* ranger = new ModuleToken(HEGEMONY, "Ranger", mainModuleAttributes);
+  Module* ranger = new ModuleToken(HEGEMONY, "Ranger", mainModuleAttributes);
   ranger->addBoardToken(unit);
   int newInitiativeValue = unit->getEdgeAttributes(NORTH)->getAttribute(INITIATIVE)->getValue();
   ASSERT_EQ(2, newInitiativeValue);
 }
 
 TEST_F(ModuleTokenTest, testAddAttribute) {
-  ModuleToken* transport = new ModuleToken(HEGEMONY, "Transport", mainModuleAttributes);
+  Attribute* mobility = new Attribute("mobility", 1);
+  Module* transport = new AddAttributeUpgrader(new ModuleToken(HEGEMONY, "Transport", mainModuleAttributes),
+                                               MOBILITY,
+                                               mobility);
   transport->addBoardToken(unit);
-  Attribute* mobility = unit->getAttribute(MOBILITY);
-  ASSERT_NE((Attribute*) 0, mobility);
+  Attribute* unitAttribute = unit->getAttribute(MOBILITY);
+  ASSERT_NE((Attribute*) 0, unitAttribute);
   int mobilityValue = unit->getAttribute(MOBILITY)->getValue();
   ASSERT_EQ(1, mobilityValue);
 }
@@ -193,14 +197,14 @@ TEST_F(ModuleTokenTest, testDowngradeEnemyAttribute) {
   ASSERT_NE((Attribute*) 0, initiative);
   int oldInitiativeValue = initiative->getValue();
   ASSERT_EQ(2, oldInitiativeValue);
-  ModuleToken* saboteur = new ModuleToken(OUTPOST, "Saboteur", mainModuleAttributes);
+  Module* saboteur = new ModuleToken(OUTPOST, "Saboteur", mainModuleAttributes);
   saboteur->addBoardToken(unit);
   int newInitiativeValue = unit->getAttribute(INITIATIVE)->getValue();
   ASSERT_EQ(1, newInitiativeValue);
 }
 
 TEST_F(ModuleTokenTest, testCaptureEnemyModule) {
-  ModuleToken* scoper = new ModuleToken(OUTPOST, "Scoper", mainModuleAttributes);
+  Module* scoper = new ModuleToken(OUTPOST, "Scoper", mainModuleAttributes);
   scoper->addBoardToken(unit);
   Army newUnitAffiliation = unit->getArmy();
   ASSERT_EQ(OUTPOST, newUnitAffiliation);

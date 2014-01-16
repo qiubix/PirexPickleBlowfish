@@ -6,7 +6,7 @@
 class AddAttributeUpgrader : public Upgrader
 {
 public:
-  AddAttributeUpgrader(Module* module, Attribute* attribute);
+  AddAttributeUpgrader(Module* module, AttributeName name, Attribute* attribute);
   ~AddAttributeUpgrader() {}
 
 protected:
@@ -14,6 +14,7 @@ protected:
   void downgrade(BoardToken *token);
 
 private:
+  AttributeName newAttributeName;
   Attribute* newAttribute;
 
 };

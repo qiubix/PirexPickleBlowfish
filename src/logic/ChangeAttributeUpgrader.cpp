@@ -1,4 +1,5 @@
 #include "ChangeAttributeUpgrader.hpp"
+#include "UnitToken.hpp"
 
 
 ChangeAttributeUpgrader::ChangeAttributeUpgrader(Module* module, AttributeName name, int changeValue)
@@ -10,7 +11,9 @@ void ChangeAttributeUpgrader::upgrade(BoardToken* token)
   if (attribute != NULL) {
     attribute->upgrade(changeValue);
   }
+//  else if (static_cast<UnitToken>(token).getEdgeAttributes(NORTH) != NULL) {
   //TODO: upgrade edge attribute
+//  }
 }
 
 void ChangeAttributeUpgrader::downgrade(BoardToken* token)

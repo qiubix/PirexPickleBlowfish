@@ -1,6 +1,7 @@
 #include "Upgrader.hpp"
 
 Upgrader::Upgrader(Module* module)
+  : Module(module->getArmy(), module->getName(), module->getAttributes())
 {
   this->module = module;
 }

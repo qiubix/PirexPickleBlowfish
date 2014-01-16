@@ -6,7 +6,6 @@
 class Module : public BoardToken
 {
 public:
-  Module();
   Module(Army army, std::string name, Attributes* attributes);
   ~Module() {}
 

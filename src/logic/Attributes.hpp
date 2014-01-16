@@ -24,6 +24,7 @@ public:
 
   Attribute* getAttribute(AttributeName name);
   void addAttribute(AttributeName name, Attribute* attribute);
+  void removeAttribute(AttributeName name);
 
 private:
   std::map < AttributeName, Attribute*> attributes;
