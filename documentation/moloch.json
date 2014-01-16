@@ -93,9 +93,7 @@
 			"namePl": "Bloker",
 			"count": 2,
 			"toughness": 2,
-			"armor": {
-				"north": 1
-			}
+			"armor": ["north"]
 		},
 		{
 			"name": "Hybrid",
@@ -128,11 +126,7 @@
 			"ranged": {
 				"northEast": 1
 			},
-			"armor": {
-				"north": 1,
-				"southEast": 1,
-				"southWest": 1
-			}
+			"armor": ["north", "southEast", "southWest"]
 		},
 		{
 			"name": "Clown",
@@ -183,10 +177,7 @@
 				"southWest": 1,
 				"northWest": 1
 			},
-			"armor": {
-				"north": 1,
-				"northWest": 1
-			}
+			"armor": ["north", "northWest"]
 		},
 		{
 			"name": "Armored Guard",
@@ -197,9 +188,7 @@
 				"northEast": 1,
 				"northWest": 1
 			},
-			"armor": {
-				"north": 1
-			}
+			"armor": ["north"]
 		},
 		{
 			"name": "Hornet",
@@ -214,10 +203,7 @@
 			"name": "Net Fighter",
 			"namePl": "Sieciarz",
 			"count": 1,
-			"net": {
-				"north": 1,
-				"northWest": 1
-			}
+			"net": ["north", "northWest"]
 		},
 		{
 			"name": "Stormtrooper",

@@ -60,7 +60,7 @@
 			"upgrade": {
 				"ranged": {
 					"value": 1,
-					"sides": ["north", "northEast", "southEast", "south", "southWest", "northWest"],
+					"sides": ["north", "northEast", "southEast", "south", "southWest", "northWest"]
 				}
 			}
 		},
