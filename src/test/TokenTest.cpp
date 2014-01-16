@@ -8,6 +8,7 @@ using ::testing::Test;
 #include "logic/UnitToken.hpp"
 #include "logic/ModuleToken.hpp"
 #include "logic/AddAttributeUpgrader.hpp"
+#include "logic/ChangeAttributeUpgrader.hpp"
 
 const int ATTRIBUTE_VALUE = 4;
 
@@ -78,6 +79,8 @@ TEST_F(BoardTokenTest, testGetAttribute) {
   ASSERT_EQ(initiative->getName(), attribute->getName());
   ASSERT_EQ(initiative->getValue(), attribute->getValue());
 }
+
+//TODO: testRemoveAttribute
 
 TEST_F(BoardTokenTest, testModifyAttribute) {
   token->upgradeAttribute(INITIATIVE);
@@ -168,16 +171,23 @@ protected:
   Attributes* mainModuleAttributes;
 };
 
+
 TEST_F(ModuleTokenTest, testUpgradeAttribute) {
-  Module* officer = new ModuleToken(HEGEMONY, "Officer", mainModuleAttributes);
+::testing::GTEST_FLAG(catch_exceptions) = true;
+  try {
+  Module* officer = new ChangeAttributeUpgrader(new ModuleToken(HEGEMONY, "Officer", mainModuleAttributes), MELEE, 1);
   officer->addBoardToken(unit);
   Attribute* melee = unit->getEdgeAttributes(NORTH)->getAttribute(MELEE);
   int newMeleeValue = melee->getValue();
   ASSERT_EQ(2, newMeleeValue);
-  Module* ranger = new ModuleToken(HEGEMONY, "Ranger", mainModuleAttributes);
+  Module* ranger = new ChangeAttributeUpgrader(new ModuleToken(HEGEMONY, "Ranger", mainModuleAttributes), INITIATIVE, 1);
   ranger->addBoardToken(unit);
   int newInitiativeValue = unit->getEdgeAttributes(NORTH)->getAttribute(INITIATIVE)->getValue();
   ASSERT_EQ(2, newInitiativeValue);
+  }
+  catch(...) {
+//    ADD_FAILURE() << "Uncaught exception";
+  }
 }
 
 TEST_F(ModuleTokenTest, testAddAttribute) {
@@ -197,7 +207,7 @@ TEST_F(ModuleTokenTest, testDowngradeEnemyAttribute) {
   ASSERT_NE((Attribute*) 0, initiative);
   int oldInitiativeValue = initiative->getValue();
   ASSERT_EQ(2, oldInitiativeValue);
-  Module* saboteur = new ModuleToken(OUTPOST, "Saboteur", mainModuleAttributes);
+  Module* saboteur = new ChangeAttributeUpgrader(new ModuleToken(OUTPOST, "Saboteur", mainModuleAttributes), INITIATIVE, -1);
   saboteur->addBoardToken(unit);
   int newInitiativeValue = unit->getAttribute(INITIATIVE)->getValue();
   ASSERT_EQ(1, newInitiativeValue);
