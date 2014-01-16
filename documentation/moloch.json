@@ -36,11 +36,11 @@
 			"upgrade": {
 				"melee": {
 					"value": 1,
-					"sides": ["north", "southEast", "southWest"],
+					"sides": ["north", "southEast", "southWest"]
 				},
 				"ranged": {
 					"value": 1,
-					"sides": ["north", "southEast", "southWest"],
+					"sides": ["north", "southEast", "southWest"]
 				}
 			}
 		},

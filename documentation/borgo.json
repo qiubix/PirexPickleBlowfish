@@ -121,7 +121,8 @@
 			"move": true,
 			"melee": {
 				"north": 2
-			}		},
+			}
+		},
 		{
 			"name": "Assassin",
 			"namePl": "Zabójca",
