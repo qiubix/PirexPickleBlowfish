@@ -1,0 +1,185 @@
+{
+	"army": "Hegemony",
+	"headquarters": {
+		"upgrade": {
+			"melee": 1
+		}
+	},
+	"instants": [
+		{
+			"name": "Battle",
+			"namePl": "Bitwa",
+			"count": 5
+		},
+		{
+			"name": "Move",
+			"namePl": "Ruch",
+			"count": 3
+		},
+		{
+			"name": "Push back",
+			"namePl": "Odepchnięcie",
+			"count": 2
+		},
+		{
+			"name": "Sniper",
+			"namePl": "Snajper",
+			"count": 1
+		}
+	],
+	"modules": [
+		{
+			"name": "The Boss",
+			"namePl": "Boss",
+			"count": 1,
+			"upgrade": {
+				"initiative": {
+					"value": 1,
+					"sides": ["north", "northWest"]
+				},
+				"melee": {
+					"value": 1,
+					"sides": ["north", "northWest"]
+				}
+			}
+		},
+		{
+			"name": "Quartermaster",
+			"namePl": "Kwatermistrz",
+			"count": 1,
+			"upgrade": {
+				"quartermaster": {
+					"sides": ["north"]
+				}
+			}
+		},
+		{
+			"name": "Officer I",
+			"namePl": "Oficer I",
+			"count": 2,
+			"upgrade": {
+				"melee": {
+					"value": 1,
+					"sides": ["north", "northWest"]
+				}
+			}
+		},
+		{
+			"name": "Officer II",
+			"namePl": "Oficer II",
+			"count": 1,
+			"upgrade": {
+				"melee": {
+					"value": 1,
+					"sides": ["north", "northEast", "northWest"]
+				}
+			}
+		},
+		{
+			"name": "Transport",
+			"namePl": "Transport",
+			"count": 1,
+			"upgrade": {
+				"move": {
+					"sides": ["north", "northEast", "southEast", "south", "southWest", "northWest"]
+				}
+			}
+		},
+		{
+			"name": "Scout",
+			"namePl": "Zwiadowca",
+			"count": 1,
+			"upgrade": {
+				"initiative": {
+					"value": 1,
+					"sides": ["north", "northEast", "northWest"]
+				}
+			}
+		}
+	],
+	"units": [
+		{
+			"name": "Runner",
+			"namePl": "Biegacz",
+			"count": 3,
+			"initiative": [2],
+			"move": true,
+			"melee": {
+				"north": 1
+			}
+		},
+		{
+			"name": "Thug",
+			"namePl": "Bydlak",
+			"count": 1,
+			"initiative": [2],
+			"melee": {
+				"north": 2,
+				"northWest": 1,
+				"northEast": 1
+			}
+		},
+		{
+			"name": "Ganger",
+			"namePl": "Ganger",
+			"count": 4,
+			"initiative": [3],
+			"melee": {
+				"north": 1
+			}
+		},
+		{
+			"name": "Gladiator",
+			"namePl": "Gladiator",
+			"count": 1,
+			"initiative": [1],
+			"toughness": 1,
+			"melee": {
+				"north": 1,
+				"northWest": 1,
+				"northEast": 1
+			},
+			"armor": ["north", "northEast", "northWest"]
+		},
+		{
+			"name": "Net Fighter",
+			"namePl": "Sieciarz",
+			"count": 2,
+			"net": ["north"]
+		},
+		{
+			"name": "Guard",
+			"namePl": "Strażnik",
+			"count": 1,
+			"initiative": [2],
+			"toughness": 1,
+			"melee": {
+				"north": 1,
+				"northEast": 1,
+				"northWest": 1
+			}
+		},
+		{
+			"name": "Net Master",
+			"namePl": "Super-sieciarz",
+			"count": 1,
+			"initiative": [2],
+			"melee": {
+				"north": 1
+			},
+			"net": ["northEast", "northWest"]
+		},
+		{
+			"name": "Universal Soldier",
+			"namePl": "Uniwerslany Żołnierz",
+			"count": 3,
+			"initiative": [3],
+			"melee": {
+				"north": 1
+			},
+			"ranged": {
+				"north": 1
+			}
+		}
+	]
+}
