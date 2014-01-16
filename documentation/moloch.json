@@ -1,33 +1,9 @@
 {
 	"army": "Moloch",
 	"headquarters": {
-		"name": "HQ",
-		"toughness": 20,
-		"melee": {
-			"north": 1,
-			"northEast" : 1,
-			"southEast": 1,
-			"south": 1,
-			"southWest": 1,
-			"northWest": 1
-		},
 		"upgrade": {
-			"melee": {
-				"north": 1,
-				"northEast" : 1,
-				"southEast": 1,
-				"south": 1,
-				"southWest": 1,
-				"northWest": 1
-			},
-			"ranged": {
-				"north": 1,
-				"northEast" : 1,
-				"southEast": 1,
-				"south": 1,
-				"southWest": 1,
-				"northWest": 1
-			}
+			"melee": 1,
+			"ranged": 1
 		}
 	},
 	"instants": [
@@ -52,7 +28,7 @@
 			"count": 1
 		}
 	],
-	"mudules": [
+	"modules": [
 		{
 			"name": "The Brain",
 			"namePl": "Mózg",
