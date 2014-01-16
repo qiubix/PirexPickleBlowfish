@@ -33,7 +33,6 @@
 			"name": "The Brain",
 			"namePl": "Mózg",
 			"count": 1,
-			"toughness": 1,
 			"upgrade": {
 				"melee": {
 					"value": 1,
@@ -49,7 +48,6 @@
 			"name": "Officer",
 			"namePl": "Oficer",
 			"count": 1,
-			"toughness": 1,
 			"upgrade": {
 				"ranged": {
 					"value": 1,
@@ -61,7 +59,6 @@
 			"name": "Scout",
 			"namePl": "Zwiadowca",
 			"count": 1,
-			"toughness": 1,
 			"upgrade": {
 				"initiative": {
 					"value": 1,
@@ -73,7 +70,6 @@
 			"name": "Medic",
 			"namePl": "Medyk",
 			"count": 2,
-			"toughness": 1,
 			"upgrade": {
 				"medic": {
 					"sides": ["north", "southEast", "southWest"]
@@ -84,7 +80,6 @@
 			"name": "Mother Module",
 			"namePl": "Matka",
 			"count": 1,
-			"toughness": 1,
 			"upgrade": {
 				"mother": {
 					"sides": ["north"]
@@ -97,7 +92,7 @@
 			"name": "Blocker",
 			"namePl": "Bloker",
 			"count": 2,
-			"toughness": 3,
+			"toughness": 2,
 			"armor": {
 				"north": 1
 			}
@@ -107,7 +102,6 @@
 			"namePl": "Cyborg",
 			"count": 2,
 			"initiative": [3],
-			"toughness": 1,
 			"ranged": {
 				"north": 1
 			}
@@ -117,7 +111,7 @@
 			"namePl": "Działko Gaussa",
 			"count": 1,
 			"initiative": [1],
-			"toughness": 2,
+			"toughness": 1,
 			"ranged": {
 				"north": 1
 			}
@@ -127,7 +121,7 @@
 			"namePl": "Juggernaut",
 			"count": 1,
 			"initiative": [1],
-			"toughness": 2,
+			"toughness": 1,
 			"melee": {
 				"north": 2
 			},
@@ -145,7 +139,7 @@
 			"namePl": "Klaun",
 			"count": 1,
 			"initiative": [2],
-			"toughness": 2,
+			"toughness": 1,
 			"melee": {
 				"north": 1,
 				"northWest": 1
@@ -157,7 +151,6 @@
 			"namePl": "Łowca",
 			"count": 2,
 			"initiative": [3],
-			"toughness": 1,
 			"melee": {
 				"north": 1,
 				"northEast": 1,
@@ -170,7 +163,7 @@
 			"namePl": "Obrońca",
 			"count": 1,
 			"initiative": [1],
-			"toughness": 2,
+			"toughness": 1,
 			"ranged": {
 				"north": 1,
 				"northEast": 1,
@@ -182,7 +175,6 @@
 			"namePl": "Opancerzony Łowca",
 			"count": 2,
 			"initiative": [2],
-			"toughness": 1,
 			"melee": {
 				"north": 1,
 				"northEast" : 1,
@@ -201,7 +193,6 @@
 			"namePl": "Opancerzony Wartownik",
 			"count": 1,
 			"initiative": [2],
-			"toughness": 1,
 			"melee": {
 				"northEast": 1,
 				"northWest": 1
@@ -215,7 +206,6 @@
 			"namePl": "Rozpruwacz",
 			"count": 1,
 			"initiative": [2],
-			"toughness": 1,
 			"melee": {
 				"north": 2
 			}
@@ -224,7 +214,6 @@
 			"name": "Net Fighter",
 			"namePl": "Sieciarz",
 			"count": 1,
-			"toughness": 1,
 			"net": {
 				"north": 1,
 				"northWest": 1
@@ -235,7 +224,7 @@
 			"namePl": "Szturmowiec",
 			"count": 1,
 			"initiative": [2, 1],
-			"toughness": 2,
+			"toughness": 1,
 			"ranged": {
 				"north": 1
 			}
@@ -245,7 +234,6 @@
 			"namePl": "Wartownik",
 			"count": 1,
 			"initiative": [2],
-			"toughness": 1,
 			"ranged": {
 				"north": 1,
 				"northWest": 1
