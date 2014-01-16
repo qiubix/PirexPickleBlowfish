@@ -36,14 +36,12 @@
 			"toughness": 1,
 			"upgrade": {
 				"melee": {
-					"north": 1,
-					"southEast": 1,
-					"southWest": 1
+					"value": 1,
+					"sides": ["north", "southEast", "southWest"],
 				},
 				"ranged": {
-					"north": 1,
-					"southEast": 1,
-					"southWest": 1
+					"value": 1,
+					"sides": ["north", "southEast", "southWest"],
 				}
 			}
 		},
@@ -54,9 +52,8 @@
 			"toughness": 1,
 			"upgrade": {
 				"ranged": {
-					"northEast": 1,
-					"south": 1,
-					"northWest": 1
+					"value": 1,
+					"sides": ["northEast", "south", "northWest"]
 				}
 			}
 		},
@@ -67,9 +64,8 @@
 			"toughness": 1,
 			"upgrade": {
 				"initiative": {
-					"north": 1,
-					"southEast": 1,
-					"southWest": 1
+					"value": 1,
+					"sides": ["north", "southEast", "southWest"]
 				}
 			}
 		},
@@ -80,9 +76,7 @@
 			"toughness": 1,
 			"upgrade": {
 				"medic": {
-					"north": 1,
-					"southEast": 1,
-					"southWest": 1
+					"sides": ["north", "southEast", "southWest"]
 				}
 			}
 		},
@@ -93,7 +87,7 @@
 			"toughness": 1,
 			"upgrade": {
 				"mother": {
-					"north": 1,
+					"sides": ["north"]
 				}
 			}
 		}
