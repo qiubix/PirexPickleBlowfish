@@ -145,7 +145,7 @@ class ModuleTokenTest : public Test
 {
 protected:
   ModuleTokenTest() {
-    initiative = new Attribute("initiative", 1);
+    initiative = new Attribute("initiative", 2);
     mainUnitAttributes = new Attributes;
     mainUnitAttributes->addAttribute(INITIATIVE, initiative);
     melee = new Attribute("melee", 1);
@@ -183,10 +183,12 @@ TEST_F(ModuleTokenTest, testUpgradeAttribute) {
   Attribute* melee = unit->getEdgeAttributes(NORTH)->getAttribute(MELEE);
   int newMeleeValue = melee->getValue();
   ASSERT_EQ(2, newMeleeValue);
+  int oldInitiativeValue = unit->getAttribute(INITIATIVE)->getValue();
+  ASSERT_EQ(2, oldInitiativeValue);
   Module* ranger = new ChangeAttributeUpgrader(new ModuleToken(HEGEMONY, "Ranger", mainModuleAttributes), INITIATIVE, 1);
   ranger->addBoardToken(unit);
-  int newInitiativeValue = unit->getEdgeAttributes(NORTH)->getAttribute(INITIATIVE)->getValue();
-  ASSERT_EQ(2, newInitiativeValue);
+  int newInitiativeValue = unit->getAttribute(INITIATIVE)->getValue();
+  ASSERT_EQ(3, newInitiativeValue);
 }
 
 TEST_F(ModuleTokenTest, testAddAttribute) {

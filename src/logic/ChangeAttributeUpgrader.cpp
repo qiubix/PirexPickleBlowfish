@@ -18,9 +18,9 @@ void ChangeAttributeUpgrader::upgrade(BoardToken* token)
       Attribute* toUpgrade;
       if (sideAttributes != NULL) {
         toUpgrade = sideAttributes->getAttribute(attributeToChange);
-      }
-      if (toUpgrade != NULL) {
-        toUpgrade->upgrade(changeValue);
+        if (toUpgrade != NULL) {
+          toUpgrade->upgrade(changeValue);
+        }
       }
     }
   }
@@ -32,7 +32,6 @@ void ChangeAttributeUpgrader::downgrade(BoardToken* token)
   if (attribute != NULL) {
     attribute->downgrade(changeValue);
   }
-  //TODO: downgrade edge attribute
   UnitToken* unit = dynamic_cast<UnitToken*>(token);
   if (unit != NULL) {
     for (int i=0; i<6; ++i) {
@@ -40,9 +39,9 @@ void ChangeAttributeUpgrader::downgrade(BoardToken* token)
       Attribute* toUpgrade;
       if (sideAttributes != NULL) {
         toUpgrade = sideAttributes->getAttribute(attributeToChange);
-      }
-      if (toUpgrade != NULL) {
-        toUpgrade->downgrade(changeValue);
+        if (toUpgrade != NULL) {
+          toUpgrade->downgrade(changeValue);
+        }
       }
     }
   }
