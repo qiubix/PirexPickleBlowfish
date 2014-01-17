@@ -11,25 +11,20 @@ void ChangeAttributeUpgrader::upgrade(BoardToken* token)
   if (attribute != NULL) {
     attribute->upgrade(changeValue);
   }
-  try {
-    throw token;
-  }
-  catch(UnitToken* unit) {
+  UnitToken* unit = dynamic_cast<UnitToken*>(token);
+  if (unit != NULL) {
     for (int i=0; i<6; ++i) {
       Attributes* sideAttributes = unit->getEdgeAttributes(Side(i));
-      Attribute* toUpgrade = sideAttributes->getAttribute(attributeToChange);
+      Attribute* toUpgrade;
+      if (sideAttributes != NULL) {
+        toUpgrade = sideAttributes->getAttribute(attributeToChange);
+      }
       if (toUpgrade != NULL) {
-        attribute->upgrade(changeValue);
+        toUpgrade->upgrade(changeValue);
       }
     }
   }
-  catch(std::exception ex) {
-    //..
-  }
 }
-//  else if (static_cast<UnitToken>(token).getEdgeAttributes(NORTH) != NULL) {
-  //TODO: upgrade edge attribute
-//  }
 
 void ChangeAttributeUpgrader::downgrade(BoardToken* token)
 {
@@ -38,19 +33,17 @@ void ChangeAttributeUpgrader::downgrade(BoardToken* token)
     attribute->downgrade(changeValue);
   }
   //TODO: downgrade edge attribute
-  try {
-    throw token;
-  }
-  catch(UnitToken* unit) {
+  UnitToken* unit = dynamic_cast<UnitToken*>(token);
+  if (unit != NULL) {
     for (int i=0; i<6; ++i) {
       Attributes* sideAttributes = unit->getEdgeAttributes(Side(i));
-      Attribute* toUpgrade = sideAttributes->getAttribute(attributeToChange);
+      Attribute* toUpgrade;
+      if (sideAttributes != NULL) {
+        toUpgrade = sideAttributes->getAttribute(attributeToChange);
+      }
       if (toUpgrade != NULL) {
-        attribute->downgrade(changeValue);
+        toUpgrade->downgrade(changeValue);
       }
     }
-  }
-  catch(std::exception ex) {
-    //..
   }
 }

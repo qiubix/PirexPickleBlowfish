@@ -5,6 +5,7 @@
 #include "Attribute.hpp"
 
 enum AttributeName {
+  ARMY,
   INITIATIVE,
   TOUGHNESS,
   MELEE,

@@ -173,8 +173,6 @@ protected:
 
 
 TEST_F(ModuleTokenTest, testUpgradeAttribute) {
-::testing::GTEST_FLAG(catch_exceptions) = true;
-  try {
   Module* officer = new ChangeAttributeUpgrader(new ModuleToken(HEGEMONY, "Officer", mainModuleAttributes), MELEE, 1);
   officer->addBoardToken(unit);
   Attribute* melee = unit->getEdgeAttributes(NORTH)->getAttribute(MELEE);
@@ -184,10 +182,6 @@ TEST_F(ModuleTokenTest, testUpgradeAttribute) {
   ranger->addBoardToken(unit);
   int newInitiativeValue = unit->getEdgeAttributes(NORTH)->getAttribute(INITIATIVE)->getValue();
   ASSERT_EQ(2, newInitiativeValue);
-  }
-  catch(...) {
-//    ADD_FAILURE() << "Uncaught exception";
-  }
 }
 
 TEST_F(ModuleTokenTest, testAddAttribute) {
@@ -214,7 +208,7 @@ TEST_F(ModuleTokenTest, testDowngradeEnemyAttribute) {
 }
 
 TEST_F(ModuleTokenTest, testCaptureEnemyModule) {
-  Module* scoper = new ModuleToken(OUTPOST, "Scoper", mainModuleAttributes);
+  Module* scoper = new ChangeAttributeUpgrader(new ModuleToken(OUTPOST, "Scoper", mainModuleAttributes), ARMY, OUTPOST);
   scoper->addBoardToken(unit);
   Army newUnitAffiliation = unit->getArmy();
   ASSERT_EQ(OUTPOST, newUnitAffiliation);

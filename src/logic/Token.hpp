@@ -2,6 +2,7 @@
 #define TOKEN_HPP
 
 #include <string>
+#include "Attribute.hpp"
 
 //TODO: introduce c++11 enums
 //http://www.cprogramming.com/c++11/c++11-nullptr-strongly-typed-enum-class.html
@@ -21,8 +22,10 @@ public:
   Army getArmy(void);
   std::string getName(void);
 
+protected:
+  Attribute* army;
+
 private:
-  Army army;
   std::string name;
 };
 
