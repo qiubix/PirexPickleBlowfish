@@ -119,13 +119,15 @@ protected:
     Attribute* melee = new Attribute("melee", 1);
     northSideAttributes->addAttribute(MELEE, melee);
     sideAttributes[NORTH] = northSideAttributes;
-    unit = new UnitToken(HEGEMONY, "UniversalSoldier", NULL, sideAttributes);
+    baseUnitAttributes = new Attributes;
+    unit = new UnitToken(HEGEMONY, "UniversalSoldier", baseUnitAttributes, sideAttributes);
   }
   ~UnitTokenTest() {}
   void SetUp() {}
   void TearDown() {}
 
   UnitToken* unit;
+  Attributes* baseUnitAttributes;
   Attributes* sideAttributes[6];
   Attributes* northSideAttributes;
 };
@@ -149,6 +151,9 @@ protected:
     melee = new Attribute("melee", 1);
     northSideAttributes = new Attributes;
     northSideAttributes->addAttribute(MELEE, melee);
+    for(int i=0; i<6; ++i) {
+      sideAttributes[i] = NULL;
+    }
     sideAttributes[NORTH] = northSideAttributes;
     unit = new UnitToken(HEGEMONY, "UniversalSoldier", mainUnitAttributes, sideAttributes);
     toughness = new Attribute("toughness", 1);
