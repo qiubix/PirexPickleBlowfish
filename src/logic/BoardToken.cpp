@@ -30,12 +30,12 @@ void BoardToken::removeAttribute(AttributeName name)
   attributes->removeAttribute(name);
 }
 
-void BoardToken::upgradeAttribute(AttributeName name) {
-  getAttribute(name)->upgrade();
+void BoardToken::upgradeAttributeBy(AttributeName name, int upgradeValue) {
+  getAttribute(name)->upgradeBy(upgradeValue);
 }
 
-void BoardToken::downgradeAttribute(AttributeName name) {
-  getAttribute(name)->downgrade();
+void BoardToken::downgradeAttributeBy(AttributeName name, int downgradeValue) {
+  getAttribute(name)->downgradeBy(downgradeValue);
 }
 
 void BoardToken::rotateClockwise(void)

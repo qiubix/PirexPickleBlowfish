@@ -22,8 +22,8 @@ public:
 
   void addAttribute(AttributeName name, Attribute* attribute);
   void removeAttribute(AttributeName name);
-  void upgradeAttribute(AttributeName name);
-  void downgradeAttribute(AttributeName name);
+  void upgradeAttributeBy(AttributeName name, int upgradeValue = 1);
+  void downgradeAttributeBy(AttributeName name, int downgradeValue = 1);
   void rotateClockwise(void);
   void rotateAnticlockwise(void);
 

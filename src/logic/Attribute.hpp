@@ -8,8 +8,11 @@ class Attribute
 public:
   Attribute(std::string name, int baseValue);
 
-  void upgrade(int amount = 1);
-  void downgrade(int amount = 1);
+  void upgradeBy(int amount = 1);
+  void downgradeBy(int amount = 1);
+  void upgradeTo(int newValue);
+  void downgradeTo();
+  void downgradeTo(int newValue);
 
   //getters
   std::string getName(void);

@@ -9,7 +9,7 @@ void ChangeAttributeUpgrader::upgrade(BoardToken* token)
 {
   Attribute* attribute = token->getAttribute(attributeToChange);
   if (attribute != NULL) {
-    attribute->upgrade(changeValue);
+    attribute->upgradeBy(changeValue);
   }
   UnitToken* unit = dynamic_cast<UnitToken*>(token);
   if (unit != NULL) {
@@ -19,7 +19,7 @@ void ChangeAttributeUpgrader::upgrade(BoardToken* token)
       if (sideAttributes != NULL) {
         toUpgrade = sideAttributes->getAttribute(attributeToChange);
         if (toUpgrade != NULL) {
-          toUpgrade->upgrade(changeValue);
+          toUpgrade->upgradeBy(changeValue);
         }
       }
     }
@@ -30,7 +30,7 @@ void ChangeAttributeUpgrader::downgrade(BoardToken* token)
 {
   Attribute* attribute = token->getAttribute(attributeToChange);
   if (attribute != NULL) {
-    attribute->downgrade(changeValue);
+    attribute->downgradeBy(changeValue);
   }
   UnitToken* unit = dynamic_cast<UnitToken*>(token);
   if (unit != NULL) {
@@ -40,7 +40,7 @@ void ChangeAttributeUpgrader::downgrade(BoardToken* token)
       if (sideAttributes != NULL) {
         toUpgrade = sideAttributes->getAttribute(attributeToChange);
         if (toUpgrade != NULL) {
-          toUpgrade->downgrade(changeValue);
+          toUpgrade->downgradeBy(changeValue);
         }
       }
     }

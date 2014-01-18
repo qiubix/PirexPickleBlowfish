@@ -9,6 +9,7 @@ using ::testing::Test;
 #include "logic/ModuleToken.hpp"
 #include "logic/AddAttributeUpgrader.hpp"
 #include "logic/ChangeAttributeUpgrader.hpp"
+#include "logic/ChangeArmyUpgrader.hpp"
 
 const int ATTRIBUTE_VALUE = 4;
 
@@ -34,20 +35,27 @@ TEST_F(AttributeTest, testGetAttributeValues) {
 }
 
 TEST_F(AttributeTest, testUpgradeAttribute) {
-  attribute->upgrade();
+  attribute->upgradeBy();
   int upgradedValue = ATTRIBUTE_VALUE + 1;
   ASSERT_EQ(upgradedValue, attribute->getValue());
-  attribute->upgrade(2);
+  attribute->upgradeBy(2);
   upgradedValue += 2;
   ASSERT_EQ(upgradedValue, attribute->getValue());
+  attribute->upgradeTo(ATTRIBUTE_VALUE);
+  ASSERT_EQ(ATTRIBUTE_VALUE, attribute->getValue());
 }
 
 TEST_F(AttributeTest, testDowngradeAttribute) {
-  attribute->downgrade();
+  attribute->downgradeBy();
   int downgradedValue = ATTRIBUTE_VALUE - 1;
   ASSERT_EQ(downgradedValue, attribute->getValue());
-  attribute->downgrade(2);
+  attribute->downgradeBy(2);
   downgradedValue -= 2;
+  ASSERT_EQ(downgradedValue, attribute->getValue());
+  attribute->downgradeTo();
+  ASSERT_EQ(ATTRIBUTE_VALUE, attribute->getValue());
+  downgradedValue = ATTRIBUTE_VALUE - 1;
+  attribute->downgradeTo(ATTRIBUTE_VALUE-1);
   ASSERT_EQ(downgradedValue, attribute->getValue());
 }
 
@@ -83,9 +91,9 @@ TEST_F(BoardTokenTest, testGetAttribute) {
 //TODO: testRemoveAttribute
 
 TEST_F(BoardTokenTest, testModifyAttribute) {
-  token->upgradeAttribute(INITIATIVE);
+  token->upgradeAttributeBy(INITIATIVE);
   ASSERT_EQ(ATTRIBUTE_VALUE + 1, token->getAttribute(INITIATIVE)->getValue());
-  token->downgradeAttribute(INITIATIVE);
+  token->downgradeAttributeBy(INITIATIVE);
   ASSERT_EQ(ATTRIBUTE_VALUE, token->getAttribute(INITIATIVE)->getValue());
 }
 
@@ -215,8 +223,12 @@ TEST_F(ModuleTokenTest, testDowngradeEnemyAttribute) {
 }
 
 TEST_F(ModuleTokenTest, testCaptureEnemyModule) {
-  Module* scoper = new ChangeAttributeUpgrader(new ModuleToken(OUTPOST, "Scoper", mainModuleAttributes), ARMY, OUTPOST);
+  Module* scoper = new ChangeArmyUpgrader(new ModuleToken(OUTPOST, "Scoper", mainModuleAttributes));
   scoper->addBoardToken(unit);
   Army newUnitAffiliation = unit->getArmy();
   ASSERT_EQ(OUTPOST, newUnitAffiliation);
+  UnitToken* anotherUnit = new UnitToken(MOLOCH, "Gauss cannon", mainUnitAttributes, sideAttributes);
+  scoper->addBoardToken(anotherUnit);
+  newUnitAffiliation = anotherUnit->getArmy();
+  ASSERT_EQ(MOLOCH, newUnitAffiliation);
 }

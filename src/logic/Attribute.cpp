@@ -13,20 +13,25 @@ int Attribute::getValue(void) {
   return currentValue;
 }
 
-void Attribute::upgrade(int amount) {
-  if (this->name == "army") {
-    currentValue = amount;
-  }
-  else {
-    currentValue += amount;
-  }
+void Attribute::upgradeBy(int amount) {
+  currentValue += amount;
 }
 
-void Attribute::downgrade(int amount) {
-  if (this->name == "army") {
-    currentValue = baseValue;
-  }
-  else {
-    currentValue -= amount;
-  }
+void Attribute::downgradeBy(int amount) {
+  currentValue -= amount;
+}
+
+void Attribute::upgradeTo(int newValue)
+{
+  currentValue = newValue;
+}
+
+void Attribute::downgradeTo()
+{
+  currentValue = baseValue;
+}
+
+void Attribute::downgradeTo(int newValue)
+{
+  currentValue = newValue;
 }
