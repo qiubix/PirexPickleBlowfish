@@ -227,6 +227,20 @@ protected:
   virtual void TearDown() {}
 };
 
+TEST_F(TokenLoaderTest, shouldReturnArmyFromJson) {
+  Army army = TokenLoader::getInstance() -> getArmy("Moloch");
+  EXPECT_EQ(MOLOCH, army);
+
+  army = TokenLoader::getInstance() -> getArmy("Borgo");
+  EXPECT_EQ(BORGO, army);
+
+  army = TokenLoader::getInstance() -> getArmy("Outpost");
+  EXPECT_EQ(OUTPOST, army);
+
+  army = TokenLoader::getInstance() -> getArmy("Hegemony");
+  EXPECT_EQ(HEGEMONY, army);
+}
+
 TEST_F(TokenLoaderTest, shouldFail) {
   FAIL();
 }

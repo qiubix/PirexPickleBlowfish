@@ -1,4 +1,3 @@
-set(JSON_PARSER_TEST_SRC JsonParserTest.cpp MockBoostJson.hpp MockQtJson.hpp)
 set(TOKEN_LOADER_TEST_SRC TokenLoaderTest.cpp)
 set(TOKEN_TEST_SRC TokenTest.cpp)
 set(GUI_TEST_SRC MainWindowSampleTest.cpp)

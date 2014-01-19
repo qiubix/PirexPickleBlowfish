@@ -29,7 +29,7 @@ add_library(JsonParser JsonParser.cpp)
 target_link_libraries(JsonParser Json)
 
 add_library(TokenLoader TokenLoader.cpp)
-target_link_libraries(TokenLoader JsonParser)
+target_link_libraries(TokenLoader JsonParser gmock_main)
 
 add_library(Logger Logger.cpp)
 target_link_libraries(Logger ${Boost_LIBRARIES})
