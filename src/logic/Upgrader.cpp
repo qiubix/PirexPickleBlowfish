@@ -16,16 +16,16 @@ void Upgrader::downgrade(BoardToken* token)
 }
 
 
-void Upgrader::addBoardToken(BoardToken* token)
+void Upgrader::addBoardToken(BoardToken* token, Side edge)
 {
-  module->addBoardToken(token);
+  module->addBoardToken(token, edge);
   upgrade(token);
 }
 
 
-void Upgrader::removeBoardToken(BoardToken* token)
+void Upgrader::removeBoardToken(BoardToken* token, Side edge)
 {
-  module->removeBoardToken(token);
+  module->removeBoardToken(token, edge);
   downgrade(token);
 }
 

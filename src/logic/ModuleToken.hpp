@@ -7,14 +7,17 @@
 class ModuleToken : public Module
 {
 public:
-  ModuleToken(Army army, std::string name, Attributes* attributes);
+  ModuleToken(Army army, std::string name, Attributes* attributes, Side* activeEdges);
   ~ModuleToken() {}
 
-  void addBoardToken(BoardToken* token);
-  void removeBoardToken(BoardToken* token);
+  void addBoardToken(BoardToken* token, Side edge);
+  void removeBoardToken(BoardToken* token, Side edge);
 
 private:
   std::vector<BoardToken*> boardTokens;
+  Side* activeEdges;
+
+  bool isEdgeActive(Side edge);
 };
 
 #endif //MODULETOKEN_HPP
