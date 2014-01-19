@@ -21,23 +21,12 @@ add_definitions(-DBOOST_LOG_DYN_LINK)
 find_package(Boost 1.55 COMPONENTS thread system log log_setup REQUIRED )
 include_directories(${Boost_INCLUDE_DIR} )
 
-add_library(BoostJson BoostJson.cpp Json.hpp)
-target_link_libraries(BoostJson ${Boost_LIBRARIES})
-
-add_library(BoostJsonParser BoostJsonParser.cpp JsonParser.hpp)
-target_link_libraries(BoostJsonParser BoostJson ${Boost_LIBRARIES})
-
-add_library(QtJson QtJson.cpp Json.hpp)
-target_link_libraries(QtJson ${QT_LIBRARIES})
-qt5_use_modules(QtJson Core)
-
-add_library(QtJsonParser QtJsonParser.cpp JsonParser.hpp)
-target_link_libraries(QtJsonParser ${QT_LIBRARIES})
-qt5_use_modules(QtJsonParser Core)
-
 add_library(Json Json.cpp)
 target_link_libraries(Json ${QT_LIBRARIES})
 qt5_use_modules(Json Core)
+
+add_library(JsonParser JsonParser.cpp)
+target_link_libraries(JsonParser Json)
 
 add_library(Logger Logger.cpp)
 target_link_libraries(Logger ${Boost_LIBRARIES})

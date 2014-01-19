@@ -12,6 +12,7 @@ class Json : public QJsonObject
 {
 public:
   Json(void);
+  Json(QJsonObject object);
   ~Json(void);
 
   std::string getStringValue(std::string key);
@@ -21,7 +22,6 @@ public:
   Json getObject(std::string key);
 
 private:
-  Json(QJsonObject object);
   QJsonValue takeFromJson(std::string key);
 
 };

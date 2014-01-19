@@ -3,6 +3,9 @@
 Json::Json(void) : QJsonObject() {
 }
 
+Json::Json(QJsonObject object) : QJsonObject(object) {
+}
+
 Json::~Json(void) {
 }
 
@@ -33,7 +36,4 @@ Json Json::getObject(std::string key) {
 
 QJsonValue Json::takeFromJson(std::string key) {
   return take(QString::fromStdString(key));
-}
-
-Json::Json(QJsonObject object) : QJsonObject(object) {
 }
