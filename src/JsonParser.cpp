@@ -1,4 +1,4 @@
-#include "JsonParser.h"
+#include "JsonParser.hpp"
 
 #include <QFile>
 #include <QJsonDocument>

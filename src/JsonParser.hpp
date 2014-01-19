@@ -1,7 +1,7 @@
 #ifndef JSONPARSER_H
 #define JSONPARSER_H
 
-#include "Json.h"
+#include "Json.hpp"
 
 class JsonParser
 {

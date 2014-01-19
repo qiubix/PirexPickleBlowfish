@@ -3,8 +3,8 @@ using ::testing::Eq;
 #include <gtest/gtest.h>
 using ::testing::Test;
 
-#include "Json.h"
-#include "JsonParser.h"
+#include "Json.hpp"
+#include "JsonParser.hpp"
 
 #include <fstream>
 
