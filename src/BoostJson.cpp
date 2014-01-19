@@ -1,6 +1,6 @@
 #include "BoostJson.hpp"
 
-BoostJson::BoostJson() : Json(), ptree()  {
+BoostJson::BoostJson() : Json(), ptree() {
 }
 
 BoostJson::~BoostJson() {

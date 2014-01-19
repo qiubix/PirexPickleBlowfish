@@ -9,6 +9,8 @@ using ::testing::Types;
 #include "BoostJsonParser.hpp"
 #include "MockBoostJson.hpp"
 
+#include "QtJson.h"
+
 #include <fstream> //ifstream, ofstream
 
 const std::string STRING_KEY = "string";
@@ -32,6 +34,15 @@ BoostJson* CreateJson<BoostJson>(void) {
   json->put(STRING_KEY, STRING_VALUE);
   json->put(INTEGER_KEY, INTEGER_VALUE);
   json->put(BOOLEAN_KEY, BOOLEAN_VALUE);
+  return json;
+}
+
+template <>
+QtJson* CreateJson<QtJson>(void) {
+  QtJson* json = new QtJson();
+  json->insert(QString::fromStdString(STRING_KEY), QString::fromStdString(STRING_VALUE));
+  json->insert(QString::fromStdString(INTEGER_KEY), INTEGER_VALUE);
+  json->insert(QString::fromStdString(BOOLEAN_KEY), BOOLEAN_VALUE);
   return json;
 }
 
@@ -103,8 +114,8 @@ REGISTER_TYPED_TEST_CASE_P(
   shouldWriteBoolValueToJson
 );
 
-typedef Types<BoostJson> JsonImplementations;
-INSTANTIATE_TYPED_TEST_CASE_P(BoostJsonTest, JsonTest, JsonImplementations);
+typedef Types<BoostJson, QtJson> JsonImplementations;
+INSTANTIATE_TYPED_TEST_CASE_P(JsonImplementationsTest, JsonTest, JsonImplementations);
 
 const std::string JSON_FILE_TO_READ = "jsonToRead.json";
 
