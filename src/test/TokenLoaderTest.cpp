@@ -1,0 +1,129 @@
+#include <gmock/gmock.h>
+using ::testing::Eq;
+#include <gtest/gtest.h>
+using ::testing::Test;
+
+#include "Json.h"
+
+const std::string STRING_KEY = "string";
+const std::string INTEGER_KEY = "integer";
+const std::string BOOLEAN_KEY = "boolean";
+const std::string OBJECT_KEY = "object";
+const std::string ARRAY_KEY = "array";
+
+const std::string STRING_VALUE = "stringValue";
+const int INTEGER_VALUE = 5;
+const bool BOOLEAN_VALUE = true;
+
+class JsonTest : public Test {
+protected:
+  JsonTest() {
+    json = new Json();
+  }
+
+  virtual ~JsonTest() {
+    delete json;
+  }
+
+  virtual void SetUp() {}
+  virtual void TearDown() {}
+
+  void insertString(void);
+  void insertInteger(void);
+  void insertBoolean(void);
+  void insertObject(void);
+  QJsonObject prepareObject(void);
+  int insertArray(void);
+
+  Json* json;
+};
+
+void JsonTest::insertString(void) {
+  json -> insert(QString::fromStdString(STRING_KEY), QString::fromStdString(STRING_VALUE));
+}
+
+void JsonTest::insertInteger(void) {
+  json -> insert(QString::fromStdString(INTEGER_KEY), INTEGER_VALUE);
+}
+
+void JsonTest::insertBoolean(void) {
+  json -> insert(QString::fromStdString(BOOLEAN_KEY), BOOLEAN_VALUE);
+}
+
+void JsonTest::insertObject(void) {
+  QJsonObject object = prepareObject();
+  json -> insert(QString::fromStdString(OBJECT_KEY), object);
+}
+
+QJsonObject JsonTest::prepareObject(void) {
+  QJsonObject object;
+  object.insert(QString::fromStdString(STRING_KEY), QString::fromStdString(STRING_VALUE));
+  object.insert(QString::fromStdString(INTEGER_KEY), INTEGER_VALUE);
+  object.insert(QString::fromStdString(BOOLEAN_KEY), BOOLEAN_VALUE);
+  return object;
+}
+
+int JsonTest::insertArray(void) {
+  const int numberOfObjectsToInsert = 3;
+
+  QJsonArray array;
+  for(int currentObject = 0; currentObject < numberOfObjectsToInsert; currentObject++)
+    array.push_back(prepareObject());
+  json -> insert(QString::fromStdString(ARRAY_KEY), array);
+
+  return numberOfObjectsToInsert;
+}
+
+TEST_F(JsonTest, shouldGetStringValueFromJson) {
+  insertString();
+  std::string returnedStringValue = json -> getStringValue(STRING_KEY);
+  ASSERT_EQ(STRING_VALUE, returnedStringValue);
+}
+
+TEST_F(JsonTest, shouldGetIntegerValueFromJson) {
+  insertInteger();
+  int returnedIntegerValue = json -> getIntegerValue(INTEGER_KEY);
+  ASSERT_EQ(INTEGER_VALUE, returnedIntegerValue);
+}
+
+TEST_F(JsonTest, shouldGetBoolValueFromJson) {
+  insertBoolean();
+  bool returnedBooleanValue = json -> getBooleanValue(BOOLEAN_KEY);
+  ASSERT_EQ(BOOLEAN_VALUE, returnedBooleanValue);
+}
+
+TEST_F(JsonTest, shouldGetObjectFromJson) {
+  insertObject();
+
+  Json returnedObject = json -> getObject(OBJECT_KEY);
+
+  std::string returnedStringValue = returnedObject.getStringValue(STRING_KEY);
+  bool returnedBooleanValue = returnedObject.getBooleanValue(BOOLEAN_KEY);
+  int returnedIntegerValue = returnedObject.getIntegerValue(INTEGER_KEY);
+
+  EXPECT_EQ(STRING_VALUE, returnedStringValue);
+  EXPECT_EQ(INTEGER_VALUE, returnedIntegerValue);
+  EXPECT_EQ(BOOLEAN_VALUE, returnedBooleanValue);
+}
+
+TEST_F(JsonTest, shouldGetArrayOfObjectsFromJson) {
+  int numberOfObjectsInArray = insertArray();
+
+  std::vector<Json> returnedArrayOfObjects = json -> getArray(ARRAY_KEY);
+
+  ASSERT_EQ(numberOfObjectsInArray, returnedArrayOfObjects.size());
+
+  std::string returnedStringValue;
+  bool returnedBooleanValue;
+  int returnedIntegerValue;
+
+  for(int currentObject = 0; currentObject < returnedArrayOfObjects.size(); currentObject++) {
+    returnedStringValue = returnedArrayOfObjects[currentObject].getStringValue(STRING_KEY);
+    returnedBooleanValue =  returnedArrayOfObjects[currentObject].getBooleanValue(BOOLEAN_KEY);
+    returnedIntegerValue =  returnedArrayOfObjects[currentObject].getIntegerValue(INTEGER_KEY);
+
+    EXPECT_EQ(STRING_VALUE, returnedStringValue);
+    EXPECT_EQ(INTEGER_VALUE, returnedIntegerValue);
+    EXPECT_EQ(BOOLEAN_VALUE, returnedBooleanValue);
+  }
+}
