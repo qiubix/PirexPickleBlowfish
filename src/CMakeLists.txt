@@ -13,7 +13,6 @@ set(CMAKE_AUTOMOC ON)
 
 include_directories(SYSTEM ${GMOCK_DIR}/gtest/include ${GMOCK_DIR}/include)
 
-
 set(SRC_LIST main.cpp)
 
 #to link dynamic boost libraries
@@ -31,6 +30,10 @@ target_link_libraries(BoostJsonParser BoostJson ${Boost_LIBRARIES})
 add_library(QtJson QtJson.cpp Json.hpp)
 target_link_libraries(QtJson ${QT_LIBRARIES})
 qt5_use_modules(QtJson Core)
+
+add_library(QtJsonParser QtJsonParser.cpp JsonParser.hpp)
+target_link_libraries(QtJsonParser ${QT_LIBRARIES})
+qt5_use_modules(QtJsonParser Core)
 
 add_library(Logger Logger.cpp)
 target_link_libraries(Logger ${Boost_LIBRARIES})

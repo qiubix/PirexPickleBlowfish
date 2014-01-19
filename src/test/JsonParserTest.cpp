@@ -9,7 +9,9 @@ using ::testing::Types;
 #include "BoostJsonParser.hpp"
 #include "MockBoostJson.hpp"
 
-#include "QtJson.h"
+#include "QtJson.hpp"
+#include "QtJsonParser.hpp"
+#include "MockQtJson.hpp"
 
 #include <fstream> //ifstream, ofstream
 
@@ -128,12 +130,24 @@ BoostJsonParser* CreateJsonParser<BoostJsonParser>(void) {
   return jsonParser;
 }
 
+template <>
+QtJsonParser* CreateJsonParser<QtJsonParser>(void) {
+  QtJsonParser* jsonParser = new QtJsonParser();
+  return jsonParser;
+}
+
 template <class T>
 T* CreateMockJson(void);
 
 template <>
 MockBoostJson* CreateMockJson<MockBoostJson>(void) {
   MockBoostJson* mockJson = new MockBoostJson();
+  return mockJson;
+}
+
+template <>
+MockQtJson* CreateMockJson<MockQtJson>(void) {
+  MockQtJson* mockJson = new MockQtJson();
   return mockJson;
 }
 
@@ -166,7 +180,7 @@ void JsonParserTest<T>::prepareJsonFile(std::string fileName) {
    jsonFile << "{" << "\n";
    jsonFile << "\"" << STRING_KEY_WRITE << "\"" << ": " << "\"" << STRING_VALUE << "\"" << "," << "\n";
    jsonFile << "\"" << INTEGER_KEY_WRITE << "\"" << ": " << INTEGER_VALUE << "," << "\n";
-   jsonFile << "\"" << BOOLEAN_KEY_WRITE << "\"" << ": " << BOOLEAN_VALUE << "\n";
+   jsonFile << "\"" << BOOLEAN_KEY_WRITE << "\"" << ": " << (BOOLEAN_VALUE ? "true" : "false") << "\n";
    jsonFile << "}" << "\n";
    jsonFile.close();
  }
@@ -217,9 +231,9 @@ TYPED_TEST_P(JsonParserTest, shouldReadJsonFromFile) {
   std::string returnedStringValue = parser -> getStringValue(STRING_KEY_WRITE);
   int returnedIntegerValue = parser -> getIntegerValue(INTEGER_KEY_WRITE);
   bool returnedBooleanValue = parser -> getBooleanValue(BOOLEAN_KEY_WRITE);
-  ASSERT_EQ(STRING_VALUE, returnedStringValue);
-  ASSERT_EQ(INTEGER_VALUE, returnedIntegerValue);
-  ASSERT_EQ(BOOLEAN_VALUE, returnedBooleanValue);
+  EXPECT_EQ(STRING_VALUE, returnedStringValue);
+  EXPECT_EQ(INTEGER_VALUE, returnedIntegerValue);
+  EXPECT_EQ(BOOLEAN_VALUE, returnedBooleanValue);
 }
 
 REGISTER_TYPED_TEST_CASE_P(
@@ -235,5 +249,10 @@ struct BoostJsonParserWithMockedBoostJson {
   typedef MockBoostJson MockJson;
 };
 
-typedef Types<BoostJsonParserWithMockedBoostJson> JsonParserImplementations;
-INSTANTIATE_TYPED_TEST_CASE_P(BoostJsonParserTest, JsonParserTest, JsonParserImplementations);
+struct QtJsonParserWithMockedQtJson {
+  typedef QtJsonParser ParserType;
+  typedef MockQtJson MockJson;
+};
+
+typedef Types<BoostJsonParserWithMockedBoostJson, QtJsonParserWithMockedQtJson> JsonParserImplementations;
+INSTANTIATE_TYPED_TEST_CASE_P(JsonParserImplementationTest, JsonParserTest, JsonParserImplementations);

@@ -1,6 +1,9 @@
-#include "QtJson.h"
+#include "QtJson.hpp"
 
 QtJson::QtJson() : Json(), QJsonObject() {
+}
+
+QtJson::QtJson(QJsonObject json) : Json(), QJsonObject(json) {
 }
 
 QtJson::~QtJson() {

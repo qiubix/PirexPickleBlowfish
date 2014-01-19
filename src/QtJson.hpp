@@ -8,6 +8,7 @@ class QtJson: public Json, public QJsonObject
 {
 public:
   QtJson();
+  QtJson(QJsonObject json);
   virtual ~QtJson();
 
   virtual std::string getStringValue(std::string key);

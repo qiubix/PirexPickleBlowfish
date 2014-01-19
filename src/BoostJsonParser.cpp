@@ -5,7 +5,7 @@
 using boost::property_tree::read_json;
 
 BoostJsonParser::BoostJsonParser() : JsonParser() {
-  json = new BoostJson();
+  json = new JsonType();
 }
 
 BoostJsonParser::BoostJsonParser(Json* json) : JsonParser() {
