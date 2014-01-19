@@ -1,5 +1,5 @@
-#ifndef JSONPARSER_H
-#define JSONPARSER_H
+#ifndef JSON_PARSER_H
+#define JSON_PARSER_H
 
 #include "Json.hpp"
 
@@ -17,4 +17,4 @@ private:
   static JsonParser * instance;
 };
 
-#endif // JSONPARSER_H
+#endif // JSON_PARSER_H

@@ -8,7 +8,7 @@ add_executable(TokenLoaderTest ${TOKEN_LOADER_TEST_SRC})
 add_executable(TokenTest ${TOKEN_TEST_SRC})
 add_executable(GuiTest ${GUI_TEST_SRC})
 
-target_link_libraries(TokenLoaderTest Json JsonParser gmock_main)
+target_link_libraries(TokenLoaderTest Json JsonParser TokenLoader gmock_main)
 target_link_libraries(TokenTest logic gmock_main)
 target_link_libraries(GuiTest ${GUI_TEST_LIBRARIES})
 qt5_use_modules(GuiTest Test)

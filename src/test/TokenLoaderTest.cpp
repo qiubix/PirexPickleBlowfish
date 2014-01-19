@@ -5,6 +5,7 @@ using ::testing::Test;
 
 #include "Json.hpp"
 #include "JsonParser.hpp"
+#include "TokenLoader.hpp"
 
 #include <fstream>
 
@@ -216,3 +217,16 @@ TEST_F(JsonParserTest, shouldReadJsonFromFile) {
   }
 }
 
+class TokenLoaderTest : public Test {
+protected:
+  TokenLoaderTest() {}
+
+  virtual ~TokenLoaderTest() {}
+
+  virtual void SetUp() {}
+  virtual void TearDown() {}
+};
+
+TEST_F(TokenLoaderTest, shouldFail) {
+  FAIL();
+}

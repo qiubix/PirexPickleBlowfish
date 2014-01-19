@@ -28,6 +28,9 @@ qt5_use_modules(Json Core)
 add_library(JsonParser JsonParser.cpp)
 target_link_libraries(JsonParser Json)
 
+add_library(TokenLoader TokenLoader.cpp)
+target_link_libraries(TokenLoader JsonParser)
+
 add_library(Logger Logger.cpp)
 target_link_libraries(Logger ${Boost_LIBRARIES})
 install(TARGETS Logger DESTINATION ${CMAKE_INSTALL_PREFIX})
