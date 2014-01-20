@@ -17,6 +17,7 @@ class Token
 {
 public:
   Token(Army army, std::string name);
+  virtual ~Token(void) {}
 
   //getters
   Army getArmy(void);

@@ -7,10 +7,10 @@ class Upgrader : public Module
 {
 public:
   Upgrader(Module* module);
-  ~Upgrader() {}
+  virtual ~Upgrader() {}
 
-  virtual void addBoardToken(BoardToken *token, Side edge);
-  virtual void removeBoardToken(BoardToken *token, Side edge);
+  virtual void addBoardToken(BoardToken* token);
+  virtual void removeBoardToken(BoardToken* token);
 
 protected:
   virtual void upgrade(BoardToken *token);

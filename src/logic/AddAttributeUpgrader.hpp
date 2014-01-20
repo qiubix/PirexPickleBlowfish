@@ -6,7 +6,7 @@
 class AddAttributeUpgrader : public Upgrader
 {
 public:
-  AddAttributeUpgrader(Module* module, AttributeName name, Attribute* attribute);
+  AddAttributeUpgrader(Module* module, AttributeName attributeId, std::string name);
   ~AddAttributeUpgrader() {}
 
 protected:
@@ -14,8 +14,9 @@ protected:
   void downgrade(BoardToken *token);
 
 private:
-  AttributeName newAttributeName;
-  Attribute* newAttribute;
+  //TODO: refactoring - change names
+  AttributeName newAttributeId;
+  std::string newAttributeName;
 
 };
 

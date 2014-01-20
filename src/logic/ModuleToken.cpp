@@ -1,19 +1,17 @@
 #include "ModuleToken.hpp"
 
-ModuleToken::ModuleToken(Army army, std::string name, Attributes* attributes, Side* activeEdges)
+ModuleToken::ModuleToken(Army army, std::string name, Attributes* attributes, std::vector<Side> activeEdges)
   : Module(army, name, attributes)
 {
   this->activeEdges = activeEdges;
 }
 
-void ModuleToken::addBoardToken(BoardToken* token, Side edge)
+void ModuleToken::addBoardToken(BoardToken* token)
 {
-  if (isEdgeActive(edge)) {
-    boardTokens.push_back(token);
-  }
+  boardTokens.push_back(token);
 }
 
-void ModuleToken::removeBoardToken(BoardToken* token, Side edge)
+void ModuleToken::removeBoardToken(BoardToken* token)
 {
   std::string tokenName = token->getName();
   std::vector<BoardToken*>::iterator it = boardTokens.begin();
@@ -27,7 +25,8 @@ void ModuleToken::removeBoardToken(BoardToken* token, Side edge)
 
 bool ModuleToken::isEdgeActive(Side edge)
 {
-  for (int i=0; i<sizeof(activeEdges); ++i) {
+  //TODO: checking orientation and comparing to global reference
+  for (int i=0; i<activeEdges.size(); ++i) {
     if (activeEdges[i] == edge) {
       return true;
     }

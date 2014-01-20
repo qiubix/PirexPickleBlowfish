@@ -7,10 +7,10 @@ class Module : public BoardToken
 {
 public:
   Module(Army army, std::string name, Attributes* attributes);
-  ~Module() {}
+  virtual ~Module() {}
 
-  virtual void addBoardToken(BoardToken* token, Side edge) = 0;
-  virtual void removeBoardToken(BoardToken* token, Side edge) = 0;
+  virtual void addBoardToken(BoardToken* token) = 0;
+  virtual void removeBoardToken(BoardToken* token) = 0;
 };
 
 #endif //MODULE_HPP

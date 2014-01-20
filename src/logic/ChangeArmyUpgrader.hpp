@@ -15,7 +15,6 @@ protected:
 
 private:
   Army newArmyValue;
-  Army baseArmyValue;
 };
 
 #endif //CHANGEARMYUPGRADER_HPP

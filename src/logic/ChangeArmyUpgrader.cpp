@@ -5,17 +5,10 @@ ChangeArmyUpgrader::ChangeArmyUpgrader(Module* module)
 
 void ChangeArmyUpgrader::upgrade(BoardToken* token)
 {
-  Attribute* armyAttribute = token->getAttribute(ARMY);
-  if (armyAttribute != NULL) {
-    armyAttribute->upgradeTo(newArmyValue);
-  }
+  token->setArmy(newArmyValue);
 }
 
 void ChangeArmyUpgrader::downgrade(BoardToken* token)
 {
-  Attribute* armyAttribute = token->getAttribute(ARMY);
-  if (armyAttribute != NULL) {
-    armyAttribute->downgradeTo();
-  }
-
+  token->resetArmy();
 }

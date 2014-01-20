@@ -1,18 +1,16 @@
 #include "AddAttributeUpgrader.hpp"
 
-AddAttributeUpgrader::AddAttributeUpgrader(Module* module, AttributeName name, Attribute* attribute)
-  : Upgrader(module), newAttributeName(name)
-{
-  this->newAttribute = attribute;
-}
+AddAttributeUpgrader::AddAttributeUpgrader(Module* module, AttributeName attributeId, std::string name)
+  : Upgrader(module), newAttributeId(attributeId), newAttributeName(name) {}
 
 void AddAttributeUpgrader::upgrade(BoardToken* token)
 {
-  token->addAttribute(newAttributeName, newAttribute);
+  Attribute* newAttribute = new Attribute(newAttributeName, 1);
+  token->addAttribute(newAttributeId, newAttribute);
 }
 
 
 void AddAttributeUpgrader::downgrade(BoardToken* token)
 {
-  token->removeAttribute(newAttributeName);
+  token->removeAttribute(newAttributeId);
 }

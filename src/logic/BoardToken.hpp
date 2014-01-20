@@ -34,6 +34,8 @@ public:
   Side getOrientation(void);
 
   //setters
+  void setArmy(Army army);
+  void resetArmy(void);
   void setField(Field* field);
   void setOrientation(Side orientation);
 

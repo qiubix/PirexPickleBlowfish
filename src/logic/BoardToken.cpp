@@ -4,7 +4,6 @@ BoardToken::BoardToken(Army army, std::string name, Attributes* attributes)
   : Token(army, name), attributes(attributes) {
   this->field = NULL;
   this->orientation = NORTH;
-  this->attributes->addAttribute(ARMY, this->army);
 }
 
 BoardToken::~BoardToken(void) {
@@ -60,6 +59,16 @@ Field* BoardToken::getField(void) {
 
 Side BoardToken::getOrientation(void) {
   return orientation;
+}
+
+void BoardToken::setArmy(Army army)
+{
+  this->army->upgradeTo(army);
+}
+
+void BoardToken::resetArmy()
+{
+  this->army->downgradeTo();
 }
 
 void BoardToken::setField(Field* field) {
