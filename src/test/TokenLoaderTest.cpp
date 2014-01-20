@@ -241,6 +241,7 @@ TEST_F(TokenLoaderTest, shouldReturnArmyFromJson) {
   EXPECT_EQ(HEGEMONY, army);
 }
 
-TEST_F(TokenLoaderTest, shouldFail) {
-  FAIL();
+TEST_F(TokenLoaderTest, shouldLoadTheTestFile) {
+  Json* json = JsonParser::getInstance() -> parse("test.json");
+  ASSERT_FALSE(json->isEmpty());
 }

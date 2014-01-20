@@ -12,6 +12,10 @@ target_link_libraries(TokenTest logic gmock_main)
 target_link_libraries(GuiTest ${GUI_TEST_LIBRARIES})
 qt5_use_modules(GuiTest Test)
 
+#test files to TokenLoaderTest
+file(COPY test.json DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+install(FILES test.json DESTINATION ${CMAKE_INSTALL_PREFIX})
+
 install(TARGETS TokenTest DESTINATION ${CMAKE_INSTALL_PREFIX})
 install(TARGETS TokenLoaderTest DESTINATION ${CMAKE_INSTALL_PREFIX})
 install(TARGETS GuiTest DESTINATION ${CMAKE_INSTALL_PREFIX})
