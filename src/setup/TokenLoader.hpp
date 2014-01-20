@@ -6,7 +6,7 @@
 
 #include <gtest/gtest.h>
 
-#include <Json.hpp>
+#include "Json.hpp"
 
 //FIXME: use enum from Token then
 enum Army {

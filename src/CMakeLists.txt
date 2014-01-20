@@ -21,16 +21,6 @@ add_definitions(-DBOOST_LOG_DYN_LINK)
 find_package(Boost 1.55 COMPONENTS thread system log log_setup REQUIRED )
 include_directories(${Boost_INCLUDE_DIR} )
 
-add_library(Json Json.cpp)
-target_link_libraries(Json ${QT_LIBRARIES})
-qt5_use_modules(Json Core)
-
-add_library(JsonParser JsonParser.cpp)
-target_link_libraries(JsonParser Json)
-
-add_library(TokenLoader TokenLoader.cpp)
-target_link_libraries(TokenLoader JsonParser gmock_main)
-
 add_library(Logger Logger.cpp)
 target_link_libraries(Logger ${Boost_LIBRARIES})
 install(TARGETS Logger DESTINATION ${CMAKE_INSTALL_PREFIX})
@@ -43,3 +33,4 @@ target_link_libraries(${PROJECT_NAME} logic MainWindowSample Logger)
 add_subdirectory(gui)
 add_subdirectory(logic)
 add_subdirectory(test)
+add_subdirectory(setup)

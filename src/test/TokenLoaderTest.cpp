@@ -3,9 +3,9 @@ using ::testing::Eq;
 #include <gtest/gtest.h>
 using ::testing::Test;
 
-#include "Json.hpp"
-#include "JsonParser.hpp"
-#include "TokenLoader.hpp"
+#include "setup/Json.hpp"
+#include "setup/JsonParser.hpp"
+#include "setup/TokenLoader.hpp"
 
 #include <fstream>
 
