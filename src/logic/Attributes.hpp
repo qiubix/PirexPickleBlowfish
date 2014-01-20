@@ -5,12 +5,17 @@
 #include "Attribute.hpp"
 
 enum AttributeName {
+  ARMY,
   INITIATIVE,
   TOUGHNESS,
   MELEE,
   RANGED,
   SHIELD,
-  NET
+  NET,
+  MEDIC,
+  MOTHER,
+  MOBILITY,
+  QUARTERMASTER
 };
 
 class Attributes {
@@ -20,6 +25,7 @@ public:
 
   Attribute* getAttribute(AttributeName name);
   void addAttribute(AttributeName name, Attribute* attribute);
+  void removeAttribute(AttributeName name);
 
 private:
   std::map < AttributeName, Attribute*> attributes;

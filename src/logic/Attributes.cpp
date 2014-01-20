@@ -17,3 +17,8 @@ Attribute* Attributes::getAttribute(AttributeName name) {
 void Attributes::addAttribute(AttributeName name, Attribute* attribute) {
   attributes.insert(std::make_pair<AttributeName, Attribute*>(name, attribute));
 }
+
+void Attributes::removeAttribute(AttributeName name)
+{
+  attributes.erase(attributes.find(name));
+}

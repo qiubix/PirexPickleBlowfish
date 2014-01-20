@@ -14,12 +14,27 @@ Attribute* BoardToken::getAttribute(AttributeName name) {
   return attributes->getAttribute(name);
 }
 
-void BoardToken::upgradeAttribute(AttributeName name) {
-  getAttribute(name)->upgrade();
+Attributes*BoardToken::getAttributes()
+{
+  return attributes;
 }
 
-void BoardToken::downgradeAttribute(AttributeName name) {
-  getAttribute(name)->downgrade();
+void BoardToken::addAttribute(AttributeName name, Attribute* attribute)
+{
+  attributes->addAttribute(name, attribute);
+}
+
+void BoardToken::removeAttribute(AttributeName name)
+{
+  attributes->removeAttribute(name);
+}
+
+void BoardToken::upgradeAttributeBy(AttributeName name, int upgradeValue) {
+  getAttribute(name)->upgradeBy(upgradeValue);
+}
+
+void BoardToken::downgradeAttributeBy(AttributeName name, int downgradeValue) {
+  getAttribute(name)->downgradeBy(downgradeValue);
 }
 
 void BoardToken::rotateClockwise(void)
@@ -44,6 +59,16 @@ Field* BoardToken::getField(void) {
 
 Side BoardToken::getOrientation(void) {
   return orientation;
+}
+
+void BoardToken::setArmy(Army army)
+{
+  this->army->upgradeTo(army);
+}
+
+void BoardToken::resetArmy()
+{
+  this->army->downgradeTo();
 }
 
 void BoardToken::setField(Field* field) {

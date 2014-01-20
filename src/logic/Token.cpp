@@ -1,10 +1,11 @@
 #include "Token.hpp"
 
-Token::Token(Army army, std::string name) : army(army), name(name){
+Token::Token(Army army, std::string name) : name(name){
+  this->army = new Attribute("army", army);
 }
 
 Army Token::getArmy(void) {
-  return army;
+  return (Army) army->getValue();
 }
 
 std::string Token::getName(void) {

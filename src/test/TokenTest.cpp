@@ -6,6 +6,10 @@ using ::testing::Test;
 #include "logic/Attribute.hpp"
 #include "logic/BoardToken.hpp"
 #include "logic/UnitToken.hpp"
+#include "logic/ModuleToken.hpp"
+#include "logic/AddAttributeUpgrader.hpp"
+#include "logic/ChangeAttributeUpgrader.hpp"
+#include "logic/ChangeArmyUpgrader.hpp"
 
 const int ATTRIBUTE_VALUE = 4;
 
@@ -31,20 +35,27 @@ TEST_F(AttributeTest, testGetAttributeValues) {
 }
 
 TEST_F(AttributeTest, testUpgradeAttribute) {
-  attribute->upgrade();
+  attribute->upgradeBy();
   int upgradedValue = ATTRIBUTE_VALUE + 1;
   ASSERT_EQ(upgradedValue, attribute->getValue());
-  attribute->upgrade(2);
+  attribute->upgradeBy(2);
   upgradedValue += 2;
   ASSERT_EQ(upgradedValue, attribute->getValue());
+  attribute->upgradeTo(ATTRIBUTE_VALUE);
+  ASSERT_EQ(ATTRIBUTE_VALUE, attribute->getValue());
 }
 
 TEST_F(AttributeTest, testDowngradeAttribute) {
-  attribute->downgrade();
+  attribute->downgradeBy();
   int downgradedValue = ATTRIBUTE_VALUE - 1;
   ASSERT_EQ(downgradedValue, attribute->getValue());
-  attribute->downgrade(2);
+  attribute->downgradeBy(2);
   downgradedValue -= 2;
+  ASSERT_EQ(downgradedValue, attribute->getValue());
+  attribute->downgradeTo();
+  ASSERT_EQ(ATTRIBUTE_VALUE, attribute->getValue());
+  downgradedValue = ATTRIBUTE_VALUE - 1;
+  attribute->downgradeTo(ATTRIBUTE_VALUE-1);
   ASSERT_EQ(downgradedValue, attribute->getValue());
 }
 
@@ -77,10 +88,12 @@ TEST_F(BoardTokenTest, testGetAttribute) {
   ASSERT_EQ(initiative->getValue(), attribute->getValue());
 }
 
+//TODO: testRemoveAttribute
+
 TEST_F(BoardTokenTest, testModifyAttribute) {
-  token->upgradeAttribute(INITIATIVE);
+  token->upgradeAttributeBy(INITIATIVE);
   ASSERT_EQ(ATTRIBUTE_VALUE + 1, token->getAttribute(INITIATIVE)->getValue());
-  token->downgradeAttribute(INITIATIVE);
+  token->downgradeAttributeBy(INITIATIVE);
   ASSERT_EQ(ATTRIBUTE_VALUE, token->getAttribute(INITIATIVE)->getValue());
 }
 
@@ -114,13 +127,15 @@ protected:
     Attribute* melee = new Attribute("melee", 1);
     northSideAttributes->addAttribute(MELEE, melee);
     sideAttributes[NORTH] = northSideAttributes;
-    unit = new UnitToken(HEGEMONY, "UniversalSoldier", NULL, sideAttributes);
+    baseUnitAttributes = new Attributes;
+    unit = new UnitToken(HEGEMONY, "UniversalSoldier", baseUnitAttributes, sideAttributes);
   }
   ~UnitTokenTest() {}
   void SetUp() {}
   void TearDown() {}
 
   UnitToken* unit;
+  Attributes* baseUnitAttributes;
   Attributes* sideAttributes[6];
   Attributes* northSideAttributes;
 };
@@ -131,4 +146,91 @@ TEST_F(UnitTokenTest, testGetSideAttributes) {
   ASSERT_EQ(northSideAttributes, attributes);
   ASSERT_EQ(melee, attributes->getAttribute(MELEE));
   ASSERT_EQ(melee->getValue(), attributes->getAttribute(MELEE)->getValue());
+}
+
+
+class ModuleTokenTest : public Test
+{
+protected:
+  ModuleTokenTest() {
+    initiative = new Attribute("initiative", 2);
+    mainUnitAttributes = new Attributes;
+    mainUnitAttributes->addAttribute(INITIATIVE, initiative);
+    melee = new Attribute("melee", 1);
+    northSideAttributes = new Attributes;
+    northSideAttributes->addAttribute(MELEE, melee);
+    for(int i=0; i<6; ++i) {
+      sideAttributes[i] = NULL;
+    }
+    sideAttributes[NORTH] = northSideAttributes;
+    unit = new UnitToken(HEGEMONY, "UniversalSoldier", mainUnitAttributes, sideAttributes);
+    toughness = new Attribute("toughness", 1);
+    mainModuleAttributes = new Attributes;
+    mainModuleAttributes->addAttribute(TOUGHNESS, toughness);
+    activeEdges.push_back(NORTH);
+    activeEdges.push_back(SOUTH);
+  }
+  ~ModuleTokenTest() {
+    delete unit;
+  }
+  void SetUp() {}
+  void TearDown() {}
+
+  Attribute* initiative;
+  Attributes* mainUnitAttributes;
+  Attribute* melee;
+  Attributes* northSideAttributes;
+  Attributes* sideAttributes[6];
+  UnitToken* unit;
+  Attribute* toughness;
+  Attributes* mainModuleAttributes;
+  std::vector<Side> activeEdges;
+};
+
+//FIXME: make tests more in-depth and more clear
+TEST_F(ModuleTokenTest, testUpgradeAttribute) {
+  Module* officer = new ChangeAttributeUpgrader(new ModuleToken(HEGEMONY, "Officer", mainModuleAttributes, activeEdges), MELEE, 1);
+  officer->addBoardToken(unit);
+  Attribute* melee = unit->getEdgeAttributes(NORTH)->getAttribute(MELEE);
+  int newMeleeValue = melee->getValue();
+  ASSERT_EQ(2, newMeleeValue);
+  int oldInitiativeValue = unit->getAttribute(INITIATIVE)->getValue();
+  ASSERT_EQ(2, oldInitiativeValue);
+  Module* ranger = new ChangeAttributeUpgrader(new ModuleToken(HEGEMONY, "Ranger", mainModuleAttributes, activeEdges), INITIATIVE, 1);
+  ranger->addBoardToken(unit);
+  int newInitiativeValue = unit->getAttribute(INITIATIVE)->getValue();
+  ASSERT_EQ(3, newInitiativeValue);
+}
+
+TEST_F(ModuleTokenTest, testAddAttribute) {
+  Module* transport = new AddAttributeUpgrader(new ModuleToken(HEGEMONY, "Transport", mainModuleAttributes, activeEdges),
+                                               MOBILITY,
+                                               "mobility");
+  transport->addBoardToken(unit);
+  Attribute* unitAttribute = unit->getAttribute(MOBILITY);
+  ASSERT_NE((Attribute*) 0, unitAttribute);
+  int mobilityValue = unit->getAttribute(MOBILITY)->getValue();
+  ASSERT_EQ(1, mobilityValue);
+}
+
+TEST_F(ModuleTokenTest, testDowngradeEnemyAttribute) {
+  Attribute* initiative = unit->getAttribute(INITIATIVE);
+  ASSERT_NE((Attribute*) 0, initiative);
+  int oldInitiativeValue = initiative->getValue();
+  ASSERT_EQ(2, oldInitiativeValue);
+  Module* saboteur = new ChangeAttributeUpgrader(new ModuleToken(OUTPOST, "Saboteur", mainModuleAttributes, activeEdges), INITIATIVE, -1);
+  saboteur->addBoardToken(unit);
+  int newInitiativeValue = unit->getAttribute(INITIATIVE)->getValue();
+  ASSERT_EQ(1, newInitiativeValue);
+}
+
+TEST_F(ModuleTokenTest, testCaptureEnemyModule) {
+  Module* scoper = new ChangeArmyUpgrader(new ModuleToken(OUTPOST, "Scoper", mainModuleAttributes, activeEdges));
+  scoper->addBoardToken(unit);
+  Army newUnitAffiliation = unit->getArmy();
+  ASSERT_EQ(OUTPOST, newUnitAffiliation);
+  UnitToken* anotherUnit = new UnitToken(MOLOCH, "Gauss cannon", mainUnitAttributes, sideAttributes);
+  scoper->addBoardToken(anotherUnit);
+  newUnitAffiliation = anotherUnit->getArmy();
+  ASSERT_EQ(OUTPOST, newUnitAffiliation);
 }
