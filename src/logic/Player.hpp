@@ -18,6 +18,9 @@ class Player
   void drawTokens(int amount = 3);
 
 private:
+  Army army;
   std::vector <Token*> hiddenTokens;
   std::vector <Token*> activeTokens;
 };
+
+#endif //PLAYER_HPP

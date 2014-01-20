@@ -24,6 +24,7 @@ public:
   GameState getGameState(void);
   Player* getCurrentPlayer(void);
 
+  void setGameState(GameState newState);
   void moveToNextPlayer(void);
 
 private:

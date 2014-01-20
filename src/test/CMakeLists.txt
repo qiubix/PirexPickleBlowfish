@@ -5,6 +5,8 @@ set(JSON_PARSER_TEST_SRC JsonParserTest.cpp)
 set(GAME_BOX_TEST_SRC GameBoxTest.cpp)
 set(TOKEN_LOADER_TEST_SRC TokenLoaderTest.cpp MockJson.hpp)
 
+set(CONTROLLER_TEST_SRC ControllerTest.cpp)
+set(MODEL_TEST_SRC ModelTest.cpp)
 set(TOKEN_TEST_SRC TokenTest.cpp)
 set(GUI_TEST_SRC MainWindowSampleTest.cpp)
 set(GUI_TEST_LIBRARIES MainWindowSample ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES})
@@ -18,6 +20,8 @@ add_executable(TokenLoaderTest ${TOKEN_LOADER_TEST_SRC})
 #test all classes responsible of loading tokens together
 add_executable(LoadingTokensTest ${STRING_TO_ENUM_TRANSLATOR_TEST_SRC} ${JSON_TEST_SRC} ${JSON_PARSER_TEST_SRC} ${GAME_BOX_TEST_SRC} ${TOKEN_LOADER_TEST_SRC})
 
+add_executable(ControllerTest ${CONTROLLER_TEST_SRC})
+add_executable(ModelTest ${MODEL_TEST_SRC})
 add_executable(TokenTest ${TOKEN_TEST_SRC})
 add_executable(GuiTest ${GUI_TEST_SRC})
 
@@ -30,6 +34,9 @@ target_link_libraries(TokenLoaderTest TokenLoader gmock_main)
 #test all classes responsible of loading tokens together
 target_link_libraries(LoadingTokensTest StringToEnumTranslator Json JsonParser GameBox TokenLoader gmock_main)
 
+
+target_link_libraries(ControllerTest logic gmock_main)
+target_link_libraries(ModelTest logic gmock_main)
 target_link_libraries(TokenTest logic gmock_main)
 target_link_libraries(GuiTest ${GUI_TEST_LIBRARIES})
 qt5_use_modules(GuiTest Test)
@@ -44,6 +51,8 @@ install(TARGETS TokenLoaderTest DESTINATION ${CMAKE_INSTALL_PREFIX})
 install(TARGETS LoadingTokensTest DESTINATION ${CMAKE_INSTALL_PREFIX})
 
 install(TARGETS TokenTest DESTINATION ${CMAKE_INSTALL_PREFIX})
+install(TARGETS ControllerTest DESTINATION ${CMAKE_INSTALL_PREFIX})
+install(TARGETS ModelTest DESTINATION ${CMAKE_INSTALL_PREFIX})
 install(TARGETS GuiTest DESTINATION ${CMAKE_INSTALL_PREFIX})
 
 #tests connected with token loading

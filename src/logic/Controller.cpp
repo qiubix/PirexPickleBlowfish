@@ -6,7 +6,7 @@ Controller::Controller(Model* model)
 
 void Controller::setGameState(GameState newState)
 {
-
+  model->setGameState(newState);
 }
 
 void Controller::reset()
