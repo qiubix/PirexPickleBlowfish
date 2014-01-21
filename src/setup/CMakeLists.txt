@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8.8)
 
-set(STRING_TO_ENUM_TRANSLATOR_SRC StringToEnumTranslator.cpp ../logic/Token.hpp)
+set(STRING_TO_ENUM_TRANSLATOR_SRC StringToEnumTranslator.cpp ../logic/Token.hpp ../logic/BoardToken.hpp)
 add_library(StringToEnumTranslator ${STRING_TO_ENUM_TRANSLATOR_SRC} )
 
 add_library(Json Json.cpp)

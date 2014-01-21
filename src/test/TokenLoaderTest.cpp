@@ -228,7 +228,9 @@ protected:
   virtual void TearDown() {}
 };
 
-TEST_F(StringToEnumTranslatorTest, shouldReturnArmyFromJson) {
+//TODO: read about value parametrized tests and maybe use them here
+//or just make tables with arguments and expected values and execute this tests in a loop
+TEST_F(StringToEnumTranslatorTest, shouldReturnArmy) {
   Army army = StringToEnumTranslator::getInstance() -> getArmy("Moloch");
   EXPECT_EQ(MOLOCH, army);
 
@@ -240,6 +242,38 @@ TEST_F(StringToEnumTranslatorTest, shouldReturnArmyFromJson) {
 
   army = StringToEnumTranslator::getInstance() -> getArmy("Hegemony");
   EXPECT_EQ(HEGEMONY, army);
+}
+
+TEST_F(StringToEnumTranslatorTest, shouldReturnAttributeName) {
+  AttributeName name = StringToEnumTranslator::getInstance() -> getAttributeName("initiative");
+  EXPECT_EQ(INITIATIVE, name);
+
+  name = StringToEnumTranslator::getInstance() -> getAttributeName("toughness");
+  EXPECT_EQ(TOUGHNESS, name);
+
+  name = StringToEnumTranslator::getInstance() -> getAttributeName("melee");
+  EXPECT_EQ(MELEE, name);
+
+  name = StringToEnumTranslator::getInstance() -> getAttributeName("ranged");
+  EXPECT_EQ(RANGED, name);
+
+  name = StringToEnumTranslator::getInstance() -> getAttributeName("shield");
+  EXPECT_EQ(SHIELD, name);
+
+  name = StringToEnumTranslator::getInstance() -> getAttributeName("net");
+  EXPECT_EQ(NET, name);
+
+  name = StringToEnumTranslator::getInstance() -> getAttributeName("medic");
+  EXPECT_EQ(MEDIC, name);
+
+  name = StringToEnumTranslator::getInstance() -> getAttributeName("mother");
+  EXPECT_EQ(MOTHER, name);
+
+  name = StringToEnumTranslator::getInstance() -> getAttributeName("mobility");
+  EXPECT_EQ(MOBILITY, name);
+
+  name = StringToEnumTranslator::getInstance() -> getAttributeName("quartermaster");
+  EXPECT_EQ(QUARTERMASTER, name);
 }
 
 
