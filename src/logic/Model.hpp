@@ -23,8 +23,10 @@ public:
   Board* getBoard(void);
   GameState getGameState(void);
   Player* getCurrentPlayer(void);
+  int getPlayersQuantity(void);
 
   void setGameState(GameState newState);
+  void addPlayer(Player* newPlayer);
   void moveToNextPlayer(void);
 
 private:
@@ -32,7 +34,7 @@ private:
   GameState gameState;
   std::vector <Token*> usedTokens;
   std::vector <Player*> players;
-  Player* currentPlayer;
+  int currentPlayerId;
 };
 
 #endif //MODEL_HPP

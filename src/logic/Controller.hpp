@@ -12,7 +12,8 @@ public:
 
   void setGameState(GameState newState);
   void reset(void);
-  void moveToken(BoardToken* token);
+  void rotate(BoardToken* token);
+  void move(BoardToken* token);
   void pushToken(BoardToken* pusher, BoardToken* pushee /*(pussy)*/);
   void generateNewTokens(void);
   void drawTokens(Player* player);

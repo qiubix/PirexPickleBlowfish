@@ -7,7 +7,8 @@
 //TODO: implement methods
 class Player
 {
-  Player(void);
+public:
+  Player(Army army);
   ~Player(void) {}
 
   //getters

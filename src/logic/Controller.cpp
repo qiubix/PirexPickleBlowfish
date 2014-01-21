@@ -14,7 +14,12 @@ void Controller::reset()
 
 }
 
-void Controller::moveToken(BoardToken* token)
+void Controller::rotate(BoardToken* token)
+{
+
+}
+
+void Controller::move(BoardToken* token)
 {
 
 }
