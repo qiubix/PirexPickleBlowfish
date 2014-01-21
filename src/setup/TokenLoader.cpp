@@ -54,6 +54,8 @@ void TokenLoader::loadInstantTokens(Army army, std::vector<Json> instantTokens) 
 }
 
 void TokenLoader::loadInstantToken(Army army, Json instantToken) {
+  std::string name = instantToken.getStringValue("name");
+  int count = instantToken.getIntegerValue("count");
   //TODO: implement
 }
 
@@ -64,6 +66,8 @@ void TokenLoader::loadModuleTokens(Army army, std::vector<Json> moduleTokens) {
 }
 
 void TokenLoader::loadModuleToken(Army army, Json moduleToken) {
+  std::string name = moduleToken.getStringValue("name");
+  int count = moduleToken.getIntegerValue("count");
   //TODO: implement
 }
 
@@ -74,5 +78,7 @@ void TokenLoader::loadUnitTokens(Army army, std::vector<Json> unitTokens) {
 }
 
 void TokenLoader::loadUnitToken(Army army, Json unitToken) {
+  std::string name = unitToken.getStringValue("name");
+  int count = unitToken.getIntegerValue("count");
   //TODO: implement
 }
