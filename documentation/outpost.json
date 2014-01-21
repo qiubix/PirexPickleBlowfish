@@ -22,69 +22,76 @@
 			"count": 1
 		}
 	],
-	"mudules": [
+	"modules": [
 		{
 			"name": "Recon Center",
 			"namePl": "Centrum Rozpoznania",
 			"count": 1,
-			"upgrade": {
-				"doubleMove": "allies"
-			}
+			"upgrades": [
+				{
+					"name": "doubleMove"
+				}
+			]
 		},
 		{
 			"name": "Saboteur",
 			"namePl": "Dywersant",
 			"count": 1,
-			"upgrade": {
-				"initiative": {
+			"upgrades": [
+				{
+					"name": "initiative",
 					"value": -1,
 					"sides": ["north", "northEast", "southEast", "south", "southWest", "northWest"],
 					"affectsEnemy": true
 				}
-			}
+			]
 		},
 		{
 			"name": "Medic",
 			"namePl": "Medyk",
 			"count": 2,
-			"upgrade": {
-				"medic": {
+			"upgrades": [
+				{
+					"name": "medic",
 					"sides": ["north", "northEast", "northWest"]
 				}
-			}
+			]
 		},
 		{
 			"name": "Officer",
 			"namePl": "Oficer",
 			"count": 1,
-			"upgrade": {
-				"ranged": {
+			"upgrades": [
+				{
+					"name": "ranged",
 					"value": 1,
 					"sides": ["north", "northEast", "southEast", "south", "southWest", "northWest"]
 				}
-			}
+			]
 		},
 		{
 			"name": "Scoper",
 			"namePl": "Skoper",
 			"count": 1,
-			"upgrade": {
-				"scoper": {
+			"upgrades": [
+				{
+					"name": "scoper",
 					"sides": ["north", "northEast", "southEast", "south", "southWest", "northWest"],
 					"affectsEnemy": true
 				}
-			}
+			]
 		},
 		{
 			"name": "Scout",
 			"namePl": "Zwiadowca",
 			"count": 2,
-			"upgrade": {
-				"initiative": {
+			"upgrades": [
+				{
+					"name": "initiative",
 					"value": 1,
 					"sides": ["north", "southEast", "southWest"]
 				}
-			}
+			]
 		}
 	],
 	"units": [

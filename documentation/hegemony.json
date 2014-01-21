@@ -32,69 +32,76 @@
 			"name": "The Boss",
 			"namePl": "Boss",
 			"count": 1,
-			"upgrade": {
-				"initiative": {
+			"upgrades": [
+				{
+					"name": "initiative",
 					"value": 1,
 					"sides": ["north", "northWest"]
 				},
-				"melee": {
+				{
+					"name": "melee",
 					"value": 1,
 					"sides": ["north", "northWest"]
 				}
-			}
+			]
 		},
 		{
 			"name": "Quartermaster",
 			"namePl": "Kwatermistrz",
 			"count": 1,
-			"upgrade": {
-				"quartermaster": {
+			"upgrades": [
+				{
+					"name": "quartermaster",
 					"sides": ["north"]
 				}
-			}
+			]
 		},
 		{
 			"name": "Officer I",
 			"namePl": "Oficer I",
 			"count": 2,
-			"upgrade": {
-				"melee": {
+			"upgrades": [
+				{
+					"name": "melee",
 					"value": 1,
 					"sides": ["north", "northWest"]
 				}
-			}
+			]
 		},
 		{
 			"name": "Officer II",
 			"namePl": "Oficer II",
 			"count": 1,
-			"upgrade": {
-				"melee": {
+			"upgrades": [
+				{
+					"name": "melee",
 					"value": 1,
 					"sides": ["north", "northEast", "northWest"]
 				}
-			}
+			]
 		},
 		{
 			"name": "Transport",
 			"namePl": "Transport",
 			"count": 1,
-			"upgrade": {
-				"move": {
+			"upgrades": [
+				{
+					"name": "move",
 					"sides": ["north", "northEast", "southEast", "south", "southWest", "northWest"]
 				}
-			}
+			]
 		},
 		{
 			"name": "Scout",
 			"namePl": "Zwiadowca",
 			"count": 1,
-			"upgrade": {
-				"initiative": {
+			"upgrades": [
+				{
+					"name": "initiative",
 					"value": 1,
 					"sides": ["north", "northEast", "northWest"]
 				}
-			}
+			]
 		}
 	],
 	"units": [

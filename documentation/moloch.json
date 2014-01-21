@@ -33,58 +33,64 @@
 			"name": "The Brain",
 			"namePl": "Mózg",
 			"count": 1,
-			"upgrade": {
-				"melee": {
+			"upgrades": [
+				{
+					"name": "melee",
 					"value": 1,
 					"sides": ["north", "southEast", "southWest"]
 				},
-				"ranged": {
+				{
+					"name": "ranged",
 					"value": 1,
 					"sides": ["north", "southEast", "southWest"]
 				}
-			}
+			]
 		},
 		{
 			"name": "Officer",
 			"namePl": "Oficer",
 			"count": 1,
-			"upgrade": {
-				"ranged": {
+			"upgrades": [
+				{
+					"name": "ranged",
 					"value": 1,
 					"sides": ["northEast", "south", "northWest"]
 				}
-			}
+			]
 		},
 		{
 			"name": "Scout",
 			"namePl": "Zwiadowca",
 			"count": 1,
-			"upgrade": {
-				"initiative": {
+			"upgrades": [
+				{
+					"name": "initiative",
 					"value": 1,
 					"sides": ["north", "southEast", "southWest"]
 				}
-			}
+			]
 		},
 		{
 			"name": "Medic",
 			"namePl": "Medyk",
 			"count": 2,
-			"upgrade": {
-				"medic": {
+			"upgrades": [
+				{
+					"name": "medic",
 					"sides": ["north", "southEast", "southWest"]
 				}
-			}
+			]
 		},
 		{
 			"name": "Mother Module",
 			"namePl": "Matka",
 			"count": 1,
-			"upgrade": {
-				"mother": {
+			"upgrades": [
+				{
+					"name": "mother",
 					"sides": ["north"]
 				}
-			}
+			]
 		}
 	],
 	"units": [

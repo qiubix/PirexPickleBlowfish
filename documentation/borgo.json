@@ -22,50 +22,54 @@
 			"count": 1
 		}
 	],
-	"mudules": [
+	"modules": [
 		{
 			"name": "Medic",
 			"namePl": "Medyk",
 			"count": 1,
-			"upgrade": {
-				"medic": {
+			"upgrades": [
+				{
+					"name": "medic",
 					"sides": ["north", "northEast", "northWest"]
 				}
-			}
+			]
 		},
 		{
 			"name": "Officer",
 			"namePl": "Oficer",
 			"count": 2,
-			"upgrade": {
-				"melee": {
+			"upgrades": [
+				{
+					"name": "melee",
 					"value": 1,
 					"sides": ["north", "northEast", "northWest"]
 				}
-			}
+			]
 		},
 		{
 			"name": "Super Officer",
 			"namePl": "Super-oficer",
 			"count": 1,
-			"toughness": 1,
-			"upgrade": {
-				"melee": {
+			"attributes": [{"toughness": 1}],
+			"upgrades": [
+				{
+					"name": "melee",
 					"value": 1,
 					"sides": ["north", "northEast", "northWest"]
 				}
-			}
+			]
 		},
 		{
 			"name": "Scout",
 			"namePl": "Zwiadowca",
 			"count": 2,
-			"upgrade": {
-				"initiative": {
+			"upgrades": [
+				{
+					"name": "initiative",
 					"value": 1,
 					"sides": ["north", "southEast", "southWest"]
 				}
-			}
+			]
 		}
 	],
 	"units": [
