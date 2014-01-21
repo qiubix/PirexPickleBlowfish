@@ -25,22 +25,13 @@ void TokenLoader::loadArmies(std::vector<std::string> armyJsonFiles) {
 
 void TokenLoader::loadArmy(std::string armyFile) {
   Json* armyJson = JsonParser::getInstance() -> parse(armyFile);
-  Army army = getArmy(armyJson -> getStringValue("army"));
+  Army army = StringToEnumTranslator::getInstance() -> getArmy(armyJson -> getStringValue("army"));
+
   loadHeadquarters(army, armyJson -> getObject("headquarters"));
   loadInstantTokens(army, armyJson -> getArray("instants"));
   loadModuleTokens(army, armyJson -> getArray("modules"));
   loadUnitTokens(army, armyJson -> getArray("units"));
   delete armyJson;
-}
-
-Army TokenLoader::getArmy(std::string armyFromJson) {
-  static std::map<std::string, Army> armiesDictionary;
-  armiesDictionary.insert(std::make_pair<std::string, Army>("Moloch", MOLOCH));
-  armiesDictionary.insert(std::make_pair<std::string, Army>("Borgo", BORGO));
-  armiesDictionary.insert(std::make_pair<std::string, Army>("Outpost", OUTPOST));
-  armiesDictionary.insert(std::make_pair<std::string, Army>("Hegemony", HEGEMONY));
-
-  return armiesDictionary[armyFromJson];
 }
 
 void TokenLoader::loadHeadquarters(Army army, Json headquarters) {

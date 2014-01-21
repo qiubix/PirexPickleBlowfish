@@ -5,6 +5,7 @@ using ::testing::Test;
 
 #include "setup/Json.hpp"
 #include "setup/JsonParser.hpp"
+#include "setup/StringToEnumTranslator.hpp"
 #include "setup/TokenLoader.hpp"
 
 #include <fstream>
@@ -217,6 +218,31 @@ TEST_F(JsonParserTest, shouldReadJsonFromFile) {
   }
 }
 
+class StringToEnumTranslatorTest : public Test {
+protected:
+  StringToEnumTranslatorTest() {}
+
+  virtual ~StringToEnumTranslatorTest() {}
+
+  virtual void SetUp() {}
+  virtual void TearDown() {}
+};
+
+TEST_F(StringToEnumTranslatorTest, shouldReturnArmyFromJson) {
+  Army army = StringToEnumTranslator::getInstance() -> getArmy("Moloch");
+  EXPECT_EQ(MOLOCH, army);
+
+  army = StringToEnumTranslator::getInstance() -> getArmy("Borgo");
+  EXPECT_EQ(BORGO, army);
+
+  army = StringToEnumTranslator::getInstance() -> getArmy("Outpost");
+  EXPECT_EQ(OUTPOST, army);
+
+  army = StringToEnumTranslator::getInstance() -> getArmy("Hegemony");
+  EXPECT_EQ(HEGEMONY, army);
+}
+
+
 class TokenLoaderTest : public Test {
 protected:
   TokenLoaderTest() {}
@@ -226,20 +252,6 @@ protected:
   virtual void SetUp() {}
   virtual void TearDown() {}
 };
-
-TEST_F(TokenLoaderTest, shouldReturnArmyFromJson) {
-  Army army = TokenLoader::getInstance() -> getArmy("Moloch");
-  EXPECT_EQ(MOLOCH, army);
-
-  army = TokenLoader::getInstance() -> getArmy("Borgo");
-  EXPECT_EQ(BORGO, army);
-
-  army = TokenLoader::getInstance() -> getArmy("Outpost");
-  EXPECT_EQ(OUTPOST, army);
-
-  army = TokenLoader::getInstance() -> getArmy("Hegemony");
-  EXPECT_EQ(HEGEMONY, army);
-}
 
 TEST_F(TokenLoaderTest, shouldLoadTheTestFile) {
   Json* json = JsonParser::getInstance() -> parse("test.json");
