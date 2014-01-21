@@ -27,6 +27,13 @@ StringToEnumTranslator::StringToEnumTranslator() {
   attributesDictionary.insert(std::make_pair<std::string, AttributeName>("mobility", MOBILITY));
   attributesDictionary.insert(std::make_pair<std::string, AttributeName>("quartermaster", QUARTERMASTER));
 
+  sidesDictionary.insert(std::make_pair<std::string, Side>("north", NORTH));
+  sidesDictionary.insert(std::make_pair<std::string, Side>("northEast", NORTH_EAST));
+  sidesDictionary.insert(std::make_pair<std::string, Side>("southEast", SOUTH_EAST));
+  sidesDictionary.insert(std::make_pair<std::string, Side>("south", SOUTH));
+  sidesDictionary.insert(std::make_pair<std::string, Side>("southWest", SOUTH_WEST));
+  sidesDictionary.insert(std::make_pair<std::string, Side>("northWest", NORTH_WEST));
+
 }
 
 Army StringToEnumTranslator::getArmy(std::string army) {
@@ -35,4 +42,8 @@ Army StringToEnumTranslator::getArmy(std::string army) {
 
 AttributeName StringToEnumTranslator::getAttributeName(std::string attribute) {
   return attributesDictionary[attribute];
+}
+
+Side StringToEnumTranslator::getSide(std::string side) {
+  return sidesDictionary[side];
 }

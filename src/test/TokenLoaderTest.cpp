@@ -276,6 +276,25 @@ TEST_F(StringToEnumTranslatorTest, shouldReturnAttributeName) {
   EXPECT_EQ(QUARTERMASTER, name);
 }
 
+TEST_F(StringToEnumTranslatorTest, shouldReturnSide) {
+  Side side = StringToEnumTranslator::getInstance() -> getSide("north");
+  EXPECT_EQ(NORTH, side);
+
+  side = StringToEnumTranslator::getInstance() -> getSide("northEast");
+  EXPECT_EQ(NORTH_EAST, side);
+
+  side = StringToEnumTranslator::getInstance() -> getSide("southEast");
+  EXPECT_EQ(SOUTH_EAST, side);
+
+  side = StringToEnumTranslator::getInstance() -> getSide("south");
+  EXPECT_EQ(SOUTH, side);
+
+  side = StringToEnumTranslator::getInstance() -> getSide("southWest");
+  EXPECT_EQ(SOUTH_WEST, side);
+
+  side = StringToEnumTranslator::getInstance() -> getSide("northWest");
+  EXPECT_EQ(NORTH_WEST, side);
+}
 
 class TokenLoaderTest : public Test {
 protected:

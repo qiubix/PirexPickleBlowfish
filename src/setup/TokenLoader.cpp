@@ -59,6 +59,8 @@ void TokenLoader::loadModuleTokens(Army army, std::vector<Json> moduleTokens) {
 void TokenLoader::loadModuleToken(Army army, Json moduleToken) {
   std::string name = moduleToken.getStringValue("name");
   int count = moduleToken.getIntegerValue("count");
+
+
   //TODO: implement
 }
 

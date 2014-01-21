@@ -14,6 +14,7 @@ public:
 
   Army getArmy(std::string army);
   AttributeName getAttributeName(std::string attribute);
+  Side getSide(std::string side);
 
 protected:
   StringToEnumTranslator();
@@ -23,6 +24,7 @@ private:
 
   std::map<std::string, Army> armiesDictionary;
   std::map<std::string, AttributeName> attributesDictionary;
+  std::map<std::string, Side> sidesDictionary;
 
 };
 
