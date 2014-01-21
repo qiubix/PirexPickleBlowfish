@@ -2,6 +2,7 @@
 #define MODEL_HPP
 
 #include <vector>
+#include <gtest/gtest.h>
 
 #include "Board.hpp"
 #include "BoardToken.hpp"
@@ -10,7 +11,8 @@
 //TODO: figure out proper game states
 enum GameState {
   GAME,
-  PAUSE
+  PAUSE,
+  BATTLE
 };
 
 class Model
@@ -35,6 +37,9 @@ private:
   std::vector <Token*> usedTokens;
   std::vector <Player*> players;
   int currentPlayerId;
+
+  FRIEND_TEST(ControllerTest, shouldResetGame);
+  FRIEND_TEST(InstantTokenTest, shouldDestroyToken);
 };
 
 #endif //MODEL_HPP

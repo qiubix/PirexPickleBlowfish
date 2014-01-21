@@ -12,6 +12,9 @@ using ::testing::Test;
 #include "logic/AddAttributeUpgrader.hpp"
 #include "logic/ChangeAttributeUpgrader.hpp"
 #include "logic/ChangeArmyUpgrader.hpp"
+#include "logic/Model.hpp"
+#include "logic/Controller.hpp"
+#include "logic/InstantToken.hpp"
 
 const int ATTRIBUTE_VALUE = 4;
 
@@ -334,4 +337,99 @@ TEST_F(ModuleTokenTest, shouldApplyTwoDifferentUpgradesFromOneModule) {
 
   ASSERT_EQ(2, unit -> getEdgeAttributes(NORTH) -> getAttribute(MELEE) -> getValue());
   ASSERT_EQ(4, unit -> getAttribute(INITIATIVE) -> getValue());
+}
+
+
+class InstantTokenTest : public Test
+{
+protected:
+  InstantTokenTest(void) {
+    model = new Model();
+    controller = new Controller(model);
+    battle = new BattleToken(MOLOCH, controller);
+    movement = new MovementToken(MOLOCH, controller);
+    push = new PushToken(MOLOCH, controller);
+    bomb = new BombToken(MOLOCH, controller);
+    granade = new GranadeToken(BORGO, controller);
+    sniper = new SniperToken(HEGEMONY, controller);
+  }
+  ~InstantTokenTest(void) {
+    delete sniper;
+    delete granade;
+    delete bomb;
+    delete push;
+    delete movement;
+    delete battle;
+    delete controller;
+    delete model;
+  }
+
+  virtual void SetUp(void) {}
+  virtual void TearDown(void) {}
+
+  Model* model;
+  Controller* controller;
+  BattleToken* battle;
+  MovementToken* movement;
+  PushToken* push;
+  BombToken* bomb;
+  GranadeToken* granade;
+  SniperToken* sniper;
+};
+
+TEST_F(InstantTokenTest, shouldCauseBattle) {
+  ASSERT_EQ(PAUSE, model->getGameState());
+  battle->action();
+  EXPECT_EQ(BATTLE, model->getGameState());
+}
+
+TEST_F(InstantTokenTest, shouldMoveToken) {
+  Attributes* attributes = new Attributes;
+  BoardToken* token = new BoardToken(MOLOCH, "soldier", attributes);
+  Field* field = new Field();
+  token->setField(field);
+  movement->setTokenToMove(token);
+  movement->action();
+  EXPECT_EQ("mobility", token->getAttribute(MOBILITY)->getName());
+  EXPECT_NE(field, token->getField());
+}
+
+TEST_F(InstantTokenTest, shouldPushToken) {
+  BoardToken* pusher = new BoardToken(MOLOCH, "soldier", NULL);
+  BoardToken* pushee = new BoardToken(OUTPOST, "soldier", NULL);
+  Field* pusherField = new Field();
+  Field* pusheeField = new Field();
+  pusher->setField(pusherField);
+  pushee->setField(pusheeField);
+  push->setPushingToken(pusher);
+  push->setPushedToken(pushee);
+  push->action();
+  EXPECT_NE(pusheeField, pushee->getField());
+}
+
+TEST_F(InstantTokenTest, shouldBombTokens) {
+  Attribute* toughness = new Attribute("toughness", 2);
+  Attributes* attributes = new Attributes;
+  attributes->addAttribute(TOUGHNESS, toughness);
+  BoardToken* first = new BoardToken(MOLOCH, "soldier", attributes);
+  Field* firstField = new Field;
+  first->setField(firstField);
+  BoardToken* second = new BoardToken(OUTPOST, "soldier", attributes);
+  Field* secondField = new Field;
+  second->setField(secondField);
+  EXPECT_EQ(2, first->getAttribute(TOUGHNESS)->getValue());
+  EXPECT_EQ(2, second->getAttribute(TOUGHNESS)->getValue());
+  bomb->setEpicentrum(first->getField());
+  bomb->action();
+  EXPECT_EQ(1, first->getAttribute(TOUGHNESS)->getValue());
+  EXPECT_EQ(1, second->getAttribute(TOUGHNESS)->getValue());
+}
+
+TEST_F(InstantTokenTest, shouldDestroyToken) {
+  BoardToken* token = new BoardToken(MOLOCH, "soldier", NULL);
+  EXPECT_TRUE(model->usedTokens.empty());
+  granade->setTokenToDestroy(token);
+  granade->action();
+  ASSERT_FALSE(model->usedTokens.empty());
+  EXPECT_EQ(token, model->usedTokens[0]);
 }

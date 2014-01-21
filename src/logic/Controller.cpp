@@ -9,14 +9,19 @@ void Controller::setGameState(GameState newState)
   model->setGameState(newState);
 }
 
-void Controller::reset()
+void Controller::activate(BoardToken* token)
 {
 
 }
 
-void Controller::rotate(BoardToken* token)
+void Controller::rotateClockwise(BoardToken* token)
 {
+  token->rotateClockwise();
+}
 
+void Controller::rotateAnticlockwise(BoardToken* token)
+{
+  token->rotateAnticlockwise();
 }
 
 void Controller::move(BoardToken* token)
@@ -44,7 +49,17 @@ void Controller::strikeToken(BoardToken* token, int strength)
 
 }
 
-void Controller::strikeSurroundingTokens(BoardToken* epicentrum)
+void Controller::strikeSurroundingTokens(Field* epicentrum)
+{
+
+}
+
+void Controller::destroy(BoardToken* token)
+{
+
+}
+
+void Controller::reset()
 {
 
 }

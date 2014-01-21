@@ -2,6 +2,7 @@
 #define PLAYER_HPP
 
 #include <vector>
+#include <gtest/gtest.h>
 #include "Token.hpp"
 
 //TODO: implement methods
@@ -22,6 +23,8 @@ private:
   Army army;
   std::vector <Token*> hiddenTokens;
   std::vector <Token*> activeTokens;
+
+  FRIEND_TEST(ControllerTest, shouldActivateToken);
 };
 
 #endif //PLAYER_HPP

@@ -11,14 +11,17 @@ public:
   ~Controller(void) {}
 
   void setGameState(GameState newState);
-  void reset(void);
-  void rotate(BoardToken* token);
+  void activate(BoardToken* token);
+  void rotateClockwise(BoardToken* token);
+  void rotateAnticlockwise(BoardToken* token);
   void move(BoardToken* token);
   void pushToken(BoardToken* pusher, BoardToken* pushee /*(pussy)*/);
   void generateNewTokens(void);
   void drawTokens(Player* player);
   void strikeToken(BoardToken* token, int strength);
-  void strikeSurroundingTokens(BoardToken* epicentrum);
+  void strikeSurroundingTokens(Field* epicentrum);
+  void destroy(BoardToken* token);
+  void reset(void);
 
 private:
   Model* model;

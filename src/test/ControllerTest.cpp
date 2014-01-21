@@ -5,6 +5,7 @@ using ::testing::Test;
 
 #include "logic/Controller.hpp"
 #include "logic/Model.hpp"
+#include "logic/BoardToken.hpp"
 
 class ControllerTest : public Test
 {
@@ -31,9 +32,35 @@ TEST_F(ControllerTest, shouldSetGameState) {
   EXPECT_EQ(GAME, currentState);
 }
 
-//TEST_F(ControllerTest, shouldResetGame) {
-//  controller->reset();
-//  EXPECT_EQ(PAUSE, model->getGameState());
-//  EXPECT_TRUE(model->usedTokens.empty());
-//  EXPECT_TRUE(model->players.empty());
-//}
+TEST_F(ControllerTest, shouldActivateToken) {
+  Player* player = new Player(MOLOCH);
+  BoardToken* token = new BoardToken(MOLOCH, "soldier", NULL);
+  player->hiddenTokens.push_back(token);
+  EXPECT_TRUE(player->activeTokens.empty());
+  EXPECT_EQ(1, player->hiddenTokens.size());
+  controller->activate(token);
+  ASSERT_FALSE(player->activeTokens.empty());
+  EXPECT_EQ(token, player->activeTokens[0]);
+  EXPECT_EQ("soldier", player->activeTokens[0]->getName());
+}
+
+TEST_F(ControllerTest, shouldRotateToken) {
+  BoardToken* token = new BoardToken(MOLOCH, "soldier", NULL);
+  EXPECT_EQ(NORTH, token->getOrientation());
+  controller->rotateClockwise(token);
+  EXPECT_EQ(NORTH_EAST, token->getOrientation());
+  controller->rotateAnticlockwise(token);
+  EXPECT_EQ(NORTH, token->getOrientation());
+}
+
+TEST_F(ControllerTest, shouldResetGame) {
+  Player* player = new Player(MOLOCH);
+  model->addPlayer(player);
+  controller->setGameState(GAME);
+  EXPECT_EQ(GAME, model->getGameState());
+  EXPECT_FALSE(model->players.empty());
+  controller->reset();
+  EXPECT_EQ(PAUSE, model->getGameState());
+  EXPECT_TRUE(model->usedTokens.empty());
+  EXPECT_TRUE(model->players.empty());
+}

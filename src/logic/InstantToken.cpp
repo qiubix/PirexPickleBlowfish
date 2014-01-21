@@ -1,57 +1,86 @@
 #include "InstantToken.hpp"
 
 
-InstantToken::InstantToken(Army army, std::string name)
-  : Token(army, name) {}
+InstantToken::InstantToken(Army army, Controller* controller, std::string name)
+  : Token(army, name) {
+  this->controller = controller;
+}
 
 
-BattleToken::BattleToken(Army army, std::string name)
-  : InstantToken(army, name) {}
+BattleToken::BattleToken(Army army, Controller* controller, std::string name)
+  : InstantToken(army, controller, name) {}
 
 void BattleToken::action()
 {
-
+  controller->setGameState(BATTLE);
 }
 
 
-MovementToken::MovementToken(Army army, std::string name)
-  : InstantToken(army, name) {}
+MovementToken::MovementToken(Army army, Controller* controller, std::string name)
+  : InstantToken(army, controller, name) {}
 
 void MovementToken::action()
 {
+  Attribute* mobility = new Attribute("mobility", 1);
+  tokenToMove->addAttribute(MOBILITY, mobility);
+  controller->activate(tokenToMove);
+}
 
+void MovementToken::setTokenToMove(BoardToken* tokenToMove)
+{
+  this->tokenToMove = tokenToMove;
 }
 
 
-PushToken::PushToken(Army army, std::string name)
-  : InstantToken(army, name) {}
+PushToken::PushToken(Army army, Controller* controller, std::string name)
+  : InstantToken(army, controller, name) {}
 
 void PushToken::action()
 {
+  controller->pushToken(pusher, pushee);
+}
 
+void PushToken::setPushingToken(BoardToken* token)
+{
+  pusher = token;
+}
+
+void PushToken::setPushedToken(BoardToken* token)
+{
+  pushee = token;
 }
 
 
-BombToken::BombToken(Army army, std::string name)
-  : InstantToken(army, name) {}
+BombToken::BombToken(Army army, Controller* controller, std::string name)
+  : InstantToken(army, controller, name) {}
 
 void BombToken::action()
 {
+  controller->strikeSurroundingTokens(epicentrum);
+}
 
+void BombToken::setEpicentrum(Field* epicentrum)
+{
+  this->epicentrum = epicentrum;
 }
 
 
-GranadeToken::GranadeToken(Army army, std::string name)
-  : InstantToken(army, name) {}
+GranadeToken::GranadeToken(Army army, Controller* controller, std::string name)
+  : InstantToken(army, controller, name) {}
 
 void GranadeToken::action()
 {
+  controller->destroy(toDestroy);
+}
 
+void GranadeToken::setTokenToDestroy(BoardToken* toDestroy)
+{
+  this->toDestroy = toDestroy;
 }
 
 
-SniperToken::SniperToken(Army army, std::string name)
-  : InstantToken(army, name) {}
+SniperToken::SniperToken(Army army, Controller* controller, std::string name)
+  : InstantToken(army, controller, name) {}
 
 void SniperToken::action()
 {

@@ -2,20 +2,24 @@
 #define INSTANTTOKEN_HPP
 
 #include "Token.hpp"
+#include "Controller.hpp"
+#include "BoardToken.hpp"
 
 class InstantToken : public Token
 {
 public:
-  InstantToken(Army army, std::string name);
+  InstantToken(Army army, Controller* controller, std::string name);
   virtual ~InstantToken(void) {}
 
   virtual void action(void) = 0;
+protected:
+  Controller* controller;
 };
 
 class BattleToken : public InstantToken
 {
 public:
-  BattleToken(Army army, std::string name = "Battle");
+  BattleToken(Army army, Controller* controller, std::string name = "Battle");
   ~BattleToken(void) {}
 
   void action(void);
@@ -24,43 +28,60 @@ public:
 class MovementToken : public InstantToken
 {
 public:
-  MovementToken(Army army, std::string name = "Movement");
+  MovementToken(Army army, Controller* controller, std::string name = "Movement");
   ~MovementToken() {}
 
   void action(void);
+  void setTokenToMove(BoardToken* tokenToMove);
+private:
+  BoardToken* tokenToMove;
 };
 
 class PushToken : public InstantToken
 {
 public:
-  PushToken(Army army, std::string name = "Push");
+  PushToken(Army army, Controller* controller, std::string name = "Push");
   ~PushToken() {}
 
   void action(void);
+
+  void setPushingToken(BoardToken* token);
+  void setPushedToken(BoardToken* token);
+private:
+  BoardToken* pusher;
+  BoardToken* pushee;
 };
 
 class BombToken : public InstantToken
 {
 public:
-  BombToken(Army army, std::string name = "Bomb");
+  BombToken(Army army, Controller* controller, std::string name = "Bomb");
   ~BombToken() {}
 
   void action(void);
+  void setEpicentrum(Field* epicentrum);
+
+private:
+  Field* epicentrum;
 };
 
 class GranadeToken : public InstantToken
 {
 public:
-  GranadeToken(Army army, std::string name = "Granade");
+  GranadeToken(Army army, Controller* controller, std::string name = "Granade");
   ~GranadeToken() {}
 
   void action(void);
+  void setTokenToDestroy(BoardToken* toDestroy);
+
+private:
+  BoardToken* toDestroy;
 };
 
 class SniperToken : public InstantToken
 {
 public:
-  SniperToken(Army army, std::string name = "Sniper");
+  SniperToken(Army army, Controller* controller, std::string name = "Sniper");
   ~SniperToken() {}
 
   void action(void);
