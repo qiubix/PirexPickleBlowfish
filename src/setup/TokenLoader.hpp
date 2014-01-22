@@ -28,8 +28,13 @@ private:
   void loadInstantToken(Army army, Json instantToken);
   void loadModuleTokens(Army army, std::vector<Json> moduleTokens);
   void loadModuleToken(Army army, Json moduleToken);
+  Attributes* loadModuleAtrributes(std::vector<Json> attributes);
+  Attribute* loadModuleAttribute(Json attribute);
   void loadUnitTokens(Army army, std::vector<Json> unitTokens);
   void loadUnitToken(Army army, Json unitToken);
+
+  //tests for private methods:
+  FRIEND_TEST(TokenLoaderTest, shouldLoadModuleAttributes);
 
 };
 

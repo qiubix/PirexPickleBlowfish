@@ -304,9 +304,36 @@ protected:
 
   virtual void SetUp() {}
   virtual void TearDown() {}
+
+  void createShortJsonFile(std::string fileName, std::string content);
 };
+
+void TokenLoaderTest::createShortJsonFile(std::string fileName, std::string content) {
+  std::ofstream jsonFile(fileName.c_str());
+  if (jsonFile.is_open()) {
+    jsonFile << content;
+    jsonFile.close();
+  }
+}
 
 TEST_F(TokenLoaderTest, shouldLoadTheTestFile) {
   Json* json = JsonParser::getInstance() -> parse("test.json");
   ASSERT_FALSE(json->isEmpty());
+}
+
+TEST_F(TokenLoaderTest, shouldLoadModuleAttributes) {
+  const std::string ATTRIBUTE = "toughness";
+  createShortJsonFile("moduleWithAttribute.json", "{\"attributes\": [{\"name\": \"" + ATTRIBUTE + "\", \"value\":1}]}");
+  Json* moduleWithAttribute = JsonParser::getInstance() -> parse("moduleWithAttribute.json");
+  Attributes* moduleWithAttributeAttributes = TokenLoader::getInstance() -> loadModuleAtrributes(moduleWithAttribute->getArray("attributes"));
+  ASSERT_NE((Attributes*)NULL, moduleWithAttributeAttributes);
+  AttributeName attributeName = StringToEnumTranslator::getInstance() -> getAttributeName(ATTRIBUTE);
+  Attribute* moduleAttribute = moduleWithAttributeAttributes -> getAttribute(attributeName);
+  ASSERT_EQ(1, moduleAttribute -> getValue());
+
+  createShortJsonFile("moduleWithNoAttribute.json", "{}");
+  Json* moduleWithNoAttribute = JsonParser::getInstance() -> parse("moduleWithNoAttribute.json");
+  Attributes* moduleWithNoAttributeAttributes = TokenLoader::getInstance() -> loadModuleAtrributes(moduleWithNoAttribute->getArray("attributes"));
+  ASSERT_NE((Attributes*)NULL, moduleWithNoAttributeAttributes);
+  ASSERT_TRUE(moduleWithNoAttributeAttributes -> empty());
 }

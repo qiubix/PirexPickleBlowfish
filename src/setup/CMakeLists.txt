@@ -11,4 +11,4 @@ add_library(JsonParser JsonParser.cpp)
 target_link_libraries(JsonParser Json)
 
 add_library(TokenLoader TokenLoader.cpp)
-target_link_libraries(TokenLoader JsonParser StringToEnumTranslator gmock_main)
+target_link_libraries(TokenLoader JsonParser StringToEnumTranslator logic gmock_main)

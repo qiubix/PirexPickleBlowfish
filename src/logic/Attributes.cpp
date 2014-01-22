@@ -33,3 +33,7 @@ void Attributes::addAttribute(AttributeName name, Attribute* attribute) {
 void Attributes::removeAttribute(AttributeName name) {
   attributes.erase(attributes.find(name));
 }
+
+bool Attributes::empty(void) {
+  return attributes.empty();
+}

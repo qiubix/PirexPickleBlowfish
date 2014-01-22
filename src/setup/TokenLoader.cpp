@@ -59,9 +59,32 @@ void TokenLoader::loadModuleTokens(Army army, std::vector<Json> moduleTokens) {
 void TokenLoader::loadModuleToken(Army army, Json moduleToken) {
   std::string name = moduleToken.getStringValue("name");
   int count = moduleToken.getIntegerValue("count");
-
+  Attributes* attributes = loadModuleAtrributes(moduleToken.getArray("upgrades"));
 
   //TODO: implement
+}
+
+Attributes* TokenLoader::loadModuleAtrributes(std::vector<Json> attributes) {
+  Attributes* moduleAttributes = new Attributes();
+  Attribute* attributeToAdd;
+  for(int currentAttribute = 0; currentAttribute < attributes.size(); currentAttribute++) {
+    attributeToAdd = loadModuleAttribute(attributes[currentAttribute]);
+    AttributeName attributeName = StringToEnumTranslator::getInstance() -> getAttributeName(attributeToAdd -> getName());
+    moduleAttributes -> addAttribute(attributeName, attributeToAdd);
+  }
+  return moduleAttributes;
+}
+
+Attribute* TokenLoader::loadModuleAttribute(Json attribute) {
+  Attribute* moduleAttribute = NULL;
+  std::string name = attribute.getStringValue("name");
+  int value = attribute.getIntegerValue("value");
+
+  if(name != "") {
+    moduleAttribute = new Attribute(name, value);
+  }
+
+  return moduleAttribute;
 }
 
 void TokenLoader::loadUnitTokens(Army army, std::vector<Json> unitTokens) {
