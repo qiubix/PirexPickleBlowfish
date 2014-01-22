@@ -31,6 +31,16 @@ TEST_F(ModelTest, shouldSetGameState) {
   EXPECT_EQ(GAME, currentState);
 }
 
+TEST_F(ModelTest, shouldGetPlayersQuantity) {
+  int quantity = model->getPlayersQuantity();
+  EXPECT_EQ(0, quantity);
+  Player* player = new Player(MOLOCH);
+  model->players.push_back(player);
+  quantity = model->getPlayersQuantity();
+  EXPECT_EQ(1, quantity);
+  model->players.clear();
+}
+
 TEST_F(ModelTest, shouldReturnNullForNoPlayers) {
   Player* player = model->getCurrentPlayer();
   EXPECT_EQ(NULL, player);
@@ -47,17 +57,20 @@ TEST_F(ModelTest, shouldAddPlayer) {
   EXPECT_EQ(newPlayer, player);
   int playersQuantity = model->getPlayersQuantity();
   EXPECT_EQ(1, playersQuantity);
+  delete player;
 }
 
 TEST_F(ModelTest, shouldMoveToNextPlayer) {
-  Player* first = new Player(MOLOCH);
-  Player* second = new Player(OUTPOST);
-  model->addPlayer(first);
-  model->addPlayer(second);
+  Player* firstPlayer = new Player(MOLOCH);
+  Player* secondPlayer = new Player(OUTPOST);
+  model->addPlayer(firstPlayer);
+  model->addPlayer(secondPlayer);
   ASSERT_EQ(2, model->getPlayersQuantity());
-  EXPECT_EQ(first, model->getCurrentPlayer());
+  EXPECT_EQ(firstPlayer, model->getCurrentPlayer());
   model->moveToNextPlayer();
-  EXPECT_EQ(second, model->getCurrentPlayer());
+  EXPECT_EQ(secondPlayer, model->getCurrentPlayer());
   model->moveToNextPlayer();
-  EXPECT_EQ(first, model->getCurrentPlayer());
+  EXPECT_EQ(firstPlayer, model->getCurrentPlayer());
+  delete secondPlayer;
+  delete firstPlayer;
 }

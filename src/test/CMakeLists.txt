@@ -64,6 +64,8 @@ add_test(TokenLoaderTest TokenLoaderTest)
 add_test(LoadingTokensTest LoadingTokensTest)
 
 add_test(TokenTest TokenTest)
+add_test(ControllerTest ControllerTest)
+add_test(ModelTest ModelTest)
 add_test(GuiTest GuiTest)
 
 #test files to TokenLoaderTest

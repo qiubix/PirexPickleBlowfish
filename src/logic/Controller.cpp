@@ -24,6 +24,11 @@ void Controller::rotateAnticlockwise(BoardToken* token)
   token->rotateAnticlockwise();
 }
 
+void Controller::putOnBoard(BoardToken* token, Field* field)
+{
+
+}
+
 void Controller::move(BoardToken* token)
 {
 

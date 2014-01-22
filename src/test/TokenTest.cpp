@@ -392,6 +392,8 @@ TEST_F(InstantTokenTest, shouldMoveToken) {
   movement->action();
   EXPECT_EQ("mobility", token->getAttribute(MOBILITY)->getName());
   EXPECT_NE(field, token->getField());
+  delete field;
+  delete attributes;
 }
 
 TEST_F(InstantTokenTest, shouldPushToken) {
@@ -405,24 +407,31 @@ TEST_F(InstantTokenTest, shouldPushToken) {
   push->setPushedToken(pushee);
   push->action();
   EXPECT_NE(pusheeField, pushee->getField());
+  delete pusherField;
+  delete pusheeField;
+  delete pusher;
+  delete pushee;
 }
 
 TEST_F(InstantTokenTest, shouldBombTokens) {
   Attribute* toughness = new Attribute("toughness", 2);
   Attributes* attributes = new Attributes;
   attributes->addAttribute(TOUGHNESS, toughness);
-  BoardToken* first = new BoardToken(MOLOCH, "soldier", attributes);
+  BoardToken* firstToken = new BoardToken(MOLOCH, "soldier", attributes);
   Field* firstField = new Field;
-  first->setField(firstField);
-  BoardToken* second = new BoardToken(OUTPOST, "soldier", attributes);
+  firstToken->setField(firstField);
+  BoardToken* secondToken = new BoardToken(OUTPOST, "soldier", attributes);
   Field* secondField = new Field;
-  second->setField(secondField);
-  EXPECT_EQ(2, first->getAttribute(TOUGHNESS)->getValue());
-  EXPECT_EQ(2, second->getAttribute(TOUGHNESS)->getValue());
-  bomb->setEpicentrum(first->getField());
+  secondToken->setField(secondField);
+  EXPECT_EQ(2, firstToken->getAttribute(TOUGHNESS)->getValue());
+  EXPECT_EQ(2, secondToken->getAttribute(TOUGHNESS)->getValue());
+  bomb->setEpicentrum(firstToken->getField());
   bomb->action();
-  EXPECT_EQ(1, first->getAttribute(TOUGHNESS)->getValue());
-  EXPECT_EQ(1, second->getAttribute(TOUGHNESS)->getValue());
+  EXPECT_EQ(1, firstToken->getAttribute(TOUGHNESS)->getValue());
+  EXPECT_EQ(1, secondToken->getAttribute(TOUGHNESS)->getValue());
+  delete firstField;
+  delete secondField;
+  delete attributes;
 }
 
 TEST_F(InstantTokenTest, shouldDestroyToken) {
@@ -432,4 +441,5 @@ TEST_F(InstantTokenTest, shouldDestroyToken) {
   granade->action();
   ASSERT_FALSE(model->usedTokens.empty());
   EXPECT_EQ(token, model->usedTokens[0]);
+  delete token;
 }

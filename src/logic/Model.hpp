@@ -38,6 +38,7 @@ private:
   std::vector <Player*> players;
   int currentPlayerId;
 
+  FRIEND_TEST(ModelTest, shouldGetPlayersQuantity);
   FRIEND_TEST(ControllerTest, shouldResetGame);
   FRIEND_TEST(InstantTokenTest, shouldDestroyToken);
 };

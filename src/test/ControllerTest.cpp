@@ -16,6 +16,7 @@ protected:
   }
   ~ControllerTest(void) {
     delete controller;
+    delete model;
   }
   Controller* controller;
   Model* model;
@@ -42,6 +43,8 @@ TEST_F(ControllerTest, shouldActivateToken) {
   ASSERT_FALSE(player->activeTokens.empty());
   EXPECT_EQ(token, player->activeTokens[0]);
   EXPECT_EQ("soldier", player->activeTokens[0]->getName());
+  delete token;
+  delete player;
 }
 
 TEST_F(ControllerTest, shouldRotateToken) {
@@ -51,6 +54,7 @@ TEST_F(ControllerTest, shouldRotateToken) {
   EXPECT_EQ(NORTH_EAST, token->getOrientation());
   controller->rotateAnticlockwise(token);
   EXPECT_EQ(NORTH, token->getOrientation());
+  delete token;
 }
 
 TEST_F(ControllerTest, shouldResetGame) {
@@ -63,4 +67,5 @@ TEST_F(ControllerTest, shouldResetGame) {
   EXPECT_EQ(PAUSE, model->getGameState());
   EXPECT_TRUE(model->usedTokens.empty());
   EXPECT_TRUE(model->players.empty());
+  delete player;
 }
