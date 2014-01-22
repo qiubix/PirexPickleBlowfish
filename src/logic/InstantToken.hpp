@@ -33,8 +33,10 @@ public:
 
   void action(void);
   void setTokenToMove(BoardToken* tokenToMove);
+  void setDestination(Field* destination);
 private:
   BoardToken* tokenToMove;
+  Field* destination;
 };
 
 class PushToken : public InstantToken

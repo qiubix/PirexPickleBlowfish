@@ -57,6 +57,26 @@ TEST_F(ControllerTest, shouldRotateToken) {
   delete token;
 }
 
+TEST_F(ControllerTest, shouldPutTokenOnBoard) {
+  //TODO: test puting token on board
+  EXPECT_TRUE(false);
+}
+
+TEST_F(ControllerTest, shouldMoveToken) {
+  BoardToken* token = new BoardToken(MOLOCH, "solder", NULL);
+  Field* field = new Field;
+  Field* destination = new Field;
+  token->setField(field);
+  field->setToken(token);
+  ASSERT_EQ(NULL, destination->getToken());
+  EXPECT_EQ(field, token->getField());
+  EXPECT_EQ(token, field->getToken());
+  controller->move(token, destination);
+  EXPECT_EQ(NULL, field->getToken());
+  EXPECT_EQ(destination, token->getField());
+  EXPECT_EQ(token, destination->getToken());
+}
+
 TEST_F(ControllerTest, shouldResetGame) {
   Player* player = new Player(MOLOCH);
   model->addPlayer(player);

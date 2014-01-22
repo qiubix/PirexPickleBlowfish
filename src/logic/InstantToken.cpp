@@ -23,12 +23,18 @@ void MovementToken::action()
 {
   Attribute* mobility = new Attribute("mobility", 1);
   tokenToMove->addAttribute(MOBILITY, mobility);
-  controller->activate(tokenToMove);
+//  controller->activate(tokenToMove);
+  controller->move(tokenToMove, destination);
 }
 
 void MovementToken::setTokenToMove(BoardToken* tokenToMove)
 {
   this->tokenToMove = tokenToMove;
+}
+
+void MovementToken::setDestination(Field* destination)
+{
+  this->destination = destination;
 }
 
 

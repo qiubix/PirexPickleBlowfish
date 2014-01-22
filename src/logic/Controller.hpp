@@ -15,7 +15,7 @@ public:
   void rotateClockwise(BoardToken* token);
   void rotateAnticlockwise(BoardToken* token);
   void putOnBoard(BoardToken* token, Field* field);
-  void move(BoardToken* token);
+  void move(BoardToken* token, Field* destination);
   void pushToken(BoardToken* pusher, BoardToken* pushee /*(pussy)*/);
   void generateNewTokens(void);
   void drawTokens(Player* player);

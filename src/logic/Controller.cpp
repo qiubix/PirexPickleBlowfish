@@ -29,9 +29,12 @@ void Controller::putOnBoard(BoardToken* token, Field* field)
 
 }
 
-void Controller::move(BoardToken* token)
+void Controller::move(BoardToken* token, Field* destination)
 {
-
+  Field* oldField = token->getField();
+  oldField->setToken(NULL);
+  token->setField(destination);
+  destination->setToken(token);
 }
 
 void Controller::pushToken(BoardToken* pusher, BoardToken* pushee)

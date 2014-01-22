@@ -387,11 +387,16 @@ TEST_F(InstantTokenTest, shouldMoveToken) {
   Attributes* attributes = new Attributes;
   BoardToken* token = new BoardToken(MOLOCH, "soldier", attributes);
   Field* field = new Field();
+  Field* destination = new Field;
   token->setField(field);
   movement->setTokenToMove(token);
+  movement->setDestination(destination);
   movement->action();
   EXPECT_EQ("mobility", token->getAttribute(MOBILITY)->getName());
   EXPECT_NE(field, token->getField());
+  EXPECT_EQ(NULL, field->getToken());
+  EXPECT_EQ(destination, token->getField());
+  EXPECT_EQ(token, destination->getToken());
   delete field;
   delete attributes;
 }
