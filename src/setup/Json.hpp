@@ -20,7 +20,10 @@ public:
   bool getBooleanValue(std::string key);
   std::vector<Json> getArray(std::string key);
   Json getObject(std::string key);
-  std::vector<std::string> getStringArray(std::string key); //TODO: add test
+  std::vector<std::string> getStringArray(std::string key);
+  std::vector<int> getIntegerArray(std::string key);
+
+  bool contains(std::string key);
 
 private:
   QJsonValue takeFromJson(std::string key);

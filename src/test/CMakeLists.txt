@@ -15,6 +15,8 @@ qt5_use_modules(GuiTest Test)
 #test files to TokenLoaderTest
 file(COPY test.json DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 install(FILES test.json DESTINATION ${CMAKE_INSTALL_PREFIX})
+file(COPY upgradesParameters.json DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+install(FILES upgradesParameters.json DESTINATION ${CMAKE_INSTALL_PREFIX})
 
 install(TARGETS TokenTest DESTINATION ${CMAKE_INSTALL_PREFIX})
 install(TARGETS TokenLoaderTest DESTINATION ${CMAKE_INSTALL_PREFIX})

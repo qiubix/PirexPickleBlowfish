@@ -45,6 +45,20 @@ std::vector<std::string> Json::getStringArray(std::string key) {
   return vector;
 }
 
+std::vector<int> Json::getIntegerArray(std::string key) {
+  QJsonArray array = takeFromJson(key).toArray();
+  std::vector<int> vector;
+  for(int i = 0; i < array.size(); i++) {
+    if(array.at(i).isDouble())
+      vector.push_back(static_cast<int>(array.at(i).toDouble()));
+  }
+  return vector;
+}
+
+bool Json::contains(std::string key) {
+  return QJsonObject::contains(QString::fromStdString(key));
+}
+
 QJsonValue Json::takeFromJson(std::string key) {
   return take(QString::fromStdString(key));
 }

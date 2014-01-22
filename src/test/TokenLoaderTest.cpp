@@ -16,6 +16,9 @@ const std::string BOOLEAN_KEY = "boolean";
 const std::string SECOND_BOOLEAN_KEY = "anotherBoolean";
 const std::string OBJECT_KEY = "object";
 const std::string ARRAY_KEY = "array";
+const std::string STRING_ARRAY_KEY = "stringArray";
+const std::string INTEGER_ARRAY_KEY = "notPresentKey";
+const std::string NOT_PRESENT_KEY = "notPresentKey";
 
 const std::string STRING_VALUE = "stringValue";
 const int INTEGER_VALUE = 5;
@@ -41,6 +44,8 @@ protected:
   void insertObject(void);
   QJsonObject prepareObject(void);
   int insertArray(void);
+  int insertStringArray(void);
+  int insertIntegerArray(void);
 
   Json* json;
 };
@@ -80,6 +85,28 @@ int JsonTest::insertArray(void) {
   json -> insert(QString::fromStdString(ARRAY_KEY), array);
 
   return numberOfObjectsToInsert;
+}
+
+int JsonTest::insertStringArray(void) {
+  const int numberOfStringsToInsert = 3;
+
+  QJsonArray array;
+  for(int currentString = 0; currentString < numberOfStringsToInsert; currentString++)
+    array.push_back(QJsonValue(QString::fromStdString(STRING_VALUE)));
+  json -> insert(QString::fromStdString(STRING_ARRAY_KEY), array);
+
+  return numberOfStringsToInsert;
+}
+
+int JsonTest::insertIntegerArray(void) {
+  const int numberOfIntegersToInsert = 3;
+
+  QJsonArray array;
+  for(int currentInteger = 0; currentInteger < numberOfIntegersToInsert; currentInteger++)
+    array.push_back(QJsonValue(INTEGER_VALUE));
+  json -> insert(QString::fromStdString(INTEGER_ARRAY_KEY), array);
+
+  return numberOfIntegersToInsert;
 }
 
 TEST_F(JsonTest, shouldGetStringValueFromJson) {
@@ -124,7 +151,6 @@ TEST_F(JsonTest, shouldGetArrayOfObjectsFromJson) {
   int numberOfObjectsInArray = insertArray();
 
   std::vector<Json> returnedArrayOfObjects = json -> getArray(ARRAY_KEY);
-
   ASSERT_EQ(numberOfObjectsInArray, returnedArrayOfObjects.size());
 
   std::string returnedStringValue;
@@ -140,6 +166,40 @@ TEST_F(JsonTest, shouldGetArrayOfObjectsFromJson) {
     EXPECT_EQ(INTEGER_VALUE, returnedIntegerValue);
     EXPECT_EQ(BOOLEAN_VALUE, returnedBooleanValue);
   }
+}
+
+TEST_F(JsonTest, shouldGetArrayOfStringsFromJson) {
+  int numberOfStringsInArray = insertStringArray();
+
+  std::vector<std::string> returnedArrayOfStrings = json -> getStringArray(STRING_ARRAY_KEY);
+  ASSERT_EQ(numberOfStringsInArray, returnedArrayOfStrings.size());
+
+  std::string returnedStringValue;
+
+  for(int currentString = 0; currentString < returnedArrayOfStrings.size(); currentString++) {
+    returnedStringValue = returnedArrayOfStrings[currentString];
+    EXPECT_EQ(STRING_VALUE, returnedStringValue);
+  }
+}
+
+TEST_F(JsonTest, shouldGetArrayOfIntegersFromJson) {
+  int numberOfIntegersInArray = insertIntegerArray();
+
+  std::vector<int> returnedArrayOfIntegers = json -> getIntegerArray(INTEGER_ARRAY_KEY);
+  ASSERT_EQ(numberOfIntegersInArray, returnedArrayOfIntegers.size());
+
+  int returnedIntegerValue;
+
+  for(int currentInteger = 0; currentInteger < returnedArrayOfIntegers.size(); currentInteger++) {
+    returnedIntegerValue = returnedArrayOfIntegers[currentInteger];
+    EXPECT_EQ(INTEGER_VALUE, returnedIntegerValue);
+  }
+}
+
+TEST_F(JsonTest, shouldReturnIfKeyPresentInJson) {
+  insertString();
+  EXPECT_TRUE(json -> contains(STRING_KEY));
+  EXPECT_FALSE(json -> contains(NOT_PRESENT_KEY));
 }
 
 const std::string JSON_FILE_TO_READ = "jsonToRead.json";
@@ -320,6 +380,8 @@ protected:
   virtual void TearDown() {}
 
   void createShortJsonFile(std::string fileName, std::string content);
+  ModuleToken* createModuleToken(void);
+  UnitToken* createUnitToken(void);
 };
 
 void TokenLoaderTest::createShortJsonFile(std::string fileName, std::string content) {
@@ -328,6 +390,24 @@ void TokenLoaderTest::createShortJsonFile(std::string fileName, std::string cont
     jsonFile << content;
     jsonFile.close();
   }
+}
+
+ModuleToken* TokenLoaderTest::createModuleToken(void) {
+  std::vector<Side> activeEdges;
+  return new ModuleToken(HEGEMONY, "Boss", new Attributes(), activeEdges);
+}
+
+UnitToken* TokenLoaderTest::createUnitToken(void) {
+  Attributes* northSideAttributes = new Attributes();
+  northSideAttributes -> addAttribute(MELEE, new Attribute("melee", 1));
+  northSideAttributes -> addAttribute(RANGED, new Attribute("ranged", 1));
+
+  Attributes* baseAttributes = new Attributes();
+  baseAttributes -> addAttribute(INITIATIVE, new Attribute("initiative", 1));
+
+  UnitToken* unit = new UnitToken(HEGEMONY, "someUnit", baseAttributes);
+  unit->setEdgeAttributes(NORTH, northSideAttributes);
+  return unit;
 }
 
 TEST_F(TokenLoaderTest, shouldLoadTheTestFile) {
@@ -367,5 +447,17 @@ TEST_F(TokenLoaderTest, shouldLoadModuleActiveEdges) {
 }
 
 TEST_F(TokenLoaderTest, shouldDecorateModuleWithUpgrades) {
-  Json* someActiveEdges = JsonParser::getInstance() -> parse("upgradeParameters.json");
+  Json* upgradesParameters = JsonParser::getInstance() -> parse("upgradesParameters.json");
+  ASSERT_FALSE(upgradesParameters -> isEmpty());
+  ModuleToken* moduleToken = createModuleToken();
+  Module* module = TokenLoader::getInstance() -> decorateModuleWithUpgrades(moduleToken, upgradesParameters->getArray("upgrades"));
+  UnitToken* unit = createUnitToken();
+  ASSERT_EQ(1, unit -> getAttribute(INITIATIVE) -> getValue());
+  ASSERT_EQ(1, unit -> getEdgeAttributes(NORTH) -> getAttribute(MELEE) -> getValue());
+  ASSERT_EQ(1, unit -> getEdgeAttributes(NORTH) -> getAttribute(RANGED) -> getValue());
+
+  module -> addBoardToken(unit);
+  ASSERT_EQ(2, unit -> getAttribute(INITIATIVE) -> getValue());
+  ASSERT_EQ(1, unit -> getEdgeAttributes(NORTH) -> getAttribute(MELEE) -> getValue());
+  ASSERT_EQ(1, unit -> getEdgeAttributes(NORTH) -> getAttribute(RANGED) -> getValue());
 }

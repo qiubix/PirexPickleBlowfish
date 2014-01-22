@@ -62,7 +62,7 @@ void TokenLoader::loadModuleTokens(Army army, std::vector<Json> moduleTokens) {
 
 void TokenLoader::loadModuleToken(Army army, Json moduleTokenParameters) {
   std::string name = moduleTokenParameters.getStringValue("name");
-  int count = moduleTokenParameters.getIntegerValue("count");
+  int count = moduleTokenParameters.getIntegerValue("count"); //FIXME: use count!
   Attributes* attributes = loadModuleAtrributes(moduleTokenParameters.getArray("attributes"));
   std::vector<Side> activeEdges = loadModuleActiveEdges(moduleTokenParameters.getStringArray("sides")); //TODO: change to edges (in all json files)
   ModuleToken* moduleToken = new ModuleToken(army, name, attributes, activeEdges);
@@ -126,5 +126,6 @@ void TokenLoader::loadUnitTokens(Army army, std::vector<Json> unitTokens) {
 void TokenLoader::loadUnitToken(Army army, Json unitToken) {
   std::string name = unitToken.getStringValue("name");
   int count = unitToken.getIntegerValue("count");
+
   //TODO: implement
 }
