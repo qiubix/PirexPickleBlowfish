@@ -27,10 +27,10 @@
 			"name": "Medic",
 			"namePl": "Medyk",
 			"count": 1,
+			"sides": ["north", "northEast", "northWest"],
 			"upgrades": [
 				{
-					"name": "medic",
-					"sides": ["north", "northEast", "northWest"]
+					"name": "medic"
 				}
 			]
 		},
@@ -38,11 +38,11 @@
 			"name": "Officer",
 			"namePl": "Oficer",
 			"count": 2,
+			"sides": ["north", "northEast", "northWest"],
 			"upgrades": [
 				{
 					"name": "melee",
-					"value": 1,
-					"sides": ["north", "northEast", "northWest"]
+					"value": 1
 				}
 			]
 		},
@@ -50,12 +50,12 @@
 			"name": "Super Officer",
 			"namePl": "Super-oficer",
 			"count": 1,
-			"attributes": [{"toughness": 1}],
+			"attributes": [{"name":"toughness", "value": 1}],
+			"sides": ["north", "northEast", "northWest"],
 			"upgrades": [
 				{
 					"name": "melee",
-					"value": 1,
-					"sides": ["north", "northEast", "northWest"]
+					"value": 1
 				}
 			]
 		},
@@ -63,11 +63,11 @@
 			"name": "Scout",
 			"namePl": "Zwiadowca",
 			"count": 2,
+			"sides": ["north", "southEast", "southWest"],
 			"upgrades": [
 				{
 					"name": "initiative",
-					"value": 1,
-					"sides": ["north", "southEast", "southWest"]
+					"value": 1
 				}
 			]
 		}

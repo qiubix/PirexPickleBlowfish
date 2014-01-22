@@ -33,16 +33,15 @@
 			"name": "The Brain",
 			"namePl": "Mózg",
 			"count": 1,
+			"sides": ["north", "southEast", "southWest"],
 			"upgrades": [
 				{
 					"name": "melee",
-					"value": 1,
-					"sides": ["north", "southEast", "southWest"]
+					"value": 1
 				},
 				{
 					"name": "ranged",
-					"value": 1,
-					"sides": ["north", "southEast", "southWest"]
+					"value": 1
 				}
 			]
 		},
@@ -50,11 +49,11 @@
 			"name": "Officer",
 			"namePl": "Oficer",
 			"count": 1,
+			"sides": ["northEast", "south", "northWest"],
 			"upgrades": [
 				{
 					"name": "ranged",
-					"value": 1,
-					"sides": ["northEast", "south", "northWest"]
+					"value": 1
 				}
 			]
 		},
@@ -62,11 +61,11 @@
 			"name": "Scout",
 			"namePl": "Zwiadowca",
 			"count": 1,
+			"sides": ["north", "southEast", "southWest"],
 			"upgrades": [
 				{
 					"name": "initiative",
-					"value": 1,
-					"sides": ["north", "southEast", "southWest"]
+					"value": 1
 				}
 			]
 		},
@@ -74,10 +73,10 @@
 			"name": "Medic",
 			"namePl": "Medyk",
 			"count": 2,
+			"sides": ["north", "southEast", "southWest"],
 			"upgrades": [
 				{
-					"name": "medic",
-					"sides": ["north", "southEast", "southWest"]
+					"name": "medic"
 				}
 			]
 		},
@@ -85,10 +84,10 @@
 			"name": "Mother Module",
 			"namePl": "Matka",
 			"count": 1,
+			"sides": ["north"],
 			"upgrades": [
 				{
-					"name": "mother",
-					"sides": ["north"]
+					"name": "mother"
 				}
 			]
 		}

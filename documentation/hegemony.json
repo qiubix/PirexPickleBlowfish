@@ -32,16 +32,15 @@
 			"name": "The Boss",
 			"namePl": "Boss",
 			"count": 1,
+			"sides": ["north", "northWest"],
 			"upgrades": [
 				{
 					"name": "initiative",
 					"value": 1,
-					"sides": ["north", "northWest"]
 				},
 				{
 					"name": "melee",
-					"value": 1,
-					"sides": ["north", "northWest"]
+					"value": 1
 				}
 			]
 		},
@@ -49,10 +48,10 @@
 			"name": "Quartermaster",
 			"namePl": "Kwatermistrz",
 			"count": 1,
+			"sides": ["north"],
 			"upgrades": [
 				{
 					"name": "quartermaster",
-					"sides": ["north"]
 				}
 			]
 		},
@@ -60,11 +59,11 @@
 			"name": "Officer I",
 			"namePl": "Oficer I",
 			"count": 2,
+			"sides": ["north", "northWest"],
 			"upgrades": [
 				{
 					"name": "melee",
-					"value": 1,
-					"sides": ["north", "northWest"]
+					"value": 1
 				}
 			]
 		},
@@ -72,11 +71,11 @@
 			"name": "Officer II",
 			"namePl": "Oficer II",
 			"count": 1,
+			"sides": ["north", "northEast", "northWest"],
 			"upgrades": [
 				{
 					"name": "melee",
-					"value": 1,
-					"sides": ["north", "northEast", "northWest"]
+					"value": 1
 				}
 			]
 		},
@@ -84,10 +83,10 @@
 			"name": "Transport",
 			"namePl": "Transport",
 			"count": 1,
+			"sides": ["north", "northEast", "southEast", "south", "southWest", "northWest"],
 			"upgrades": [
 				{
-					"name": "move",
-					"sides": ["north", "northEast", "southEast", "south", "southWest", "northWest"]
+					"name": "move"
 				}
 			]
 		},
@@ -95,11 +94,11 @@
 			"name": "Scout",
 			"namePl": "Zwiadowca",
 			"count": 1,
+			"sides": ["north", "northEast", "northWest"],
 			"upgrades": [
 				{
 					"name": "initiative",
-					"value": 1,
-					"sides": ["north", "northEast", "northWest"]
+					"value": 1
 				}
 			]
 		}

@@ -37,11 +37,11 @@
 			"name": "Saboteur",
 			"namePl": "Dywersant",
 			"count": 1,
+			"sides": ["north", "northEast", "southEast", "south", "southWest", "northWest"],
 			"upgrades": [
 				{
 					"name": "initiative",
 					"value": -1,
-					"sides": ["north", "northEast", "southEast", "south", "southWest", "northWest"],
 					"affectsEnemy": true
 				}
 			]
@@ -50,10 +50,10 @@
 			"name": "Medic",
 			"namePl": "Medyk",
 			"count": 2,
+			"sides": ["north", "northEast", "northWest"],
 			"upgrades": [
 				{
-					"name": "medic",
-					"sides": ["north", "northEast", "northWest"]
+					"name": "medic"
 				}
 			]
 		},
@@ -61,11 +61,11 @@
 			"name": "Officer",
 			"namePl": "Oficer",
 			"count": 1,
+			"sides": ["north", "northEast", "southEast", "south", "southWest", "northWest"],
 			"upgrades": [
 				{
 					"name": "ranged",
-					"value": 1,
-					"sides": ["north", "northEast", "southEast", "south", "southWest", "northWest"]
+					"value": 1
 				}
 			]
 		},
@@ -73,10 +73,10 @@
 			"name": "Scoper",
 			"namePl": "Skoper",
 			"count": 1,
+			"sides": ["north", "northEast", "southEast", "south", "southWest", "northWest"],
 			"upgrades": [
 				{
 					"name": "scoper",
-					"sides": ["north", "northEast", "southEast", "south", "southWest", "northWest"],
 					"affectsEnemy": true
 				}
 			]
@@ -85,11 +85,11 @@
 			"name": "Scout",
 			"namePl": "Zwiadowca",
 			"count": 2,
+			"sides": ["north", "southEast", "southWest"],
 			"upgrades": [
 				{
 					"name": "initiative",
-					"value": 1,
-					"sides": ["north", "southEast", "southWest"]
+					"value": 1
 				}
 			]
 		}
