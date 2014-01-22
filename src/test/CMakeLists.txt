@@ -8,6 +8,7 @@ set(TOKEN_LOADER_TEST_SRC TokenLoaderTest.cpp MockJson.hpp)
 set(CONTROLLER_TEST_SRC ControllerTest.cpp)
 set(MODEL_TEST_SRC ModelTest.cpp)
 set(TOKEN_TEST_SRC TokenTest.cpp)
+set(FIELD_TEST_SRC FieldTest.cpp)
 set(GUI_TEST_SRC MainWindowSampleTest.cpp)
 set(GUI_TEST_LIBRARIES MainWindowSample ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES})
 
@@ -23,6 +24,7 @@ add_executable(LoadingTokensTest ${STRING_TO_ENUM_TRANSLATOR_TEST_SRC} ${JSON_TE
 add_executable(ControllerTest ${CONTROLLER_TEST_SRC})
 add_executable(ModelTest ${MODEL_TEST_SRC})
 add_executable(TokenTest ${TOKEN_TEST_SRC})
+add_executable(FieldTest ${FIELD_TEST_SRC})
 add_executable(GuiTest ${GUI_TEST_SRC})
 
 #tests connected with token loading
@@ -38,6 +40,7 @@ target_link_libraries(LoadingTokensTest StringToEnumTranslator Json JsonParser G
 target_link_libraries(ControllerTest logic gmock_main)
 target_link_libraries(ModelTest logic gmock_main)
 target_link_libraries(TokenTest logic gmock_main)
+target_link_libraries(FieldTest logic gmock_main)
 target_link_libraries(GuiTest ${GUI_TEST_LIBRARIES})
 qt5_use_modules(GuiTest Test)
 
@@ -53,6 +56,7 @@ install(TARGETS LoadingTokensTest DESTINATION ${CMAKE_INSTALL_PREFIX})
 install(TARGETS TokenTest DESTINATION ${CMAKE_INSTALL_PREFIX})
 install(TARGETS ControllerTest DESTINATION ${CMAKE_INSTALL_PREFIX})
 install(TARGETS ModelTest DESTINATION ${CMAKE_INSTALL_PREFIX})
+install(TARGETS FieldTest DESTINATION ${CMAKE_INSTALL_PREFIX})
 install(TARGETS GuiTest DESTINATION ${CMAKE_INSTALL_PREFIX})
 
 #tests connected with token loading
@@ -66,6 +70,7 @@ add_test(LoadingTokensTest LoadingTokensTest)
 add_test(TokenTest TokenTest)
 add_test(ControllerTest ControllerTest)
 add_test(ModelTest ModelTest)
+add_test(FieldTest FieldTest)
 add_test(GuiTest GuiTest)
 
 #test files to TokenLoaderTest

@@ -418,10 +418,12 @@ TEST_F(InstantTokenTest, shouldBombTokens) {
   Attributes* attributes = new Attributes;
   attributes->addAttribute(TOUGHNESS, toughness);
   BoardToken* firstToken = new BoardToken(MOLOCH, "soldier", attributes);
-  Field* firstField = new Field;
-  firstToken->setField(firstField);
   BoardToken* secondToken = new BoardToken(OUTPOST, "soldier", attributes);
+  Field* firstField = new Field;
   Field* secondField = new Field;
+  firstField->addNeighbour(secondField, NORTH);
+  secondField->addNeighbour(firstField, SOUTH);
+  firstToken->setField(firstField);
   secondToken->setField(secondField);
   EXPECT_EQ(2, firstToken->getAttribute(TOUGHNESS)->getValue());
   EXPECT_EQ(2, secondToken->getAttribute(TOUGHNESS)->getValue());
