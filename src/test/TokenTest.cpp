@@ -164,7 +164,8 @@ protected:
     mainUnitAttributes->addAttribute(INITIATIVE, initiative);
     melee = new Attribute("melee", 1);
     northSideAttributes = new Attributes;
-    northSideAttributes->addAttribute(MELEE, melee);
+    northSideAttributes -> addAttribute(MELEE, melee);
+    //TODO: this should be done in Attributes constructor
     for(int i=0; i<6; ++i) {
       sideAttributes[i] = NULL;
     }
@@ -249,4 +250,15 @@ TEST_F(ModuleTokenTest, testCaptureEnemyModule) {
   scoper->addBoardToken(anotherUnit);
   newUnitAffiliation = anotherUnit->getArmy();
   ASSERT_EQ(OUTPOST, newUnitAffiliation);
+}
+
+TEST_F(ModuleTokenTest, shouldApplyTwoDifferentUpgradesFromOneModule) {
+  Module* boss = new ChangeAttributeUpgrader(new ChangeAttributeUpgrader(new ModuleToken(HEGEMONY, "Boss", mainModuleAttributes, activeEdges), MELEE, 1), INITIATIVE, 2);
+  ASSERT_EQ(1, unit -> getEdgeAttributes(NORTH) -> getAttribute(MELEE) -> getValue());
+  ASSERT_EQ(2, unit -> getAttribute(INITIATIVE) -> getValue());
+
+  boss -> addBoardToken(unit);
+
+  ASSERT_EQ(2, unit -> getEdgeAttributes(NORTH) -> getAttribute(MELEE) -> getValue());
+  ASSERT_EQ(4, unit -> getAttribute(INITIATIVE) -> getValue());
 }
