@@ -1,6 +1,8 @@
 #ifndef ATTRIBUTES_HPP
 #define ATTRIBUTES_HPP
 
+#include <gtest/gtest.h>
+
 #include <map>
 #include "Attribute.hpp"
 
@@ -29,6 +31,8 @@ public:
 
 private:
   std::map < AttributeName, Attribute*> attributes;
+
+  FRIEND_TEST(BoardTokenTest, testRemoveAttribute);
 };
 
 #endif //ATTRIBUTES_HPP

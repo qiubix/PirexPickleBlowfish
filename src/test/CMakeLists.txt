@@ -1,10 +1,3 @@
-set(GMOCK_DIR $ENV{GMOCK_ROOT})
-
-add_subdirectory(${GMOCK_DIR} ${CMAKE_BINARY_DIR}/gmock)
-set(CMAKE_AUTOMOC ON)
-
-include_directories(SYSTEM ${GMOCK_DIR}/gtest/include ${GMOCK_DIR}/include)
-
 set(JSON_PARSER_TEST_SRC JsonParserTest.cpp MockBoostJson.hpp)
 set(TOKEN_TEST_SRC TokenTest.cpp)
 set(GUI_TEST_SRC MainWindowSampleTest.cpp)

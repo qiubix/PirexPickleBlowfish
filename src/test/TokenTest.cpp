@@ -3,6 +3,8 @@ using ::testing::Eq;
 #include <gtest/gtest.h>
 using ::testing::Test;
 
+#include <cstdlib>
+
 #include "logic/Attribute.hpp"
 #include "logic/BoardToken.hpp"
 #include "logic/UnitToken.hpp"
@@ -88,13 +90,17 @@ TEST_F(BoardTokenTest, testGetAttribute) {
   ASSERT_EQ(initiative->getValue(), attribute->getValue());
 }
 
-//TODO: testRemoveAttribute
-
 TEST_F(BoardTokenTest, testModifyAttribute) {
   token->upgradeAttributeBy(INITIATIVE);
   ASSERT_EQ(ATTRIBUTE_VALUE + 1, token->getAttribute(INITIATIVE)->getValue());
   token->downgradeAttributeBy(INITIATIVE);
   ASSERT_EQ(ATTRIBUTE_VALUE, token->getAttribute(INITIATIVE)->getValue());
+}
+
+TEST_F(BoardTokenTest, testRemoveAttribute) {
+  ASSERT_EQ(1, token->getAttributes()->attributes.size());
+  token->removeAttribute(INITIATIVE);
+  ASSERT_EQ(0, token->getAttributes()->attributes.size());
 }
 
 TEST_F(BoardTokenTest, testGetOrientation) {
