@@ -2,17 +2,9 @@
 #define BOARDTOKEN_HPP
 
 #include "Token.hpp"
+#include "Side.hpp"
 #include "Field.hpp"
 #include "Attributes.hpp"
-
-enum Side {
-  NORTH,
-  NORTH_EAST,
-  SOUTH_EAST,
-  SOUTH,
-  SOUTH_WEST,
-  NORTH_WEST
-};
 
 class BoardToken : public Token
 {
