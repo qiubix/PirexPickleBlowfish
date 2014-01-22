@@ -33,12 +33,14 @@ private:
   Attributes* loadModuleAtrributes(std::vector<Json> attributes);
   Attribute* loadModuleAttribute(Json attribute);
   std::vector<Side> loadModuleActiveEdges(std::vector<std::string> edges);
+  Module* decorateModuleWithUpgrades(ModuleToken* moduleToken, std::vector<Json> upgrades);
   void loadUnitTokens(Army army, std::vector<Json> unitTokens);
   void loadUnitToken(Army army, Json unitToken);
 
   //tests for private methods:
   FRIEND_TEST(TokenLoaderTest, shouldLoadModuleAttributes);
   FRIEND_TEST(TokenLoaderTest, shouldLoadModuleActiveEdges);
+  FRIEND_TEST(TokenLoaderTest, shouldDecorateModuleWithUpgrades);
 
 };
 

@@ -13,12 +13,14 @@ using ::testing::Test;
 const std::string STRING_KEY = "string";
 const std::string INTEGER_KEY = "integer";
 const std::string BOOLEAN_KEY = "boolean";
+const std::string SECOND_BOOLEAN_KEY = "anotherBoolean";
 const std::string OBJECT_KEY = "object";
 const std::string ARRAY_KEY = "array";
 
 const std::string STRING_VALUE = "stringValue";
 const int INTEGER_VALUE = 5;
 const bool BOOLEAN_VALUE = true;
+const bool SECOND_BOOLEAN_VALUE = false;
 
 class JsonTest : public Test {
 protected:
@@ -53,6 +55,7 @@ void JsonTest::insertInteger(void) {
 
 void JsonTest::insertBoolean(void) {
   json -> insert(QString::fromStdString(BOOLEAN_KEY), BOOLEAN_VALUE);
+  json -> insert(QString::fromStdString(SECOND_BOOLEAN_KEY), SECOND_BOOLEAN_VALUE);
 }
 
 void JsonTest::insertObject(void) {
@@ -91,10 +94,16 @@ TEST_F(JsonTest, shouldGetIntegerValueFromJson) {
   ASSERT_EQ(INTEGER_VALUE, returnedIntegerValue);
 }
 
-TEST_F(JsonTest, shouldGetBoolValueFromJson) {
+TEST_F(JsonTest, shouldGetBooleanValueFromJson) {
   insertBoolean();
   bool returnedBooleanValue = json -> getBooleanValue(BOOLEAN_KEY);
   ASSERT_EQ(BOOLEAN_VALUE, returnedBooleanValue);
+}
+
+TEST_F(JsonTest, shouldReturnFalseByDefaultWhenAskedForBooleanWhichIsNotPresent) {
+  insertInteger();
+  bool returnedBooleanValue = json -> getBooleanValue(BOOLEAN_KEY);
+  ASSERT_FALSE(returnedBooleanValue);
 }
 
 TEST_F(JsonTest, shouldGetObjectFromJson) {
@@ -276,6 +285,11 @@ TEST_F(StringToEnumTranslatorTest, shouldReturnAttributeName) {
   EXPECT_EQ(QUARTERMASTER, name);
 }
 
+TEST_F(StringToEnumTranslatorTest, shouldReturnZeroByDefault) {
+  AttributeName name = StringToEnumTranslator::getInstance() -> getAttributeName("notPresentAttribute");
+  EXPECT_EQ((AttributeName)0, name);
+}
+
 TEST_F(StringToEnumTranslatorTest, shouldReturnSide) {
   Side side = StringToEnumTranslator::getInstance() -> getSide("north");
   EXPECT_EQ(NORTH, side);
@@ -350,4 +364,8 @@ TEST_F(TokenLoaderTest, shouldLoadModuleActiveEdges) {
   for(int currentActiveEdge = 0; currentActiveEdge < expectedActiveEdges.size(); currentActiveEdge++) {
     ASSERT_EQ(expectedActiveEdges[currentActiveEdge], activeEdges[currentActiveEdge]);
   }
+}
+
+TEST_F(TokenLoaderTest, shouldDecorateModuleWithUpgrades) {
+  Json* someActiveEdges = JsonParser::getInstance() -> parse("upgradeParameters.json");
 }

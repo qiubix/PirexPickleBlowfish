@@ -4,6 +4,10 @@
 
 #include "JsonParser.hpp"
 
+#include "logic/ChangeArmyUpgrader.hpp"
+#include "logic/ChangeAttributeUpgrader.hpp"
+#include "logic/AddAttributeUpgrader.hpp"
+
 TokenLoader * TokenLoader::instance = NULL;
 
 TokenLoader * TokenLoader::getInstance()
@@ -56,16 +60,13 @@ void TokenLoader::loadModuleTokens(Army army, std::vector<Json> moduleTokens) {
   }
 }
 
-void TokenLoader::loadModuleToken(Army army, Json moduleToken) {
-  std::string name = moduleToken.getStringValue("name");
-  int count = moduleToken.getIntegerValue("count");
-  Attributes* attributes = loadModuleAtrributes(moduleToken.getArray("attributes"));
-  std::vector<Side> activeEdges = loadModuleActiveEdges(moduleToken.getStringArray("sides")); //TODO: change to edges (in all json files)
-//  ModuleToken* module = new ModuleToken(army, name, attributes, activeEdges);
-
-
-
-  //TODO: implement
+void TokenLoader::loadModuleToken(Army army, Json moduleTokenParameters) {
+  std::string name = moduleTokenParameters.getStringValue("name");
+  int count = moduleTokenParameters.getIntegerValue("count");
+  Attributes* attributes = loadModuleAtrributes(moduleTokenParameters.getArray("attributes"));
+  std::vector<Side> activeEdges = loadModuleActiveEdges(moduleTokenParameters.getStringArray("sides")); //TODO: change to edges (in all json files)
+  ModuleToken* moduleToken = new ModuleToken(army, name, attributes, activeEdges);
+  Module* module = decorateModuleWithUpgrades(moduleToken, moduleTokenParameters.getArray("upgrades"));
 }
 
 Attributes* TokenLoader::loadModuleAtrributes(std::vector<Json> attributes) {
@@ -94,6 +95,26 @@ std::vector<Side> TokenLoader::loadModuleActiveEdges(std::vector<std::string> ed
     activeEdges.push_back(StringToEnumTranslator::getInstance() -> getSide(edges[currentEdge]));
   }
   return activeEdges;
+}
+
+Module* TokenLoader::decorateModuleWithUpgrades(ModuleToken* moduleToken, std::vector<Json> upgradesParameters) {
+  Module* module = moduleToken;
+  for(int currentUpgrade = 0; currentUpgrade < upgradesParameters.size(); currentUpgrade++) {
+    Json currentUpgradeParameters = upgradesParameters[currentUpgrade];
+    std::string name = currentUpgradeParameters.getStringValue("name");
+    AttributeName attributeName = StringToEnumTranslator::getInstance() -> getAttributeName(name);
+    int value = currentUpgradeParameters.getIntegerValue("value");
+
+    bool affectsEnemy = currentUpgradeParameters.getBooleanValue("affectsEnemy"); //FIXME: no option to mark module as upgrading enemy, should be some.
+    if(attributeName == ARMY) {
+      module = new ChangeArmyUpgrader(module);
+    } else if (attributeName < SHIELD) {
+      module = new ChangeAttributeUpgrader(module, attributeName, value);
+    } else {
+      module = new AddAttributeUpgrader(module, attributeName, name);
+    }
+  }
+  return module;
 }
 
 void TokenLoader::loadUnitTokens(Army army, std::vector<Json> unitTokens) {
