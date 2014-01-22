@@ -32,6 +32,8 @@ public:
 private:
   std::map < AttributeName, Attribute*> attributes;
 
+  //REVIEW: why just don't make public method getSize(), because you make this test private just to use std::map size() method.
+  //adding this method to public interface would help also in other tests (while testing adding for example)
   FRIEND_TEST(BoardTokenTest, testRemoveAttribute);
 };
 

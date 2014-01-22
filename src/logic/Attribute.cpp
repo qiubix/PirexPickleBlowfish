@@ -21,17 +21,15 @@ void Attribute::downgradeBy(int amount) {
   currentValue -= amount;
 }
 
-void Attribute::upgradeTo(int newValue)
-{
+void Attribute::upgradeTo(int newValue) {
   currentValue = newValue;
 }
 
-void Attribute::downgradeTo()
-{
+//REVIEW: FIXME: this is the method for restoring the base value, its name doesn't say that.
+void Attribute::downgradeTo(void) {
   currentValue = baseValue;
 }
 
-void Attribute::downgradeTo(int newValue)
-{
+void Attribute::downgradeTo(int newValue) {
   currentValue = newValue;
 }

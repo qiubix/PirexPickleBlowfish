@@ -14,18 +14,15 @@ Attribute* BoardToken::getAttribute(AttributeName name) {
   return attributes->getAttribute(name);
 }
 
-Attributes*BoardToken::getAttributes()
-{
+Attributes*BoardToken::getAttributes() {
   return attributes;
 }
 
-void BoardToken::addAttribute(AttributeName name, Attribute* attribute)
-{
+void BoardToken::addAttribute(AttributeName name, Attribute* attribute) {
   attributes->addAttribute(name, attribute);
 }
 
-void BoardToken::removeAttribute(AttributeName name)
-{
+void BoardToken::removeAttribute(AttributeName name) {
   attributes->removeAttribute(name);
 }
 
@@ -37,15 +34,13 @@ void BoardToken::downgradeAttributeBy(AttributeName name, int downgradeValue) {
   getAttribute(name)->downgradeBy(downgradeValue);
 }
 
-void BoardToken::rotateClockwise(void)
-{
+void BoardToken::rotateClockwise(void) {
   int newOrientation = orientation;
   ++newOrientation %= 6;
   orientation = static_cast<Side>(newOrientation);
 }
 
-void BoardToken::rotateAnticlockwise(void)
-{
+void BoardToken::rotateAnticlockwise(void) {
   int newOrientation = orientation;
   if (--newOrientation == -1) {
     newOrientation = 5;
@@ -61,13 +56,11 @@ Side BoardToken::getOrientation(void) {
   return orientation;
 }
 
-void BoardToken::setArmy(Army army)
-{
+void BoardToken::setArmy(Army army) {
   this->army->upgradeTo(army);
 }
 
-void BoardToken::resetArmy()
-{
+void BoardToken::resetArmy() {
   this->army->downgradeTo();
 }
 

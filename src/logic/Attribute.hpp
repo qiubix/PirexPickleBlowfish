@@ -11,7 +11,7 @@ public:
   void upgradeBy(int amount = 1);
   void downgradeBy(int amount = 1);
   void upgradeTo(int newValue);
-  void downgradeTo();
+  void downgradeTo(void);
   void downgradeTo(int newValue);
 
   //getters
@@ -22,6 +22,7 @@ private:
   std::string name;
   int baseValue;
   int currentValue;
+
 };
 
 #endif //ATTRIBUTE_HPP

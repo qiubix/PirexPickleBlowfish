@@ -16,6 +16,7 @@ void ModuleToken::removeBoardToken(BoardToken* token)
   std::string tokenName = token->getName();
   std::vector<BoardToken*>::iterator it = boardTokens.begin();
   for (;it != boardTokens.end(); ++it) {
+    //REVIEW: FIXME: removing by name? why? there are tokens that are named exactly the same, why just don't compare pointers?
     if ((*it)->getName() == tokenName) {
       boardTokens.erase(it);
       break;

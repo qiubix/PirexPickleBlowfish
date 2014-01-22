@@ -6,6 +6,7 @@
 
 //TODO: introduce c++11 enums
 //http://www.cprogramming.com/c++11/c++11-nullptr-strongly-typed-enum-class.html
+//TODO: move to .hpp file
 enum Army {
   MOLOCH,
   BORGO,
