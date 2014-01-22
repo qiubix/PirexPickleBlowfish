@@ -59,7 +59,11 @@ void TokenLoader::loadModuleTokens(Army army, std::vector<Json> moduleTokens) {
 void TokenLoader::loadModuleToken(Army army, Json moduleToken) {
   std::string name = moduleToken.getStringValue("name");
   int count = moduleToken.getIntegerValue("count");
-  Attributes* attributes = loadModuleAtrributes(moduleToken.getArray("upgrades"));
+  Attributes* attributes = loadModuleAtrributes(moduleToken.getArray("attributes"));
+  std::vector<Side> activeEdges = loadModuleActiveEdges(moduleToken.getStringArray("sides")); //TODO: change to edges (in all json files)
+//  ModuleToken* module = new ModuleToken(army, name, attributes, activeEdges);
+
+
 
   //TODO: implement
 }
@@ -75,13 +79,21 @@ Attributes* TokenLoader::loadModuleAtrributes(std::vector<Json> attributes) {
   return moduleAttributes;
 }
 
-
+//TODO: add validation (name must exist)
 Attribute* TokenLoader::loadModuleAttribute(Json attribute) {
   Attribute* moduleAttribute = NULL;
   std::string name = attribute.getStringValue("name");
   int value = attribute.getIntegerValue("value");
   moduleAttribute = new Attribute(name, value);
   return moduleAttribute;
+}
+
+std::vector<Side> TokenLoader::loadModuleActiveEdges(std::vector<std::string> edges) {
+  std::vector<Side> activeEdges;
+  for(int currentEdge = 0; currentEdge < edges.size(); currentEdge++) {
+    activeEdges.push_back(StringToEnumTranslator::getInstance() -> getSide(edges[currentEdge]));
+  }
+  return activeEdges;
 }
 
 void TokenLoader::loadUnitTokens(Army army, std::vector<Json> unitTokens) {

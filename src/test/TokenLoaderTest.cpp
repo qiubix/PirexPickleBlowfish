@@ -338,3 +338,16 @@ TEST_F(TokenLoaderTest, shouldLoadModuleAttributes) {
   ASSERT_NE((Attributes*)NULL, moduleWithNoAttributeAttributes);
   ASSERT_TRUE(moduleWithNoAttributeAttributes -> empty());
 }
+
+TEST_F(TokenLoaderTest, shouldLoadModuleActiveEdges) {
+  createShortJsonFile("someActiveEdges.json", "{\"sides\": [\"north\", \"south\"]}");
+  Json* someActiveEdges = JsonParser::getInstance() -> parse("someActiveEdges.json");
+  std::vector<Side> expectedActiveEdges;
+  expectedActiveEdges.push_back(NORTH);
+  expectedActiveEdges.push_back(SOUTH);
+  std::vector<Side> activeEdges = TokenLoader::getInstance() -> loadModuleActiveEdges(someActiveEdges->getStringArray("sides"));
+  ASSERT_EQ(expectedActiveEdges.size(), activeEdges.size());
+  for(int currentActiveEdge = 0; currentActiveEdge < expectedActiveEdges.size(); currentActiveEdge++) {
+    ASSERT_EQ(expectedActiveEdges[currentActiveEdge], activeEdges[currentActiveEdge]);
+  }
+}

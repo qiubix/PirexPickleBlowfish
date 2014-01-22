@@ -25,13 +25,24 @@ std::vector<Json> Json::getArray(std::string key) {
   QJsonArray array = takeFromJson(key).toArray();
   std::vector<Json> vector;
   for(int i = 0; i < array.size(); i++) {
-    vector.push_back(array.at(i).toObject());
+    if(array.at(i).isObject())
+      vector.push_back(array.at(i).toObject());
   }
   return vector;
 }
 
 Json Json::getObject(std::string key) {
   return Json(takeFromJson(key).toObject());
+}
+
+std::vector<std::string> Json::getStringArray(std::string key) {
+  QJsonArray array = takeFromJson(key).toArray();
+  std::vector<std::string> vector;
+  for(int i = 0; i < array.size(); i++) {
+    if(array.at(i).isString())
+      vector.push_back(array.at(i).toString().toStdString());
+  }
+  return vector;
 }
 
 QJsonValue Json::takeFromJson(std::string key) {
