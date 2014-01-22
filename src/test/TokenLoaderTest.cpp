@@ -327,6 +327,7 @@ TEST_F(TokenLoaderTest, shouldLoadModuleAttributes) {
   Json* moduleWithAttribute = JsonParser::getInstance() -> parse("moduleWithAttribute.json");
   Attributes* moduleWithAttributeAttributes = TokenLoader::getInstance() -> loadModuleAtrributes(moduleWithAttribute->getArray("attributes"));
   ASSERT_NE((Attributes*)NULL, moduleWithAttributeAttributes);
+  ASSERT_FALSE(moduleWithAttributeAttributes -> empty());
   AttributeName attributeName = StringToEnumTranslator::getInstance() -> getAttributeName(ATTRIBUTE);
   Attribute* moduleAttribute = moduleWithAttributeAttributes -> getAttribute(attributeName);
   ASSERT_EQ(1, moduleAttribute -> getValue());
