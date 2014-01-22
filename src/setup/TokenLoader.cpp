@@ -75,15 +75,12 @@ Attributes* TokenLoader::loadModuleAtrributes(std::vector<Json> attributes) {
   return moduleAttributes;
 }
 
+
 Attribute* TokenLoader::loadModuleAttribute(Json attribute) {
   Attribute* moduleAttribute = NULL;
   std::string name = attribute.getStringValue("name");
   int value = attribute.getIntegerValue("value");
-
-  if(name != "") {
-    moduleAttribute = new Attribute(name, value);
-  }
-
+  moduleAttribute = new Attribute(name, value);
   return moduleAttribute;
 }
 
