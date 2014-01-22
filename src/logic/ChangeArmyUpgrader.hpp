@@ -6,7 +6,7 @@
 class ChangeArmyUpgrader : public Upgrader
 {
 public:
-  ChangeArmyUpgrader(Module* module);
+  ChangeArmyUpgrader(Module* module, bool affectsEnemies = false);
   ~ChangeArmyUpgrader() {}
 
 protected:

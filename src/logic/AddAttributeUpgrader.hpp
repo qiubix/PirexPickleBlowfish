@@ -6,7 +6,7 @@
 class AddAttributeUpgrader : public Upgrader
 {
 public:
-  AddAttributeUpgrader(Module* module, AttributeName attributeId, std::string name);
+  AddAttributeUpgrader(Module* module, AttributeName attributeId, std::string name, bool affectsEnemies = false);
   ~AddAttributeUpgrader() {}
 
 protected:

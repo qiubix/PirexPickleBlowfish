@@ -193,6 +193,16 @@ protected:
   std::vector<Side> activeEdges;
 };
 
+TEST_F(ModuleTokenTest, shouldNotAffectEnemiesOnDefault) {
+  Upgrader* upgrader = new ChangeAttributeUpgrader(new ModuleToken(HEGEMONY, "Officer", mainModuleAttributes, activeEdges), MELEE, 1);
+  ASSERT_FALSE(upgrader -> isAffectingEnemies());
+}
+
+TEST_F(ModuleTokenTest, shouldAffectEnemies) {
+  Upgrader* upgrader = new ChangeAttributeUpgrader(new ModuleToken(HEGEMONY, "Officer", mainModuleAttributes, activeEdges), MELEE, 1, true);
+  ASSERT_TRUE(upgrader -> isAffectingEnemies());
+}
+
 //FIXME: make tests more in-depth and more clear
 TEST_F(ModuleTokenTest, testUpgradeAttribute) {
   Module* officer = new ChangeAttributeUpgrader(new ModuleToken(HEGEMONY, "Officer", mainModuleAttributes, activeEdges), MELEE, 1);

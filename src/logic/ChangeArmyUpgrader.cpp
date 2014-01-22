@@ -1,7 +1,7 @@
 #include "ChangeArmyUpgrader.hpp"
 
-ChangeArmyUpgrader::ChangeArmyUpgrader(Module* module)
-  : Upgrader(module), newArmyValue(module->getArmy()) {
+ChangeArmyUpgrader::ChangeArmyUpgrader(Module* module, bool affectsEnemies)
+  : Upgrader(module, affectsEnemies), newArmyValue(module->getArmy()) {
 }
 
 void ChangeArmyUpgrader::upgrade(BoardToken* token) {
