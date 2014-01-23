@@ -211,6 +211,33 @@ TEST_F(ModuleTokenTest, shouldAffectEnemies) {
   ASSERT_TRUE(upgrader -> isAffectingEnemies());
 }
 
+TEST_F(ModuleTokenTest, shouldAddBoardToken) {
+  ModuleToken* module = new ModuleToken(HEGEMONY, "Officer", mainModuleAttributes, activeEdges);
+  EXPECT_TRUE(module->boardTokens.empty());
+  module->addBoardToken(unit);
+  EXPECT_EQ(1, module->boardTokens.size());
+  EXPECT_EQ("UniversalSoldier", module->boardTokens[0]->getName());
+}
+
+TEST_F(ModuleTokenTest, shouldRemoveBoardToken) {
+  ModuleToken* module = new ModuleToken(HEGEMONY, "Officer", mainModuleAttributes, activeEdges);
+  UnitToken* soldier = new UnitToken(HEGEMONY, "Soldier", mainUnitAttributes);
+  UnitToken* anotherSoldier = new UnitToken(HEGEMONY, "UniversalSoldier", mainUnitAttributes);
+  ASSERT_TRUE(module->boardTokens.empty());
+  module->boardTokens.push_back(unit);
+  module->boardTokens.push_back(soldier);
+  module->boardTokens.push_back(anotherSoldier);
+  EXPECT_EQ(3, module->boardTokens.size());
+  EXPECT_EQ("Soldier", module->boardTokens[1]->getName());
+  module->removeBoardToken(soldier);
+  EXPECT_EQ(2, module->boardTokens.size());
+  EXPECT_EQ("UniversalSoldier", module->boardTokens[1]->getName());
+  module->removeBoardToken(anotherSoldier);
+  EXPECT_EQ(1, module->boardTokens.size());
+  EXPECT_EQ("UniversalSoldier", module->boardTokens[0]->getName());
+  EXPECT_EQ(unit, module->boardTokens[0]);
+}
+
 //FIXME: make tests more in-depth and more clear
 TEST_F(ModuleTokenTest, testUpgradeAttribute) {
   Module* officer = new ChangeAttributeUpgrader(new ModuleToken(HEGEMONY, "Officer", mainModuleAttributes, activeEdges), MELEE, 1);

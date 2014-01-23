@@ -5,6 +5,10 @@ Upgrader::Upgrader(Module* module, bool affectsEnemies)
   this->module = module;
 }
 
+Upgrader::~Upgrader() {
+  delete module;
+}
+
 void Upgrader::upgrade(BoardToken* token) {
 }
 
@@ -24,4 +28,3 @@ void Upgrader::removeBoardToken(BoardToken* token) {
   module->removeBoardToken(token);
   downgrade(token);
 }
-

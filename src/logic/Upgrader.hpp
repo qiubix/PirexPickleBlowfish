@@ -7,7 +7,7 @@ class Upgrader : public Module
 {
 public:
   Upgrader(Module* module, bool affectsEnemies);
-  virtual ~Upgrader() {}
+  virtual ~Upgrader();
 
   virtual void addBoardToken(BoardToken* token);
   virtual void removeBoardToken(BoardToken* token);

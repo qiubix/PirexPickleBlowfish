@@ -1,6 +1,7 @@
 #ifndef MODULETOKEN_HPP
 #define MODULETOKEN_HPP
 
+#include <gtest/gtest.h>
 #include <vector>
 #include "Module.hpp"
 
@@ -18,6 +19,9 @@ public:
 private:
   std::vector<BoardToken*> boardTokens;
   std::vector<Side> activeEdges;
+
+  FRIEND_TEST(ModuleTokenTest, shouldAddBoardToken);
+  FRIEND_TEST(ModuleTokenTest, shouldRemoveBoardToken);
 };
 
 #endif //MODULETOKEN_HPP

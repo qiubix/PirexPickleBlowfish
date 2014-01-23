@@ -10,6 +10,11 @@ UnitToken::UnitToken(Army army, std::string name, Attributes* attributes)
 
 UnitToken::~UnitToken()
 {
+  for (int i=0; i<6; i++) {
+    if(edges[i] != NULL) {
+      delete edges[i];
+    }
+  }
   delete[] edges;
 }
 
