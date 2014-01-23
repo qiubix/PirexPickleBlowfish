@@ -111,9 +111,9 @@ TEST_F(BoardTokenTest, testModifyAttribute) {
 }
 
 TEST_F(BoardTokenTest, testRemoveAttribute) {
-  ASSERT_EQ(1, token->getAttributes()->attributes.size());
+  ASSERT_EQ(1, token->getAttributes()->getSize());
   token->removeAttribute(INITIATIVE);
-  ASSERT_EQ(0, token->getAttributes()->attributes.size());
+  ASSERT_EQ(0, token->getAttributes()->getSize());
 }
 
 TEST_F(BoardTokenTest, testGetOrientation) {
@@ -145,9 +145,9 @@ protected:
     northSideAttributes = new Attributes;
     Attribute* melee = new Attribute("melee", 1);
     northSideAttributes->addAttribute(MELEE, melee);
-    sideAttributes[NORTH] = northSideAttributes;
     baseUnitAttributes = new Attributes;
-    unit = new UnitToken(HEGEMONY, "UniversalSoldier", baseUnitAttributes, sideAttributes);
+    unit = new UnitToken(HEGEMONY, "UniversalSoldier", baseUnitAttributes);
+    unit->setEdgeAttributes(NORTH, northSideAttributes);
   }
   ~UnitTokenTest() {}
   void SetUp() {}
@@ -155,7 +155,6 @@ protected:
 
   UnitToken* unit;
   Attributes* baseUnitAttributes;
-  Attributes* sideAttributes[6];
   Attributes* northSideAttributes;
 };
 
@@ -178,12 +177,8 @@ protected:
     melee = new Attribute("melee", 1);
     northSideAttributes = new Attributes;
     northSideAttributes -> addAttribute(MELEE, melee);
-    //TODO: this should be done in Attributes constructor
-    for(int i=0; i<6; ++i) {
-      sideAttributes[i] = NULL;
-    }
-    sideAttributes[NORTH] = northSideAttributes;
-    unit = new UnitToken(HEGEMONY, "UniversalSoldier", mainUnitAttributes, sideAttributes);
+    unit = new UnitToken(HEGEMONY, "UniversalSoldier", mainUnitAttributes);
+    unit->setEdgeAttributes(NORTH, northSideAttributes);
     toughness = new Attribute("toughness", 1);
     mainModuleAttributes = new Attributes;
     mainModuleAttributes->addAttribute(TOUGHNESS, toughness);
@@ -200,7 +195,6 @@ protected:
   Attributes* mainUnitAttributes;
   Attribute* melee;
   Attributes* northSideAttributes;
-  Attributes* sideAttributes[6];
   UnitToken* unit;
   Attribute* toughness;
   Attributes* mainModuleAttributes;
@@ -259,7 +253,8 @@ TEST_F(ModuleTokenTest, testCaptureEnemyModule) {
   scoper->addBoardToken(unit);
   Army newUnitAffiliation = unit->getArmy();
   ASSERT_EQ(OUTPOST, newUnitAffiliation);
-  UnitToken* anotherUnit = new UnitToken(MOLOCH, "Gauss cannon", mainUnitAttributes, sideAttributes);
+  UnitToken* anotherUnit = new UnitToken(MOLOCH, "Gauss cannon", mainUnitAttributes);
+  anotherUnit->setEdgeAttributes(NORTH, northSideAttributes);
   scoper->addBoardToken(anotherUnit);
   newUnitAffiliation = anotherUnit->getArmy();
   ASSERT_EQ(OUTPOST, newUnitAffiliation);

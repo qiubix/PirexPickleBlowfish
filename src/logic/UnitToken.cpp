@@ -1,10 +1,24 @@
 #include "UnitToken.hpp"
 
-UnitToken::UnitToken(Army army, std::string name, Attributes* attributes, Attributes** edgeAttributes)
+UnitToken::UnitToken(Army army, std::string name, Attributes* attributes)
   : BoardToken(army, name, attributes) {
-  this->edges = edgeAttributes;
+  edges = new Attributes*[6];
+  for (int i=0; i<6; i++) {
+    edges[i] = NULL;
+  }
+}
+
+UnitToken::~UnitToken()
+{
+  delete[] edges;
 }
 
 Attributes* UnitToken::getEdgeAttributes(Side edge) {
   return this->edges[edge];
 }
+
+void UnitToken::setEdgeAttributes(Side edge, Attributes* attributes)
+{
+  edges[edge] = attributes;
+}
+

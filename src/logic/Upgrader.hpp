@@ -18,8 +18,6 @@ protected:
   virtual void downgrade(BoardToken *token);
 
   bool affectsEnemies;
-
-private:
   Module* module;
 
 };

@@ -6,11 +6,14 @@
 class UnitToken : public BoardToken
 {
 public:
-  UnitToken(Army army, std::string name, Attributes* attributes, Attributes** edgeAttributes);
-  ~UnitToken() {}
+  UnitToken(Army army, std::string name, Attributes* attributes);
+  ~UnitToken();
 
   //getters
   Attributes* getEdgeAttributes(Side edge);
+
+  //TODO: make private
+  void setEdgeAttributes(Side edge, Attributes* attributes);
 
 private:
   //TODO: two derefferentions - messy, wrap it into class with overloaded [] operator
