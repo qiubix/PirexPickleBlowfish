@@ -217,6 +217,7 @@ TEST_F(ModuleTokenTest, shouldAddBoardToken) {
   module->addBoardToken(unit);
   EXPECT_EQ(1, module->boardTokens.size());
   EXPECT_EQ("UniversalSoldier", module->boardTokens[0]->getName());
+  delete module;
 }
 
 TEST_F(ModuleTokenTest, shouldRemoveBoardToken) {
@@ -224,9 +225,9 @@ TEST_F(ModuleTokenTest, shouldRemoveBoardToken) {
   UnitToken* soldier = new UnitToken(HEGEMONY, "Soldier", mainUnitAttributes);
   UnitToken* anotherSoldier = new UnitToken(HEGEMONY, "UniversalSoldier", mainUnitAttributes);
   ASSERT_TRUE(module->boardTokens.empty());
-  module->boardTokens.push_back(unit);
-  module->boardTokens.push_back(soldier);
-  module->boardTokens.push_back(anotherSoldier);
+  module->addBoardToken(unit);
+  module->addBoardToken(soldier);
+  module->addBoardToken(anotherSoldier);
   EXPECT_EQ(3, module->boardTokens.size());
   EXPECT_EQ("Soldier", module->boardTokens[1]->getName());
   module->removeBoardToken(soldier);
@@ -236,15 +237,10 @@ TEST_F(ModuleTokenTest, shouldRemoveBoardToken) {
   EXPECT_EQ(1, module->boardTokens.size());
   EXPECT_EQ("UniversalSoldier", module->boardTokens[0]->getName());
   EXPECT_EQ(unit, module->boardTokens[0]);
+  delete module;
 }
 
-//FIXME: make tests more in-depth and more clear
-TEST_F(ModuleTokenTest, testUpgradeAttribute) {
-  Module* officer = new ChangeAttributeUpgrader(new ModuleToken(HEGEMONY, "Officer", mainModuleAttributes, activeEdges), MELEE, 1);
-  officer->addBoardToken(unit);
-  Attribute* melee = unit->getEdgeAttributes(NORTH)->getAttribute(MELEE);
-  int newMeleeValue = melee->getValue();
-  ASSERT_EQ(2, newMeleeValue);
+TEST_F(ModuleTokenTest, shouldUpgradeBaseAttribute) {
   int oldInitiativeValue = unit->getAttribute(INITIATIVE)->getValue();
   ASSERT_EQ(2, oldInitiativeValue);
   Module* ranger = new ChangeAttributeUpgrader(new ModuleToken(HEGEMONY, "Ranger", mainModuleAttributes, activeEdges), INITIATIVE, 1);
@@ -253,18 +249,38 @@ TEST_F(ModuleTokenTest, testUpgradeAttribute) {
   ASSERT_EQ(3, newInitiativeValue);
 }
 
-TEST_F(ModuleTokenTest, testAddAttribute) {
-  Module* transport = new AddAttributeUpgrader(new ModuleToken(HEGEMONY, "Transport", mainModuleAttributes, activeEdges),
-                                               MOBILITY,
-                                               "mobility");
-  transport->addBoardToken(unit);
+TEST_F(ModuleTokenTest, shouldDowngradeAttributeOnRemove) {
+  Module* ranger = new ChangeAttributeUpgrader(new ModuleToken(HEGEMONY, "Ranger", mainModuleAttributes, activeEdges), INITIATIVE, 1);
+  ranger->addBoardToken(unit);
+  int attributeValue = unit->getAttribute(INITIATIVE)->getValue();
+  EXPECT_EQ(3, attributeValue);
+  ranger->removeBoardToken(unit);
+  attributeValue = unit->getAttribute(INITIATIVE)->getValue();
+  EXPECT_EQ(2, attributeValue);
+}
+
+TEST_F(ModuleTokenTest, shouldUpgradeEdgeAttribute) {
+  Module* officer = new ChangeAttributeUpgrader(new ModuleToken(HEGEMONY, "Officer", mainModuleAttributes, activeEdges), MELEE, 1);
+  Attribute* melee = unit->getEdgeAttributes(NORTH)->getAttribute(MELEE);
+  int oldMeleeValue = melee->getValue();
+  ASSERT_EQ(1, oldMeleeValue);
+  officer->addBoardToken(unit);
+  int newMeleeValue = melee->getValue();
+  ASSERT_EQ(2, newMeleeValue);
+}
+
+TEST_F(ModuleTokenTest, shouldAddAttribute) {
+  Module* transport = new AddAttributeUpgrader(new ModuleToken(HEGEMONY, "Transport", mainModuleAttributes, activeEdges), MOBILITY, "mobility");
   Attribute* unitAttribute = unit->getAttribute(MOBILITY);
+  EXPECT_EQ(0, unitAttribute);
+  transport->addBoardToken(unit);
+  unitAttribute = unit->getAttribute(MOBILITY);
   ASSERT_NE((Attribute*) 0, unitAttribute);
   int mobilityValue = unit->getAttribute(MOBILITY)->getValue();
   ASSERT_EQ(1, mobilityValue);
 }
 
-TEST_F(ModuleTokenTest, testDowngradeEnemyAttribute) {
+TEST_F(ModuleTokenTest, shouldDowngradeEnemyAttribute) {
   Attribute* initiative = unit->getAttribute(INITIATIVE);
   ASSERT_NE((Attribute*) 0, initiative);
   int oldInitiativeValue = initiative->getValue();
@@ -275,16 +291,18 @@ TEST_F(ModuleTokenTest, testDowngradeEnemyAttribute) {
   ASSERT_EQ(1, newInitiativeValue);
 }
 
-TEST_F(ModuleTokenTest, testCaptureEnemyModule) {
+TEST_F(ModuleTokenTest, shouldCaptureEnemyModule) {
   Module* scoper = new ChangeArmyUpgrader(new ModuleToken(OUTPOST, "Scoper", mainModuleAttributes, activeEdges));
+  EXPECT_EQ(HEGEMONY, unit->getArmy());
   scoper->addBoardToken(unit);
-  Army newUnitAffiliation = unit->getArmy();
-  ASSERT_EQ(OUTPOST, newUnitAffiliation);
+  ASSERT_EQ(OUTPOST, unit->getArmy());
+  scoper->removeBoardToken(unit);
+  EXPECT_EQ(HEGEMONY, unit->getArmy());
   UnitToken* anotherUnit = new UnitToken(MOLOCH, "Gauss cannon", mainUnitAttributes);
   anotherUnit->setEdgeAttributes(NORTH, northSideAttributes);
+  EXPECT_EQ(MOLOCH, anotherUnit->getArmy());
   scoper->addBoardToken(anotherUnit);
-  newUnitAffiliation = anotherUnit->getArmy();
-  ASSERT_EQ(OUTPOST, newUnitAffiliation);
+  ASSERT_EQ(OUTPOST, anotherUnit->getArmy());
 }
 
 TEST_F(ModuleTokenTest, shouldApplyTwoDifferentUpgradesFromOneModule) {

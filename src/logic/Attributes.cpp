@@ -11,7 +11,14 @@ Attributes::~Attributes(void) {
 }
 
 Attribute* Attributes::getAttribute(AttributeName name) {
-  return attributes[name];
+  //TODO: use attributes.at(name) instead of []
+  std::map<AttributeName, Attribute*>::iterator it = attributes.find(name);
+  if(it != attributes.end()) {
+    return attributes[name];
+  }
+  else {
+    return NULL;
+  }
 }
 
 int Attributes::getSize()
