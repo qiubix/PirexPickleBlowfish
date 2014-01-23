@@ -59,7 +59,18 @@ void Controller::strikeToken(BoardToken* token, int strength)
 
 void Controller::strikeSurroundingTokens(Field* epicentrum)
 {
-
+  BoardToken* token = dynamic_cast<BoardToken*>(epicentrum->getToken());
+  if(token != NULL) {
+    token->downgradeAttributeBy(TOUGHNESS);
+  }
+  Field* neighbour;
+  for(int i=0; i<6; ++i) {
+    neighbour = epicentrum->getNeighbour((Side) i);
+    if(neighbour != NULL && neighbour->getToken() != NULL) {
+      token = dynamic_cast<BoardToken*>(neighbour->getToken());
+      token->downgradeAttributeBy(TOUGHNESS);
+    }
+  }
 }
 
 void Controller::destroy(BoardToken* token)

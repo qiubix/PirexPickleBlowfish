@@ -46,6 +46,11 @@ TEST_F(FieldTest, shouldAddNeighbour) {
   delete neighbour;
 }
 
+TEST_F(FieldTest, shouldSetNeighbours) {
+  //TODO: set neighbours
+  EXPECT_TRUE(false);
+}
+
 TEST_F(FieldTest, shouldGetNeighbour) {
   Field* newNeighbour = new Field;
   field->addNeighbour(newNeighbour, NORTH);

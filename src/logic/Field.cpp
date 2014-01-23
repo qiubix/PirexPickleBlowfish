@@ -27,3 +27,9 @@ void Field::addNeighbour(Field* field, Side side)
   neighbours[side] = field;
 }
 
+void Field::setNeighbours(Field** neighbours)
+{
+  delete this->neighbours;
+  this->neighbours = neighbours;
+}
+

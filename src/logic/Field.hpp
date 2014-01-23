@@ -18,6 +18,7 @@ public:
 
   void setToken(Token* token);
   void addNeighbour(Field* field, Side side);
+  void setNeighbours(Field** neighbours);
 private:
   Token* token;
   Field** neighbours;

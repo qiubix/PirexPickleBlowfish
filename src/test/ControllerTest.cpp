@@ -77,6 +77,39 @@ TEST_F(ControllerTest, shouldMoveToken) {
   EXPECT_EQ(token, destination->getToken());
 }
 
+TEST_F(ControllerTest, shouldStrikeSurroundingTokens) {
+  Field* epicentrum = new Field;
+  Field* north = new Field;
+  Field* northWest = new Field;
+  Field* northEast = new Field;
+  Field* south = new Field;
+  Field* southEast = new Field;
+  Field* southWest = new Field;
+  epicentrum->addNeighbour(north, NORTH);
+  epicentrum->addNeighbour(northWest, NORTH);
+  epicentrum->addNeighbour(northEast, NORTH);
+  epicentrum->addNeighbour(south, SOUTH);
+  epicentrum->addNeighbour(southWest, SOUTH_WEST);
+  epicentrum->addNeighbour(southEast, SOUTH_EAST);
+  Attribute* toughness = new Attribute("toughness", 2);
+  Attributes* attributes = new Attributes;
+  attributes->addAttribute(TOUGHNESS, toughness);
+  BoardToken* firstToken = new BoardToken(MOLOCH, "soldier", attributes);
+  BoardToken* secondToken = new BoardToken(OUTPOST, "soldier", attributes);
+  BoardToken* thirdToken = new BoardToken(HEGEMONY, "soldier", attributes);
+  epicentrum->setToken(firstToken);
+  north->setToken(secondToken);
+  south->setToken(thirdToken);
+  EXPECT_EQ(2, firstToken->getAttribute(TOUGHNESS)->getValue());
+  EXPECT_EQ(2, secondToken->getAttribute(TOUGHNESS)->getValue());
+  EXPECT_EQ(2, thirdToken->getAttribute(TOUGHNESS)->getValue());
+  controller->strikeSurroundingTokens(epicentrum);
+  EXPECT_EQ(1, firstToken->getAttribute(TOUGHNESS)->getValue());
+  EXPECT_EQ(1, secondToken->getAttribute(TOUGHNESS)->getValue());
+  EXPECT_EQ(1, thirdToken->getAttribute(TOUGHNESS)->getValue());
+  //TODO: check if HQ or tokens outside bomb radius are stricken
+}
+
 TEST_F(ControllerTest, shouldResetGame) {
   Player* player = new Player(MOLOCH);
   model->addPlayer(player);
