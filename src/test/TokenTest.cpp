@@ -54,11 +54,24 @@ TEST_F(AttributeTest, testDowngradeAttribute) {
   attribute->downgradeBy(2);
   downgradedValue -= 2;
   ASSERT_EQ(downgradedValue, attribute->getValue());
-  attribute->downgradeTo();
-  ASSERT_EQ(ATTRIBUTE_VALUE, attribute->getValue());
   downgradedValue = ATTRIBUTE_VALUE - 1;
   attribute->downgradeTo(ATTRIBUTE_VALUE-1);
   ASSERT_EQ(downgradedValue, attribute->getValue());
+}
+
+TEST_F(AttributeTest, testResetAttributeValue) {
+  attribute->upgradeTo(ATTRIBUTE_VALUE + 3);
+  int value = ATTRIBUTE_VALUE + 3;
+  ASSERT_EQ(value, attribute->getValue());
+  attribute->resetValue();
+  value = ATTRIBUTE_VALUE;
+  ASSERT_EQ(value, attribute->getValue());
+  attribute->downgradeTo(ATTRIBUTE_VALUE-1);
+  value = ATTRIBUTE_VALUE - 1;
+  ASSERT_EQ(value, attribute->getValue());
+  attribute->resetValue();
+  value = ATTRIBUTE_VALUE;
+  ASSERT_EQ(value, attribute->getValue());
 }
 
 class BoardTokenTest : public Test

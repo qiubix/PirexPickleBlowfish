@@ -61,7 +61,7 @@ void BoardToken::setArmy(Army army) {
 }
 
 void BoardToken::resetArmy() {
-  this->army->downgradeTo();
+  this->army->resetValue();
 }
 
 void BoardToken::setField(Field* field) {

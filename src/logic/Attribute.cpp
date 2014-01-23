@@ -25,8 +25,7 @@ void Attribute::upgradeTo(int newValue) {
   currentValue = newValue;
 }
 
-//REVIEW: FIXME: this is the method for restoring the base value, its name doesn't say that.
-void Attribute::downgradeTo(void) {
+void Attribute::resetValue(void) {
   currentValue = baseValue;
 }
 

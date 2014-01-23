@@ -11,7 +11,7 @@ public:
   void upgradeBy(int amount = 1);
   void downgradeBy(int amount = 1);
   void upgradeTo(int newValue);
-  void downgradeTo(void);
+  void resetValue(void);
   void downgradeTo(int newValue);
 
   //getters
