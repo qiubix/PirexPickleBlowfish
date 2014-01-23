@@ -380,8 +380,8 @@ protected:
   virtual void TearDown() {}
 
   void createShortJsonFile(std::string fileName, std::string content);
-  ModuleToken* createModuleToken(void);
-  UnitToken* createUnitToken(void);
+  ModuleToken* createModuleToken(Army army = HEGEMONY);
+  UnitToken* createUnitToken(Army army = HEGEMONY);
 };
 
 void TokenLoaderTest::createShortJsonFile(std::string fileName, std::string content) {
@@ -392,12 +392,12 @@ void TokenLoaderTest::createShortJsonFile(std::string fileName, std::string cont
   }
 }
 
-ModuleToken* TokenLoaderTest::createModuleToken(void) {
+ModuleToken* TokenLoaderTest::createModuleToken(Army army) {
   std::vector<Side> activeEdges;
-  return new ModuleToken(HEGEMONY, "Boss", new Attributes(), activeEdges);
+  return new ModuleToken(army, "Boss", new Attributes(), activeEdges);
 }
 
-UnitToken* TokenLoaderTest::createUnitToken(void) {
+UnitToken* TokenLoaderTest::createUnitToken(Army army) {
   Attributes* northSideAttributes = new Attributes();
   northSideAttributes -> addAttribute(MELEE, new Attribute("melee", 1));
   northSideAttributes -> addAttribute(RANGED, new Attribute("ranged", 1));
@@ -405,7 +405,7 @@ UnitToken* TokenLoaderTest::createUnitToken(void) {
   Attributes* baseAttributes = new Attributes();
   baseAttributes -> addAttribute(INITIATIVE, new Attribute("initiative", 1));
 
-  UnitToken* unit = new UnitToken(HEGEMONY, "someUnit", baseAttributes);
+  UnitToken* unit = new UnitToken(army, "someUnit", baseAttributes);
   unit->setEdgeAttributes(NORTH, northSideAttributes);
   return unit;
 }
@@ -446,18 +446,95 @@ TEST_F(TokenLoaderTest, shouldLoadModuleActiveEdges) {
   }
 }
 
-TEST_F(TokenLoaderTest, shouldDecorateModuleWithUpgrades) {
-  Json* upgradesParameters = JsonParser::getInstance() -> parse("upgradesParameters.json");
+//FIXME: delete dynamically allocated objects - but first check destructors of Module, ModuleToken, Upgrader and its children
+TEST_F(TokenLoaderTest, shouldDecorateModuleWithTwoChangeAttributeUpgrades) {
+  Json* upgradesParameters = JsonParser::getInstance() -> parse("twoChangeAttributeUpgradesParameters.json");
   ASSERT_FALSE(upgradesParameters -> isEmpty());
+
   ModuleToken* moduleToken = createModuleToken();
   Module* module = TokenLoader::getInstance() -> decorateModuleWithUpgrades(moduleToken, upgradesParameters->getArray("upgrades"));
+  ASSERT_TRUE(dynamic_cast<Upgrader *>(module));
+  ASSERT_FALSE(dynamic_cast<Upgrader *>(module) -> isAffectingEnemies());
+
   UnitToken* unit = createUnitToken();
   ASSERT_EQ(1, unit -> getAttribute(INITIATIVE) -> getValue());
   ASSERT_EQ(1, unit -> getEdgeAttributes(NORTH) -> getAttribute(MELEE) -> getValue());
   ASSERT_EQ(1, unit -> getEdgeAttributes(NORTH) -> getAttribute(RANGED) -> getValue());
 
   module -> addBoardToken(unit);
-  ASSERT_EQ(2, unit -> getAttribute(INITIATIVE) -> getValue());
+  ASSERT_EQ(3, unit -> getAttribute(INITIATIVE) -> getValue());
+  ASSERT_EQ(2, unit -> getEdgeAttributes(NORTH) -> getAttribute(MELEE) -> getValue());
+  ASSERT_EQ(1, unit -> getEdgeAttributes(NORTH) -> getAttribute(RANGED) -> getValue());
+}
+
+TEST_F(TokenLoaderTest, shouldDecorateModuleWithOneChangeAttributeOfEnemyUpgrade) {
+  Json* upgradesParameters = JsonParser::getInstance() -> parse("oneChangeAttributeOfEnemyUpgradeParameters.json");
+  ASSERT_FALSE(upgradesParameters -> isEmpty());
+
+  ModuleToken* moduleToken = createModuleToken();
+  Module* module = TokenLoader::getInstance() -> decorateModuleWithUpgrades(moduleToken, upgradesParameters->getArray("upgrades"));
+  ASSERT_TRUE(dynamic_cast<Upgrader *>(module));
+  ASSERT_TRUE(dynamic_cast<Upgrader *>(module) -> isAffectingEnemies());
+
+  UnitToken* unit = createUnitToken(OUTPOST);
+  ASSERT_EQ(1, unit -> getAttribute(INITIATIVE) -> getValue());
   ASSERT_EQ(1, unit -> getEdgeAttributes(NORTH) -> getAttribute(MELEE) -> getValue());
   ASSERT_EQ(1, unit -> getEdgeAttributes(NORTH) -> getAttribute(RANGED) -> getValue());
+
+  module -> addBoardToken(unit);
+  ASSERT_EQ(0, unit -> getAttribute(INITIATIVE) -> getValue());
+  ASSERT_EQ(1, unit -> getEdgeAttributes(NORTH) -> getAttribute(MELEE) -> getValue());
+  ASSERT_EQ(1, unit -> getEdgeAttributes(NORTH) -> getAttribute(RANGED) -> getValue());
+}
+
+TEST_F(TokenLoaderTest, shouldDecorateModuleWithChangeArmyUpgrade) {
+  Json* upgradesParameters = JsonParser::getInstance() -> parse("changeArmyUpgradeParameters.json");
+  ASSERT_FALSE(upgradesParameters -> isEmpty());
+
+  ModuleToken* moduleToken = createModuleToken();
+  Module* module = TokenLoader::getInstance() -> decorateModuleWithUpgrades(moduleToken, upgradesParameters->getArray("upgrades"));
+  ASSERT_TRUE(dynamic_cast<Upgrader *>(module));
+  ASSERT_TRUE(dynamic_cast<Upgrader *>(module) -> isAffectingEnemies());
+
+  UnitToken* unit = createUnitToken(OUTPOST);
+  ASSERT_EQ(OUTPOST, unit -> getArmy());
+
+  module -> addBoardToken(unit);
+  ASSERT_EQ(HEGEMONY, unit -> getArmy());
+}
+
+TEST_F(TokenLoaderTest, shouldDecorateModuleWithTwoAddAttributeUpgrades) {
+  Json* upgradesParameters = JsonParser::getInstance() -> parse("twoAddAttributeUpgradesParameters.json");
+  ASSERT_FALSE(upgradesParameters -> isEmpty());
+
+  ModuleToken* moduleToken = createModuleToken();
+  Module* module = TokenLoader::getInstance() -> decorateModuleWithUpgrades(moduleToken, upgradesParameters->getArray("upgrades"));
+  ASSERT_TRUE(dynamic_cast<Upgrader *>(module));
+  ASSERT_FALSE(dynamic_cast<Upgrader *>(module) -> isAffectingEnemies());
+
+  UnitToken* unit = createUnitToken();
+  ASSERT_EQ((Attribute *)NULL, unit -> getAttribute(MOTHER));
+  ASSERT_EQ((Attribute *)NULL, unit -> getAttribute(QUARTERMASTER));
+
+  module -> addBoardToken(unit);
+  ASSERT_NE((Attribute *)NULL, unit -> getAttribute(MOTHER));
+  ASSERT_NE((Attribute *)NULL, unit -> getAttribute(QUARTERMASTER));
+}
+
+TEST_F(TokenLoaderTest, shouldDecorateModuleWithOneAddAttributeAndOneChangeAttributeUpgrades) {
+  Json* upgradesParameters = JsonParser::getInstance() -> parse("oneAddAttributeAndOneChangeAttributeUpgradesParameters.json");
+  ASSERT_FALSE(upgradesParameters -> isEmpty());
+
+  ModuleToken* moduleToken = createModuleToken();
+  Module* module = TokenLoader::getInstance() -> decorateModuleWithUpgrades(moduleToken, upgradesParameters->getArray("upgrades"));
+  ASSERT_TRUE(dynamic_cast<Upgrader *>(module));
+  ASSERT_FALSE(dynamic_cast<Upgrader *>(module) -> isAffectingEnemies());
+
+  UnitToken* unit = createUnitToken();
+  ASSERT_EQ(1, unit -> getAttribute(INITIATIVE) -> getValue());
+  ASSERT_EQ((Attribute *)NULL, unit -> getAttribute(MOTHER));
+
+  module -> addBoardToken(unit);
+  ASSERT_EQ(2, unit -> getAttribute(INITIATIVE) -> getValue());
+  ASSERT_NE((Attribute *)NULL, unit -> getAttribute(MOTHER));
 }

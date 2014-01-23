@@ -104,14 +104,14 @@ Module* TokenLoader::decorateModuleWithUpgrades(ModuleToken* moduleToken, std::v
     std::string name = currentUpgradeParameters.getStringValue("name");
     AttributeName attributeName = StringToEnumTranslator::getInstance() -> getAttributeName(name);
     int value = currentUpgradeParameters.getIntegerValue("value");
+    bool affectsEnemy = currentUpgradeParameters.getBooleanValue("affectsEnemy");
 
-    bool affectsEnemy = currentUpgradeParameters.getBooleanValue("affectsEnemy"); //FIXME: no option to mark module as upgrading enemy, should be some.
     if(attributeName == ARMY) {
-      module = new ChangeArmyUpgrader(module);
+      module = new ChangeArmyUpgrader(module, affectsEnemy);
     } else if (attributeName < SHIELD) {
-      module = new ChangeAttributeUpgrader(module, attributeName, value);
+      module = new ChangeAttributeUpgrader(module, attributeName, value, affectsEnemy);
     } else {
-      module = new AddAttributeUpgrader(module, attributeName, name);
+      module = new AddAttributeUpgrader(module, attributeName, name, affectsEnemy);
     }
   }
   return module;

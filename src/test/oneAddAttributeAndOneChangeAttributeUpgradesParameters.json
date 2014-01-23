@@ -3,6 +3,9 @@
 		{
 			"name": "initiative",
 			"value": 1
+		},
+		{
+			"name": "mother"
 		}
 	]
 }

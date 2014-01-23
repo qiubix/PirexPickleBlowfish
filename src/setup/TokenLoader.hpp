@@ -12,6 +12,8 @@
 #include "logic/ModuleToken.hpp"
 #include "logic/UnitToken.hpp"
 
+#include "logic/Upgrader.hpp"
+
 class TokenLoader
 {
 public:
@@ -45,7 +47,11 @@ private:
   //tests for private methods:
   FRIEND_TEST(TokenLoaderTest, shouldLoadModuleAttributes);
   FRIEND_TEST(TokenLoaderTest, shouldLoadModuleActiveEdges);
-  FRIEND_TEST(TokenLoaderTest, shouldDecorateModuleWithUpgrades);
+  FRIEND_TEST(TokenLoaderTest, shouldDecorateModuleWithTwoChangeAttributeUpgrades);
+  FRIEND_TEST(TokenLoaderTest, shouldDecorateModuleWithOneChangeAttributeOfEnemyUpgrade);
+  FRIEND_TEST(TokenLoaderTest, shouldDecorateModuleWithChangeArmyUpgrade);
+  FRIEND_TEST(TokenLoaderTest, shouldDecorateModuleWithTwoAddAttributeUpgrades);
+  FRIEND_TEST(TokenLoaderTest, shouldDecorateModuleWithOneAddAttributeAndOneChangeAttributeUpgrades);
 
 };
 
