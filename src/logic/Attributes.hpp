@@ -3,20 +3,7 @@
 
 #include <map>
 #include "Attribute.hpp"
-
-enum AttributeName {
-  ARMY,
-  INITIATIVE,
-  TOUGHNESS,
-  MELEE,
-  RANGED,
-  SHIELD,
-  NET,
-  MEDIC,
-  MOTHER,
-  MOBILITY,
-  QUARTERMASTER
-};
+#include "AttributeName.hpp"
 
 class Attributes {
 public:
