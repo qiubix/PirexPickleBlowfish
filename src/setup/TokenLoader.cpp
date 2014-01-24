@@ -8,6 +8,8 @@
 #include "logic/ChangeAttributeUpgrader.hpp"
 #include "logic/AddAttributeUpgrader.hpp"
 
+#include "GameBox.hpp"
+
 TokenLoader * TokenLoader::instance = NULL;
 
 TokenLoader * TokenLoader::getInstance()
