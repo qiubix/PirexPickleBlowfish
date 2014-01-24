@@ -19,10 +19,10 @@ public:
   int getArmiesCount(void);
   bool isEmpty(void);
   std::vector<Token *> getArmy(Army armyName);
-  void addArmy(Army armyName, std::vector<Token *> army);
 
 protected:
   GameBox();
+  void addArmy(Army armyName, std::vector<Token *> army);
 
 private:
   static GameBox * instance;
