@@ -23,6 +23,16 @@ Player* Model::getCurrentPlayer()
   }
 }
 
+Player* Model::getPlayer(Army army)
+{
+  for (unsigned i=0; i<players.size(); ++i) {
+    if(players.at(i)->getArmy() == army) {
+      return players.at(i);
+    }
+  }
+  return NULL;
+}
+
 int Model::getPlayersQuantity()
 {
   return players.size();
@@ -44,6 +54,18 @@ void Model::addPlayer(Player* newPlayer)
 void Model::moveToNextPlayer()
 {
   currentPlayerId = (++currentPlayerId) % players.size();
+}
+
+void Model::destroy(BoardToken* token)
+{
+  Field* field = token->getField();
+  if (field != NULL) {
+    field->setToken(NULL);
+  }
+  token->setField(NULL);
+  Player* player = getPlayer(token->getArmy());
+  player->deactivateToken(token);
+  usedTokens.push_back(token);
 }
 
 void Model::reset()

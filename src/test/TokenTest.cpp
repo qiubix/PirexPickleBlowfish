@@ -406,30 +406,39 @@ TEST_F(InstantTokenTest, shouldPushToken) {
   BoardToken* pushee = new BoardToken(OUTPOST, "soldier", NULL);
   Field* pusherField = new Field();
   Field* pusheeField = new Field();
+  Field* destination = new Field;
   pusher->setField(pusherField);
   pushee->setField(pusheeField);
   push->setPushingToken(pusher);
   push->setPushedToken(pushee);
+  push->setDestination(destination);
   push->action();
   EXPECT_NE(pusheeField, pushee->getField());
+  EXPECT_EQ(destination, pushee->getField());
+  EXPECT_EQ(pushee, destination->getToken());
   delete pusherField;
   delete pusheeField;
   delete pusher;
   delete pushee;
 }
 
-TEST_F(InstantTokenTest, shouldBombTokens) {
-  Attribute* toughness = new Attribute("toughness", 2);
-  Attributes* attributes = new Attributes;
-  attributes->addAttribute(TOUGHNESS, toughness);
-  BoardToken* firstToken = new BoardToken(MOLOCH, "soldier", attributes);
-  BoardToken* secondToken = new BoardToken(OUTPOST, "soldier", attributes);
+TEST_F(InstantTokenTest, shouldBombStrikeField) {
+  BoardToken* firstToken = new BoardToken(MOLOCH, "soldier", NULL);
+  Attribute* firstTokenToughness = new Attribute("toughness", 2);
+  firstToken->addAttribute(TOUGHNESS, firstTokenToughness);
+  BoardToken* secondToken = new BoardToken(OUTPOST, "soldier", NULL);
+  Attribute* secondTokenToughness = new Attribute("toughness", 2);
+  secondToken->addAttribute(TOUGHNESS, secondTokenToughness);
+
   Field* firstField = new Field;
   Field* secondField = new Field;
   firstField->addNeighbour(secondField, NORTH);
-  secondField->addNeighbour(firstField, SOUTH);
+  firstField->setToken(firstToken);
   firstToken->setField(firstField);
+  secondField->addNeighbour(firstField, SOUTH);
+  secondField->setToken(secondToken);
   secondToken->setField(secondField);
+
   EXPECT_EQ(2, firstToken->getAttribute(TOUGHNESS)->getValue());
   EXPECT_EQ(2, secondToken->getAttribute(TOUGHNESS)->getValue());
   bomb->setEpicentrum(firstToken->getField());
@@ -438,12 +447,17 @@ TEST_F(InstantTokenTest, shouldBombTokens) {
   EXPECT_EQ(1, secondToken->getAttribute(TOUGHNESS)->getValue());
   delete firstField;
   delete secondField;
-  delete attributes;
 }
 
 TEST_F(InstantTokenTest, shouldDestroyToken) {
+  Player* player = new Player(MOLOCH);
+  model->addPlayer(player);
   BoardToken* token = new BoardToken(MOLOCH, "soldier", NULL);
+  Field* field = new Field;
+  token->setField(field);
+  field->setToken(token);
   EXPECT_TRUE(model->usedTokens.empty());
+  ASSERT_NE((Player*) NULL, model->getPlayer(MOLOCH));
   granade->setTokenToDestroy(token);
   granade->action();
   ASSERT_FALSE(model->usedTokens.empty());

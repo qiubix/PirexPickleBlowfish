@@ -46,11 +46,6 @@ TEST_F(FieldTest, shouldAddNeighbour) {
   delete neighbour;
 }
 
-TEST_F(FieldTest, shouldSetNeighbours) {
-  //TODO: set neighbours
-  EXPECT_TRUE(false);
-}
-
 TEST_F(FieldTest, shouldGetNeighbour) {
   Token* firstToken = new Token(MOLOCH, "first token");
   Token* secondToken = new Token(MOLOCH, "second token");

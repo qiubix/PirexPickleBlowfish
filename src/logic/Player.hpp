@@ -13,11 +13,13 @@ public:
   ~Player(void) {}
 
   //getters
+  Army getArmy(void);
   Token* getActiveToken(std::string name);
   Token* getActiveToken(int position);
 
   void generateNewTokens(void);
   void activateToken(Token* token);
+  void deactivateToken(Token* token);
   void drawTokens(int amount = 3);
 
 private:
@@ -25,7 +27,11 @@ private:
   std::vector <Token*> hiddenTokens;
   std::vector <Token*> activeTokens;
 
+  FRIEND_TEST(PlayerTest, shouldGetActiveToken);
+  FRIEND_TEST(PlayerTest, shouldActivateToken);
+  FRIEND_TEST(PlayerTest, shouldDeactivateToken);
   FRIEND_TEST(ControllerTest, shouldActivateToken);
+  FRIEND_TEST(ModelTest, shouldDestroyToken);
 };
 
 #endif //PLAYER_HPP

@@ -9,6 +9,7 @@ set(CONTROLLER_TEST_SRC ControllerTest.cpp)
 set(MODEL_TEST_SRC ModelTest.cpp)
 set(TOKEN_TEST_SRC TokenTest.cpp)
 set(FIELD_TEST_SRC FieldTest.cpp)
+set(PLAYER_TEST_SRC PlayerTest.cpp)
 set(GUI_TEST_SRC MainWindowSampleTest.cpp)
 set(GUI_TEST_LIBRARIES MainWindowSample ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES})
 
@@ -25,6 +26,8 @@ add_executable(ControllerTest ${CONTROLLER_TEST_SRC})
 add_executable(ModelTest ${MODEL_TEST_SRC})
 add_executable(TokenTest ${TOKEN_TEST_SRC})
 add_executable(FieldTest ${FIELD_TEST_SRC})
+add_executable(PlayerTest ${PLAYER_TEST_SRC})
+add_executable(LogicTest ${FIELD_TEST_SRC} ${PLAYER_TEST_SRC} ${MODEL_TEST_SRC} ${CONTROLLER_TEST_SRC} ${TOKEN_TEST_SRC})
 add_executable(GuiTest ${GUI_TEST_SRC})
 
 #tests connected with token loading
@@ -41,6 +44,8 @@ target_link_libraries(ControllerTest logic gmock_main)
 target_link_libraries(ModelTest logic gmock_main)
 target_link_libraries(TokenTest logic gmock_main)
 target_link_libraries(FieldTest logic gmock_main)
+target_link_libraries(PlayerTest logic gmock_main)
+target_link_libraries(LogicTest logic gmock_main)
 target_link_libraries(GuiTest ${GUI_TEST_LIBRARIES})
 qt5_use_modules(GuiTest Test)
 
@@ -57,6 +62,8 @@ install(TARGETS TokenTest DESTINATION ${CMAKE_INSTALL_PREFIX})
 install(TARGETS ControllerTest DESTINATION ${CMAKE_INSTALL_PREFIX})
 install(TARGETS ModelTest DESTINATION ${CMAKE_INSTALL_PREFIX})
 install(TARGETS FieldTest DESTINATION ${CMAKE_INSTALL_PREFIX})
+install(TARGETS PlayerTest DESTINATION ${CMAKE_INSTALL_PREFIX})
+install(TARGETS LogicTest DESTINATION ${CMAKE_INSTALL_PREFIX})
 install(TARGETS GuiTest DESTINATION ${CMAKE_INSTALL_PREFIX})
 
 #tests connected with token loading
@@ -71,6 +78,8 @@ add_test(TokenTest TokenTest)
 add_test(ControllerTest ControllerTest)
 add_test(ModelTest ModelTest)
 add_test(FieldTest FieldTest)
+add_test(PlayerTest PlayerTest)
+add_test(LogicTest LogicTest)
 add_test(GuiTest GuiTest)
 
 #test files to TokenLoaderTest

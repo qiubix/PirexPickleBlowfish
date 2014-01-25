@@ -43,7 +43,7 @@ PushToken::PushToken(Army army, Controller* controller, std::string name)
 
 void PushToken::action()
 {
-  controller->pushToken(pusher, pushee);
+  controller->move(pushee, destination);
 }
 
 void PushToken::setPushingToken(BoardToken* token)
@@ -56,13 +56,18 @@ void PushToken::setPushedToken(BoardToken* token)
   pushee = token;
 }
 
+void PushToken::setDestination(Field* destination)
+{
+  this->destination = destination;
+}
+
 
 BombToken::BombToken(Army army, Controller* controller, std::string name)
   : InstantToken(army, controller, name) {}
 
 void BombToken::action()
 {
-  controller->strikeSurroundingTokens(epicentrum);
+  controller->bombStrikeField(epicentrum);
 }
 
 void BombToken::setEpicentrum(Field* epicentrum)

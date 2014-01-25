@@ -25,11 +25,13 @@ public:
   Board* getBoard(void);
   GameState getGameState(void);
   Player* getCurrentPlayer(void);
+  Player* getPlayer(Army army);
   int getPlayersQuantity(void);
 
   void setGameState(GameState newState);
   void addPlayer(Player* newPlayer);
   void moveToNextPlayer(void);
+  void destroy(BoardToken* token);
   void reset(void);
 
 private:
@@ -39,7 +41,9 @@ private:
   std::vector <Player*> players;
   int currentPlayerId;
 
+  FRIEND_TEST(ModelTest, shouldGetPlayer);
   FRIEND_TEST(ModelTest, shouldGetPlayersQuantity);
+  FRIEND_TEST(ModelTest, shouldDestroyToken);
   FRIEND_TEST(ControllerTest, shouldResetGame);
   FRIEND_TEST(InstantTokenTest, shouldDestroyToken);
 };

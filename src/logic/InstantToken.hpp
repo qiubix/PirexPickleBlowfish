@@ -49,9 +49,11 @@ public:
 
   void setPushingToken(BoardToken* token);
   void setPushedToken(BoardToken* token);
+  void setDestination(Field* destination);
 private:
   BoardToken* pusher;
   BoardToken* pushee;
+  Field* destination;
 };
 
 class BombToken : public InstantToken

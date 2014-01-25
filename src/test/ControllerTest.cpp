@@ -82,7 +82,7 @@ TEST_F(ControllerTest, shouldMoveToken) {
   EXPECT_EQ(token, destination->getToken());
 }
 
-TEST_F(ControllerTest, shouldStrikeSurroundingTokens) {
+TEST_F(ControllerTest, shouldBombStrikeAreaOfOneFieldRadius) {
   Field* epicentrum = new Field;
   Field* north = new Field;
   Field* south = new Field;
@@ -108,7 +108,7 @@ TEST_F(ControllerTest, shouldStrikeSurroundingTokens) {
   EXPECT_EQ(2, firstToken->getAttribute(TOUGHNESS)->getValue());
   EXPECT_EQ(2, secondToken->getAttribute(TOUGHNESS)->getValue());
   EXPECT_EQ(2, thirdToken->getAttribute(TOUGHNESS)->getValue());
-  controller->strikeSurroundingTokens(epicentrum);
+  controller->bombStrikeField(epicentrum);
   EXPECT_EQ(1, firstToken->getAttribute(TOUGHNESS)->getValue());
   EXPECT_EQ(1, secondToken->getAttribute(TOUGHNESS)->getValue());
   EXPECT_EQ(1, thirdToken->getAttribute(TOUGHNESS)->getValue());

@@ -3,6 +3,11 @@
 Player::Player(Army army)
   : army(army) {}
 
+Army Player::getArmy()
+{
+  return army;
+}
+
 Token* Player::getActiveToken(std::string name)
 {
   for (unsigned i=0; i<activeTokens.size(); ++i ) {
@@ -34,6 +39,21 @@ void Player::activateToken(Token* token)
     ++it;
   }
   activeTokens.push_back(token);
+}
+
+void Player::deactivateToken(Token* token)
+{
+  if (activeTokens.empty()) {
+    return;
+  }
+  std::vector< Token* >::iterator it = activeTokens.begin();
+  while (it != activeTokens.end()) {
+    if(*it == token) {
+      activeTokens.erase(it);
+      break;
+    }
+    ++it;
+  }
 }
 
 void Player::drawTokens(int amount)

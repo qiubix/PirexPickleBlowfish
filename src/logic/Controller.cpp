@@ -41,25 +41,25 @@ void Controller::move(BoardToken* token, Field* destination)
 
 void Controller::pushToken(BoardToken* pusher, BoardToken* pushee)
 {
-
+  //TODO: implement
 }
 
 void Controller::generateNewTokens()
 {
-
+  //TODO: implement
 }
 
 void Controller::drawTokens(Player* player)
 {
-
+  //TODO: implement
 }
 
 void Controller::strikeToken(BoardToken* token, int strength)
 {
-
+  //TODO: implement
 }
 
-void Controller::strikeSurroundingTokens(Field* epicentrum)
+void Controller::bombStrikeField(Field* epicentrum)
 {
   BoardToken* token = dynamic_cast<BoardToken*>(epicentrum->getToken());
   if(token != NULL) {
@@ -77,7 +77,8 @@ void Controller::strikeSurroundingTokens(Field* epicentrum)
 
 void Controller::destroy(BoardToken* token)
 {
-
+  //TODO: check if token is in range for destruction
+  model->destroy(token);
 }
 
 void Controller::reset(void)

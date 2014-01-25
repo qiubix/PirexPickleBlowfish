@@ -31,6 +31,17 @@ TEST_F(ModelTest, shouldSetGameState) {
   EXPECT_EQ(GAME, currentState);
 }
 
+TEST_F(ModelTest, shouldGetPlayer) {
+  Player* newPlayer = new Player(MOLOCH);
+  EXPECT_TRUE(model->players.empty());
+  EXPECT_EQ(-1, model->currentPlayerId);
+  model->players.push_back(newPlayer);
+  model->currentPlayerId = 0;
+  EXPECT_EQ(0, model->currentPlayerId);
+  EXPECT_EQ(newPlayer, model->getCurrentPlayer());
+  EXPECT_EQ(newPlayer, model->getPlayer(MOLOCH));
+}
+
 TEST_F(ModelTest, shouldGetPlayersQuantity) {
   int quantity = model->getPlayersQuantity();
   EXPECT_EQ(0, quantity);
@@ -73,6 +84,24 @@ TEST_F(ModelTest, shouldMoveToNextPlayer) {
   EXPECT_EQ(firstPlayer, model->getCurrentPlayer());
   delete secondPlayer;
   delete firstPlayer;
+}
+
+TEST_F(ModelTest, shouldDestroyToken) {
+  Player* player = new Player(MOLOCH);
+  model->addPlayer(player);
+  BoardToken* token = new BoardToken(MOLOCH, "token", NULL);
+  Field* field = new Field;
+  field->setToken(token);
+  token->setField(field);
+  player->activeTokens.push_back(token);
+  ASSERT_EQ(1, player->activeTokens.size());
+  EXPECT_TRUE(model->usedTokens.empty());
+  EXPECT_TRUE(NULL != field->getToken());
+  model->destroy(token);
+  EXPECT_TRUE(player->activeTokens.empty());
+  ASSERT_EQ(1, model->usedTokens.size());
+  EXPECT_EQ(token, model->usedTokens[0]);
+  EXPECT_EQ(NULL, field->getToken());
 }
 
 TEST_F(ModelTest, shouldResetGame) {
