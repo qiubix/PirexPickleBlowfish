@@ -43,6 +43,11 @@ private:
 
   void loadUnitTokens(Army army, std::vector<Json> unitTokens);
   void loadUnitToken(Army army, Json unitToken);
+  Attributes* loadUnitAttributes(Json unitTokenParameters);
+  void loadInitiative(std::vector<int>, Attributes* attributes);
+  void loadMove(bool haveMoveAbility, Attributes* attributes);
+  void loadToughness(int additionalToughness, Attributes* attributes);
+  void loadUnitSideAttributes(UnitToken* token, Json unitTokenParameters);
 
   //tests for private methods:
   FRIEND_TEST(TokenLoaderTest, shouldLoadModuleAttributes);
@@ -53,6 +58,9 @@ private:
   FRIEND_TEST(TokenLoaderTest, shouldDecorateModuleWithTwoAddAttributeUpgrades);
   FRIEND_TEST(TokenLoaderTest, shouldDecorateModuleWithOneAddAttributeAndOneChangeAttributeUpgrades);
 
+  FRIEND_TEST(TokenLoaderTest, shouldAddInitiativeLoadedFromJsonToAttributes);
+  FRIEND_TEST(TokenLoaderTest, shouldAddMobilityFromJsonToAttributes);
+  FRIEND_TEST(TokenLoaderTest, shouldAddToughnessFromJsonToAttributes);
 };
 
 #endif // TOKEN_LOADER_HPP

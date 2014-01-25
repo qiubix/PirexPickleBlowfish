@@ -122,13 +122,18 @@ TEST_F(JsonTest, shouldGetIntegerValueFromJson) {
   ASSERT_EQ(INTEGER_VALUE, returnedIntegerValue);
 }
 
+TEST_F(JsonTest, shouldReturnZeroByDefaultWhenAskedForIntegerWhenNoSuchKey) {
+  bool returnedIntegerValue = json -> getBooleanValue(INTEGER_KEY);
+  ASSERT_EQ(0, returnedIntegerValue);
+}
+
 TEST_F(JsonTest, shouldGetBooleanValueFromJson) {
   insertBoolean();
   bool returnedBooleanValue = json -> getBooleanValue(BOOLEAN_KEY);
   ASSERT_EQ(BOOLEAN_VALUE, returnedBooleanValue);
 }
 
-TEST_F(JsonTest, shouldReturnFalseByDefaultWhenAskedForBooleanWhichIsNotPresent) {
+TEST_F(JsonTest, shouldReturnFalseByDefaultWhenAskedForBooleanWhenNoSuchKey) {
   insertInteger();
   bool returnedBooleanValue = json -> getBooleanValue(BOOLEAN_KEY);
   ASSERT_FALSE(returnedBooleanValue);
@@ -195,6 +200,10 @@ TEST_F(JsonTest, shouldGetArrayOfIntegersFromJson) {
     returnedIntegerValue = returnedArrayOfIntegers[currentInteger];
     EXPECT_EQ(INTEGER_VALUE, returnedIntegerValue);
   }
+}
+
+TEST_F(JsonTest, shouldReturnEmptyArrayOfIntegersByDefaultWhenNoSuchKey) {
+  ASSERT_EQ(0, json -> getIntegerArray(INTEGER_ARRAY_KEY).size());
 }
 
 TEST_F(JsonTest, shouldReturnIfKeyPresentInJson) {
@@ -398,7 +407,7 @@ TEST_F(GameBoxTest, shouldReturnArmiesCountInTheBox) {
   ASSERT_EQ(1, gameBox.getArmiesCount());
 }
 
-TEST_F(GameBoxTest, shouldReturnIfThereIsNoArmiesInTheBox) {
+TEST_F(GameBoxTest, shouldCheckIfThereIsNoArmyInTheBox) {
   GameBox gameBox;
   ASSERT_EQ(0, gameBox.getArmiesCount());
   ASSERT_TRUE(gameBox.isEmpty());
@@ -494,6 +503,8 @@ TEST_F(GameBoxTest, shouldAddEmptyArmyToTheBox) {
   ASSERT_EQ(0, gameBox.getArmy(armyName).size());
 }
 
+
+//TODO: write separate test fixture for modules, units, instants and hqs
 class TokenLoaderTest : public Test {
 protected:
   TokenLoaderTest() {}
@@ -661,4 +672,50 @@ TEST_F(TokenLoaderTest, shouldDecorateModuleWithOneAddAttributeAndOneChangeAttri
   module -> addBoardToken(unit);
   ASSERT_EQ(2, unit -> getAttribute(INITIATIVE) -> getValue());
   ASSERT_NE((Attribute *)NULL, unit -> getAttribute(MOTHER));
+}
+
+//TODO: maybe split this test into three tests
+//FIXME: add test and funcinallity for multiinitiative
+TEST_F(TokenLoaderTest, shouldAddInitiativeLoadedFromJsonToAttributes) {
+  std::vector<int> initiativeParameters;
+  Attributes* attributes = new Attributes();
+  TokenLoader::getInstance() -> loadInitiative(initiativeParameters, attributes);
+  ASSERT_TRUE(attributes -> empty());
+
+  initiativeParameters.push_back(1);
+  TokenLoader::getInstance() -> loadInitiative(initiativeParameters, attributes);
+  ASSERT_EQ(1, attributes -> getSize());
+  ASSERT_EQ("initiative", attributes -> getAttribute(INITIATIVE) -> getName());
+  ASSERT_EQ(1, attributes -> getAttribute(INITIATIVE) -> getValue());
+}
+
+//TODO: again, maybe two separate tests?
+//TODO: change move in all .json to mobility
+TEST_F(TokenLoaderTest, shouldAddMobilityFromJsonToAttributes) {
+  Attributes* attributes = new Attributes();
+
+  TokenLoader::getInstance() -> loadMove(false, attributes);
+  ASSERT_TRUE(attributes -> empty());
+
+  TokenLoader::getInstance() -> loadMove(true, attributes);
+  ASSERT_EQ(1, attributes -> getSize());
+  ASSERT_EQ("mobility", attributes -> getAttribute(MOBILITY) -> getName());
+  ASSERT_EQ(1, attributes -> getAttribute(MOBILITY) -> getValue());
+}
+
+TEST_F(TokenLoaderTest, shouldAddToughnessFromJsonToAttributes) {
+  Attributes* attributes = new Attributes();
+
+  TokenLoader::getInstance() -> loadToughness(0, attributes);
+  ASSERT_EQ(1, attributes -> getSize());
+  ASSERT_EQ("toughness", attributes -> getAttribute(TOUGHNESS) -> getName());
+  ASSERT_EQ(1, attributes -> getAttribute(TOUGHNESS) -> getValue());
+
+  attributes -> removeAttribute(TOUGHNESS);
+  ASSERT_TRUE(attributes -> empty());
+
+  TokenLoader::getInstance() -> loadToughness(2, attributes);
+  ASSERT_EQ(1, attributes -> getSize());
+  ASSERT_EQ("toughness", attributes -> getAttribute(TOUGHNESS) -> getName());
+  ASSERT_EQ(3, attributes -> getAttribute(TOUGHNESS) -> getValue());
 }

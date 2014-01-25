@@ -30,6 +30,7 @@ void Attributes::addAttribute(AttributeName name, Attribute* attribute) {
   attributes.insert(std::make_pair<AttributeName, Attribute*>(name, attribute));
 }
 
+//TODO: TESTME: test for erasing attribute that is not present
 void Attributes::removeAttribute(AttributeName name) {
   attributes.erase(attributes.find(name));
 }

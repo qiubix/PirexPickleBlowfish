@@ -131,9 +131,46 @@ void TokenLoader::loadUnitTokens(Army army, std::vector<Json> unitTokens) {
   }
 }
 
-void TokenLoader::loadUnitToken(Army army, Json unitToken) {
-  std::string name = unitToken.getStringValue("name");
-  int count = unitToken.getIntegerValue("count");
+void TokenLoader::loadUnitToken(Army army, Json unitTokenParameters) {
+  std::string name = unitTokenParameters.getStringValue("name");
+  int count = unitTokenParameters.getIntegerValue("count");
 
+//  for(int currentUnit = 0; currentUnit < count; currentUnit++) {
+//    Attributes* attributes = loadUnitAttributes(unitTokenParameters);
+//    UnitToken token = new UnitToken(army, name, attributes);
+//    loadUnitSideAttributes(token, unitTokenParameters);
+//    GameBox::getInstance() -> addTokenToArmy(token);
+//  }
+}
+
+//TODO: TESTME: some test to check if format of data in json is correct
+Attributes* TokenLoader::loadUnitAttributes(Json unitTokenParameters) {
+  Attributes* attributes = new Attributes();
+  loadInitiative(unitTokenParameters.getIntegerArray("initiative"), attributes);
+  loadMove(unitTokenParameters.getBooleanValue("move"), attributes);
+  loadToughness(unitTokenParameters.getIntegerValue("toughness"), attributes);
+  return attributes;
+}
+
+void TokenLoader::loadInitiative(std::vector<int> initiativeParameters, Attributes* attributes) {
+  AttributeName initiative = StringToEnumTranslator::getInstance() -> getAttributeName("initiative");
+  for(int currentInitiativeParameter = 0; currentInitiativeParameter < initiativeParameters.size(); currentInitiativeParameter++) {
+    attributes -> addAttribute(initiative, new Attribute("initiative", initiativeParameters[currentInitiativeParameter]));
+  }
+}
+
+void TokenLoader::loadMove(bool haveMoveAbility, Attributes* attributes) {
+  if(haveMoveAbility) {
+    AttributeName mobility = StringToEnumTranslator::getInstance() -> getAttributeName("mobility");
+    attributes -> addAttribute(mobility, new Attribute("mobility", 1));
+  }
+}
+
+void TokenLoader::loadToughness(int additionalToughness, Attributes* attributes) {
+  AttributeName toughness = StringToEnumTranslator::getInstance() -> getAttributeName("toughness");
+  attributes -> addAttribute(toughness, new Attribute("toughness", 1 + additionalToughness));
+}
+
+void TokenLoader::loadUnitSideAttributes(UnitToken* token, Json unitTokenParameters) {
   //TODO: implement
 }

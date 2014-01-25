@@ -36,7 +36,7 @@ private:
   //tests for private methods (to access protected constructor)
   FRIEND_TEST(GameBoxTest, shouldCreateBoxWithNoArmiesByDefault);
   FRIEND_TEST(GameBoxTest, shouldReturnArmiesCountInTheBox);
-  FRIEND_TEST(GameBoxTest, shouldReturnIfThereIsNoArmiesInTheBox);
+  FRIEND_TEST(GameBoxTest, shouldCheckIfThereIsNoArmyInTheBox);
   FRIEND_TEST(GameBoxTest, shouldGetArmyFromTheBox);
   FRIEND_TEST(GameBoxTest, shouldAddArmyToTheBox);
   FRIEND_TEST(GameBoxTest, shouldAddTokenToTheArmy);
