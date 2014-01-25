@@ -7,7 +7,7 @@
 class HeadQuartersToken : public UnitToken, public ModuleToken
 {
 public:
-  HeadQuartersToken(Army army, std::string name, Attributes* attributes, Attributes** edges);
+  HeadQuartersToken(Army army, std::string name, Attributes* attributes, std::vector<Side> edges);
   ~HeadQuartersToken() {}
 };
 
