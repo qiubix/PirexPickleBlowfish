@@ -13,6 +13,7 @@
 
 class GameBox
 {
+  friend class TokenLoader;
 public:
   static GameBox * getInstance();
 
@@ -23,6 +24,9 @@ public:
 protected:
   GameBox();
   void addArmy(Army armyName, std::vector<Token *> army);
+  void addTokenToArmy(Army armyName, Token* token);
+  bool containsArmy(Army armyName);
+  void addEmptyArmy(Army armyName);
 
 private:
   static GameBox * instance;
@@ -30,10 +34,14 @@ private:
   std::map<Army, std::vector<Token *> > armies;
 
   //tests for private methods (to access protected constructor)
+  FRIEND_TEST(GameBoxTest, shouldCreateBoxWithNoArmiesByDefault);
   FRIEND_TEST(GameBoxTest, shouldReturnArmiesCountInTheBox);
   FRIEND_TEST(GameBoxTest, shouldReturnIfThereIsNoArmiesInTheBox);
   FRIEND_TEST(GameBoxTest, shouldGetArmyFromTheBox);
   FRIEND_TEST(GameBoxTest, shouldAddArmyToTheBox);
+  FRIEND_TEST(GameBoxTest, shouldAddTokenToTheArmy);
+  FRIEND_TEST(GameBoxTest, shouldThrowExceptionWhenTryingToAddTokenOfArmyThatIsNotInTheBox);
+  FRIEND_TEST(GameBoxTest, shouldAddEmptyArmyToTheBox);
 
 };
 

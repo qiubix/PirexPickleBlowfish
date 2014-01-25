@@ -382,7 +382,14 @@ protected:
 
 };
 
-//TODO: this test is beton, think of changing it
+//TODO: these tests are somehow betonized, think of changing them
+// maybe wrapping some things in a class would help?
+//FIXME: handle memory deallocating in all GameBoxTests
+TEST_F(GameBoxTest, shouldCreateBoxWithNoArmiesByDefault) {
+  GameBox gameBox;
+  ASSERT_TRUE(gameBox.armies.empty());
+}
+
 TEST_F(GameBoxTest, shouldReturnArmiesCountInTheBox) {
   GameBox gameBox;
   ASSERT_EQ(0, gameBox.getArmiesCount());
@@ -402,7 +409,6 @@ TEST_F(GameBoxTest, shouldReturnIfThereIsNoArmiesInTheBox) {
 
 TEST_F(GameBoxTest, shouldGetArmyFromTheBox) {
   GameBox gameBox;
-  ASSERT_EQ(0, gameBox.getArmiesCount());
 
   //TODO: wrap in into a method
   Army armyName = HEGEMONY;
@@ -429,7 +435,6 @@ TEST_F(GameBoxTest, shouldThrowExceptionWhenNoSuchArmyInTheBox) {
 
 TEST_F(GameBoxTest, shouldAddArmyToTheBox) {
   GameBox gameBox;
-  ASSERT_TRUE(gameBox.isEmpty());
 
   //TODO: wrap in into a method
   Army armyName = HEGEMONY;
@@ -448,6 +453,45 @@ TEST_F(GameBoxTest, shouldAddArmyToTheBox) {
   ASSERT_TRUE(dynamic_cast<BoardToken *>(returnedArmy[0]));
   ASSERT_EQ(&attributes, dynamic_cast<BoardToken *>(returnedArmy[0]) -> getAttributes());
   ASSERT_EQ(tokenName, dynamic_cast<BoardToken *>(returnedArmy[0]) -> getName());
+}
+
+TEST_F(GameBoxTest, shouldAddTokenToTheArmy) {
+  GameBox gameBox;
+  Army armyName = HEGEMONY;
+  std::vector<Token*> army;
+  gameBox.addArmy(armyName, army);
+  std::vector<Token*> returnedArmy = gameBox.getArmy(armyName);
+  ASSERT_EQ(0, returnedArmy.size());
+
+  std::string tokenName = "someToken";
+  Attributes attributes;
+  Token* tokenToInsert = new BoardToken(armyName, tokenName, &attributes);
+  gameBox.addTokenToArmy(armyName, tokenToInsert);
+  returnedArmy = gameBox.getArmy(armyName);
+  ASSERT_EQ(1, returnedArmy.size());
+
+  //TODO: these three assertions are used in some tests, wrap them into a method but first read the googletest documentation
+  ASSERT_TRUE(dynamic_cast<BoardToken *>(returnedArmy[0]));
+  ASSERT_EQ(&attributes, dynamic_cast<BoardToken *>(returnedArmy[0]) -> getAttributes());
+  ASSERT_EQ(tokenName, dynamic_cast<BoardToken *>(returnedArmy[0]) -> getName());
+}
+
+TEST_F(GameBoxTest, shouldThrowExceptionWhenTryingToAddTokenOfArmyThatIsNotInTheBox) {
+  GameBox gameBox;
+  Army armyName = HEGEMONY;
+  std::string tokenName = "someToken";
+  Attributes attributes;
+  Token* tokenToInsert = new BoardToken(armyName, tokenName, &attributes);
+  ASSERT_THROW(gameBox.addTokenToArmy(armyName, tokenToInsert), NoSuchArmyInBoxException);
+  ASSERT_TRUE(gameBox.isEmpty());
+}
+
+TEST_F(GameBoxTest, shouldAddEmptyArmyToTheBox) {
+  GameBox gameBox;
+  Army armyName = HEGEMONY;
+  gameBox.addEmptyArmy(armyName);
+  ASSERT_EQ(1, gameBox.getArmiesCount());
+  ASSERT_EQ(0, gameBox.getArmy(armyName).size());
 }
 
 class TokenLoaderTest : public Test {

@@ -33,6 +33,7 @@ void TokenLoader::loadArmy(std::string armyFile) {
   Json* armyJson = JsonParser::getInstance() -> parse(armyFile);
   Army army = StringToEnumTranslator::getInstance() -> getArmy(armyJson -> getStringValue("army"));
 
+  GameBox::getInstance() -> addEmptyArmy(army);
   loadHeadquarters(army, armyJson -> getObject("headquarters"));
   loadInstantTokens(army, armyJson -> getArray("instants"));
   loadModuleTokens(army, armyJson -> getArray("modules"));
@@ -62,13 +63,18 @@ void TokenLoader::loadModuleTokens(Army army, std::vector<Json> moduleTokens) {
   }
 }
 
+//TODO: TESTME: test adding ModuleToken process
 void TokenLoader::loadModuleToken(Army army, Json moduleTokenParameters) {
   std::string name = moduleTokenParameters.getStringValue("name");
   int count = moduleTokenParameters.getIntegerValue("count"); //FIXME: use count!
   Attributes* attributes = loadModuleAtrributes(moduleTokenParameters.getArray("attributes"));
   std::vector<Side> activeEdges = loadModuleActiveEdges(moduleTokenParameters.getStringArray("sides")); //TODO: change to edges (in all json files)
-  ModuleToken* moduleToken = new ModuleToken(army, name, attributes, activeEdges);
-  Module* module = decorateModuleWithUpgrades(moduleToken, moduleTokenParameters.getArray("upgrades"));
+
+  for(int currentModule = 0; currentModule < count; currentModule++) {
+    ModuleToken* moduleToken = new ModuleToken(army, name, attributes, activeEdges);
+    Module* module = decorateModuleWithUpgrades(moduleToken, moduleTokenParameters.getArray("upgrades"));
+    GameBox::getInstance() -> addTokenToArmy(army, module);
+  }
 }
 
 Attributes* TokenLoader::loadModuleAtrributes(std::vector<Json> attributes) {
