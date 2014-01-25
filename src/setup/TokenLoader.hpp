@@ -48,6 +48,10 @@ private:
   void loadMove(bool haveMoveAbility, Attributes* attributes);
   void loadToughness(int additionalToughness, Attributes* attributes);
   void loadUnitSideAttributes(UnitToken* token, Json unitTokenParameters);
+  void loadMelee(UnitToken* token, Json& meleeParameters);
+  void loadRanged(UnitToken* token, Json& rangedParameters);
+  void loadShield(UnitToken* token, std::vector<std::string> armorParameters);
+  void loadNet(UnitToken* token, std::vector<std::string> netParameters);
 
   //tests for private methods:
   FRIEND_TEST(TokenLoaderTest, shouldLoadModuleAttributes);
@@ -61,6 +65,11 @@ private:
   FRIEND_TEST(TokenLoaderTest, shouldAddInitiativeLoadedFromJsonToAttributes);
   FRIEND_TEST(TokenLoaderTest, shouldAddMobilityFromJsonToAttributes);
   FRIEND_TEST(TokenLoaderTest, shouldAddToughnessFromJsonToAttributes);
+  FRIEND_TEST(TokenLoaderTest, shouldAddMeleeAttributesToToken);
+  FRIEND_TEST(TokenLoaderTest, shouldAddRangedAttributesToToken);
+  FRIEND_TEST(TokenLoaderTest, shouldAddShieldAttributesToToken);
+  FRIEND_TEST(TokenLoaderTest, shouldAddNetAttributesToToken);
+
 };
 
 #endif // TOKEN_LOADER_HPP

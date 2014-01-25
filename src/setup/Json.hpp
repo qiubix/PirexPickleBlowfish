@@ -16,7 +16,7 @@ public:
   ~Json(void);
 
   std::string getStringValue(std::string key);
-  int getIntegerValue(std::string key);
+  virtual int getIntegerValue(std::string key);
   bool getBooleanValue(std::string key);
   std::vector<Json> getArray(std::string key);
   Json getObject(std::string key);
@@ -24,8 +24,9 @@ public:
   std::vector<int> getIntegerArray(std::string key);
 
   bool contains(std::string key);
+  virtual std::vector<std::string> getKeys(void);
 
-private:
+protected:
   QJsonValue takeFromJson(std::string key);
 
 };

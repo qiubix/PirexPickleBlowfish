@@ -1,4 +1,4 @@
-set(TOKEN_LOADER_TEST_SRC TokenLoaderTest.cpp)
+set(TOKEN_LOADER_TEST_SRC TokenLoaderTest.cpp MockJson.hpp)
 set(TOKEN_TEST_SRC TokenTest.cpp)
 set(GUI_TEST_SRC MainWindowSampleTest.cpp)
 set(GUI_TEST_LIBRARIES MainWindowSample ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES})

@@ -1,13 +1,18 @@
 #include <gmock/gmock.h>
 using ::testing::Eq;
+using ::testing::Return;
 #include <gtest/gtest.h>
 using ::testing::Test;
+using ::testing::_;
+
 
 #include "setup/Json.hpp"
 #include "setup/JsonParser.hpp"
 #include "setup/StringToEnumTranslator.hpp"
 #include "setup/GameBox.hpp"
 #include "setup/TokenLoader.hpp"
+
+#include "MockJson.hpp"
 
 #include <fstream>
 
@@ -47,6 +52,8 @@ protected:
   int insertArray(void);
   int insertStringArray(void);
   int insertIntegerArray(void);
+
+  void assertKeyFound(std::vector<std::string> keys, std::string keyToFind);
 
   Json* json;
 };
@@ -210,6 +217,29 @@ TEST_F(JsonTest, shouldReturnIfKeyPresentInJson) {
   insertString();
   EXPECT_TRUE(json -> contains(STRING_KEY));
   EXPECT_FALSE(json -> contains(NOT_PRESENT_KEY));
+}
+
+TEST_F(JsonTest, shouldReturnAllKeysFromJson) {
+  insertString();
+  insertInteger();
+  insertObject();
+  const int EXPECTED_KEYS_COUNT = 3;
+  std::vector<std::string> keysFromJson = json -> getKeys();
+  ASSERT_EQ(EXPECTED_KEYS_COUNT, keysFromJson.size());
+  ASSERT_NO_FATAL_FAILURE(assertKeyFound(keysFromJson, STRING_KEY));
+  ASSERT_NO_FATAL_FAILURE(assertKeyFound(keysFromJson, INTEGER_KEY));
+  ASSERT_NO_FATAL_FAILURE(assertKeyFound(keysFromJson, OBJECT_KEY));
+}
+
+void JsonTest::assertKeyFound(std::vector<std::string> keys, std::string keyToFind) {
+  bool keyFound = false;
+  for(int key = 0; key < keys.size(); key++) {
+    if(keys[key] == keyToFind) {
+      keyFound = true;
+      break;
+    }
+  }
+  ASSERT_TRUE(keyFound);
 }
 
 const std::string JSON_FILE_TO_READ = "jsonToRead.json";
@@ -679,6 +709,7 @@ TEST_F(TokenLoaderTest, shouldDecorateModuleWithOneAddAttributeAndOneChangeAttri
 TEST_F(TokenLoaderTest, shouldAddInitiativeLoadedFromJsonToAttributes) {
   std::vector<int> initiativeParameters;
   Attributes* attributes = new Attributes();
+
   TokenLoader::getInstance() -> loadInitiative(initiativeParameters, attributes);
   ASSERT_TRUE(attributes -> empty());
 
@@ -690,7 +721,6 @@ TEST_F(TokenLoaderTest, shouldAddInitiativeLoadedFromJsonToAttributes) {
 }
 
 //TODO: again, maybe two separate tests?
-//TODO: change move in all .json to mobility
 TEST_F(TokenLoaderTest, shouldAddMobilityFromJsonToAttributes) {
   Attributes* attributes = new Attributes();
 
@@ -718,4 +748,126 @@ TEST_F(TokenLoaderTest, shouldAddToughnessFromJsonToAttributes) {
   ASSERT_EQ(1, attributes -> getSize());
   ASSERT_EQ("toughness", attributes -> getAttribute(TOUGHNESS) -> getName());
   ASSERT_EQ(3, attributes -> getAttribute(TOUGHNESS) -> getValue());
+}
+
+//FIXME: REFACTOR: duplication in two tests below
+TEST_F(TokenLoaderTest, shouldAddMeleeAttributesToToken) {
+  MockJson json;
+  std::vector<std::string> keys;
+  keys.push_back("north");
+  keys.push_back("south");
+  keys.push_back("northWest");
+  const int NORTH_VALUE = 1;
+  const int SOUTH_VALUE = 2;
+  const int NORTH_WEST_VALUE = 1;
+  ON_CALL(json, getKeys())
+    .WillByDefault(Return(keys));
+  ON_CALL(json, getIntegerValue(keys[0]))
+    .WillByDefault(Return(NORTH_VALUE));
+  ON_CALL(json, getIntegerValue(keys[1]))
+    .WillByDefault(Return(SOUTH_VALUE));
+  ON_CALL(json, getIntegerValue(keys[2]))
+    .WillByDefault(Return(NORTH_WEST_VALUE));
+  EXPECT_CALL(json, getKeys())
+    .Times(1);
+  EXPECT_CALL(json, getIntegerValue(_))
+    .Times(keys.size());
+
+  Army army = HEGEMONY;
+  std::string name = "someName";
+  Attributes* attributes = new Attributes();
+  UnitToken* token = new UnitToken(army, name, attributes);
+  TokenLoader::getInstance() -> loadMelee(token, json);
+
+  ASSERT_EQ(NORTH_VALUE, token -> getEdgeAttributes(NORTH) -> getAttribute(MELEE) -> getValue());
+  ASSERT_EQ(SOUTH_VALUE, token -> getEdgeAttributes(SOUTH) -> getAttribute(MELEE) -> getValue());
+  ASSERT_EQ(NORTH_WEST_VALUE, token -> getEdgeAttributes(NORTH_WEST) -> getAttribute(MELEE) -> getValue());
+}
+
+TEST_F(TokenLoaderTest, shouldAddRangedAttributesToToken) {
+  MockJson json;
+  std::vector<std::string> keys;
+  keys.push_back("north");
+  keys.push_back("south");
+  keys.push_back("northWest");
+  const int NORTH_VALUE = 1;
+  const int SOUTH_VALUE = 2;
+  const int NORTH_WEST_VALUE = 1;
+  ON_CALL(json, getKeys())
+    .WillByDefault(Return(keys));
+  ON_CALL(json, getIntegerValue(keys[0]))
+    .WillByDefault(Return(NORTH_VALUE));
+  ON_CALL(json, getIntegerValue(keys[1]))
+    .WillByDefault(Return(SOUTH_VALUE));
+  ON_CALL(json, getIntegerValue(keys[2]))
+    .WillByDefault(Return(NORTH_WEST_VALUE));
+  EXPECT_CALL(json, getKeys())
+    .Times(1);
+  EXPECT_CALL(json, getIntegerValue(_))
+    .Times(keys.size());
+
+  Army army = HEGEMONY;
+  std::string name = "someName";
+  Attributes* attributes = new Attributes();
+  UnitToken* token = new UnitToken(army, name, attributes);
+  TokenLoader::getInstance() -> loadRanged(token, json);
+
+  ASSERT_EQ(NORTH_VALUE, token -> getEdgeAttributes(NORTH) -> getAttribute(RANGED) -> getValue());
+  ASSERT_EQ(SOUTH_VALUE, token -> getEdgeAttributes(SOUTH) -> getAttribute(RANGED) -> getValue());
+  ASSERT_EQ(NORTH_WEST_VALUE, token -> getEdgeAttributes(NORTH_WEST) -> getAttribute(RANGED) -> getValue());
+}
+
+//FIXME: REFACTOR: duplication in two tests below
+TEST_F(TokenLoaderTest, shouldAddShieldAttributesToToken) {
+  std::vector<std::string> shieldParameters; //TODO: TESTME: empty vector by default in json.getStringArray
+  shieldParameters.push_back("north");
+  shieldParameters.push_back("northEast");
+
+  Army army = HEGEMONY;
+  std::string name = "someName";
+  Attributes* attributes = new Attributes();
+  UnitToken* token = new UnitToken(army, name, attributes);
+
+  for(int side = 0; side < 6; side++) {
+    ASSERT_EQ(NULL, token -> getEdgeAttributes((Side)side));
+  }
+
+  TokenLoader::getInstance() -> loadShield(token, shieldParameters);
+
+  Attribute * northSideShieldAttribute = token -> getEdgeAttributes(NORTH) -> getAttribute(SHIELD);
+  ASSERT_NE((Attribute*)NULL, northSideShieldAttribute);
+  ASSERT_EQ("shield", northSideShieldAttribute -> getName());
+  ASSERT_EQ(1, northSideShieldAttribute -> getValue());
+
+  Attribute * northEastSideShieldAttribute = token -> getEdgeAttributes(NORTH_EAST) -> getAttribute(SHIELD);
+  ASSERT_NE((Attribute*)NULL, northEastSideShieldAttribute);
+  ASSERT_EQ("shield", northEastSideShieldAttribute -> getName());
+  ASSERT_EQ(1, northEastSideShieldAttribute -> getValue());
+}
+
+TEST_F(TokenLoaderTest, shouldAddNetAttributesToToken) {
+  std::vector<std::string> netParameters; //TODO: TESTME: empty vector by default in json.getStringArray
+  netParameters.push_back("north");
+  netParameters.push_back("northEast");
+
+  Army army = HEGEMONY;
+  std::string name = "someName";
+  Attributes* attributes = new Attributes();
+  UnitToken* token = new UnitToken(army, name, attributes);
+
+  for(int side = 0; side < 6; side++) {
+    ASSERT_EQ(NULL, token -> getEdgeAttributes((Side)side));
+  }
+
+  TokenLoader::getInstance() -> loadNet(token, netParameters);
+
+  Attribute * northSideNetAttribute = token -> getEdgeAttributes(NORTH) -> getAttribute(NET);
+  ASSERT_NE((Attribute*)NULL, northSideNetAttribute);
+  ASSERT_EQ("net", northSideNetAttribute -> getName());
+  ASSERT_EQ(1, northSideNetAttribute -> getValue());
+
+  Attribute * northEastSideNetAttribute = token -> getEdgeAttributes(NORTH_EAST) -> getAttribute(NET);
+  ASSERT_NE((Attribute*)NULL, northEastSideNetAttribute);
+  ASSERT_EQ("net", northEastSideNetAttribute -> getName());
+  ASSERT_EQ(1, northEastSideNetAttribute -> getValue());
 }

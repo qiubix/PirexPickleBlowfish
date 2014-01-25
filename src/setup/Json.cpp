@@ -1,5 +1,8 @@
 #include "Json.hpp"
 
+#include <QStringList>
+#include <QVector>
+
 Json::Json(void) : QJsonObject() {
 }
 
@@ -57,6 +60,15 @@ std::vector<int> Json::getIntegerArray(std::string key) {
 
 bool Json::contains(std::string key) {
   return QJsonObject::contains(QString::fromStdString(key));
+}
+
+std::vector<std::string> Json::getKeys(void) {
+  std::vector<QString> qstringKeys = keys().toVector().toStdVector();
+  std::vector<std::string> keys;
+  for(int currentKey = 0; currentKey < qstringKeys.size(); currentKey++) {
+    keys.push_back(qstringKeys[currentKey].toStdString());
+  }
+  return keys;
 }
 
 QJsonValue Json::takeFromJson(std::string key) {

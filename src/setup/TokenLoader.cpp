@@ -131,23 +131,24 @@ void TokenLoader::loadUnitTokens(Army army, std::vector<Json> unitTokens) {
   }
 }
 
+//TODO: TESTME: test adding UnitToken process
 void TokenLoader::loadUnitToken(Army army, Json unitTokenParameters) {
   std::string name = unitTokenParameters.getStringValue("name");
   int count = unitTokenParameters.getIntegerValue("count");
 
-//  for(int currentUnit = 0; currentUnit < count; currentUnit++) {
-//    Attributes* attributes = loadUnitAttributes(unitTokenParameters);
-//    UnitToken token = new UnitToken(army, name, attributes);
-//    loadUnitSideAttributes(token, unitTokenParameters);
-//    GameBox::getInstance() -> addTokenToArmy(token);
-//  }
+  for(int currentUnit = 0; currentUnit < count; currentUnit++) {
+    Attributes* attributes = loadUnitAttributes(unitTokenParameters);
+    UnitToken* token = new UnitToken(army, name, attributes);
+    loadUnitSideAttributes(token, unitTokenParameters);
+    GameBox::getInstance() -> addTokenToArmy(army, token);
+  }
 }
 
 //TODO: TESTME: some test to check if format of data in json is correct
 Attributes* TokenLoader::loadUnitAttributes(Json unitTokenParameters) {
   Attributes* attributes = new Attributes();
   loadInitiative(unitTokenParameters.getIntegerArray("initiative"), attributes);
-  loadMove(unitTokenParameters.getBooleanValue("move"), attributes);
+  loadMove(unitTokenParameters.getBooleanValue("move"), attributes); //TODO: change move in all .json to mobility
   loadToughness(unitTokenParameters.getIntegerValue("toughness"), attributes);
   return attributes;
 }
@@ -172,5 +173,64 @@ void TokenLoader::loadToughness(int additionalToughness, Attributes* attributes)
 }
 
 void TokenLoader::loadUnitSideAttributes(UnitToken* token, Json unitTokenParameters) {
-  //TODO: implement
+  Json meleeParameters = unitTokenParameters.getObject("melee"); //TEST na default
+  Json rangedParameters = unitTokenParameters.getObject("ranged");
+  loadMelee(token, meleeParameters);
+  loadRanged(token, rangedParameters);
+  loadShield(token, unitTokenParameters.getStringArray("armor"));
+  loadNet(token, unitTokenParameters.getStringArray("net"));
+}
+
+//FIXME: REFACTOR: duplication in two methods below
+void TokenLoader::loadMelee(UnitToken* token, Json& meleeParameters) {
+  std::vector<std::string> sides = meleeParameters.getKeys();
+  AttributeName attributeName = StringToEnumTranslator::getInstance() -> getAttributeName("melee");
+  for(int currentSide = 0; currentSide < sides.size(); currentSide++) {
+    Side side = StringToEnumTranslator::getInstance() -> getSide(sides[currentSide]);
+    int value = meleeParameters.getIntegerValue(sides[currentSide]);
+    //FIXME: move this to Attributes class
+    if(token -> getEdgeAttributes(side) == NULL) {
+      token -> setEdgeAttributes(side, new Attributes());
+    }
+    token -> getEdgeAttributes(side) -> addAttribute(attributeName, new Attribute("melee", value));
+  }
+}
+
+void TokenLoader::loadRanged(UnitToken* token, Json& rangedParameters) {
+  std::vector<std::string> sides = rangedParameters.getKeys();
+  AttributeName attributeName = StringToEnumTranslator::getInstance() -> getAttributeName("ranged");
+  for(int currentSide = 0; currentSide < sides.size(); currentSide++) {
+    Side side = StringToEnumTranslator::getInstance() -> getSide(sides[currentSide]);
+    int value = rangedParameters.getIntegerValue(sides[currentSide]);
+    //FIXME: move this to Attributes class
+    if(token -> getEdgeAttributes(side) == NULL) {
+      token -> setEdgeAttributes(side, new Attributes());
+    }
+    token -> getEdgeAttributes(side) -> addAttribute(attributeName, new Attribute("ranged", value));
+  }
+}
+
+//FIXME: REFACTOR: duplication in two methods below
+void TokenLoader::loadShield(UnitToken* token, std::vector<std::string> shieldParameters) {
+  AttributeName shield = StringToEnumTranslator::getInstance() -> getAttributeName("shield");
+  for(int currentShieldParameter = 0; currentShieldParameter < shieldParameters.size(); currentShieldParameter++) {
+    Side side = StringToEnumTranslator::getInstance() -> getSide(shieldParameters[currentShieldParameter]);
+    //FIXME: move this to Attributes class
+    if(token -> getEdgeAttributes(side) == NULL) {
+      token -> setEdgeAttributes(side, new Attributes());
+    }
+    token -> getEdgeAttributes(side) -> addAttribute(shield, new Attribute("shield", 1));
+  }
+}
+
+void TokenLoader::loadNet(UnitToken* token, std::vector<std::string> netParameters) {
+  AttributeName net = StringToEnumTranslator::getInstance() -> getAttributeName("net");
+  for(int currentNetParameter = 0; currentNetParameter < netParameters.size(); currentNetParameter++) {
+    Side side = StringToEnumTranslator::getInstance() -> getSide(netParameters[currentNetParameter]);
+    //FIXME: move this to Attributes class
+    if(token -> getEdgeAttributes(side) == NULL) {
+      token -> setEdgeAttributes(side, new Attributes());
+    }
+    token -> getEdgeAttributes(side) -> addAttribute(net, new Attribute("net", 1));
+  }
 }
