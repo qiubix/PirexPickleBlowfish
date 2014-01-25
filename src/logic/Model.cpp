@@ -45,3 +45,11 @@ void Model::moveToNextPlayer()
 {
   currentPlayerId = (++currentPlayerId) % players.size();
 }
+
+void Model::reset()
+{
+  gameState = PAUSE;
+  players.clear();
+  usedTokens.clear();
+  currentPlayerId = -1;
+}

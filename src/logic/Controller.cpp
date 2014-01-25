@@ -11,7 +11,8 @@ void Controller::setGameState(GameState newState)
 
 void Controller::activate(BoardToken* token)
 {
-
+  Player* player = model->getCurrentPlayer();
+  player->activateToken(token);
 }
 
 void Controller::rotateClockwise(BoardToken* token)
@@ -26,7 +27,8 @@ void Controller::rotateAnticlockwise(BoardToken* token)
 
 void Controller::putOnBoard(BoardToken* token, Field* field)
 {
-
+  field->setToken(token);
+  token->setField(field);
 }
 
 void Controller::move(BoardToken* token, Field* destination)
@@ -78,7 +80,7 @@ void Controller::destroy(BoardToken* token)
 
 }
 
-void Controller::reset()
+void Controller::reset(void)
 {
-
+  model->reset();
 }

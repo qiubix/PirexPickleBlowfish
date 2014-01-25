@@ -35,6 +35,7 @@ TEST_F(ControllerTest, shouldSetGameState) {
 
 TEST_F(ControllerTest, shouldActivateToken) {
   Player* player = new Player(MOLOCH);
+  model->addPlayer(player);
   BoardToken* token = new BoardToken(MOLOCH, "soldier", NULL);
   player->hiddenTokens.push_back(token);
   EXPECT_TRUE(player->activeTokens.empty());
@@ -58,8 +59,12 @@ TEST_F(ControllerTest, shouldRotateToken) {
 }
 
 TEST_F(ControllerTest, shouldPutTokenOnBoard) {
-  //TODO: test puting token on board
-  EXPECT_TRUE(false);
+  Field* field = new Field;
+  EXPECT_EQ(NULL, field->getToken());
+  BoardToken* token = new BoardToken(MOLOCH, "solder", NULL);
+  controller->putOnBoard(token, field);
+  EXPECT_EQ(token, field->getToken());
+  EXPECT_EQ(field, token->getField());
 }
 
 TEST_F(ControllerTest, shouldMoveToken) {
@@ -80,26 +85,26 @@ TEST_F(ControllerTest, shouldMoveToken) {
 TEST_F(ControllerTest, shouldStrikeSurroundingTokens) {
   Field* epicentrum = new Field;
   Field* north = new Field;
-  Field* northWest = new Field;
-  Field* northEast = new Field;
   Field* south = new Field;
-  Field* southEast = new Field;
-  Field* southWest = new Field;
   epicentrum->addNeighbour(north, NORTH);
-  epicentrum->addNeighbour(northWest, NORTH);
-  epicentrum->addNeighbour(northEast, NORTH);
   epicentrum->addNeighbour(south, SOUTH);
-  epicentrum->addNeighbour(southWest, SOUTH_WEST);
-  epicentrum->addNeighbour(southEast, SOUTH_EAST);
-  Attribute* toughness = new Attribute("toughness", 2);
-  Attributes* attributes = new Attributes;
-  attributes->addAttribute(TOUGHNESS, toughness);
-  BoardToken* firstToken = new BoardToken(MOLOCH, "soldier", attributes);
-  BoardToken* secondToken = new BoardToken(OUTPOST, "soldier", attributes);
-  BoardToken* thirdToken = new BoardToken(HEGEMONY, "soldier", attributes);
-  epicentrum->setToken(firstToken);
-  north->setToken(secondToken);
-  south->setToken(thirdToken);
+
+  Attribute* firstToughness = new Attribute("toughness", 2);
+  BoardToken* firstToken = new BoardToken(MOLOCH, "soldier", new Attributes);
+  firstToken->addAttribute(TOUGHNESS, firstToughness);
+
+  Attribute* secondToughness = new Attribute("toughness", 2);
+  BoardToken* secondToken = new BoardToken(OUTPOST, "soldier", new Attributes);
+  secondToken->addAttribute(TOUGHNESS, secondToughness);
+
+  Attribute* thirdToughness = new Attribute("toughness", 2);
+  BoardToken* thirdToken = new BoardToken(HEGEMONY, "soldier", new Attributes);
+  thirdToken->addAttribute(TOUGHNESS, thirdToughness);
+
+  controller->putOnBoard(firstToken, epicentrum);
+  controller->putOnBoard(secondToken, north);
+  controller->putOnBoard(thirdToken, south);
+
   EXPECT_EQ(2, firstToken->getAttribute(TOUGHNESS)->getValue());
   EXPECT_EQ(2, secondToken->getAttribute(TOUGHNESS)->getValue());
   EXPECT_EQ(2, thirdToken->getAttribute(TOUGHNESS)->getValue());
@@ -108,6 +113,12 @@ TEST_F(ControllerTest, shouldStrikeSurroundingTokens) {
   EXPECT_EQ(1, secondToken->getAttribute(TOUGHNESS)->getValue());
   EXPECT_EQ(1, thirdToken->getAttribute(TOUGHNESS)->getValue());
   //TODO: check if HQ or tokens outside bomb radius are stricken
+  delete thirdToken;
+  delete secondToken;
+  delete firstToken;
+  delete south;
+  delete north;
+  delete epicentrum;
 }
 
 TEST_F(ControllerTest, shouldResetGame) {

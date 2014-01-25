@@ -23,6 +23,19 @@ void Player::generateNewTokens()
   //TODO: implement
 }
 
+void Player::activateToken(Token* token)
+{
+  std::vector< Token* >::iterator it = hiddenTokens.begin();
+  while (it != hiddenTokens.end()) {
+    if(*it == token) {
+      hiddenTokens.erase(it);
+      break;
+    }
+    ++it;
+  }
+  activeTokens.push_back(token);
+}
+
 void Player::drawTokens(int amount)
 {
   //TODO: implement

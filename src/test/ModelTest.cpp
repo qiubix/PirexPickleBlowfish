@@ -74,3 +74,16 @@ TEST_F(ModelTest, shouldMoveToNextPlayer) {
   delete secondPlayer;
   delete firstPlayer;
 }
+
+TEST_F(ModelTest, shouldResetGame) {
+  Player* player = new Player(MOLOCH);
+  model->addPlayer(player);
+  model->setGameState(GAME);
+  EXPECT_EQ(1, model->getPlayersQuantity());
+  EXPECT_EQ(player, model->getCurrentPlayer());
+  EXPECT_EQ(GAME, model->getGameState());
+  model->reset();
+  EXPECT_EQ(PAUSE, model-> getGameState());
+  EXPECT_EQ(0, model->getPlayersQuantity());
+  EXPECT_EQ(NULL, model->getCurrentPlayer());
+}

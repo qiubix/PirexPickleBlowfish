@@ -52,11 +52,19 @@ TEST_F(FieldTest, shouldSetNeighbours) {
 }
 
 TEST_F(FieldTest, shouldGetNeighbour) {
+  Token* firstToken = new Token(MOLOCH, "first token");
+  Token* secondToken = new Token(MOLOCH, "second token");
   Field* newNeighbour = new Field;
+  newNeighbour->setToken(secondToken);
+  field->setToken(firstToken);
+  EXPECT_EQ("first token", field->getToken()->getName());
   field->addNeighbour(newNeighbour, NORTH);
   Field* neighbour = field->getNeighbour(SOUTH);
   EXPECT_EQ(NULL, neighbour);
   neighbour = field->getNeighbour(NORTH);
-  EXPECT_EQ(newNeighbour, neighbour);
+  ASSERT_EQ(newNeighbour, neighbour);
+  EXPECT_EQ("second token", neighbour->getToken()->getName());
   delete neighbour;
+  delete secondToken;
+  delete firstToken;
 }

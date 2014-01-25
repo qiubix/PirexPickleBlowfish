@@ -17,6 +17,7 @@ public:
   Token* getActiveToken(int position);
 
   void generateNewTokens(void);
+  void activateToken(Token* token);
   void drawTokens(int amount = 3);
 
 private:

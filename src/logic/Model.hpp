@@ -30,6 +30,7 @@ public:
   void setGameState(GameState newState);
   void addPlayer(Player* newPlayer);
   void moveToNextPlayer(void);
+  void reset(void);
 
 private:
   Board* board;
