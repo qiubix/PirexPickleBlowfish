@@ -1,5 +1,13 @@
 #include "HeadquartersToken.hpp"
 
 
-HeadQuartersToken::HeadQuartersToken(Army army, std::string name, Attributes* attributes, std::vector<Side> edges)
-  : UnitToken(army, name, attributes), ModuleToken(army, name, attributes, edges) {}
+HeadquartersToken::HeadquartersToken(Army army, std::string name, Attributes* attributes, std::vector<Side> edges)
+  : UnitToken(army, name, attributes), ModuleToken(army, name, attributes, edges) {
+  for (int i=0; i<6; ++i) {
+    Attributes* edgeAttributes = new Attributes;
+    Attribute* melee = new Attribute("melee", 1);
+    edgeAttributes->addAttribute(MELEE, melee);
+    this -> setEdgeAttributes((Side) i, edgeAttributes);
+  }
+  //TODO: set default initiative
+}

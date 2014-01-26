@@ -34,7 +34,7 @@ set(MODEL_TEST_SRC FieldTest.cpp BoardTest.cpp PlayerTest.cpp ModelTest.cpp)
 create_test(ModelTest "${MODEL_TEST_SRC}" "${LOGIC_TEST_LIBS}")
 set(CONTROLLER_TEST_SRC ControllerTest.cpp)
 create_test(ControllerTest "${CONTROLLER_TEST_SRC}" "${LOGIC_TEST_LIBS}")
-set(TOKEN_TEST_SRC TokenTest.cpp BoardTokenTest.cpp UnitTokenTest.cpp ModuleTokenTest.cpp InstantTokenTest.cpp MockController.hpp)
+set(TOKEN_TEST_SRC TokenTest.cpp BoardTokenTest.cpp UnitTokenTest.cpp ModuleTokenTest.cpp InstantTokenTest.cpp MockController.hpp HeadquartersTest.cpp)
 create_test(TokenTest "${TOKEN_TEST_SRC}" "${LOGIC_TEST_LIBS}")
 
 set(LOGIC_TEST_SRC ${CONTROLLER_TEST_SRC} ${MODEL_TEST_SRC} ${TOKEN_TEST_SRC})
