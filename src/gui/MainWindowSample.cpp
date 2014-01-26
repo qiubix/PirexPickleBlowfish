@@ -1,6 +1,8 @@
 #include "MainWindowSample.hpp"
 #include "ui_MainWindowSample.h"
 
+#include "Field.hpp"
+
 MainWindowSample::MainWindowSample(QWidget *parent) :
   QWidget(parent),
   ui(new Ui::MainWindowSample)
@@ -9,6 +11,11 @@ MainWindowSample::MainWindowSample(QWidget *parent) :
 
   QGraphicsScene * scene = new QGraphicsScene(this);
   scene->setBackgroundBrush(Qt::darkGray);
+
+  Field * field = new Field();
+  field -> setPos(0, 0);
+  scene -> addItem(field);
+
   ui->graphicsView->setScene(scene);
   ui->graphicsView->show();
 }
