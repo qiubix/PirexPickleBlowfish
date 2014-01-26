@@ -31,7 +31,7 @@ public:
   void setGameState(GameState newState);
   void addPlayer(Player* newPlayer);
   void moveToNextPlayer(void);
-  void destroy(BoardToken* token);
+  void killToken(BoardToken* token);
   void reset(void);
 
 private:
@@ -41,7 +41,8 @@ private:
   std::vector <Player*> players;
   int currentPlayerId;
 
-  FRIEND_TEST(ModelTest, shouldGetPlayer);
+  FRIEND_TEST(ModelTest, shouldInitializeCurrentPlayerIdWithMinusOne);
+  FRIEND_TEST(ModelTest, shouldSetCurrentPlayerIdToZeroWhenAddingFirstPlayer);
   FRIEND_TEST(ModelTest, shouldGetPlayersQuantity);
   FRIEND_TEST(ModelTest, shouldDestroyToken);
   FRIEND_TEST(ControllerTest, shouldResetGame);

@@ -78,7 +78,7 @@ void Controller::bombStrikeField(Field* epicentrum)
 void Controller::destroy(BoardToken* token)
 {
   //TODO: check if token is in range for destruction
-  model->destroy(token);
+  model->killToken(token);
 }
 
 void Controller::reset(void)
