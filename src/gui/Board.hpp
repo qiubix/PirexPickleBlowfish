@@ -14,7 +14,10 @@ public:
 protected:
   void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
   QRectF boundingRect() const;
+
   Field* field;
+
+  void changeCoordinates(float& x, float& y, float xDiff, float yDiff, int numberHardToName);
 
 };
 

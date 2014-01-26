@@ -1,8 +1,54 @@
 #include "Board.hpp"
+#include <QtCore/qmath.h>
+#include <QDebug>
 
 Board::Board(QGraphicsItem* parent) : QGraphicsItem(parent)
 {
-  field = new Field(50, this);
+  float radius = 50;
+  float x = 0;
+  float y = 0;
+  float xSpacing = 5;
+  float ySpacing = 3;
+  float xDiff = 1.5 * radius + xSpacing;
+  float yDiff = qSqrt(3) * radius/2+ ySpacing;
+  Field * field;
+  int counter = 0;
+
+  counter++;
+  field = new Field(radius, this);
+  field -> setPos(x, y);
+  for(int j = 0; j <= 2; j++) {
+    for(int i = 0; i < 6; i++) {
+      for(int k = 0; k < j; k++) {
+        counter++;
+        field = new Field(radius, this);
+        field -> setPos(x, y);
+        changeCoordinates(x, y, xDiff, yDiff, i);
+      }
+    }
+    changeCoordinates(x, y, xDiff, yDiff, 4);
+  }
+
+  qDebug() << counter;
+}
+
+void Board::changeCoordinates(float& x, float& y, float xDiff, float yDiff, int numberHardToName) {
+  int yMultiplier = 1;
+  if(numberHardToName >= 3)
+    yMultiplier *= -1;
+  if(numberHardToName % 3 == 1)
+    yMultiplier *= 2;
+
+  int xMultiplier = 1;
+  switch(numberHardToName) {
+  case 0: case 5:
+    xMultiplier *= -1; break;
+  case 1: case 4:
+    xMultiplier = 0; break;
+  }
+
+  x += xDiff * xMultiplier;
+  y += yDiff * yMultiplier;
 }
 
 void Board::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
