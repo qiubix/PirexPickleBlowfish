@@ -2,6 +2,9 @@
 #include <QtCore/qmath.h>
 #include <QDebug>
 
+#include "BoardField.hpp"
+#include "SideField.hpp"
+
 Board::Board(ViewController* controller, QGraphicsItem* parent) : QGraphicsItem(parent)
 {
   float radius = 50;
@@ -11,33 +14,34 @@ Board::Board(ViewController* controller, QGraphicsItem* parent) : QGraphicsItem(
   float ySpacing = 3;
   float xDiff = 1.5 * radius + xSpacing;
   float yDiff = qSqrt(3) * radius/2+ ySpacing;
-  Field * field;
+  BoardField * boardField;
   int counter = 0;
 
   counter++;
-  field = new Field(radius, this);
-  field -> setPos(x, y);
-  QObject::connect(field, SIGNAL(fieldClicked()), controller, SLOT(fieldClicked()));
+  boardField = new BoardField(radius, this);
+  boardField -> setPos(x, y);
+  QObject::connect(boardField, SIGNAL(fieldClicked()), controller, SLOT(fieldClicked()));
   for(int j = 0; j <= 2; j++) {
     for(int i = 0; i < 6; i++) {
       for(int k = 0; k < j; k++) {
         counter++;
-        field = new Field(radius, this);
-        field -> setPos(x, y);
-        QObject::connect(field, SIGNAL(fieldClicked()), controller, SLOT(fieldClicked()));
+        boardField = new BoardField(radius, this);
+        boardField -> setPos(x, y);
+        QObject::connect(boardField, SIGNAL(fieldClicked()), controller, SLOT(fieldClicked()));
         changeCoordinates(x, y, xDiff, yDiff, i);
       }
     }
     changeCoordinates(x, y, xDiff, yDiff, 4);
   }
 
+  SideField * sideField;
   y = -2 * yDiff;
   x = -6 * radius;
   for(int j = 0; j < 2; j++) {
     for(int i = 0; i < 3; i++) {
-      field = new Field(radius, this);
-      field -> setPos(x,y);
-      QObject::connect(field, SIGNAL(fieldClicked()), controller, SLOT(handFieldClicked()));
+      sideField = new SideField(radius, this);
+      sideField -> setPos(x,y);
+      QObject::connect(sideField, SIGNAL(fieldClicked()), controller, SLOT(handFieldClicked()));
       y += 2 * yDiff;
     }
     y = -2 * yDiff;
