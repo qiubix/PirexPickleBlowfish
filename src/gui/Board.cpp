@@ -39,9 +39,9 @@ Board::Board(ViewController* controller, QGraphicsItem* parent) : QGraphicsItem(
   x = -6 * radius;
   for(int j = 0; j < 2; j++) {
     for(int i = 0; i < 3; i++) {
-      sideField = new SideField(radius, this);
+      sideField = new SideField(j, i, radius, this);
       sideField -> setPos(x,y);
-      QObject::connect(sideField, SIGNAL(fieldClicked()), controller, SLOT(handFieldClicked()));
+      QObject::connect(sideField, SIGNAL(fieldClicked(int, int)), controller, SLOT(handFieldClicked(int, int)));
       y += 2 * yDiff;
     }
     y = -2 * yDiff;

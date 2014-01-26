@@ -1,10 +1,11 @@
 #include "SideField.hpp"
 
-SideField::SideField(float radius, QGraphicsItem* parent) : Hexagon(radius, parent)
+SideField::SideField(int player, int whichToken, float radius, QGraphicsItem* parent)
+  : Hexagon(radius, parent), player(player), whichToken(whichToken)
 {
 }
 
 void SideField::mousePressEvent(QGraphicsSceneMouseEvent *event) {
   Q_UNUSED(event)
-  emit fieldClicked();
+  emit fieldClicked(player, whichToken);
 }

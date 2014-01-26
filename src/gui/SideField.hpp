@@ -9,13 +9,16 @@ class SideField : public Hexagon
   Q_INTERFACES(QGraphicsItem)
 
 public:
-  SideField(float radius = 50, QGraphicsItem *parent = 0);
+  SideField(int player, int whichToken, float radius = 50, QGraphicsItem *parent = 0);
 
 signals:
-  void fieldClicked(void);
+  void fieldClicked(int, int);
 
 protected:
   void mousePressEvent(QGraphicsSceneMouseEvent *event);
+
+  int player;
+  int whichToken;
 
 };
 

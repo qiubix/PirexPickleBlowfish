@@ -12,7 +12,7 @@ public:
 
 public slots:
   void fieldClicked(void);
-  void handFieldClicked(void);
+  void handFieldClicked(int player, int whichToken);
 
 };
 

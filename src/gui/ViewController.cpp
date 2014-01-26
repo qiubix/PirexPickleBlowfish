@@ -9,6 +9,6 @@ void ViewController::fieldClicked(void) {
   qDebug() << "Field on board Clicked.";
 }
 
-void ViewController::handFieldClicked(void) {
-  qDebug() << "Hand field Clicked.";
+void ViewController::handFieldClicked(int player, int whichToken) {
+  qDebug() << "Hand field number: " << whichToken << " of player: " << player << " Clicked.";
 }
