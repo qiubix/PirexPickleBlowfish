@@ -12,6 +12,7 @@ BattleToken::BattleToken(Army army, Controller* controller)
 
 void BattleToken::action() {
   controller -> setGameState(BATTLE);
+  controller -> startBattle();
 }
 
 

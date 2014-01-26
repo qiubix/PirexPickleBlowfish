@@ -9,6 +9,10 @@ void Controller::setGameState(GameState newState) {
   model -> setGameState(newState);
 }
 
+void Controller::startBattle() {
+  //TODO: implement
+}
+
 void Controller::rotateClockwise(BoardToken* token) {
   token -> rotateClockwise();
 }
