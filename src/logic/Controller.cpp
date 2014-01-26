@@ -31,7 +31,10 @@ void Controller::move(BoardToken* token, Field* destination) {
 }
 
 void Controller::strikeToken(BoardToken* token, int strength) {
-  //TODO: implement
+  Attribute* toughness = token -> getAttribute(TOUGHNESS);
+  if (toughness != NULL) {
+    toughness -> downgradeBy(strength);
+  }
 }
 
 void Controller::bombStrikeField(Field* epicentrum) {

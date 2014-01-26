@@ -35,46 +35,46 @@ protected:
 };
 
 TEST_F(AttributeTest, testGetAttributeValues) {
-  ASSERT_EQ("initiative", attribute->getName());
-  ASSERT_EQ(ATTRIBUTE_VALUE, attribute->getValue());
+  ASSERT_EQ("initiative", attribute -> getName());
+  ASSERT_EQ(ATTRIBUTE_VALUE, attribute -> getValue());
 }
 
 TEST_F(AttributeTest, testUpgradeAttribute) {
-  attribute->upgradeBy();
+  attribute -> upgradeBy();
   int upgradedValue = ATTRIBUTE_VALUE + 1;
-  ASSERT_EQ(upgradedValue, attribute->getValue());
-  attribute->upgradeBy(2);
+  ASSERT_EQ(upgradedValue, attribute -> getValue());
+  attribute -> upgradeBy(2);
   upgradedValue += 2;
-  ASSERT_EQ(upgradedValue, attribute->getValue());
-  attribute->upgradeTo(ATTRIBUTE_VALUE);
-  ASSERT_EQ(ATTRIBUTE_VALUE, attribute->getValue());
+  ASSERT_EQ(upgradedValue, attribute -> getValue());
+  attribute -> upgradeTo(ATTRIBUTE_VALUE);
+  ASSERT_EQ(ATTRIBUTE_VALUE, attribute -> getValue());
 }
 
 TEST_F(AttributeTest, testDowngradeAttribute) {
-  attribute->downgradeBy();
+  attribute -> downgradeBy();
   int downgradedValue = ATTRIBUTE_VALUE - 1;
-  ASSERT_EQ(downgradedValue, attribute->getValue());
-  attribute->downgradeBy(2);
+  ASSERT_EQ(downgradedValue, attribute -> getValue());
+  attribute -> downgradeBy(2);
   downgradedValue -= 2;
-  ASSERT_EQ(downgradedValue, attribute->getValue());
+  ASSERT_EQ(downgradedValue, attribute -> getValue());
   downgradedValue = ATTRIBUTE_VALUE - 1;
-  attribute->downgradeTo(ATTRIBUTE_VALUE-1);
-  ASSERT_EQ(downgradedValue, attribute->getValue());
+  attribute -> downgradeTo(ATTRIBUTE_VALUE-1);
+  ASSERT_EQ(downgradedValue, attribute -> getValue());
 }
 
 TEST_F(AttributeTest, testResetAttributeValue) {
-  attribute->upgradeTo(ATTRIBUTE_VALUE + 3);
+  attribute -> upgradeTo(ATTRIBUTE_VALUE + 3);
   int value = ATTRIBUTE_VALUE + 3;
-  ASSERT_EQ(value, attribute->getValue());
-  attribute->resetValue();
+  ASSERT_EQ(value, attribute -> getValue());
+  attribute -> resetValue();
   value = ATTRIBUTE_VALUE;
-  ASSERT_EQ(value, attribute->getValue());
-  attribute->downgradeTo(ATTRIBUTE_VALUE-1);
+  ASSERT_EQ(value, attribute -> getValue());
+  attribute -> downgradeTo(ATTRIBUTE_VALUE-1);
   value = ATTRIBUTE_VALUE - 1;
-  ASSERT_EQ(value, attribute->getValue());
-  attribute->resetValue();
+  ASSERT_EQ(value, attribute -> getValue());
+  attribute -> resetValue();
   value = ATTRIBUTE_VALUE;
-  ASSERT_EQ(value, attribute->getValue());
+  ASSERT_EQ(value, attribute -> getValue());
 }
 
 class AttributesTest : public Test
@@ -103,7 +103,7 @@ protected:
   BoardTokenTest() {
     Attributes* attributes = new Attributes;
     initiative = new Attribute("initiative", ATTRIBUTE_VALUE);
-    attributes->addAttribute(INITIATIVE, initiative);
+    attributes -> addAttribute(INITIATIVE, initiative);
     token = new BoardToken(HEGEMONY, "test board token", attributes);
   }
 
@@ -120,44 +120,44 @@ protected:
 };
 
 TEST_F(BoardTokenTest, testGetAttribute) {
-  Attribute* attribute = token->getAttribute(INITIATIVE);
+  Attribute* attribute = token -> getAttribute(INITIATIVE);
   ASSERT_EQ(initiative, attribute);
-  ASSERT_EQ(initiative->getName(), attribute->getName());
-  ASSERT_EQ(initiative->getValue(), attribute->getValue());
+  ASSERT_EQ(initiative -> getName(), attribute -> getName());
+  ASSERT_EQ(initiative -> getValue(), attribute -> getValue());
 }
 
 TEST_F(BoardTokenTest, testModifyAttribute) {
-  token->upgradeAttributeBy(INITIATIVE);
-  ASSERT_EQ(ATTRIBUTE_VALUE + 1, token->getAttribute(INITIATIVE)->getValue());
-  token->downgradeAttributeBy(INITIATIVE);
-  ASSERT_EQ(ATTRIBUTE_VALUE, token->getAttribute(INITIATIVE)->getValue());
+  token -> upgradeAttributeBy(INITIATIVE);
+  ASSERT_EQ(ATTRIBUTE_VALUE + 1, token -> getAttribute(INITIATIVE) -> getValue());
+  token -> downgradeAttributeBy(INITIATIVE);
+  ASSERT_EQ(ATTRIBUTE_VALUE, token -> getAttribute(INITIATIVE) -> getValue());
 }
 
 TEST_F(BoardTokenTest, testRemoveAttribute) {
-  ASSERT_EQ(1, token->getAttributes()->getSize());
-  token->removeAttribute(INITIATIVE);
-  ASSERT_EQ(0, token->getAttributes()->getSize());
+  ASSERT_EQ(1, token -> getAttributes() -> getSize());
+  token -> removeAttribute(INITIATIVE);
+  ASSERT_EQ(0, token -> getAttributes() -> getSize());
 }
 
 TEST_F(BoardTokenTest, testGetOrientation) {
-  ASSERT_EQ(NORTH, token->getOrientation());
+  ASSERT_EQ(NORTH, token -> getOrientation());
 }
 
 TEST_F(BoardTokenTest, testSetOrientation) {
-  token->setOrientation(SOUTH);
-  ASSERT_EQ(SOUTH, token->getOrientation());
+  token -> setOrientation(SOUTH);
+  ASSERT_EQ(SOUTH, token -> getOrientation());
 }
 
 TEST_F(BoardTokenTest, testRotateClockwise) {
-  token->setOrientation(SOUTH);
-  token->rotateClockwise();
-  ASSERT_EQ(SOUTH_WEST, token->getOrientation());
+  token -> setOrientation(SOUTH);
+  token -> rotateClockwise();
+  ASSERT_EQ(SOUTH_WEST, token -> getOrientation());
 }
 
 TEST_F(BoardTokenTest, testRotateAnticlockwise) {
-  token->setOrientation(SOUTH);
-  token->rotateAnticlockwise();
-  ASSERT_EQ(SOUTH_EAST, token->getOrientation());
+  token -> setOrientation(SOUTH);
+  token -> rotateAnticlockwise();
+  ASSERT_EQ(SOUTH_EAST, token -> getOrientation());
 }
 
 
@@ -167,10 +167,10 @@ protected:
   UnitTokenTest() {
     northSideAttributes = new Attributes;
     Attribute* melee = new Attribute("melee", 1);
-    northSideAttributes->addAttribute(MELEE, melee);
+    northSideAttributes -> addAttribute(MELEE, melee);
     baseUnitAttributes = new Attributes;
     unit = new UnitToken(HEGEMONY, "UniversalSoldier", baseUnitAttributes);
-    unit->setEdgeAttributes(NORTH, northSideAttributes);
+    unit -> setEdgeAttributes(NORTH, northSideAttributes);
   }
   ~UnitTokenTest() {}
   void SetUp() {}
@@ -182,11 +182,11 @@ protected:
 };
 
 TEST_F(UnitTokenTest, testGetSideAttributes) {
-  Attributes* attributes = unit->getEdgeAttributes(NORTH);
-  Attribute* melee = northSideAttributes->getAttribute(MELEE);
+  Attributes* attributes = unit -> getEdgeAttributes(NORTH);
+  Attribute* melee = northSideAttributes -> getAttribute(MELEE);
   ASSERT_EQ(northSideAttributes, attributes);
-  ASSERT_EQ(melee, attributes->getAttribute(MELEE));
-  ASSERT_EQ(melee->getValue(), attributes->getAttribute(MELEE)->getValue());
+  ASSERT_EQ(melee, attributes -> getAttribute(MELEE));
+  ASSERT_EQ(melee -> getValue(), attributes -> getAttribute(MELEE) -> getValue());
 }
 
 
@@ -196,15 +196,15 @@ protected:
   ModuleTokenTest() {
     initiative = new Attribute("initiative", 2);
     mainUnitAttributes = new Attributes;
-    mainUnitAttributes->addAttribute(INITIATIVE, initiative);
+    mainUnitAttributes -> addAttribute(INITIATIVE, initiative);
     melee = new Attribute("melee", 1);
     northSideAttributes = new Attributes;
-    northSideAttributes -> addAttribute(MELEE, melee);
+    northSideAttributes  ->  addAttribute(MELEE, melee);
     unit = new UnitToken(HEGEMONY, "UniversalSoldier", mainUnitAttributes);
-    unit->setEdgeAttributes(NORTH, northSideAttributes);
+    unit -> setEdgeAttributes(NORTH, northSideAttributes);
     toughness = new Attribute("toughness", 1);
     mainModuleAttributes = new Attributes;
-    mainModuleAttributes->addAttribute(TOUGHNESS, toughness);
+    mainModuleAttributes -> addAttribute(TOUGHNESS, toughness);
     activeEdges.push_back(NORTH);
     activeEdges.push_back(SOUTH);
   }
@@ -226,20 +226,20 @@ protected:
 
 TEST_F(ModuleTokenTest, shouldNotAffectEnemiesOnDefault) {
   Upgrader* upgrader = new ChangeAttributeUpgrader(new ModuleToken(HEGEMONY, "Officer", mainModuleAttributes, activeEdges), MELEE, 1);
-  ASSERT_FALSE(upgrader -> isAffectingEnemies());
+  ASSERT_FALSE(upgrader  ->  isAffectingEnemies());
 }
 
 TEST_F(ModuleTokenTest, shouldAffectEnemies) {
   Upgrader* upgrader = new ChangeAttributeUpgrader(new ModuleToken(HEGEMONY, "Officer", mainModuleAttributes, activeEdges), MELEE, 1, true);
-  ASSERT_TRUE(upgrader -> isAffectingEnemies());
+  ASSERT_TRUE(upgrader  ->  isAffectingEnemies());
 }
 
 TEST_F(ModuleTokenTest, shouldAddBoardToken) {
   ModuleToken* module = new ModuleToken(HEGEMONY, "Officer", mainModuleAttributes, activeEdges);
-  EXPECT_TRUE(module->boardTokens.empty());
-  module->addBoardToken(unit);
-  EXPECT_EQ(1, module->boardTokens.size());
-  EXPECT_EQ("UniversalSoldier", module->boardTokens[0]->getName());
+  EXPECT_TRUE(module -> boardTokens.empty());
+  module -> addBoardToken(unit);
+  EXPECT_EQ(1, module -> boardTokens.size());
+  EXPECT_EQ("UniversalSoldier", module -> boardTokens[0] -> getName());
   delete module;
 }
 
@@ -247,85 +247,85 @@ TEST_F(ModuleTokenTest, shouldRemoveBoardToken) {
   ModuleToken* module = new ModuleToken(HEGEMONY, "Officer", mainModuleAttributes, activeEdges);
   UnitToken* soldier = new UnitToken(HEGEMONY, "Soldier", mainUnitAttributes);
   UnitToken* anotherSoldier = new UnitToken(HEGEMONY, "UniversalSoldier", mainUnitAttributes);
-  ASSERT_TRUE(module->boardTokens.empty());
-  module->addBoardToken(unit);
-  module->addBoardToken(soldier);
-  module->addBoardToken(anotherSoldier);
-  EXPECT_EQ(3, module->boardTokens.size());
-  EXPECT_EQ("Soldier", module->boardTokens[1]->getName());
-  module->removeBoardToken(soldier);
-  EXPECT_EQ(2, module->boardTokens.size());
-  EXPECT_EQ("UniversalSoldier", module->boardTokens[1]->getName());
-  module->removeBoardToken(anotherSoldier);
-  EXPECT_EQ(1, module->boardTokens.size());
-  EXPECT_EQ("UniversalSoldier", module->boardTokens[0]->getName());
-  EXPECT_EQ(unit, module->boardTokens[0]);
+  ASSERT_TRUE(module -> boardTokens.empty());
+  module -> addBoardToken(unit);
+  module -> addBoardToken(soldier);
+  module -> addBoardToken(anotherSoldier);
+  EXPECT_EQ(3, module -> boardTokens.size());
+  EXPECT_EQ("Soldier", module -> boardTokens[1] -> getName());
+  module -> removeBoardToken(soldier);
+  EXPECT_EQ(2, module -> boardTokens.size());
+  EXPECT_EQ("UniversalSoldier", module -> boardTokens[1] -> getName());
+  module -> removeBoardToken(anotherSoldier);
+  EXPECT_EQ(1, module -> boardTokens.size());
+  EXPECT_EQ("UniversalSoldier", module -> boardTokens[0] -> getName());
+  EXPECT_EQ(unit, module -> boardTokens[0]);
   delete module;
 }
 
 TEST_F(ModuleTokenTest, shouldUpgradeBaseAttribute) {
-  int oldInitiativeValue = unit->getAttribute(INITIATIVE)->getValue();
+  int oldInitiativeValue = unit -> getAttribute(INITIATIVE) -> getValue();
   ASSERT_EQ(2, oldInitiativeValue);
   Module* ranger = new ChangeAttributeUpgrader(new ModuleToken(HEGEMONY, "Ranger", mainModuleAttributes, activeEdges), INITIATIVE, 1);
-  ranger->addBoardToken(unit);
-  int newInitiativeValue = unit->getAttribute(INITIATIVE)->getValue();
+  ranger -> addBoardToken(unit);
+  int newInitiativeValue = unit -> getAttribute(INITIATIVE) -> getValue();
   ASSERT_EQ(3, newInitiativeValue);
 }
 
 TEST_F(ModuleTokenTest, shouldDowngradeAttributeOnRemove) {
   Module* ranger = new ChangeAttributeUpgrader(new ModuleToken(HEGEMONY, "Ranger", mainModuleAttributes, activeEdges), INITIATIVE, 1);
-  ranger->addBoardToken(unit);
-  int attributeValue = unit->getAttribute(INITIATIVE)->getValue();
+  ranger -> addBoardToken(unit);
+  int attributeValue = unit -> getAttribute(INITIATIVE) -> getValue();
   EXPECT_EQ(3, attributeValue);
-  ranger->removeBoardToken(unit);
-  attributeValue = unit->getAttribute(INITIATIVE)->getValue();
+  ranger -> removeBoardToken(unit);
+  attributeValue = unit -> getAttribute(INITIATIVE) -> getValue();
   EXPECT_EQ(2, attributeValue);
 }
 
 TEST_F(ModuleTokenTest, shouldUpgradeEdgeAttribute) {
   Module* officer = new ChangeAttributeUpgrader(new ModuleToken(HEGEMONY, "Officer", mainModuleAttributes, activeEdges), MELEE, 1);
-  Attribute* melee = unit->getEdgeAttributes(NORTH)->getAttribute(MELEE);
-  int oldMeleeValue = melee->getValue();
+  Attribute* melee = unit -> getEdgeAttributes(NORTH) -> getAttribute(MELEE);
+  int oldMeleeValue = melee -> getValue();
   ASSERT_EQ(1, oldMeleeValue);
-  officer->addBoardToken(unit);
-  int newMeleeValue = melee->getValue();
+  officer -> addBoardToken(unit);
+  int newMeleeValue = melee -> getValue();
   ASSERT_EQ(2, newMeleeValue);
 }
 
 TEST_F(ModuleTokenTest, shouldAddAttribute) {
   Module* transport = new AddAttributeUpgrader(new ModuleToken(HEGEMONY, "Transport", mainModuleAttributes, activeEdges), MOBILITY, "mobility");
-  Attribute* unitAttribute = unit->getAttribute(MOBILITY);
+  Attribute* unitAttribute = unit -> getAttribute(MOBILITY);
   EXPECT_EQ(0, unitAttribute);
-  transport->addBoardToken(unit);
-  unitAttribute = unit->getAttribute(MOBILITY);
+  transport -> addBoardToken(unit);
+  unitAttribute = unit -> getAttribute(MOBILITY);
   ASSERT_NE((Attribute*) 0, unitAttribute);
-  int mobilityValue = unit->getAttribute(MOBILITY)->getValue();
+  int mobilityValue = unit -> getAttribute(MOBILITY) -> getValue();
   ASSERT_EQ(1, mobilityValue);
 }
 
 TEST_F(ModuleTokenTest, shouldDowngradeEnemyAttribute) {
-  Attribute* initiative = unit->getAttribute(INITIATIVE);
+  Attribute* initiative = unit -> getAttribute(INITIATIVE);
   ASSERT_NE((Attribute*) 0, initiative);
-  int oldInitiativeValue = initiative->getValue();
+  int oldInitiativeValue = initiative -> getValue();
   ASSERT_EQ(2, oldInitiativeValue);
   Module* saboteur = new ChangeAttributeUpgrader(new ModuleToken(OUTPOST, "Saboteur", mainModuleAttributes, activeEdges), INITIATIVE, -1);
-  saboteur->addBoardToken(unit);
-  int newInitiativeValue = unit->getAttribute(INITIATIVE)->getValue();
+  saboteur -> addBoardToken(unit);
+  int newInitiativeValue = unit -> getAttribute(INITIATIVE) -> getValue();
   ASSERT_EQ(1, newInitiativeValue);
 }
 
 TEST_F(ModuleTokenTest, shouldCaptureEnemyModule) {
   Module* scoper = new ChangeArmyUpgrader(new ModuleToken(OUTPOST, "Scoper", mainModuleAttributes, activeEdges));
-  EXPECT_EQ(HEGEMONY, unit->getArmy());
-  scoper->addBoardToken(unit);
-  ASSERT_EQ(OUTPOST, unit->getArmy());
-  scoper->removeBoardToken(unit);
-  EXPECT_EQ(HEGEMONY, unit->getArmy());
+  EXPECT_EQ(HEGEMONY, unit -> getArmy());
+  scoper -> addBoardToken(unit);
+  ASSERT_EQ(OUTPOST, unit -> getArmy());
+  scoper -> removeBoardToken(unit);
+  EXPECT_EQ(HEGEMONY, unit -> getArmy());
   UnitToken* anotherUnit = new UnitToken(MOLOCH, "Gauss cannon", mainUnitAttributes);
-  anotherUnit->setEdgeAttributes(NORTH, northSideAttributes);
-  EXPECT_EQ(MOLOCH, anotherUnit->getArmy());
-  scoper->addBoardToken(anotherUnit);
-  ASSERT_EQ(OUTPOST, anotherUnit->getArmy());
+  anotherUnit -> setEdgeAttributes(NORTH, northSideAttributes);
+  EXPECT_EQ(MOLOCH, anotherUnit -> getArmy());
+  scoper -> addBoardToken(anotherUnit);
+  ASSERT_EQ(OUTPOST, anotherUnit -> getArmy());
 }
 
 TEST_F(ModuleTokenTest, shouldApplyTwoDifferentUpgradesFromOneModule) {
@@ -340,26 +340,15 @@ TEST_F(ModuleTokenTest, shouldApplyTwoDifferentUpgradesFromOneModule) {
 }
 
 
+//TODO: create mocks
 class InstantTokenTest : public Test
 {
 protected:
   InstantTokenTest(void) {
     model = new Model();
     controller = new Controller(model);
-    battle = new BattleToken(MOLOCH, controller);
-    movement = new MovementToken(MOLOCH, controller);
-    push = new PushToken(MOLOCH, controller);
-    bomb = new BombToken(MOLOCH, controller);
-    granade = new GranadeToken(BORGO, controller);
-    sniper = new SniperToken(HEGEMONY, controller);
   }
   ~InstantTokenTest(void) {
-    delete sniper;
-    delete granade;
-    delete bomb;
-    delete push;
-    delete movement;
-    delete battle;
     delete controller;
     delete model;
   }
@@ -367,100 +356,110 @@ protected:
   virtual void SetUp(void) {}
   virtual void TearDown(void) {}
 
+  BoardToken* createBoardTokenWithToughness();
+
   Model* model;
   Controller* controller;
-  BattleToken* battle;
-  MovementToken* movement;
-  PushToken* push;
-  BombToken* bomb;
-  GranadeToken* granade;
-  SniperToken* sniper;
 };
 
+BoardToken* InstantTokenTest::createBoardTokenWithToughness() {
+  Attribute* toughness = new Attribute("toughness", 2);
+  BoardToken* token = new BoardToken(MOLOCH, "soldier", new Attributes);
+  token -> addAttribute(TOUGHNESS, toughness);
+  return token;
+}
+
 TEST_F(InstantTokenTest, shouldCauseBattle) {
-  ASSERT_EQ(PAUSE, model->getGameState());
-  battle->action();
-  EXPECT_EQ(BATTLE, model->getGameState());
+  BattleToken* battle = new BattleToken(MOLOCH, controller);
+  ASSERT_EQ(PAUSE, model -> getGameState());
+  battle -> action();
+  EXPECT_EQ(BATTLE, model -> getGameState());
+  delete battle;
 }
 
 TEST_F(InstantTokenTest, shouldMoveToken) {
-  Attributes* attributes = new Attributes;
-  BoardToken* token = new BoardToken(MOLOCH, "soldier", attributes);
-  Field* field = new Field();
+  MovementToken* movement = new MovementToken(MOLOCH, controller);
+  BoardToken* token = new BoardToken(MOLOCH, "soldier", NULL);
+  Field* field = new Field;
   Field* destination = new Field;
-  token->setField(field);
-  movement->setTokenToMove(token);
-  movement->setDestination(destination);
-  movement->action();
-  EXPECT_EQ("mobility", token->getAttribute(MOBILITY)->getName());
-  EXPECT_NE(field, token->getField());
-  EXPECT_EQ(NULL, field->getToken());
-  EXPECT_EQ(destination, token->getField());
-  EXPECT_EQ(token, destination->getToken());
+  token -> setField(field);
+  movement -> setTokenToMove(token);
+  movement -> setDestination(destination);
+  movement -> action();
+  EXPECT_NE(field, token -> getField());
+  EXPECT_EQ(NULL, field -> getToken());
+  EXPECT_EQ(destination, token -> getField());
+  EXPECT_EQ(token, destination -> getToken());
   delete field;
-  delete attributes;
+  delete movement;
 }
 
 TEST_F(InstantTokenTest, shouldPushToken) {
+  PushToken* push = new PushToken(MOLOCH, controller);
   BoardToken* pusher = new BoardToken(MOLOCH, "soldier", NULL);
   BoardToken* pushee = new BoardToken(OUTPOST, "soldier", NULL);
-  Field* pusherField = new Field();
-  Field* pusheeField = new Field();
+  Field* pusherField = new Field;
+  Field* pusheeField = new Field;
   Field* destination = new Field;
-  pusher->setField(pusherField);
-  pushee->setField(pusheeField);
-  push->setPushingToken(pusher);
-  push->setPushedToken(pushee);
-  push->setDestination(destination);
-  push->action();
-  EXPECT_NE(pusheeField, pushee->getField());
-  EXPECT_EQ(destination, pushee->getField());
-  EXPECT_EQ(pushee, destination->getToken());
+  pusher -> setField(pusherField);
+  pushee -> setField(pusheeField);
+  push -> setPushingToken(pusher);
+  push -> setPushedToken(pushee);
+  push -> setDestination(destination);
+  push -> action();
+  EXPECT_NE(pusheeField, pushee -> getField());
+  EXPECT_EQ(destination, pushee -> getField());
+  EXPECT_EQ(pushee, destination -> getToken());
   delete pusherField;
   delete pusheeField;
   delete pusher;
   delete pushee;
+  delete push;
 }
 
 TEST_F(InstantTokenTest, shouldBombStrikeField) {
-  BoardToken* firstToken = new BoardToken(MOLOCH, "soldier", NULL);
-  Attribute* firstTokenToughness = new Attribute("toughness", 2);
-  firstToken->addAttribute(TOUGHNESS, firstTokenToughness);
-  BoardToken* secondToken = new BoardToken(OUTPOST, "soldier", NULL);
-  Attribute* secondTokenToughness = new Attribute("toughness", 2);
-  secondToken->addAttribute(TOUGHNESS, secondTokenToughness);
-
+  BombToken* bomb = new BombToken(MOLOCH, controller);
+  BoardToken* firstToken = createBoardTokenWithToughness();
+  BoardToken* secondToken = createBoardTokenWithToughness();
   Field* firstField = new Field;
   Field* secondField = new Field;
-  firstField->addNeighbour(secondField, NORTH);
-  firstField->setToken(firstToken);
-  firstToken->setField(firstField);
-  secondField->addNeighbour(firstField, SOUTH);
-  secondField->setToken(secondToken);
-  secondToken->setField(secondField);
+  firstField -> addNeighbour(secondField, NORTH);
+  firstField -> setToken(firstToken);
+  firstToken -> setField(firstField);
+  secondField -> addNeighbour(firstField, SOUTH);
+  secondField -> setToken(secondToken);
+  secondToken -> setField(secondField);
 
-  EXPECT_EQ(2, firstToken->getAttribute(TOUGHNESS)->getValue());
-  EXPECT_EQ(2, secondToken->getAttribute(TOUGHNESS)->getValue());
-  bomb->setEpicentrum(firstToken->getField());
-  bomb->action();
-  EXPECT_EQ(1, firstToken->getAttribute(TOUGHNESS)->getValue());
-  EXPECT_EQ(1, secondToken->getAttribute(TOUGHNESS)->getValue());
+  bomb -> setEpicentrum(firstToken -> getField());
+  bomb -> action();
+  EXPECT_EQ(1, firstToken -> getAttribute(TOUGHNESS) -> getValue());
+  EXPECT_EQ(1, secondToken -> getAttribute(TOUGHNESS) -> getValue());
   delete firstField;
   delete secondField;
+  delete bomb;
 }
 
-//TEST_F(InstantTokenTest, shouldDestroyToken) {
-//  Player* player = new Player(MOLOCH);
-//  model->addPlayer(player);
-//  BoardToken* token = new BoardToken(MOLOCH, "soldier", NULL);
-//  Field* field = new Field;
-//  token->setField(field);
-//  field->setToken(token);
-//  EXPECT_TRUE(model->usedTokens.empty());
-//  ASSERT_NE((Player*) NULL, model->getPlayer(MOLOCH));
-//  granade->setTokenToDestroy(token);
-//  granade->action();
-//  ASSERT_FALSE(model->usedTokens.empty());
-//  EXPECT_EQ(token, model->usedTokens[0]);
-//  delete token;
-//}
+TEST_F(InstantTokenTest, shouldDestroyToken) {
+  GranadeToken* granade = new GranadeToken(BORGO, controller);
+  Player* player = new Player(MOLOCH);
+  model -> addPlayer(player);
+  BoardToken* token = new BoardToken(MOLOCH, "soldier", NULL);
+  Field* field = new Field;
+  token -> setField(field);
+  field -> setToken(token);
+  granade -> setTokenToDestroy(token);
+  granade -> action();
+//  ASSERT_FALSE(model -> usedTokens.empty());
+//  EXPECT_EQ(token, model -> usedTokens[0]);
+  delete token;
+  delete granade;
+}
+
+TEST_F(InstantTokenTest, shouldStrikeToken) {
+  SniperToken* sniper = new SniperToken(OUTPOST, controller);
+  BoardToken* token = createBoardTokenWithToughness();
+  sniper -> setTokenToStrike(token);
+  sniper -> action();
+  EXPECT_EQ(1, token -> getAttribute(TOUGHNESS) -> getValue());
+  delete sniper;
+}

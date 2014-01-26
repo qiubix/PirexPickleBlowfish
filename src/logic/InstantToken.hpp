@@ -89,6 +89,10 @@ public:
   ~SniperToken() {}
 
   void action(void);
+  void setTokenToStrike(BoardToken* toStrike);
+
+private:
+  BoardToken* toStrike;
 };
 
 #endif //INSTANTTOKEN_HPP
