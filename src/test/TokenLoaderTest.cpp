@@ -13,6 +13,7 @@ using ::testing::_;
 #include <fstream>
 
 //TODO: write separate test fixture for modules, units, instants and hqs
+//TODO: add more mocks but first make it possible in Json class (method to add fields in json needed to nicely mock)
 class TokenLoaderTest : public Test {
 protected:
   TokenLoaderTest() {}
@@ -76,6 +77,7 @@ TEST_F(TokenLoaderTest, shouldLoadModuleAttributes) {
   ASSERT_TRUE(moduleWithNoAttributeAttributes -> empty());
 }
 
+//TODO: mock instead of file
 TEST_F(TokenLoaderTest, shouldLoadModuleActiveEdges) {
   createShortJsonFile("someActiveEdges.json", "{\"sides\": [\"north\", \"south\"]}");
   Json* someActiveEdges = JsonParser::getInstance() -> parse("someActiveEdges.json");
