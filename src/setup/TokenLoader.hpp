@@ -11,8 +11,11 @@
 
 #include "logic/ModuleToken.hpp"
 #include "logic/UnitToken.hpp"
+#include "logic/InstantToken.hpp"
 
 #include "logic/Upgrader.hpp"
+
+#include "logic/Controller.hpp"
 
 class TokenLoader
 {
@@ -33,6 +36,7 @@ private:
 
   void loadInstantTokens(Army army, std::vector<Json> instantTokens);
   void loadInstantToken(Army army, Json instantToken);
+  InstantToken* createInstantToken(Army army, std::string name);
 
   void loadModuleTokens(Army army, std::vector<Json> moduleTokens);
   void loadModuleToken(Army army, Json moduleToken);
@@ -69,6 +73,13 @@ private:
   FRIEND_TEST(TokenLoaderTest, shouldAddRangedAttributesToToken);
   FRIEND_TEST(TokenLoaderTest, shouldAddShieldAttributesToToken);
   FRIEND_TEST(TokenLoaderTest, shouldAddNetAttributesToToken);
+
+  FRIEND_TEST(TokenLoaderTest, shouldCreateBattleToken);
+  FRIEND_TEST(TokenLoaderTest, shouldCreateMovementToken);
+  FRIEND_TEST(TokenLoaderTest, shouldCreatePushToken);
+  FRIEND_TEST(TokenLoaderTest, shouldCreateBombToken);
+  FRIEND_TEST(TokenLoaderTest, shouldCreateGrenadeToken);
+  FRIEND_TEST(TokenLoaderTest, shouldCreateSniperToken);
 
 };
 

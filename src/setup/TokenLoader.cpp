@@ -51,10 +51,36 @@ void TokenLoader::loadInstantTokens(Army army, std::vector<Json> instantTokens) 
   }
 }
 
-void TokenLoader::loadInstantToken(Army army, Json instantToken) {
-  std::string name = instantToken.getStringValue("name");
-  int count = instantToken.getIntegerValue("count");
-  //TODO: implement
+void TokenLoader::loadInstantToken(Army army, Json instantTokenParameters) {
+  std::string name = instantTokenParameters.getStringValue("name");
+  int count = instantTokenParameters.getIntegerValue("count");
+
+  for(int currentInstantToken = 0; currentInstantToken < count; currentInstantToken++) {
+    InstantToken* token = createInstantToken(army, name);
+    GameBox::getInstance() -> addTokenToArmy(army, token);
+  }
+}
+
+//FIXME: do something with adding real controller
+InstantToken* TokenLoader::createInstantToken(Army army, std::string name) {
+  if(name.compare("Battle") == 0) {
+    return new BattleToken(army, new Controller(new Model()));
+  }
+  if(name.compare("Move") == 0) {
+    return new MovementToken(army, new Controller(new Model()));
+  }
+  if(name.compare("Push back") == 0) {
+    return new PushToken(army, new Controller(new Model()));
+  }
+  if(name.compare("Air strike") == 0) {
+    return new BombToken(army, new Controller(new Model()));
+  }
+  if(name.compare("Grenade") == 0) {
+    return new GranadeToken(army, new Controller(new Model()));
+  }
+  if(name.compare("Sniper") == 0) {
+    return new SniperToken(army, new Controller(new Model()));
+  }
 }
 
 void TokenLoader::loadModuleTokens(Army army, std::vector<Json> moduleTokens) {

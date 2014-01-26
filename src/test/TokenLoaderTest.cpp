@@ -351,3 +351,33 @@ TEST_F(TokenLoaderTest, shouldAddNetAttributesToToken) {
   ASSERT_EQ("net", northEastSideNetAttribute -> getName());
   ASSERT_EQ(1, northEastSideNetAttribute -> getValue());
 }
+
+TEST_F(TokenLoaderTest, shouldCreateBattleToken) {
+  InstantToken* token = TokenLoader::getInstance() -> createInstantToken(HEGEMONY, "Battle");
+  ASSERT_TRUE(dynamic_cast<BattleToken *>(token));
+}
+
+TEST_F(TokenLoaderTest, shouldCreateMovementToken) {
+  InstantToken* token = TokenLoader::getInstance() -> createInstantToken(HEGEMONY, "Move");
+  ASSERT_TRUE(dynamic_cast<MovementToken *>(token));
+}
+
+TEST_F(TokenLoaderTest, shouldCreatePushToken) {
+  InstantToken* token = TokenLoader::getInstance() -> createInstantToken(HEGEMONY, "Push back");
+  ASSERT_TRUE(dynamic_cast<PushToken *>(token));
+}
+
+TEST_F(TokenLoaderTest, shouldCreateBombToken) {
+  InstantToken* token = TokenLoader::getInstance() -> createInstantToken(HEGEMONY, "Air strike");
+  ASSERT_TRUE(dynamic_cast<BombToken *>(token));
+}
+
+TEST_F(TokenLoaderTest, shouldCreateGrenadeToken) {
+  InstantToken* token = TokenLoader::getInstance() -> createInstantToken(HEGEMONY, "Grenade");
+  ASSERT_TRUE(dynamic_cast<GranadeToken *>(token));
+}
+
+TEST_F(TokenLoaderTest, shouldCreateSniperToken) {
+  InstantToken* token = TokenLoader::getInstance() -> createInstantToken(HEGEMONY, "Sniper");
+  ASSERT_TRUE(dynamic_cast<SniperToken *>(token));
+}
