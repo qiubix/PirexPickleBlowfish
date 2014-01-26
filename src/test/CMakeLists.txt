@@ -7,7 +7,7 @@ set(TOKEN_LOADER_TEST_SRC TokenLoaderTest.cpp MockJson.hpp)
 
 set(CONTROLLER_TEST_SRC ControllerTest.cpp)
 set(MODEL_TEST_SRC ModelTest.cpp)
-set(TOKEN_TEST_SRC TokenTest.cpp)
+set(TOKEN_TEST_SRC TokenTest.cpp MockController.hpp)
 set(FIELD_TEST_SRC FieldTest.cpp)
 set(PLAYER_TEST_SRC PlayerTest.cpp)
 set(GUI_TEST_SRC MainWindowSampleTest.cpp)

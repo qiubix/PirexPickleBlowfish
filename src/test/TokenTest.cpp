@@ -16,6 +16,8 @@ using ::testing::Test;
 #include "logic/Controller.hpp"
 #include "logic/InstantToken.hpp"
 
+#include "MockController.hpp"
+
 const int ATTRIBUTE_VALUE = 4;
 
 class AttributeTest : public Test
@@ -456,10 +458,14 @@ TEST_F(InstantTokenTest, shouldDestroyToken) {
 }
 
 TEST_F(InstantTokenTest, shouldStrikeToken) {
+//  Controller* controller = new Controller(new Model);
+//  MockController controller;
   SniperToken* sniper = new SniperToken(OUTPOST, controller);
   BoardToken* token = createBoardTokenWithToughness();
   sniper -> setTokenToStrike(token);
   sniper -> action();
+//  EXPECT_CALL(controller, strikeToken(token,1))
+//      .Times(1);
   EXPECT_EQ(1, token -> getAttribute(TOUGHNESS) -> getValue());
   delete sniper;
 }

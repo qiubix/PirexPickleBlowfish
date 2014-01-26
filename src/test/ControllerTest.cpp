@@ -37,51 +37,57 @@ BoardToken* ControllerTest::createBoardTokenWithToughness() {
 
 TEST_F(ControllerTest, shouldRotateToken) {
   BoardToken* token = new BoardToken(MOLOCH, "soldier");
-  EXPECT_EQ(NORTH, token->getOrientation());
-  controller->rotateClockwise(token);
-  EXPECT_EQ(NORTH_EAST, token->getOrientation());
-  controller->rotateAnticlockwise(token);
-  EXPECT_EQ(NORTH, token->getOrientation());
+  EXPECT_EQ(NORTH, token -> getOrientation());
+  controller -> rotateClockwise(token);
+  EXPECT_EQ(NORTH_EAST, token -> getOrientation());
+  controller -> rotateAnticlockwise(token);
+  EXPECT_EQ(NORTH, token -> getOrientation());
   delete token;
 }
 
 TEST_F(ControllerTest, shouldPutTokenOnBoard) {
   Field* field = new Field;
   BoardToken* token = new BoardToken(MOLOCH, "solder");
-  controller->putOnBoard(token, field);
-  EXPECT_EQ(token, field->getToken());
-  EXPECT_EQ(field, token->getField());
+  controller -> putOnBoard(token, field);
+  EXPECT_EQ(token, field -> getToken());
+  EXPECT_EQ(field, token -> getField());
 }
 
 TEST_F(ControllerTest, shouldMoveToken) {
   BoardToken* token = new BoardToken(MOLOCH, "solder");
   Field* field = new Field;
   Field* destination = new Field;
-  token->setField(field);
-  field->setToken(token);
-  controller->move(token, destination);
-  EXPECT_EQ(NULL, field->getToken());
-  EXPECT_EQ(destination, token->getField());
-  EXPECT_EQ(token, destination->getToken());
+  token -> setField(field);
+  field -> setToken(token);
+  controller -> move(token, destination);
+  EXPECT_EQ(NULL, field -> getToken());
+  EXPECT_EQ(destination, token -> getField());
+  EXPECT_EQ(token, destination -> getToken());
+}
+
+TEST_F(ControllerTest, shouldStrikeToken) {
+  BoardToken* token = createBoardTokenWithToughness();
+  controller -> strikeToken(token, 1);
+  EXPECT_EQ(1, token -> getAttribute(TOUGHNESS) -> getValue());
 }
 
 TEST_F(ControllerTest, shouldBombStrikeAreaOfOneFieldRadius) {
   Field* epicentrum = new Field;
   Field* north = new Field;
   Field* south = new Field;
-  epicentrum->addNeighbour(north, NORTH);
-  epicentrum->addNeighbour(south, SOUTH);
+  epicentrum -> addNeighbour(north, NORTH);
+  epicentrum -> addNeighbour(south, SOUTH);
   BoardToken* firstToken = createBoardTokenWithToughness();
   BoardToken* secondToken = createBoardTokenWithToughness();
   BoardToken* thirdToken = createBoardTokenWithToughness();
-  controller->putOnBoard(firstToken, epicentrum);
-  controller->putOnBoard(secondToken, north);
-  controller->putOnBoard(thirdToken, south);
+  controller -> putOnBoard(firstToken, epicentrum);
+  controller -> putOnBoard(secondToken, north);
+  controller -> putOnBoard(thirdToken, south);
 
-  controller->bombStrikeField(epicentrum);
-  EXPECT_EQ(1, firstToken->getAttribute(TOUGHNESS)->getValue());
-  EXPECT_EQ(1, secondToken->getAttribute(TOUGHNESS)->getValue());
-  EXPECT_EQ(1, thirdToken->getAttribute(TOUGHNESS)->getValue());
+  controller -> bombStrikeField(epicentrum);
+  EXPECT_EQ(1, firstToken -> getAttribute(TOUGHNESS) -> getValue());
+  EXPECT_EQ(1, secondToken -> getAttribute(TOUGHNESS) -> getValue());
+  EXPECT_EQ(1, thirdToken -> getAttribute(TOUGHNESS) -> getValue());
   //TODO: check if HQ or tokens outside bomb radius are stricken
   delete thirdToken;
   delete secondToken;
@@ -93,12 +99,12 @@ TEST_F(ControllerTest, shouldBombStrikeAreaOfOneFieldRadius) {
 
 TEST_F(ControllerTest, shouldResetGame) {
   Player* player = new Player(MOLOCH);
-  model->addPlayer(player);
-  controller->setGameState(GAME);
-  EXPECT_EQ(GAME, model->getGameState());
-  EXPECT_FALSE(model->players.empty());
-  controller->reset();
-  EXPECT_EQ(PAUSE, model->getGameState());
-  EXPECT_TRUE(model->players.empty());
+  model -> addPlayer(player);
+  controller -> setGameState(GAME);
+  EXPECT_EQ(GAME, model -> getGameState());
+  EXPECT_FALSE(model -> players.empty());
+  controller -> reset();
+  EXPECT_EQ(PAUSE, model -> getGameState());
+  EXPECT_TRUE(model -> players.empty());
   delete player;
 }
