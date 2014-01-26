@@ -35,5 +35,6 @@ QPainterPath Field::shape() const {
 
 void Field::mousePressEvent(QGraphicsSceneMouseEvent *event) {
   Q_UNUSED(event)
+  emit fieldClicked();
   qDebug() << "Hexagon clicked.";
 }

@@ -2,6 +2,7 @@
 #include "ui_MainWindowSample.h"
 
 #include "Board.hpp"
+#include "ViewController.hpp"
 
 MainWindowSample::MainWindowSample(QWidget *parent) :
   QWidget(parent),
@@ -9,10 +10,12 @@ MainWindowSample::MainWindowSample(QWidget *parent) :
 {
   ui->setupUi(this);
 
+  ViewController* controller = new ViewController(this);
+
   QGraphicsScene * scene = new QGraphicsScene(this);
   scene->setBackgroundBrush(Qt::darkGray);
 
-  Board * board = new Board();
+  Board * board = new Board(controller);
   board -> setPos(0, 0);
   scene -> addItem(board);
 

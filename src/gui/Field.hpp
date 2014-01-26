@@ -12,6 +12,9 @@ class Field : public QObject, public QGraphicsItem
 public:
   Field(float radius = 50, QGraphicsItem *parent = 0);
 
+signals:
+  void fieldClicked(void);
+
 protected:
   void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
   QRectF boundingRect() const;

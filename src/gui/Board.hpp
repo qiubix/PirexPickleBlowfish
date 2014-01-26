@@ -5,11 +5,12 @@
 #include <QPainter>
 
 #include "Field.hpp"
+#include "ViewController.hpp"
 
 class Board : public QGraphicsItem
 {
 public:
-  Board(QGraphicsItem* parent = 0);
+  Board(ViewController* controller, QGraphicsItem* parent = 0);
 
 protected:
   void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);

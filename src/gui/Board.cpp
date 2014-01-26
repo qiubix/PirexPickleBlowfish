@@ -2,7 +2,7 @@
 #include <QtCore/qmath.h>
 #include <QDebug>
 
-Board::Board(QGraphicsItem* parent) : QGraphicsItem(parent)
+Board::Board(ViewController* controller, QGraphicsItem* parent) : QGraphicsItem(parent)
 {
   float radius = 50;
   float x = 0;
@@ -17,19 +17,19 @@ Board::Board(QGraphicsItem* parent) : QGraphicsItem(parent)
   counter++;
   field = new Field(radius, this);
   field -> setPos(x, y);
+  QObject::connect(field, SIGNAL(fieldClicked()), controller, SLOT(fieldClicked()));
   for(int j = 0; j <= 2; j++) {
     for(int i = 0; i < 6; i++) {
       for(int k = 0; k < j; k++) {
         counter++;
         field = new Field(radius, this);
         field -> setPos(x, y);
+        QObject::connect(field, SIGNAL(fieldClicked()), controller, SLOT(fieldClicked()));
         changeCoordinates(x, y, xDiff, yDiff, i);
       }
     }
     changeCoordinates(x, y, xDiff, yDiff, 4);
   }
-
-  qDebug() << counter;
 }
 
 void Board::changeCoordinates(float& x, float& y, float xDiff, float yDiff, int numberHardToName) {

@@ -10,7 +10,7 @@ set(CMAKE_AUTOMOC ON)
 
 find_package(Qt5Widgets REQUIRED)
 
-set(MAIN_WINDOW_SAMPLE_SRC_LIST MainWindowSample.cpp Board.cpp Field.cpp)
+set(MAIN_WINDOW_SAMPLE_SRC_LIST MainWindowSample.cpp ViewController.cpp Board.cpp Field.cpp)
 set(UI_LIST MainWindowSample.ui)
 
 qt5_wrap_ui(UI_H_LIST ${UI_LIST})
