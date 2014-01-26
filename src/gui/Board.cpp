@@ -18,16 +18,16 @@ Board::Board(ViewController* controller, QGraphicsItem* parent) : QGraphicsItem(
   int counter = 0;
 
   counter++;
-  boardField = new BoardField(radius, this);
+  boardField = new BoardField(new Field(), radius, this);
   boardField -> setPos(x, y);
-  QObject::connect(boardField, SIGNAL(fieldClicked()), controller, SLOT(fieldClicked()));
+  QObject::connect(boardField, SIGNAL(fieldClicked(Field*)), controller, SLOT(fieldClicked(Field*)));
   for(int j = 0; j <= 2; j++) {
     for(int i = 0; i < 6; i++) {
       for(int k = 0; k < j; k++) {
         counter++;
-        boardField = new BoardField(radius, this);
+        boardField = new BoardField(new Field(), radius, this);
         boardField -> setPos(x, y);
-        QObject::connect(boardField, SIGNAL(fieldClicked()), controller, SLOT(fieldClicked()));
+        QObject::connect(boardField, SIGNAL(fieldClicked(Field*)), controller, SLOT(fieldClicked(Field*)));
         changeCoordinates(x, y, xDiff, yDiff, i);
       }
     }

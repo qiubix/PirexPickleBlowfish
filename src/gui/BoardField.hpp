@@ -2,6 +2,7 @@
 #define BOARDFIELD_H
 
 #include "Hexagon.hpp"
+#include "logic/Field.hpp"
 
 class BoardField : public Hexagon
 {
@@ -9,13 +10,15 @@ class BoardField : public Hexagon
   Q_INTERFACES(QGraphicsItem)
 
 public:
-  BoardField(float radius = 50, QGraphicsItem *parent = 0);
+  BoardField(Field* field, float radius = 50, QGraphicsItem *parent = 0);
 
 signals:
-  void fieldClicked(void);
+  void fieldClicked(Field*);
 
 protected:
   void mousePressEvent(QGraphicsSceneMouseEvent *event);
+
+  Field* field;
 
 };
 

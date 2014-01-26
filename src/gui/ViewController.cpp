@@ -5,8 +5,8 @@ ViewController::ViewController(QObject *parent) : QObject(parent) {
 
 }
 
-void ViewController::fieldClicked(void) {
-  qDebug() << "Field on board Clicked.";
+void ViewController::fieldClicked(Field* field) {
+  qDebug() << "Field on board Clicked. Pointer: " << field;
 }
 
 void ViewController::handFieldClicked(int player, int whichToken) {

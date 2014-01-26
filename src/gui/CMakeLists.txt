@@ -16,6 +16,7 @@ set(UI_LIST MainWindowSample.ui)
 qt5_wrap_ui(UI_H_LIST ${UI_LIST})
 
 add_library(MainWindowSample ${MAIN_WINDOW_SAMPLE_SRC_LIST} ${UI_H_LIST})
+target_link_libraries(MainWindowSample logic)
 install(TARGETS MainWindowSample DESTINATION ${CMAKE_INSTALL_PREFIX})
 
 qt5_use_modules(MainWindowSample Widgets)
