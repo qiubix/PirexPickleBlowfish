@@ -7,6 +7,7 @@ using ::testing::Test;
 #include "logic/Model.hpp"
 #include "logic/BoardToken.hpp"
 
+//TODO: create mocks
 class ControllerTest : public Test
 {
 protected:
@@ -23,30 +24,16 @@ protected:
 
   virtual void SetUp(void) {}
   virtual void TearDown(void) {}
+
+  BoardToken* createBoardTokenWithToughness();
 };
 
-TEST_F(ControllerTest, shouldSetGameState) {
-  GameState currentState = model->getGameState();
-  EXPECT_EQ(PAUSE, currentState);
-  controller->setGameState(GAME);
-  currentState = model->getGameState();
-  EXPECT_EQ(GAME, currentState);
+BoardToken* ControllerTest::createBoardTokenWithToughness() {
+  Attribute* toughness = new Attribute("toughness", 2);
+  BoardToken* token = new BoardToken(MOLOCH, "soldier", new Attributes);
+  token -> addAttribute(TOUGHNESS, toughness);
+  return token;
 }
-
-//TEST_F(ControllerTest, shouldActivateToken) {
-//  Player* player = new Player(MOLOCH);
-//  model->addPlayer(player);
-//  BoardToken* token = new BoardToken(MOLOCH, "soldier", NULL);
-//  player->hiddenTokens.push_back(token);
-//  EXPECT_TRUE(player->activeTokens.empty());
-//  EXPECT_EQ(1, player->hiddenTokens.size());
-//  controller->activate(token);
-//  ASSERT_FALSE(player->activeTokens.empty());
-//  EXPECT_EQ(token, player->activeTokens[0]);
-//  EXPECT_EQ("soldier", player->activeTokens[0]->getName());
-//  delete token;
-//  delete player;
-//}
 
 TEST_F(ControllerTest, shouldRotateToken) {
   BoardToken* token = new BoardToken(MOLOCH, "soldier", NULL);
@@ -60,7 +47,6 @@ TEST_F(ControllerTest, shouldRotateToken) {
 
 TEST_F(ControllerTest, shouldPutTokenOnBoard) {
   Field* field = new Field;
-  EXPECT_EQ(NULL, field->getToken());
   BoardToken* token = new BoardToken(MOLOCH, "solder", NULL);
   controller->putOnBoard(token, field);
   EXPECT_EQ(token, field->getToken());
@@ -73,9 +59,6 @@ TEST_F(ControllerTest, shouldMoveToken) {
   Field* destination = new Field;
   token->setField(field);
   field->setToken(token);
-  ASSERT_EQ(NULL, destination->getToken());
-  EXPECT_EQ(field, token->getField());
-  EXPECT_EQ(token, field->getToken());
   controller->move(token, destination);
   EXPECT_EQ(NULL, field->getToken());
   EXPECT_EQ(destination, token->getField());
@@ -88,26 +71,13 @@ TEST_F(ControllerTest, shouldBombStrikeAreaOfOneFieldRadius) {
   Field* south = new Field;
   epicentrum->addNeighbour(north, NORTH);
   epicentrum->addNeighbour(south, SOUTH);
-
-  Attribute* firstToughness = new Attribute("toughness", 2);
-  BoardToken* firstToken = new BoardToken(MOLOCH, "soldier", new Attributes);
-  firstToken->addAttribute(TOUGHNESS, firstToughness);
-
-  Attribute* secondToughness = new Attribute("toughness", 2);
-  BoardToken* secondToken = new BoardToken(OUTPOST, "soldier", new Attributes);
-  secondToken->addAttribute(TOUGHNESS, secondToughness);
-
-  Attribute* thirdToughness = new Attribute("toughness", 2);
-  BoardToken* thirdToken = new BoardToken(HEGEMONY, "soldier", new Attributes);
-  thirdToken->addAttribute(TOUGHNESS, thirdToughness);
-
+  BoardToken* firstToken = createBoardTokenWithToughness();
+  BoardToken* secondToken = createBoardTokenWithToughness();
+  BoardToken* thirdToken = createBoardTokenWithToughness();
   controller->putOnBoard(firstToken, epicentrum);
   controller->putOnBoard(secondToken, north);
   controller->putOnBoard(thirdToken, south);
 
-  EXPECT_EQ(2, firstToken->getAttribute(TOUGHNESS)->getValue());
-  EXPECT_EQ(2, secondToken->getAttribute(TOUGHNESS)->getValue());
-  EXPECT_EQ(2, thirdToken->getAttribute(TOUGHNESS)->getValue());
   controller->bombStrikeField(epicentrum);
   EXPECT_EQ(1, firstToken->getAttribute(TOUGHNESS)->getValue());
   EXPECT_EQ(1, secondToken->getAttribute(TOUGHNESS)->getValue());
