@@ -16,6 +16,7 @@ public:
 
   void addAttribute(AttributeName name, Attribute* attribute);
   void removeAttribute(AttributeName name);
+  bool empty(void);
 
 private:
   std::map < AttributeName, Attribute*> attributes;

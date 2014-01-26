@@ -74,6 +74,26 @@ TEST_F(AttributeTest, testResetAttributeValue) {
   ASSERT_EQ(value, attribute->getValue());
 }
 
+class AttributesTest : public Test
+{
+protected:
+  AttributesTest() {
+  }
+  ~AttributesTest() {
+  }
+
+  virtual void SetUp() {}
+  virtual void TearDown() {}
+};
+
+TEST_F(AttributesTest, shouldCreateAttributesObjectWithNoAttributes) {
+  Attributes* attributes = new Attributes();
+  ASSERT_NE((Attributes *)NULL, attributes);
+  ASSERT_TRUE(attributes -> empty());
+}
+
+//TODO: test adding and removing attribute
+
 class BoardTokenTest : public Test
 {
 protected:

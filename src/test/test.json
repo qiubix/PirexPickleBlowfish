@@ -1,0 +1,81 @@
+{
+	"army": "Moloch",
+	"headquarters": {
+		"upgrade": {
+			"melee": 1,
+			"ranged": 1
+		}
+	},
+	"instants": [
+		{
+			"name": "Battle",
+			"namePl": "Bitwa",
+			"count": 4
+		},
+		{
+			"name": "Move",
+			"namePl": "Ruch",
+			"count": 1
+		}
+	],
+	"modules": [
+		{
+			"name": "The Brain",
+			"namePl": "Mózg",
+			"count": 1,
+			"upgrade": {
+				"melee": {
+					"value": 1,
+					"sides": ["north", "southEast", "southWest"]
+				},
+				"ranged": {
+					"value": 1,
+					"sides": ["north", "southEast", "southWest"]
+				}
+			}
+		},
+		{
+			"name": "Officer",
+			"namePl": "Oficer",
+			"count": 1,
+			"upgrade": {
+				"ranged": {
+					"value": 1,
+					"sides": ["northEast", "south", "northWest"]
+				}
+			}
+		}
+	],
+	"units": [
+		{
+			"name": "Blocker",
+			"namePl": "Bloker",
+			"count": 2,
+			"toughness": 2,
+			"armor": ["north"]
+		},
+		{
+			"name": "Hybrid",
+			"namePl": "Cyborg",
+			"count": 2,
+			"initiative": [3],
+			"ranged": {
+				"north": 1
+			}
+		},
+		{
+			"name": "Juggernaut",
+			"namePl": "Juggernaut",
+			"count": 1,
+			"initiative": [1],
+			"toughness": 1,
+			"melee": {
+				"north": 2
+			},
+			"ranged": {
+				"northEast": 1
+			},
+			"armor": ["north", "southEast", "southWest"]
+		}
+	]
+}

@@ -9,7 +9,6 @@ void AddAttributeUpgrader::upgrade(BoardToken* token) {
   token->addAttribute(newAttributeId, newAttribute);
 }
 
-
 void AddAttributeUpgrader::downgrade(BoardToken* token) {
   token->removeAttribute(newAttributeId);
 }

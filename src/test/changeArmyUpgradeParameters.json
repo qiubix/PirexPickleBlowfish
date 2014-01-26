@@ -1,0 +1,8 @@
+{
+	"upgrades": [
+		{
+			"name": "scoper",
+			"affectsEnemy": true
+		}
+	]
+}
