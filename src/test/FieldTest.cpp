@@ -23,7 +23,7 @@ protected:
 };
 
 TEST_F(FieldTest, shouldSetToken) {
-  BoardToken* token = new BoardToken(MOLOCH, "soldier", NULL);
+  BoardToken* token = new BoardToken(MOLOCH, "soldier");
   field->setToken(token);
   EXPECT_EQ(token, field->token);
   EXPECT_EQ(token->getName(), field->token->getName());

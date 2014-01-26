@@ -6,7 +6,7 @@
 class UnitToken : public BoardToken
 {
 public:
-  UnitToken(Army army, std::string name, Attributes* attributes);
+  UnitToken(Army army, std::string name, Attributes* attributes = NULL);
   ~UnitToken();
 
   //getters

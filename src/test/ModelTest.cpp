@@ -92,7 +92,7 @@ TEST_F(ModelTest, shouldMoveToNextPlayer) {
 TEST_F(ModelTest, shouldDestroyToken) {
   Player* player = new Player(MOLOCH);
   model -> addPlayer(player);
-  BoardToken* token = new BoardToken(MOLOCH, "token", NULL);
+  BoardToken* token = new BoardToken(MOLOCH, "token");
   Field* field = new Field;
   field -> setToken(token);
   token -> setField(field);

@@ -1,13 +1,13 @@
 #include "InstantToken.hpp"
 
-InstantToken::InstantToken(Army army, Controller* controller, std::string name)
+InstantToken::InstantToken(Army army, std::string name, Controller* controller)
   : Token(army, name) {
   this -> controller = controller;
 }
 
 
-BattleToken::BattleToken(Army army, Controller* controller, std::string name)
-  : InstantToken(army, controller, name) {
+BattleToken::BattleToken(Army army, Controller* controller)
+  : InstantToken(army, "Battle", controller) {
 }
 
 void BattleToken::action() {
@@ -15,8 +15,8 @@ void BattleToken::action() {
 }
 
 
-MovementToken::MovementToken(Army army, Controller* controller, std::string name)
-  : InstantToken(army, controller, name) {
+MovementToken::MovementToken(Army army, Controller* controller)
+  : InstantToken(army, "Movement", controller) {
 }
 
 void MovementToken::action() {
@@ -32,8 +32,8 @@ void MovementToken::setDestination(Field* destination) {
 }
 
 
-PushToken::PushToken(Army army, Controller* controller, std::string name)
-  : InstantToken(army, controller, name) {
+PushToken::PushToken(Army army, Controller* controller)
+  : InstantToken(army, "Push", controller) {
 }
 
 void PushToken::action() {
@@ -53,8 +53,8 @@ void PushToken::setDestination(Field* destination) {
 }
 
 
-BombToken::BombToken(Army army, Controller* controller, std::string name)
-  : InstantToken(army, controller, name) {
+BombToken::BombToken(Army army, Controller* controller)
+  : InstantToken(army, "Bomb", controller) {
 }
 
 void BombToken::action() {
@@ -66,8 +66,8 @@ void BombToken::setEpicentrum(Field* epicentrum) {
 }
 
 
-GranadeToken::GranadeToken(Army army, Controller* controller, std::string name)
-  : InstantToken(army, controller, name) {
+GranadeToken::GranadeToken(Army army, Controller* controller)
+  : InstantToken(army, "Granade", controller) {
 }
 
 void GranadeToken::action() {
@@ -79,8 +79,8 @@ void GranadeToken::setTokenToDestroy(BoardToken* toDestroy) {
 }
 
 
-SniperToken::SniperToken(Army army, Controller* controller, std::string name)
-  : InstantToken(army, controller, name) {
+SniperToken::SniperToken(Army army, Controller* controller)
+  : InstantToken(army, "Sniper", controller) {
 }
 
 void SniperToken::action() {

@@ -23,7 +23,7 @@ protected:
 };
 
 TEST_F(PlayerTest, shouldKillToken) {
-  BoardToken* token = new BoardToken(MOLOCH, "token", NULL);
+  BoardToken* token = new BoardToken(MOLOCH, "token");
   player -> tokensOnBoard.push_back(token);
   player -> killToken(token);
   EXPECT_TRUE(player -> tokensOnBoard.empty());
@@ -43,7 +43,7 @@ TEST_F(PlayerTest, shouldUseToken) {
 }
 
 TEST_F(PlayerTest, shouldPutTokenOnBoard) {
-  BoardToken* token = new BoardToken(MOLOCH, "token", NULL);
+  BoardToken* token = new BoardToken(MOLOCH, "token");
   player -> tokensOnHand.push_back(token);
   player -> putOnBoard(token);
   EXPECT_TRUE(player -> tokensOnHand.empty());

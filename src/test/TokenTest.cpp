@@ -364,7 +364,7 @@ protected:
 
 BoardToken* InstantTokenTest::createBoardTokenWithToughness() {
   Attribute* toughness = new Attribute("toughness", 2);
-  BoardToken* token = new BoardToken(MOLOCH, "soldier", new Attributes);
+  BoardToken* token = new BoardToken(MOLOCH, "soldier");
   token -> addAttribute(TOUGHNESS, toughness);
   return token;
 }
@@ -379,7 +379,7 @@ TEST_F(InstantTokenTest, shouldCauseBattle) {
 
 TEST_F(InstantTokenTest, shouldMoveToken) {
   MovementToken* movement = new MovementToken(MOLOCH, controller);
-  BoardToken* token = new BoardToken(MOLOCH, "soldier", NULL);
+  BoardToken* token = new BoardToken(MOLOCH, "soldier");
   Field* field = new Field;
   Field* destination = new Field;
   token -> setField(field);
@@ -396,8 +396,8 @@ TEST_F(InstantTokenTest, shouldMoveToken) {
 
 TEST_F(InstantTokenTest, shouldPushToken) {
   PushToken* push = new PushToken(MOLOCH, controller);
-  BoardToken* pusher = new BoardToken(MOLOCH, "soldier", NULL);
-  BoardToken* pushee = new BoardToken(OUTPOST, "soldier", NULL);
+  BoardToken* pusher = new BoardToken(MOLOCH, "soldier");
+  BoardToken* pushee = new BoardToken(OUTPOST, "soldier");
   Field* pusherField = new Field;
   Field* pusheeField = new Field;
   Field* destination = new Field;
@@ -443,7 +443,7 @@ TEST_F(InstantTokenTest, shouldDestroyToken) {
   GranadeToken* granade = new GranadeToken(BORGO, controller);
   Player* player = new Player(MOLOCH);
   model -> addPlayer(player);
-  BoardToken* token = new BoardToken(MOLOCH, "soldier", NULL);
+  BoardToken* token = new BoardToken(MOLOCH, "soldier");
   Field* field = new Field;
   token -> setField(field);
   field -> setToken(token);

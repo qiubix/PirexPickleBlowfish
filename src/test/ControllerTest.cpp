@@ -30,13 +30,13 @@ protected:
 
 BoardToken* ControllerTest::createBoardTokenWithToughness() {
   Attribute* toughness = new Attribute("toughness", 2);
-  BoardToken* token = new BoardToken(MOLOCH, "soldier", new Attributes);
+  BoardToken* token = new BoardToken(MOLOCH, "soldier");
   token -> addAttribute(TOUGHNESS, toughness);
   return token;
 }
 
 TEST_F(ControllerTest, shouldRotateToken) {
-  BoardToken* token = new BoardToken(MOLOCH, "soldier", NULL);
+  BoardToken* token = new BoardToken(MOLOCH, "soldier");
   EXPECT_EQ(NORTH, token->getOrientation());
   controller->rotateClockwise(token);
   EXPECT_EQ(NORTH_EAST, token->getOrientation());
@@ -47,14 +47,14 @@ TEST_F(ControllerTest, shouldRotateToken) {
 
 TEST_F(ControllerTest, shouldPutTokenOnBoard) {
   Field* field = new Field;
-  BoardToken* token = new BoardToken(MOLOCH, "solder", NULL);
+  BoardToken* token = new BoardToken(MOLOCH, "solder");
   controller->putOnBoard(token, field);
   EXPECT_EQ(token, field->getToken());
   EXPECT_EQ(field, token->getField());
 }
 
 TEST_F(ControllerTest, shouldMoveToken) {
-  BoardToken* token = new BoardToken(MOLOCH, "solder", NULL);
+  BoardToken* token = new BoardToken(MOLOCH, "solder");
   Field* field = new Field;
   Field* destination = new Field;
   token->setField(field);

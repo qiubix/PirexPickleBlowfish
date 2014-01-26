@@ -8,7 +8,7 @@
 class InstantToken : public Token
 {
 public:
-  InstantToken(Army army, Controller* controller, std::string name);
+  InstantToken(Army army, std::string name, Controller* controller);
   virtual ~InstantToken(void) {}
 
   virtual void action(void) = 0;
@@ -19,7 +19,7 @@ protected:
 class BattleToken : public InstantToken
 {
 public:
-  BattleToken(Army army, Controller* controller, std::string name = "Battle");
+  BattleToken(Army army, Controller* controller);
   ~BattleToken(void) {}
 
   void action(void);
@@ -28,7 +28,7 @@ public:
 class MovementToken : public InstantToken
 {
 public:
-  MovementToken(Army army, Controller* controller, std::string name = "Movement");
+  MovementToken(Army army, Controller* controller);
   ~MovementToken() {}
 
   void action(void);
@@ -42,7 +42,7 @@ private:
 class PushToken : public InstantToken
 {
 public:
-  PushToken(Army army, Controller* controller, std::string name = "Push");
+  PushToken(Army army, Controller* controller);
   ~PushToken() {}
 
   void action(void);
@@ -59,7 +59,7 @@ private:
 class BombToken : public InstantToken
 {
 public:
-  BombToken(Army army, Controller* controller, std::string name = "Bomb");
+  BombToken(Army army, Controller* controller);
   ~BombToken() {}
 
   void action(void);
@@ -72,7 +72,7 @@ private:
 class GranadeToken : public InstantToken
 {
 public:
-  GranadeToken(Army army, Controller* controller, std::string name = "Granade");
+  GranadeToken(Army army, Controller* controller);
   ~GranadeToken() {}
 
   void action(void);
@@ -85,7 +85,7 @@ private:
 class SniperToken : public InstantToken
 {
 public:
-  SniperToken(Army army, Controller* controller, std::string name = "Sniper");
+  SniperToken(Army army, Controller* controller);
   ~SniperToken() {}
 
   void action(void);
