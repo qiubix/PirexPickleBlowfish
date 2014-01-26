@@ -6,6 +6,11 @@ MainWindowSample::MainWindowSample(QWidget *parent) :
   ui(new Ui::MainWindowSample)
 {
   ui->setupUi(this);
+
+  QGraphicsScene * scene = new QGraphicsScene(this);
+  scene->setBackgroundBrush(Qt::darkGray);
+  ui->graphicsView->setScene(scene);
+  ui->graphicsView->show();
 }
 
 QLineEdit* MainWindowSample::getLineEdit()
