@@ -12,7 +12,6 @@ public:
   ~Controller(void) {}
 
   void setGameState(GameState newState);
-  void activate(BoardToken* token);
   void rotateClockwise(BoardToken* token);
   void rotateAnticlockwise(BoardToken* token);
   void putOnBoard(BoardToken* token, Field* field);

@@ -2,8 +2,9 @@
 #define PLAYER_HPP
 
 #include <vector>
+#include <list>
 #include <gtest/gtest.h>
-#include "Token.hpp"
+#include "BoardToken.hpp"
 
 //TODO: implement methods
 class Player
@@ -14,22 +15,23 @@ public:
 
   //getters
   Army getArmy(void);
-  Token* getActiveToken(std::string name);
-  Token* getActiveToken(int position);
 
-  void generateNewTokens(void);
-  void activateToken(Token* token);
-  void deactivateToken(Token* token);
+  void killToken(BoardToken* token);
+  void useToken(Token* token);
+  void putOnBoard(BoardToken* token);
   void drawTokens(int amount = 3);
 
 private:
   Army army;
   std::vector <Token*> hiddenTokens;
-  std::vector <Token*> activeTokens;
+  std::vector <BoardToken*> tokensOnBoard;
+  std::list <Token*> tokensOnHand;
+  std::vector <Token*> usedTokens;
 
-  FRIEND_TEST(PlayerTest, shouldGetActiveToken);
-  FRIEND_TEST(PlayerTest, shouldActivateToken);
-  FRIEND_TEST(PlayerTest, shouldDeactivateToken);
+  FRIEND_TEST(PlayerTest, shouldKillToken);
+  FRIEND_TEST(PlayerTest, shouldUseToken);
+  FRIEND_TEST(PlayerTest, shouldPutTokenOnBoard);
+  FRIEND_TEST(PlayerTest, shouldDrawTokens);
   FRIEND_TEST(ControllerTest, shouldActivateToken);
   FRIEND_TEST(ModelTest, shouldDestroyToken);
 };

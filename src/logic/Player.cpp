@@ -3,60 +3,50 @@
 Player::Player(Army army)
   : army(army) {}
 
-Army Player::getArmy()
-{
+Army Player::getArmy() {
   return army;
 }
 
-Token* Player::getActiveToken(std::string name)
-{
-  for (unsigned i=0; i<activeTokens.size(); ++i ) {
-    if (activeTokens[i]->getName() == name) {
-      return activeTokens[i];
-    }
-  }
-  return NULL;
-}
-
-Token* Player::getActiveToken(int position)
-{
-  return activeTokens[position];
-}
-
-void Player::generateNewTokens()
-{
-  //TODO: implement
-}
-
-void Player::activateToken(Token* token)
-{
-  std::vector< Token* >::iterator it = hiddenTokens.begin();
-  while (it != hiddenTokens.end()) {
+void Player::killToken(BoardToken* token) {
+  std::vector< BoardToken* >::iterator it = tokensOnBoard.begin();
+  while (it != tokensOnBoard.end()) {
     if(*it == token) {
-      hiddenTokens.erase(it);
+      tokensOnBoard.erase(it);
       break;
     }
     ++it;
   }
-  activeTokens.push_back(token);
+  usedTokens.push_back(token);
 }
 
-void Player::deactivateToken(Token* token)
-{
-  if (activeTokens.empty()) {
-    return;
-  }
-  std::vector< Token* >::iterator it = activeTokens.begin();
-  while (it != activeTokens.end()) {
+void Player::useToken(Token* token) {
+  std::list < Token* >::iterator it = tokensOnHand.begin();
+  while (it != tokensOnHand.end()) {
     if(*it == token) {
-      activeTokens.erase(it);
+      tokensOnHand.erase(it);
       break;
     }
     ++it;
   }
+  usedTokens.push_back(token);
 }
 
-void Player::drawTokens(int amount)
-{
-  //TODO: implement
+void Player::putOnBoard(BoardToken* token) {
+  std::list < Token* >::iterator it = tokensOnHand.begin();
+  while (it != tokensOnHand.end()) {
+    if(*it == token) {
+      tokensOnHand.erase(it);
+      break;
+    }
+    ++it;
+  }
+  tokensOnBoard.push_back(token);
+}
+
+void Player::drawTokens(int amount) {
+  for (int i=0; i<amount; ++i) {
+    Token* token = hiddenTokens.back();
+    tokensOnHand.push_back(token);
+    hiddenTokens.pop_back();
+  }
 }

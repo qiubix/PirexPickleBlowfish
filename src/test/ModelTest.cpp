@@ -88,6 +88,7 @@ TEST_F(ModelTest, shouldMoveToNextPlayer) {
   delete firstPlayer;
 }
 
+//FIXME: move most of this test to PlayerTest
 TEST_F(ModelTest, shouldDestroyToken) {
   Player* player = new Player(MOLOCH);
   model -> addPlayer(player);
@@ -95,11 +96,9 @@ TEST_F(ModelTest, shouldDestroyToken) {
   Field* field = new Field;
   field -> setToken(token);
   token -> setField(field);
-  player -> activeTokens.push_back(token);
+  player -> tokensOnBoard.push_back(token);
   model -> killToken(token);
-  EXPECT_TRUE(player -> activeTokens.empty());
-  ASSERT_EQ(1, model -> usedTokens.size());
-  EXPECT_EQ(token, model -> usedTokens[0]);
+  EXPECT_TRUE(player -> tokensOnBoard.empty());
   EXPECT_EQ(NULL, field -> getToken());
 }
 

@@ -37,7 +37,6 @@ public:
 private:
   Board* board;
   GameState gameState;
-  std::vector <Token*> usedTokens;
   std::vector <Player*> players;
   int currentPlayerId;
 

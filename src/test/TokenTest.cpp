@@ -449,18 +449,18 @@ TEST_F(InstantTokenTest, shouldBombStrikeField) {
   delete secondField;
 }
 
-TEST_F(InstantTokenTest, shouldDestroyToken) {
-  Player* player = new Player(MOLOCH);
-  model->addPlayer(player);
-  BoardToken* token = new BoardToken(MOLOCH, "soldier", NULL);
-  Field* field = new Field;
-  token->setField(field);
-  field->setToken(token);
-  EXPECT_TRUE(model->usedTokens.empty());
-  ASSERT_NE((Player*) NULL, model->getPlayer(MOLOCH));
-  granade->setTokenToDestroy(token);
-  granade->action();
-  ASSERT_FALSE(model->usedTokens.empty());
-  EXPECT_EQ(token, model->usedTokens[0]);
-  delete token;
-}
+//TEST_F(InstantTokenTest, shouldDestroyToken) {
+//  Player* player = new Player(MOLOCH);
+//  model->addPlayer(player);
+//  BoardToken* token = new BoardToken(MOLOCH, "soldier", NULL);
+//  Field* field = new Field;
+//  token->setField(field);
+//  field->setToken(token);
+//  EXPECT_TRUE(model->usedTokens.empty());
+//  ASSERT_NE((Player*) NULL, model->getPlayer(MOLOCH));
+//  granade->setTokenToDestroy(token);
+//  granade->action();
+//  ASSERT_FALSE(model->usedTokens.empty());
+//  EXPECT_EQ(token, model->usedTokens[0]);
+//  delete token;
+//}

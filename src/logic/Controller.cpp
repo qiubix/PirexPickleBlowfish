@@ -9,12 +9,6 @@ void Controller::setGameState(GameState newState)
   model->setGameState(newState);
 }
 
-void Controller::activate(BoardToken* token)
-{
-  Player* player = model->getCurrentPlayer();
-  player->activateToken(token);
-}
-
 void Controller::rotateClockwise(BoardToken* token)
 {
   token->rotateClockwise();

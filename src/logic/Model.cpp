@@ -56,14 +56,12 @@ void Model::killToken(BoardToken* token) {
   }
   token->setField(NULL);
   Player* player = getPlayer(token -> getArmy());
-  player -> deactivateToken(token);
-  usedTokens.push_back(token);
+  player -> killToken(token);
 }
 
 void Model::reset() {
   gameState = PAUSE;
   //TODO: read about proper vector cleaning. Maybe using swap will be better?
   players.clear();
-  usedTokens.clear();
   currentPlayerId = -1;
 }

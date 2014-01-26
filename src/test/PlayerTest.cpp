@@ -22,41 +22,59 @@ protected:
   Player* player;
 };
 
-TEST_F(PlayerTest, shouldGetArmy) {
-  EXPECT_EQ(MOLOCH, player->getArmy());
+TEST_F(PlayerTest, shouldKillToken) {
+  BoardToken* token = new BoardToken(MOLOCH, "token", NULL);
+  player -> tokensOnBoard.push_back(token);
+  player -> killToken(token);
+  EXPECT_TRUE(player -> tokensOnBoard.empty());
+  ASSERT_FALSE(player -> usedTokens.empty());
+  EXPECT_EQ(token, player -> usedTokens[0]);
+  delete token;
 }
 
-TEST_F(PlayerTest, shouldGetActiveToken) {
+TEST_F(PlayerTest, shouldUseToken) {
   Token* token = new Token(MOLOCH, "token");
-  player->activeTokens.push_back(token);
-  ASSERT_FALSE(player->activeTokens.empty());
-  EXPECT_EQ(token, player->getActiveToken("token"));
-  EXPECT_EQ(token, player->getActiveToken(0));
+  player -> tokensOnHand.push_back(token);
+  player -> useToken(token);
+  EXPECT_TRUE(player -> tokensOnHand.empty());
+  ASSERT_FALSE(player -> usedTokens.empty());
+  EXPECT_EQ(token, player -> usedTokens[0]);
+  delete token;
 }
 
-TEST_F(PlayerTest, shouldActivateToken) {
-  Token* hiddenToken = new Token(MOLOCH, "hidden token");
-  player->hiddenTokens.push_back(hiddenToken);
-  BoardToken* boardToken = new BoardToken(MOLOCH, "board token", NULL);
-  ASSERT_FALSE(player->hiddenTokens.empty());
-  EXPECT_TRUE(player->activeTokens.empty());
-  player->activateToken(hiddenToken);
-  EXPECT_TRUE(player->hiddenTokens.empty());
-  EXPECT_EQ(1, player->activeTokens.size());
-  EXPECT_EQ(hiddenToken, player->activeTokens[0]);
-  player->activateToken(boardToken);
-  EXPECT_EQ(2, player->activeTokens.size());
-  EXPECT_EQ(boardToken, player->activeTokens[1]);
+TEST_F(PlayerTest, shouldPutTokenOnBoard) {
+  BoardToken* token = new BoardToken(MOLOCH, "token", NULL);
+  player -> tokensOnHand.push_back(token);
+  player -> putOnBoard(token);
+  EXPECT_TRUE(player -> tokensOnHand.empty());
+  ASSERT_FALSE(player -> tokensOnBoard.empty());
+  EXPECT_EQ(token, player -> tokensOnBoard[0]);
+  delete token;
 }
 
-TEST_F(PlayerTest, shouldDeactivateToken) {
-  Token* token = new Token(MOLOCH, "token");
-  BoardToken* boardToken = new BoardToken(MOLOCH, "board token", NULL);
-  player->activeTokens.push_back(token);
-  player->activeTokens.push_back(boardToken);
-  EXPECT_EQ(2, player->activeTokens.size());
-  player->deactivateToken(token);
-  EXPECT_EQ(1, player->activeTokens.size());
-  player->deactivateToken(boardToken);
-  EXPECT_EQ(0, player->activeTokens.size());
+TEST_F(PlayerTest, shouldDrawTokens) {
+  Token* token1 = new Token(MOLOCH, "token");
+  Token* token2 = new Token(MOLOCH, "token");
+  Token* token3 = new Token(MOLOCH, "token");
+  Token* token4 = new Token(MOLOCH, "token");
+  player -> hiddenTokens.push_back(token1);
+  player -> hiddenTokens.push_back(token2);
+  player -> hiddenTokens.push_back(token3);
+  player -> hiddenTokens.push_back(token4);
+
+  player -> drawTokens(1);
+  ASSERT_FALSE(player -> tokensOnHand.empty());
+  EXPECT_EQ(token4, player -> tokensOnHand.back());
+  EXPECT_EQ(3, player -> hiddenTokens.size());
+
+  player -> drawTokens();
+  EXPECT_TRUE(player -> hiddenTokens.empty());
+  ASSERT_FALSE(player -> tokensOnHand.empty());
+  EXPECT_EQ(token1, player -> tokensOnHand.back());
+  EXPECT_EQ(4, player -> tokensOnHand.size());
+
+  delete token1;
+  delete token2;
+  delete token3;
+  delete token4;
 }
