@@ -4,6 +4,9 @@ BoardToken::BoardToken(Army army, std::string name, Attributes* attributes)
   : Token(army, name), attributes(attributes) {
   this->field = NULL;
   this->orientation = NORTH;
+  if (attributes == NULL) {
+    this->attributes = new Attributes;
+  }
 }
 
 BoardToken::~BoardToken(void) {
