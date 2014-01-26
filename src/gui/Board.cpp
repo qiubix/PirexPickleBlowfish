@@ -30,6 +30,19 @@ Board::Board(ViewController* controller, QGraphicsItem* parent) : QGraphicsItem(
     }
     changeCoordinates(x, y, xDiff, yDiff, 4);
   }
+
+  y = -2 * yDiff;
+  x = -6 * radius;
+  for(int j = 0; j < 2; j++) {
+    for(int i = 0; i < 3; i++) {
+      field = new Field(radius, this);
+      field -> setPos(x,y);
+      QObject::connect(field, SIGNAL(fieldClicked()), controller, SLOT(handFieldClicked()));
+      y += 2 * yDiff;
+    }
+    y = -2 * yDiff;
+    x = 6 * radius;
+  }
 }
 
 void Board::changeCoordinates(float& x, float& y, float xDiff, float yDiff, int numberHardToName) {

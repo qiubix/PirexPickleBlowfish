@@ -6,5 +6,9 @@ ViewController::ViewController(QObject *parent) : QObject(parent) {
 }
 
 void ViewController::fieldClicked(void) {
-  qDebug() << "field clicked in controller.";
+  qDebug() << "Field on board Clicked.";
+}
+
+void ViewController::handFieldClicked(void) {
+  qDebug() << "Hand field Clicked.";
 }

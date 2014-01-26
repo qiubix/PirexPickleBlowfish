@@ -12,6 +12,7 @@ public:
 
 public slots:
   void fieldClicked(void);
+  void handFieldClicked(void);
 
 };
 
