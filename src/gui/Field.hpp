@@ -10,7 +10,7 @@ class Field : public QObject, public QGraphicsItem
   Q_INTERFACES(QGraphicsItem)
 
 public:
-  Field(QGraphicsItem *parent = 0);
+  Field(float radius = 50, QGraphicsItem *parent = 0);
 
 protected:
   void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -18,7 +18,10 @@ protected:
   QPainterPath shape() const;
   virtual void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
-  int width;
+  float radius;
+  float width;
+  float height;
+  QPolygonF polygon;
 };
 
 #endif // FIELD_HPP
