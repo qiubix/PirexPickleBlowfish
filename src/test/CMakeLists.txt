@@ -6,17 +6,25 @@ macro(create_test name src libs)
 endmacro(create_test)
 
 #tests connected with token loading
-
-set(JSON_TEST_SRC JsonParserTest.cpp JsonTest.cpp)
-set(JSON_TEST_LIBS JsonParser Json)
+set(JSON_PARSER_TEST_SRC JsonParserTest.cpp)
+set(JSON_PARSER_TEST_LIBS JsonParser)
+create_test(JsonParserTest "${JSON_PARSER_TEST_SRC}" "${JSON_PARSER_TEST_LIBS}")
+set(JSON_TEST_SRC JsonTest.cpp)
+set(JSON_TEST_LIBS Json)
 create_test(JsonTest "${JSON_TEST_SRC}" "${JSON_TEST_LIBS}")
 
-set(TOKEN_LOADER_TEST_SRC TokenLoaderTest.cpp MockJson.hpp StringToEnumTranslatorTest.cpp GameBoxTest.cpp)
-set(TOKEN_LOADER_TEST_LIBS TokenLoader StringToEnumTranslator GameBox logic)
+set(STRING_TO_ENUM_TRANSLATOR_TEST_SRC StringToEnumTranslatorTest.cpp)
+set(STRING_TO_ENUM_TRANSLATOR_TEST_LIBS StringToEnumTranslator)
+create_test(StringToEnumTranslatorTest "${STRING_TO_ENUM_TRANSLATOR_TEST_SRC}" "${STRING_TO_ENUM_TRANSLATOR_TEST_LIBS}")
+set(GAME_BOX_TEST_SRC GameBoxTest.cpp)
+set(GAME_BOX_TEST_LIBS GameBox logic)
+create_test(GameBoxTest "${GAME_BOX_TEST_SRC}" "${GAME_BOX_TEST_LIBS}")
+set(TOKEN_LOADER_TEST_SRC TokenLoaderTest.cpp MockJson.hpp)
+set(TOKEN_LOADER_TEST_LIBS TokenLoader logic)
 create_test(TokenLoaderTest "${TOKEN_LOADER_TEST_SRC}" "${TOKEN_LOADER_TEST_LIBS}")
 
-set(LOADING_TOKENS_TEST_SRC ${JSON_TEST_SRC} ${TOKEN_LOADER_TEST_SRC})
-set(LOADING_TOKENS_TEST_LIBS ${JSON_TEST_LIBS} ${TOKEN_LOADER_TEST_LIBS})
+set(LOADING_TOKENS_TEST_SRC ${STRING_TO_ENUM_TRANSLATOR_TEST_SRC} ${JSON_TEST_SRC} ${JSON_PARSER_TEST_SRC} ${GAME_BOX_TEST_SRC} ${TOKEN_LOADER_TEST_SRC})
+set(LOADING_TOKENS_TEST_LIBS StringToEnumTranslator Json JsonParser GameBox TokenLoader)
 create_test(LoadingTokensTest "${LOADING_TOKENS_TEST_SRC}" "${LOADING_TOKENS_TEST_LIBS}")
 
 # tests connected with game logic
