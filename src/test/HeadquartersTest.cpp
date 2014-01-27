@@ -22,6 +22,7 @@ protected:
   HeadquartersToken* hq;
 };
 
+//REVIEW: TODO: refactor all such loops to for(Side side = NORTH; side <= NORTH_WEST; side++)
 TEST_F(HeadquartersTest, shouldHaveAllEdgesActiveByDefault) {
   for (int i=0; i<6; ++i) {
     EXPECT_TRUE(hq -> isEdgeActive((Side) i));
@@ -41,6 +42,7 @@ TEST_F(HeadquartersTest, shouldAttackInAllDirections) {
 }
 
 TEST_F(HeadquartersTest, shouldUpgradeBoardTokenBaseAttribute) {
+  //REVIEW: why borgoHQ is being initialized from hq which has HEGEMONY as army?
   Module* borgoHQ = new ChangeAttributeUpgrader(hq, INITIATIVE, 1);
   BoardToken* token = new BoardToken(BORGO, "token", new Attributes);
   Attribute* initiative = new Attribute("initiative", 1);
@@ -60,6 +62,8 @@ TEST_F(HeadquartersTest, shouldUpgradeUnitTokenEdgeAttribute) {
   EXPECT_EQ(2, token -> getEdgeAttributes(NORTH) -> getAttribute(MELEE) -> getValue());
 }
 
+//REVIEW: better name would be shouldAddAttributeToBoardToken
+//REVIEW: why outpostHQ is being initialized from hq which has HEGEMONY as army?
 TEST_F(HeadquartersTest, shouldAddAttributeToUnit) {
   Module* outpostHQ = new AddAttributeUpgrader(hq, MOTHER, "mother");
   BoardToken* token = new BoardToken(OUTPOST, "token", new Attributes);

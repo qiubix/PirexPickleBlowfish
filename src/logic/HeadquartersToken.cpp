@@ -1,6 +1,5 @@
 #include "HeadquartersToken.hpp"
 
-
 HeadquartersToken::HeadquartersToken(Army army, std::string name, Attributes* attributes, std::vector<Side> edges)
   : UnitToken(army, name, attributes), ModuleToken(army, name, attributes, edges) {
   for (int i=0; i<6; ++i) {
