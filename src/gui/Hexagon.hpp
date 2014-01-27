@@ -12,6 +12,9 @@ class Hexagon : public QObject, public QGraphicsItem
 public:
   Hexagon(float radius = 50, QGraphicsItem *parent = 0);
 
+public slots:
+  void setImageAndRotation(QString imageUrl, qreal rotation);
+
 protected:
   void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
   QRectF boundingRect() const;
@@ -21,6 +24,9 @@ protected:
   float width;
   float height;
   QPolygonF polygon;
+
+  QImage image;
+  qreal rotation;
 };
 
 #endif // HEXAGON_HPP
