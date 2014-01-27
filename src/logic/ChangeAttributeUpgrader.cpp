@@ -8,20 +8,20 @@ ChangeAttributeUpgrader::ChangeAttributeUpgrader(Module* module, AttributeName n
 
 void ChangeAttributeUpgrader::upgrade(BoardToken* token)
 {
-  Attribute* attribute = token->getAttribute(attributeToChange);
+  Attribute* attribute = token -> getAttribute(attributeToChange);
   if (attribute != NULL) {
-    attribute->upgradeBy(changeValue);
+    attribute -> upgradeBy(changeValue);
     return;
   }
   UnitToken* unit = dynamic_cast<UnitToken*>(token);
   if (unit != NULL) {
     for (int i=0; i<6; ++i) {
-      Attributes* sideAttributes = unit->getEdgeAttributes(Side(i));
+      Attributes* sideAttributes = unit -> getEdgeAttributes(Side(i));
       Attribute* toUpgrade;
       if (sideAttributes != NULL) {
-        toUpgrade = sideAttributes->getAttribute(attributeToChange);
+        toUpgrade = sideAttributes -> getAttribute(attributeToChange);
         if (toUpgrade != NULL) {
-          toUpgrade->upgradeBy(changeValue);
+          toUpgrade -> upgradeBy(changeValue);
         }
       }
     }
@@ -30,20 +30,20 @@ void ChangeAttributeUpgrader::upgrade(BoardToken* token)
 
 void ChangeAttributeUpgrader::downgrade(BoardToken* token)
 {
-  Attribute* attribute = token->getAttribute(attributeToChange);
+  Attribute* attribute = token -> getAttribute(attributeToChange);
   if (attribute != NULL) {
-    attribute->downgradeBy(changeValue);
+    attribute -> downgradeBy(changeValue);
     return;
   }
   UnitToken* unit = dynamic_cast<UnitToken*>(token);
   if (unit != NULL) {
     for (int i=0; i<6; ++i) {
-      Attributes* sideAttributes = unit->getEdgeAttributes(Side(i));
+      Attributes* sideAttributes = unit -> getEdgeAttributes(Side(i));
       Attribute* toUpgrade;
       if (sideAttributes != NULL) {
-        toUpgrade = sideAttributes->getAttribute(attributeToChange);
+        toUpgrade = sideAttributes -> getAttribute(attributeToChange);
         if (toUpgrade != NULL) {
-          toUpgrade->downgradeBy(changeValue);
+          toUpgrade -> downgradeBy(changeValue);
         }
       }
     }

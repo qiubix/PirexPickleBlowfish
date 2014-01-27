@@ -6,7 +6,6 @@
 #include <gtest/gtest.h>
 #include "BoardToken.hpp"
 
-//TODO: implement methods
 class Player
 {
 public:

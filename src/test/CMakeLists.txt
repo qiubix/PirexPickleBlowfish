@@ -7,7 +7,7 @@ endmacro(create_test)
 
 #tests connected with token loading
 set(STRING_TO_ENUM_TRANSLATOR_TEST_SRC StringToEnumTranslatorTest.cpp)
-set(STRING_TO_ENUM_TRANSLATOR_TEST_LIBS StringToEnumTranslator) 
+set(STRING_TO_ENUM_TRANSLATOR_TEST_LIBS StringToEnumTranslator)
 create_test(StringToEnumTranslatorTest "${STRING_TO_ENUM_TRANSLATOR_TEST_SRC}" "${STRING_TO_ENUM_TRANSLATOR_TEST_LIBS}")
 
 set(JSON_TEST_SRC JsonTest.cpp)
@@ -31,20 +31,14 @@ create_test(LoadingTokensTest "${LOADING_TOKENS_TEST_SRC}" "${LOADING_TOKENS_TES
 # tests connected with game logic
 set(LOGIC_TEST_LIBS logic)
 
+set(MODEL_TEST_SRC FieldTest.cpp BoardTest.cpp PlayerTest.cpp ModelTest.cpp)
+create_test(ModelTest "${MODEL_TEST_SRC}" "${LOGIC_TEST_LIBS}")
 set(CONTROLLER_TEST_SRC ControllerTest.cpp)
 create_test(ControllerTest "${CONTROLLER_TEST_SRC}" "${LOGIC_TEST_LIBS}")
-set(MODEL_TEST_SRC ModelTest.cpp)
-create_test(ModelTest "${MODEL_TEST_SRC}" "${LOGIC_TEST_LIBS}")
-set(TOKEN_TEST_SRC TokenTest.cpp MockController.hpp)
+set(TOKEN_TEST_SRC TokenTest.cpp BoardTokenTest.cpp UnitTokenTest.cpp ModuleTokenTest.cpp InstantTokenTest.cpp MockController.hpp)
 create_test(TokenTest "${TOKEN_TEST_SRC}" "${LOGIC_TEST_LIBS}")
-set(FIELD_TEST_SRC FieldTest.cpp)
-create_test(FieldTest "${FIELD_TEST_SRC}" "${LOGIC_TEST_LIBS}")
-set(PLAYER_TEST_SRC PlayerTest.cpp)
-create_test(PlayerTest "${PLAYER_TEST_SRC}" "${LOGIC_TEST_LIBS}")
-set(BOARD_TEST_SRC BoardTest.cpp)
-create_test(BoardTest "${BOARD_TEST_SRC}" "${LOGIC_TEST_LIBS}")
 
-set(LOGIC_TEST_SRC ${CONTROLLER_TEST_SRC} ${MODEL_TEST_SRC} ${TOKEN_TEST_SRC} ${FIELD_TEST_SRC} ${PLAYER_TEST_SRC} ${BOARD_TEST_SRC})
+set(LOGIC_TEST_SRC ${CONTROLLER_TEST_SRC} ${MODEL_TEST_SRC} ${TOKEN_TEST_SRC})
 create_test(LogicTest "${LOGIC_TEST_SRC}" "${LOGIC_TEST_LIBS}")
 
 # test connected with gui
@@ -54,14 +48,14 @@ create_test(GuiTest "${GUI_TEST_SRC}" "${GUI_TEST_LIBS}")
 qt5_use_modules(GuiTest Test)
 
 macro(install_file file)
-	file(COPY ${file} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-	install(FILES ${file} DESTINATION ${CMAKE_INSTALL_PREFIX})
+  file(COPY ${file} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+  install(FILES ${file} DESTINATION ${CMAKE_INSTALL_PREFIX})
 endmacro(install_file)
 
 #test files to TokenLoaderTest
 install_file(test.json)
-install_file(twoChangeAttributeUpgradesParameters.json) 
-install_file(oneChangeAttributeOfEnemyUpgradeParameters.json) 
-install_file(changeArmyUpgradeParameters.json) 
-install_file(twoAddAttributeUpgradesParameters.json) 
-install_file(oneAddAttributeAndOneChangeAttributeUpgradesParameters.json) 
+install_file(twoChangeAttributeUpgradesParameters.json)
+install_file(oneChangeAttributeOfEnemyUpgradeParameters.json)
+install_file(changeArmyUpgradeParameters.json)
+install_file(twoAddAttributeUpgradesParameters.json)
+install_file(oneAddAttributeAndOneChangeAttributeUpgradesParameters.json)

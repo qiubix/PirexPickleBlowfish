@@ -14,7 +14,6 @@ protected:
   void downgrade(BoardToken *token);
 
 private:
-  //TODO: refactoring - change names
   AttributeName newAttributeId;
   std::string newAttributeName;
 

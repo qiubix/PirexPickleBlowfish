@@ -19,7 +19,7 @@ Field* Field::getNeighbour(Side side)
 
 void Field::setToken(Token* token)
 {
-  this->token = token;
+  this -> token = token;
 }
 
 void Field::addNeighbour(Field* field, Side side)

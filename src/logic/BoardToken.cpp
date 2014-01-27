@@ -2,10 +2,10 @@
 
 BoardToken::BoardToken(Army army, std::string name, Attributes* attributes)
   : Token(army, name), attributes(attributes) {
-  this->field = NULL;
-  this->orientation = NORTH;
+  this -> field = NULL;
+  this -> orientation = NORTH;
   if (attributes == NULL) {
-    this->attributes = new Attributes;
+    this -> attributes = new Attributes;
   }
 }
 
@@ -14,7 +14,7 @@ BoardToken::~BoardToken(void) {
 }
 
 Attribute* BoardToken::getAttribute(AttributeName name) {
-  return attributes->getAttribute(name);
+  return attributes -> getAttribute(name);
 }
 
 Attributes*BoardToken::getAttributes() {
@@ -22,19 +22,19 @@ Attributes*BoardToken::getAttributes() {
 }
 
 void BoardToken::addAttribute(AttributeName name, Attribute* attribute) {
-  attributes->addAttribute(name, attribute);
+  attributes -> addAttribute(name, attribute);
 }
 
 void BoardToken::removeAttribute(AttributeName name) {
-  attributes->removeAttribute(name);
+  attributes -> removeAttribute(name);
 }
 
 void BoardToken::upgradeAttributeBy(AttributeName name, int upgradeValue) {
-  getAttribute(name)->upgradeBy(upgradeValue);
+  getAttribute(name) -> upgradeBy(upgradeValue);
 }
 
 void BoardToken::downgradeAttributeBy(AttributeName name, int downgradeValue) {
-  getAttribute(name)->downgradeBy(downgradeValue);
+  getAttribute(name) -> downgradeBy(downgradeValue);
 }
 
 void BoardToken::rotateClockwise(void) {
@@ -60,17 +60,17 @@ Side BoardToken::getOrientation(void) {
 }
 
 void BoardToken::setArmy(Army army) {
-  this->army->upgradeTo(army);
+  this -> army -> upgradeTo(army);
 }
 
 void BoardToken::resetArmy() {
-  this->army->resetValue();
+  this -> army -> resetValue();
 }
 
 void BoardToken::setField(Field* field) {
-  this->field = field;
+  this -> field = field;
 }
 
 void BoardToken::setOrientation(Side orientation) {
-  this->orientation = orientation;
+  this -> orientation = orientation;
 }
