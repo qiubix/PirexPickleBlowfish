@@ -59,9 +59,9 @@ TEST_F(BoardTest, shouldCreateOutsideRing) {
     EXPECT_EQ(root, first -> getNeighbour(oppositeEdge(i)));
     EXPECT_EQ(root, second -> getNeighbour(oppositeEdge(increment(i))));
 
-//    EXPECT_EQ(second, first -> getNeighbour(decrement(i)));
-//    EXPECT_EQ(first, second -> getNeighbour(oppositeEdge(decrement(i))));
-//    EXPECT_EQ(third, second -> getNeighbour(decrement(decrement(i))));
-//    EXPECT_EQ(second, third -> getNeighbour(oppositeEdge(decrement(decrement(i)))));
+    EXPECT_EQ(second, first -> getNeighbour(oppositeEdge(decrement(i))));
+    EXPECT_EQ(first, second -> getNeighbour(decrement(i)));
+    EXPECT_EQ(third, second -> getNeighbour(oppositeEdge(decrement(i))));
+    EXPECT_EQ(second, third -> getNeighbour(decrement(i)));
   }
 }
