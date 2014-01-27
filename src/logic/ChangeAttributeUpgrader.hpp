@@ -16,6 +16,8 @@ protected:
 private:
   AttributeName attributeToChange;
   int changeValue;
+
+  FRIEND_TEST(TokenLoaderTest, shouldCreateHeadquartersTokenUpgradingAttribute);
 };
 
 

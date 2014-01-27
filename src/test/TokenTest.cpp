@@ -8,7 +8,6 @@ using ::testing::Test;
 #include "logic/Attribute.hpp"
 #include "logic/Attributes.hpp"
 
-
 const int ATTRIBUTE_VALUE = 4;
 
 class AttributeTest : public Test
