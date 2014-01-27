@@ -351,3 +351,54 @@ TEST_F(TokenLoaderTest, shouldAddNetAttributesToToken) {
   ASSERT_EQ("net", northEastSideNetAttribute -> getName());
   ASSERT_EQ(1, northEastSideNetAttribute -> getValue());
 }
+
+//TODO: figure out how initialize controller in instant tokens without passing it through all loading levels
+//TODO: refactor these tests into one maybe
+//TODO: when moved to separate test file initialize controller in test suite (if controller would be still needed)
+TEST_F(TokenLoaderTest, shouldCreateBattleToken) {
+  Controller * controller = new Controller(new Model());
+  InstantToken* token = TokenLoader::getInstance() -> createInstantToken(HEGEMONY, "Battle", controller);
+  ASSERT_TRUE(dynamic_cast<BattleToken *>(token));
+  ASSERT_EQ(controller, token->controller);
+  delete controller;
+}
+
+TEST_F(TokenLoaderTest, shouldCreateMovementToken) {
+  Controller * controller = new Controller(new Model());
+  InstantToken* token = TokenLoader::getInstance() -> createInstantToken(HEGEMONY, "Move", controller);
+  ASSERT_TRUE(dynamic_cast<MovementToken *>(token));
+  ASSERT_EQ(controller, token->controller);
+  delete controller;
+}
+
+TEST_F(TokenLoaderTest, shouldCreatePushToken) {
+  Controller * controller = new Controller(new Model());
+  InstantToken* token = TokenLoader::getInstance() -> createInstantToken(HEGEMONY, "Push back", controller);
+  ASSERT_TRUE(dynamic_cast<PushToken *>(token));
+  ASSERT_EQ(controller, token->controller);
+  delete controller;
+}
+
+TEST_F(TokenLoaderTest, shouldCreateBombToken) {
+  Controller * controller = new Controller(new Model());
+  InstantToken* token = TokenLoader::getInstance() -> createInstantToken(HEGEMONY, "Air strike", controller);
+  ASSERT_TRUE(dynamic_cast<BombToken *>(token));
+  ASSERT_EQ(controller, token->controller);
+  delete controller;
+}
+
+TEST_F(TokenLoaderTest, shouldCreateGrenadeToken) {
+  Controller * controller = new Controller(new Model());
+  InstantToken* token = TokenLoader::getInstance() -> createInstantToken(HEGEMONY, "Grenade", controller);
+  ASSERT_TRUE(dynamic_cast<GranadeToken *>(token));
+  ASSERT_EQ(controller, token->controller);
+  delete controller;
+}
+
+TEST_F(TokenLoaderTest, shouldCreateSniperToken) {
+  Controller * controller = new Controller(new Model());
+  InstantToken* token = TokenLoader::getInstance() -> createInstantToken(HEGEMONY, "Sniper", controller);
+  ASSERT_TRUE(dynamic_cast<SniperToken *>(token));
+  ASSERT_EQ(controller, token->controller);
+  delete controller;
+}

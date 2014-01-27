@@ -11,15 +11,18 @@
 
 #include "logic/ModuleToken.hpp"
 #include "logic/UnitToken.hpp"
+#include "logic/InstantToken.hpp"
 
 #include "logic/Upgrader.hpp"
+
+#include "logic/Controller.hpp"
 
 class TokenLoader
 {
 public:
   static TokenLoader * getInstance();
 
-  void loadArmies(std::vector<std::string> armyJsonFiles);
+  void loadArmies(std::vector<std::string> armyJsonFiles, Controller* controller);
 
 protected:
   TokenLoader();
@@ -27,12 +30,13 @@ protected:
 private:
   static TokenLoader * instance;
 
-  void loadArmy(std::string armyFile);
+  void loadArmy(std::string armyFile, Controller* controller);
 
   void loadHeadquarters(Army army, Json headquarters);
 
-  void loadInstantTokens(Army army, std::vector<Json> instantTokens);
-  void loadInstantToken(Army army, Json instantToken);
+  void loadInstantTokens(Army army, std::vector<Json> instantTokens, Controller* controller);
+  void loadInstantToken(Army army, Json instantToken, Controller* controller);
+  InstantToken* createInstantToken(Army army, std::string name, Controller* controller);
 
   void loadModuleTokens(Army army, std::vector<Json> moduleTokens);
   void loadModuleToken(Army army, Json moduleToken);
@@ -69,6 +73,13 @@ private:
   FRIEND_TEST(TokenLoaderTest, shouldAddRangedAttributesToToken);
   FRIEND_TEST(TokenLoaderTest, shouldAddShieldAttributesToToken);
   FRIEND_TEST(TokenLoaderTest, shouldAddNetAttributesToToken);
+
+  FRIEND_TEST(TokenLoaderTest, shouldCreateBattleToken);
+  FRIEND_TEST(TokenLoaderTest, shouldCreateMovementToken);
+  FRIEND_TEST(TokenLoaderTest, shouldCreatePushToken);
+  FRIEND_TEST(TokenLoaderTest, shouldCreateBombToken);
+  FRIEND_TEST(TokenLoaderTest, shouldCreateGrenadeToken);
+  FRIEND_TEST(TokenLoaderTest, shouldCreateSniperToken);
 
 };
 
