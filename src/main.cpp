@@ -1,12 +1,17 @@
 #include <QtWidgets>
 #include <QObject>
 #include <iostream>
+#include <vector>
 #include "gui/MainWindowSample.hpp"
 #include "Logger.hpp"
 
-void mainWindowInit(QApplication* app)
+#include "setup/TokenLoader.hpp"
+#include "setup/GameBox.hpp"
+#include "logic/Controller.hpp"
+
+void mainWindowInit(QApplication* app, Board* modelBoard)
 {
-  MainWindowSample* mainWindowSample = new MainWindowSample;
+  MainWindowSample* mainWindowSample = new MainWindowSample(modelBoard);
   QObject::connect (mainWindowSample->getQuitGameButton(), SIGNAL(clicked()), app, SLOT(quit()));
   mainWindowSample->show();
 }
@@ -15,15 +20,17 @@ int main(int argc, char* argv[])
 {
   initLogging();
 
-  LOG(trace) << "A trace severity message";
-  LOG(debug) << "A debug severity message";
-  LOG(info) << "An informational severity message";
-  LOG(warning) << "A warning severity message";
-  LOG(error) << "An error severity message";
-  LOG(fatal) << "A fatal severity message";
+  Model* model = new Model;
+  Controller* controller = new Controller(model);
+
+  std::vector<std::string> armyFiles;
+  armyFiles.push_back("../documentation/moloch.json");
+  armyFiles.push_back("../documentation/outpost.json");
+//  TokenLoader::getInstance() -> loadArmies(armyFiles, controller);
 
   QApplication app(argc, argv);
-  mainWindowInit(&app);
-  std::cout << "Hello World!" << std::endl;
+  mainWindowInit(&app, model -> getBoard());
+
+
   return app.exec();
 }
