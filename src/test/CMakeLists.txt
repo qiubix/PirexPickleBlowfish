@@ -46,6 +46,11 @@ set(GUI_TEST_LIBS MainWindowSample ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES})
 create_test(GuiTest "${GUI_TEST_SRC}" "${GUI_TEST_LIBS}")
 qt5_use_modules(GuiTest Test)
 
+# suite containing all tests
+set(ALL_TESTS_SRC ${LOADING_TOKENS_TEST_SRC} ${LOGIC_TEST_SRC})
+set(ALL_TESTS_LIBS ${LOADING_TOKENS_TEST_LIBS} ${LOGIC_TEST_LIBS})
+create_test(AllTests "${ALL_TESTS_SRC}" "${ALL_TESTS_LIBS}")
+
 macro(install_file file)
   file(COPY ${file} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
   install(FILES ${file} DESTINATION ${CMAKE_INSTALL_PREFIX})
