@@ -21,6 +21,8 @@ Hexagon::Hexagon(float radius, QGraphicsItem *parent) : QObject(), QGraphicsItem
 void Hexagon::setImageAndRotation(QString imageUrl, qreal rotation) {
   image.load(imageUrl);
   this -> rotation = rotation;
+  qDebug() <<imageUrl<<rotation;
+  update();
 }
 
 void Hexagon::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {

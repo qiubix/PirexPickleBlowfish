@@ -12,8 +12,10 @@ class BoardField : public Hexagon
 public:
   BoardField(Field* field, float radius = 50, QGraphicsItem *parent = 0);
 
+  Field* getField(void);
+
 signals:
-  void fieldClicked(Field*);
+  void fieldClicked(BoardField*);
 
 protected:
   void mousePressEvent(QGraphicsSceneMouseEvent *event);

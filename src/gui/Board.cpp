@@ -26,14 +26,14 @@ Board::Board(ViewController* controller, Field* middleField, QGraphicsItem* pare
   counter++;
   boardField = new BoardField(currentField, radius, this);
   boardField -> setPos(x, y);
-  QObject::connect(boardField, SIGNAL(fieldClicked(Field*)), controller, SLOT(fieldClicked(Field*)));
+  QObject::connect(boardField, SIGNAL(fieldClicked(BoardField*)), controller, SLOT(fieldClicked(BoardField*)));
   for(int j = 0; j <= 2; j++) {
     for(int i = 0; i < 6; i++) {
       for(int k = 0; k < j; k++) {
         counter++;
         boardField = new BoardField(currentField, radius, this);
         boardField -> setPos(x, y);
-        QObject::connect(boardField, SIGNAL(fieldClicked(Field*)), controller, SLOT(fieldClicked(Field*)));
+        QObject::connect(boardField, SIGNAL(fieldClicked(BoardField*)), controller, SLOT(fieldClicked(BoardField*)));
         changeCoordinates(x, y, xDiff, yDiff, i);
         currentField = currentField -> getNeighbour(currentSide);
         if(k == j - 1) {
@@ -52,7 +52,7 @@ Board::Board(ViewController* controller, Field* middleField, QGraphicsItem* pare
     for(int i = 0; i < 3; i++) {
       sideField = new SideField(j, i, radius, this);
       sideField -> setPos(x,y);
-      QObject::connect(sideField, SIGNAL(fieldClicked(int, int)), controller, SLOT(handFieldClicked(int, int)));
+      QObject::connect(sideField, SIGNAL(fieldClicked(SideField*)), controller, SLOT(handFieldClicked(SideField*)));
       y += 2 * yDiff;
     }
     y = -2 * yDiff;

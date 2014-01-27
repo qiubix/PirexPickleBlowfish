@@ -5,10 +5,12 @@ ViewController::ViewController(QObject *parent) : QObject(parent) {
 
 }
 
-void ViewController::fieldClicked(Field* field) {
-  qDebug() << "Field on board Clicked. Pointer: " << field;
+void ViewController::fieldClicked(BoardField* field) {
+  qDebug() << "Field on board Clicked. Pointer: " << field -> getField();
+  field -> setImageAndRotation("armies/moloch/headquarters.png", (random() % 6 )*60);
 }
 
-void ViewController::handFieldClicked(int player, int whichToken) {
-  qDebug() << "Hand field number: " << whichToken << " of player: " << player << " Clicked.";
+void ViewController::handFieldClicked(SideField* field) {
+  qDebug() << "Hand field number: " << field -> getWhichToken() << " of player: " <<  field -> getPlayer() << " Clicked.";
+  field -> setImageAndRotation("armies/moloch/headquarters.png", (random() % 6 )*60);
 }

@@ -4,6 +4,8 @@
 #include <QObject>
 
 #include "logic/Field.hpp"
+#include "BoardField.hpp"
+#include "SideField.hpp"
 
 class ViewController : public QObject
 {
@@ -13,8 +15,8 @@ public:
   ViewController(QObject *parent = 0);
 
 public slots:
-  void fieldClicked(Field* field);
-  void handFieldClicked(int player, int whichToken);
+  void fieldClicked(BoardField* field);
+  void handFieldClicked(SideField* field);
 
 };
 
