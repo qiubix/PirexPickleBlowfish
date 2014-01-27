@@ -14,6 +14,15 @@ public:
   virtual void action(void) = 0;
 protected:
   Controller* controller;
+
+  //tests for private methods:
+  FRIEND_TEST(TokenLoaderTest, shouldCreateBattleToken);
+  FRIEND_TEST(TokenLoaderTest, shouldCreateMovementToken);
+  FRIEND_TEST(TokenLoaderTest, shouldCreatePushToken);
+  FRIEND_TEST(TokenLoaderTest, shouldCreateBombToken);
+  FRIEND_TEST(TokenLoaderTest, shouldCreateGrenadeToken);
+  FRIEND_TEST(TokenLoaderTest, shouldCreateSniperToken);
+
 };
 
 class BattleToken : public InstantToken
@@ -69,6 +78,7 @@ private:
   Field* epicentrum;
 };
 
+//FIXME: grenade not granade
 class GranadeToken : public InstantToken
 {
 public:

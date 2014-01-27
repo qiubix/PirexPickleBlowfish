@@ -22,7 +22,7 @@ class TokenLoader
 public:
   static TokenLoader * getInstance();
 
-  void loadArmies(std::vector<std::string> armyJsonFiles);
+  void loadArmies(std::vector<std::string> armyJsonFiles, Controller* controller);
 
 protected:
   TokenLoader();
@@ -30,13 +30,13 @@ protected:
 private:
   static TokenLoader * instance;
 
-  void loadArmy(std::string armyFile);
+  void loadArmy(std::string armyFile, Controller* controller);
 
   void loadHeadquarters(Army army, Json headquarters);
 
-  void loadInstantTokens(Army army, std::vector<Json> instantTokens);
-  void loadInstantToken(Army army, Json instantToken);
-  InstantToken* createInstantToken(Army army, std::string name);
+  void loadInstantTokens(Army army, std::vector<Json> instantTokens, Controller* controller);
+  void loadInstantToken(Army army, Json instantToken, Controller* controller);
+  InstantToken* createInstantToken(Army army, std::string name, Controller* controller);
 
   void loadModuleTokens(Army army, std::vector<Json> moduleTokens);
   void loadModuleToken(Army army, Json moduleToken);
