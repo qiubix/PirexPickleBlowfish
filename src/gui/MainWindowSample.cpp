@@ -1,11 +1,30 @@
 #include "MainWindowSample.hpp"
 #include "ui_MainWindowSample.h"
 
+#include "Board.hpp"
+#include "ViewController.hpp"
+#include "logic/Board.hpp"
+
 MainWindowSample::MainWindowSample(QWidget *parent) :
   QWidget(parent),
   ui(new Ui::MainWindowSample)
 {
   ui->setupUi(this);
+
+  ViewController* controller = new ViewController(this);
+
+  QGraphicsScene * scene = new QGraphicsScene(this);
+  scene->setBackgroundBrush(Qt::darkGray);
+
+  Board * modelBoard = new Board();
+  Field * middleField = modelBoard -> getMiddleField();
+
+  gui::Board * board = new gui::Board(controller, middleField);
+  board -> setPos(0, 0);
+  scene -> addItem(board);
+
+  ui->graphicsView->setScene(scene);
+  ui->graphicsView->show();
 }
 
 QLineEdit* MainWindowSample::getLineEdit()
