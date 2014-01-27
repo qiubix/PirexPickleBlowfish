@@ -13,6 +13,12 @@ public:
 
 private:
   void createMiddleRing(void);
+  void linkMiddleRing();
+  void createOutsideRing(void);
+  void linkOutsideRing();
+  Side getOppositeEdge(Side edge);
+  Side incrementEdge(Side edge);
+  Side decrementEdge(Side edge);
 
   std::vector <Field* > fields;
   Field* middle;
