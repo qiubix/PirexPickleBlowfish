@@ -10,6 +10,9 @@ using ::testing::_;
 
 #include "setup/JsonParser.hpp"
 
+#include "logic/ChangeAttributeUpgrader.hpp"
+#include "logic/AddAttributeUpgrader.hpp"
+
 #include <fstream>
 
 //TODO: write separate test fixture for modules, units, instants and hqs
@@ -92,6 +95,7 @@ TEST_F(TokenLoaderTest, shouldLoadModuleActiveEdges) {
 }
 
 //FIXME: delete dynamically allocated objects - but first check destructors of Module, ModuleToken, Upgrader and its children
+//FIXME: below tests should test creating the module not its behaviour
 TEST_F(TokenLoaderTest, shouldDecorateModuleWithTwoChangeAttributeUpgrades) {
   Json* upgradesParameters = JsonParser::getInstance() -> parse("twoChangeAttributeUpgradesParameters.json");
   ASSERT_FALSE(upgradesParameters -> isEmpty());
@@ -402,3 +406,46 @@ TEST_F(TokenLoaderTest, shouldCreateSniperToken) {
   ASSERT_EQ(controller, token->controller);
   delete controller;
 }
+
+//TODO: refactor below two tests
+TEST_F(TokenLoaderTest, shouldCreateHeadquartersTokenUpgradingAttribute) {
+  MockJson json;
+  std::vector<std::string> keys;
+  keys.push_back("initiative");
+  const int INITIATIVE_UPGRADE_VALUE = 1;
+  ON_CALL(json, getKeys())
+    .WillByDefault(Return(keys));
+  ON_CALL(json, getIntegerValue(keys[0]))
+    .WillByDefault(Return(INITIATIVE_UPGRADE_VALUE));
+  EXPECT_CALL(json, getKeys())
+    .Times(1);
+  EXPECT_CALL(json, getIntegerValue(_))
+    .Times(keys.size());
+
+  Army army = HEGEMONY;
+  Module* headquarters = TokenLoader::getInstance() -> createHeadquarters(army, json);
+
+//  ASSERT_TRUE(dynamic_cast<HeadquartersToken *>(headquarters));
+  ASSERT_TRUE(dynamic_cast<ChangeAttributeUpgrader *>(headquarters));
+  EXPECT_EQ(INITIATIVE, dynamic_cast<ChangeAttributeUpgrader *>(headquarters) -> attributeToChange);
+  EXPECT_EQ(1, dynamic_cast<ChangeAttributeUpgrader *>(headquarters) -> changeValue);
+}
+
+TEST_F(TokenLoaderTest, shouldCreateHeadquartersTokenAddingAttribute) {
+  MockJson json;
+  std::vector<std::string> keys;
+  keys.push_back("mother");
+  ON_CALL(json, getKeys())
+    .WillByDefault(Return(keys));
+  EXPECT_CALL(json, getKeys())
+    .Times(1);
+
+  Army army = HEGEMONY;
+  Module* headquarters = TokenLoader::getInstance() -> createHeadquarters(army, json);
+
+//  ASSERT_TRUE(dynamic_cast<HeadquartersToken *>(headquarters));
+  ASSERT_TRUE(dynamic_cast<AddAttributeUpgrader *>(headquarters));
+  EXPECT_EQ(MOTHER, dynamic_cast<AddAttributeUpgrader *>(headquarters) -> newAttributeId);
+  EXPECT_EQ("mother", dynamic_cast<AddAttributeUpgrader *>(headquarters) -> newAttributeName);
+}
+

@@ -17,6 +17,8 @@ private:
   AttributeName newAttributeId;
   std::string newAttributeName;
 
+  FRIEND_TEST(TokenLoaderTest, shouldCreateHeadquartersTokenAddingAttribute);
+
 };
 
 #endif //ADDATTRIBUTEUPGRADER_HPP

@@ -41,8 +41,22 @@ void TokenLoader::loadArmy(std::string armyFile, Controller* controller) {
   delete armyJson;
 }
 
-void TokenLoader::loadHeadquarters(Army army, Json headquarters) {
-  //TODO: implement
+void TokenLoader::loadHeadquarters(Army army, Json headquartersParameters) {
+  Json upgradeParameters = headquartersParameters.getObject("upgrade");
+  Module * headquarters = createHeadquarters(army, upgradeParameters);
+  GameBox::getInstance() -> addTokenToArmy(army, headquarters);
+}
+
+Module* TokenLoader::createHeadquarters(Army army, Json& upgradeParameters) {
+  HeadquartersToken* headquarters = new HeadquartersToken(army, "Headquarters", NULL);
+  std::vector<std::string> upgrades = upgradeParameters.getKeys();
+  AttributeName attributeName = StringToEnumTranslator::getInstance() -> getAttributeName(upgrades[0]);
+  int value = upgradeParameters.getIntegerValue(upgrades[0]);
+  if (attributeName < SHIELD) {
+    return new ChangeAttributeUpgrader(headquarters, attributeName, value);
+  } else {
+    return new AddAttributeUpgrader(headquarters, attributeName, upgrades[0]);
+  }
 }
 
 void TokenLoader::loadInstantTokens(Army army, std::vector<Json> instantTokens, Controller* controller) {

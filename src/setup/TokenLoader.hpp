@@ -12,6 +12,7 @@
 #include "logic/ModuleToken.hpp"
 #include "logic/UnitToken.hpp"
 #include "logic/InstantToken.hpp"
+#include "logic/HeadquartersToken.hpp"
 
 #include "logic/Upgrader.hpp"
 
@@ -32,7 +33,8 @@ private:
 
   void loadArmy(std::string armyFile, Controller* controller);
 
-  void loadHeadquarters(Army army, Json headquarters);
+  void loadHeadquarters(Army army, Json headquartersParameters);
+  Module* createHeadquarters(Army army, Json& upgradeParameters);
 
   void loadInstantTokens(Army army, std::vector<Json> instantTokens, Controller* controller);
   void loadInstantToken(Army army, Json instantToken, Controller* controller);
@@ -80,6 +82,9 @@ private:
   FRIEND_TEST(TokenLoaderTest, shouldCreateBombToken);
   FRIEND_TEST(TokenLoaderTest, shouldCreateGrenadeToken);
   FRIEND_TEST(TokenLoaderTest, shouldCreateSniperToken);
+
+  FRIEND_TEST(TokenLoaderTest, shouldCreateHeadquartersTokenUpgradingAttribute);
+  FRIEND_TEST(TokenLoaderTest, shouldCreateHeadquartersTokenAddingAttribute);
 
 };
 
