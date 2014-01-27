@@ -5,7 +5,9 @@
 #include "BoardField.hpp"
 #include "SideField.hpp"
 
-Board::Board(ViewController* controller, QGraphicsItem* parent) : QGraphicsItem(parent)
+using namespace gui;
+
+Board::Board(ViewController* controller, Field* middleField, QGraphicsItem* parent) : QGraphicsItem(parent)
 {
   float radius = 50;
   float x = 0;
@@ -16,22 +18,31 @@ Board::Board(ViewController* controller, QGraphicsItem* parent) : QGraphicsItem(
   float yDiff = qSqrt(3) * radius/2+ ySpacing;
   BoardField * boardField;
   int counter = 0;
+  Field * currentField = middleField;
+  Side currentSide = SOUTH_WEST;
 
+  //TODO: clean this mess
+  //TODO: change to clockwise (easier with currentSide)
   counter++;
-  boardField = new BoardField(new Field(), radius, this);
+  boardField = new BoardField(currentField, radius, this);
   boardField -> setPos(x, y);
   QObject::connect(boardField, SIGNAL(fieldClicked(Field*)), controller, SLOT(fieldClicked(Field*)));
   for(int j = 0; j <= 2; j++) {
     for(int i = 0; i < 6; i++) {
       for(int k = 0; k < j; k++) {
         counter++;
-        boardField = new BoardField(new Field(), radius, this);
+        boardField = new BoardField(currentField, radius, this);
         boardField -> setPos(x, y);
         QObject::connect(boardField, SIGNAL(fieldClicked(Field*)), controller, SLOT(fieldClicked(Field*)));
         changeCoordinates(x, y, xDiff, yDiff, i);
+        currentField = currentField -> getNeighbour(currentSide);
+        if(k == j - 1) {
+          currentSide = static_cast<Side>((currentSide + 5) % 6);
+        }
       }
     }
     changeCoordinates(x, y, xDiff, yDiff, 4);
+    currentField = currentField -> getNeighbour(NORTH);
   }
 
   SideField * sideField;

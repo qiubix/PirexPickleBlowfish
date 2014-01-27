@@ -3,6 +3,7 @@
 
 #include "Board.hpp"
 #include "ViewController.hpp"
+#include "logic/Board.hpp"
 
 MainWindowSample::MainWindowSample(QWidget *parent) :
   QWidget(parent),
@@ -15,7 +16,10 @@ MainWindowSample::MainWindowSample(QWidget *parent) :
   QGraphicsScene * scene = new QGraphicsScene(this);
   scene->setBackgroundBrush(Qt::darkGray);
 
-  Board * board = new Board(controller);
+  Board * modelBoard = new Board();
+  Field * middleField = modelBoard -> getMiddleField();
+
+  gui::Board * board = new gui::Board(controller, middleField);
   board -> setPos(0, 0);
   scene -> addItem(board);
 

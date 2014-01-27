@@ -1,22 +1,25 @@
-#ifndef BOARD_HPP
-#define BOARD_HPP
+#ifndef GUI_BOARD_HPP
+#define GUI_BOARD_HPP
 
 #include <QGraphicsItem>
 #include <QPainter>
 
 #include "ViewController.hpp"
+#include "logic/Field.hpp"
 
-class Board : public QGraphicsItem
-{
-public:
-  Board(ViewController* controller, QGraphicsItem* parent = 0);
+namespace gui {
+  class Board : public QGraphicsItem
+  {
+  public:
+    Board(ViewController* controller, Field* middleField, QGraphicsItem* parent = 0);
 
-protected:
-  void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-  QRectF boundingRect() const;
+  protected:
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    QRectF boundingRect() const;
 
-  void changeCoordinates(float& x, float& y, float xDiff, float yDiff, int numberHardToName);
+    void changeCoordinates(float& x, float& y, float xDiff, float yDiff, int numberHardToName);
 
-};
+  };
+}
 
-#endif // BOARD_HPP
+#endif // GUI_BOARD_HPP
