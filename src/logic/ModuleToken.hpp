@@ -5,13 +5,10 @@
 #include <vector>
 #include "Module.hpp"
 
-static Side moduleSides[] = {NORTH};
-static std::vector<Side> MODULE_EDGES(moduleSides, moduleSides+sizeof(moduleSides)/sizeof(Side));
-
 class ModuleToken : public Module
 {
 public:
-  ModuleToken(Army army, std::string name, Attributes* attributes, std::vector<Side> activeEdges = MODULE_EDGES);
+  ModuleToken(Army army, std::string name, Attributes* attributes, std::vector<Side> activeEdges);
   virtual ~ModuleToken() {}
 
   void addBoardToken(BoardToken* token);

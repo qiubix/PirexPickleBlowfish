@@ -9,5 +9,6 @@ HeadquartersToken::HeadquartersToken(Army army, std::string name, Attributes* at
     edgeAttributes->addAttribute(MELEE, melee);
     this -> setEdgeAttributes((Side) i, edgeAttributes);
   }
-  //TODO: set default initiative
+  Attribute* initiative = new Attribute("initiative", 0);
+  this -> UnitToken::addAttribute(INITIATIVE, initiative);
 }

@@ -28,11 +28,11 @@ TEST_F(HeadquartersTest, shouldHaveAllEdgesActiveByDefault) {
   }
 }
 
-//TEST_F(HeadquartersTest, shouldHaveInitiativeZeroByDefault) {
-//  Attribute* initiative = hq -> getAttribute(INITIATIVE);
-//  ASSERT_NE((Attribute*) NULL, initiative);
-//  EXPECT_EQ(0, initiative -> getValue());
-//}
+TEST_F(HeadquartersTest, shouldHaveInitiativeZeroByDefault) {
+  Attribute* initiative = hq -> UnitToken::getAttribute(INITIATIVE);
+  ASSERT_NE((Attribute*) NULL, initiative);
+  EXPECT_EQ(0, initiative -> getValue());
+}
 
 TEST_F(HeadquartersTest, shouldAttackInAllDirections) {
   for (int i=0; i<6; ++i) {
