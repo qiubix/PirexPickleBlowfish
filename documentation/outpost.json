@@ -1,0 +1,158 @@
+{
+	"army": "Outpost",
+	"headquarters": {
+		"upgrade": {
+			"mother": 1
+		}
+	},
+	"instants": [
+		{
+			"name": "Battle",
+			"namePl": "Bitwa",
+			"count": 6
+		},
+		{
+			"name": "Move",
+			"namePl": "Ruch",
+			"count": 7
+		},
+		{
+			"name": "Sniper",
+			"namePl": "Snajper",
+			"count": 1
+		}
+	],
+	"modules": [
+		{
+			"name": "Recon Center",
+			"namePl": "Centrum Rozpoznania",
+			"count": 1,
+			"upgrades": [
+				{
+					"name": "doubleMove"
+				}
+			]
+		},
+		{
+			"name": "Saboteur",
+			"namePl": "Dywersant",
+			"count": 1,
+			"sides": ["north", "northEast", "southEast", "south", "southWest", "northWest"],
+			"upgrades": [
+				{
+					"name": "initiative",
+					"value": -1,
+					"affectsEnemy": true
+				}
+			]
+		},
+		{
+			"name": "Medic",
+			"namePl": "Medyk",
+			"count": 2,
+			"sides": ["north", "northEast", "northWest"],
+			"upgrades": [
+				{
+					"name": "medic"
+				}
+			]
+		},
+		{
+			"name": "Officer",
+			"namePl": "Oficer",
+			"count": 1,
+			"sides": ["north", "northEast", "southEast", "south", "southWest", "northWest"],
+			"upgrades": [
+				{
+					"name": "ranged",
+					"value": 1
+				}
+			]
+		},
+		{
+			"name": "Scoper",
+			"namePl": "Skoper",
+			"count": 1,
+			"sides": ["north", "northEast", "southEast", "south", "southWest", "northWest"],
+			"upgrades": [
+				{
+					"name": "scoper",
+					"affectsEnemy": true
+				}
+			]
+		},
+		{
+			"name": "Scout",
+			"namePl": "Zwiadowca",
+			"count": 2,
+			"sides": ["north", "southEast", "southWest"],
+			"upgrades": [
+				{
+					"name": "initiative",
+					"value": 1
+				}
+			]
+		}
+	],
+	"units": [
+		{
+			"name": "Runner",
+			"namePl": "Biegacz",
+			"count": 2,
+			"initiative": [2],
+			"move": true,
+			"melee": {
+				"north": 1
+			}
+		},
+		{
+			"name": "HMG",
+			"namePl": "CKM",
+			"count": 1,
+			"initiative": [2, 1],
+			"ranged": {
+				"north": 1
+			}
+		},
+		{
+			"name": "Commando",
+			"namePl": "Komandos",
+			"count": 5,
+			"initiative": [3],
+			"ranged": {
+				"north": 1
+			}
+		},
+		{
+			"name": "Annihilator",
+			"namePl": "Likwidator",
+			"count": 2,
+			"initiative": [2],
+			"ranged": {
+				"north": 2
+			},
+		},
+		{
+			"name": "Mobile Armor",
+			"namePl": "Pancerz wspomagany",
+			"count": 1,
+			"initiative": [3, 2],
+			"move": true,
+			"melee": {
+				"north": 2
+			},
+			"ranged": {
+				"northWest": 1
+			}
+		},
+		{
+			"name": "Brawler",
+			"namePl": "Siłacz",
+			"count": 1,
+			"initiative": [3],
+			"melee": {
+				"north": 2
+			}
+		}
+	]
+}

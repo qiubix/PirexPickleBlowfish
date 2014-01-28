@@ -1,0 +1,12 @@
+{
+	"upgrades": [
+		{
+			"name": "initiative",
+			"value": 2
+		},
+		{
+			"name": "melee",
+			"value": 1
+		}
+	]
+}

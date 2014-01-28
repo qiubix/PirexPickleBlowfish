@@ -1,0 +1,80 @@
+Rozkminy o modułach
+
+Moloch:
++ Mózg x 1 (+1 melee, +1 ranged)
++ Oficer x 1 (+1 ranged)
++ Zwiadowca x 1 (+1 initiative)
++ Medyk x 2 (wybranie jednego medyka i jednego ataku do zaabsorbowania przez medyka)
++ Matka x 1 (dodatkowa akcja z inicjatywą o jeden mniejszą (-1 - nie))
+
+Borgo:
++ Medyk x 1 (wybranie jednego medyka i jednego ataku do zaabsorbowania przez medyka)
++ Oficer x 2 (+1 melee)
++ Super-oficer x 1 (+1 melee)
++ Zwiadowca x 2 (+1 initiative)
+
+Outpost:
++ Centrum rozpoznania x 1 (ruch x 2)
++ Dywersant x 1 (-1 initiative dla wrogów)
++ Medyk x 2 (wybranie jednego medyka i jednego ataku do zaabsorbowania przez medyka)
++ Oficer x 1 (+1 ranged)
++ Skoper x 1 (przejęcie modułów)
++ Zwiadowca x 2 (+1 initiative)
+
+Hegemony:
++ Boss x 1 (+1 melee, +1 initiative)
++ Kwatermistrz x 1 (jeden kierunek ataku melee = ranged lub odwrotnie)
++ Oficer I x 2 (+1 melee)
++ Oficer II x 1 (+1 melee)
++ Transport x 1 (mobilność)
++ Zwiadowca x 1 (+1 initiative)
+
+Wygląda na to, że moduły dzielą się na:
+1) moduły zwiększające atrybuty jednostek (Mózg, Oficer, Zwiadowca, Super-oficer, Boss, Oficer I, Oficer II)
+2) moduły medyków (Medyk)
+3) moduły dodające akcję (Matka)
+4) moduły dodające atrybut (Transport)
+5) moduły kwatermistrza (Kwatermistrz)
+6) moduły oddziałujące na wszystkie jednostki (Centrum rozpoznania)
+7) moduły zmniejszające atrybuty wrogom (Dywersant)
+8) moduły zmniejające przynależność wrogich modułów (Skoper)
+
+ad 1)
+Nie ma sensu implementować oddzielnie każdego rodzaju takiego modułu, gdyż atrybuty na które oddziałują są w nich pomieszane. Proponowane dwa rozwiązania:
+- podawanie w konstruktorze atrybutów na jakie oddziałuje
+- dekorator? dla tego konkretnego rodzaju modułu
+A następnie w jakiejś metodzie upgrade dodawanie odpowiednich wartości do atrybutów ulepszanego żetonu.
+
+ad 2)
+Dodawanie atrybutu MEDIC do jednostek przyłączonych.
+
+ad 3)
+Dodawanie atrybutu MOTHER do jednostek przyłączonych.
+
+ad 4)
+Dodawaie atrybutu MOBILITY do jednostek przyłączonych.
+
+ad 5)
+Dodawanie atrybuty QUARTERMASTER do jednostek przyłączonych.
+
+ad 6)
+Proponowane dwa rozwiązania:
+- Dodawanie atrybutu RECON_CENTER do jednostek przyłączonych.
+- Ustawianie jakiegoś pola w modelu czy gdzieś (wolę to poprzednie.)
+
+ad 7)
+Trzeba gdzieś ustawiać, że oddziałowuje na wrogie jedostki. A potem analogicznie jak w 1).
+
+ad 8)
+Trzeba gdzieś ustawiać, że oddziałowuje na wrogie jedostki. A potem zmiana atrybutu kolor na swój własny (wywołanie metod do "od-ulepszenia" jednostek, zmiana koloru, ulepszenie "nowych" jednostek).
+
+Jak widać przypadki 2 - 6 można rozwiązać w podobny sposób jednak wtedy implementacja wszytskich tych dodawanych zachowań musi odbyć się gdzieś w kontrolerze czy żetonie (zależnie od tego gdzie będziemy implementować niektóre rzeczy).
+
+Przypadki 1, 7, 8 też są podobne. Domyślnie moglibyśmy ustawiać kolor jednostek na które się oddziałuje na swój własny, a w wypadku 7 i 8 ustawiać na przeciwny (a potem gdzieś sprawdzać co jest ustawione, np w metodzie upgrade). A następnie aplikować ulepszenie atrybutu o wartość (w wypadku pomniejszania jest to wartość ujemna).
+
+Co do głównej implementacji to w dalszym ciągu zastanawiam się jak to powinno wyglądać. Mam dwie propozycje:
+1) Moduł przechowuje listę ulepszanych jednostek. W momencie położenia na planszy sprawdza jednostki które ulepsza, dodaje je do listy i ulepsza. W momencie śmierci czy ruchu, zabiera ulepszenia jednostkom (np metoda degrade - nie wiem czy jest takie słowo), i dalej, jeżeli to było przesunięcie, jak w wypadku położenia na planszy. Pozostaje problem pojawiania się, ruchu i śmierci jednostek. Powinny one wtedy informować moduł o swoim przybyciu lub zniknięciu, aby ten mógł dodać lub usunąć je z listy (można to rozwiązać przez listę modułów które ulepszają żeton).
+
+2) Żetony mają listę modułów które je ulepszają i "proszą" o ulepszenie w momencie pojawienia się obok modułu i proszą o degradację kiedy uciekają od modułu. Wtedy analogicznie kiedy moduł się pojawia musi dopisać się jednostkom do list, a kiedy znika, musi powiedzieć o tym jednostkom, aby te mogły poprosić o degradację i usunąć z listy.
+
+Cały czas zastanawiam się też czy ulepszanie atrybutów po porstu poprzez zmienianie ich currentValue to najlepsze rozwiązanie. Wpadł mi do głowy pomysł, w którym ulepszenie to po prostu atrybut UpgradeAttribute dziedziczący po Attribute), który dodawany jest do jednostki i ma specjalne pole module ze wskaźnikiem na ulepszający moduł. Nie wiem czy wtedy nie ma z tym więcej roboty. Musiałbym się jeszcze zastanowić.
