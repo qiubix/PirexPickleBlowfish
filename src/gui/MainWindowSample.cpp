@@ -3,21 +3,19 @@
 
 #include "Board.hpp"
 #include "ViewController.hpp"
-#include "logic/Board.hpp"
 
-MainWindowSample::MainWindowSample(QWidget *parent) :
+MainWindowSample::MainWindowSample(Controller* modelController, QWidget *parent) :
   QWidget(parent),
   ui(new Ui::MainWindowSample)
 {
   ui->setupUi(this);
 
-  ViewController* controller = new ViewController(this);
+  ViewController* controller = new ViewController(modelController, this);
 
   QGraphicsScene * scene = new QGraphicsScene(this);
   scene->setBackgroundBrush(Qt::darkGray);
 
-  Board * modelBoard = new Board();
-  Field * middleField = modelBoard -> getMiddleField();
+  Field * middleField = modelController -> getModelBoard() -> getMiddleField();
 
   gui::Board * board = new gui::Board(controller, middleField);
   board -> setPos(0, 0);

@@ -13,7 +13,6 @@ set(CMAKE_AUTOMOC ON)
 
 include_directories(SYSTEM ${GMOCK_DIR}/gtest/include ${GMOCK_DIR}/include)
 
-set(SRC_LIST main.cpp)
 
 #to link dynamic boost libraries
 add_definitions(-DBOOST_LOG_DYN_LINK)
@@ -25,10 +24,16 @@ add_library(Logger Logger.cpp)
 target_link_libraries(Logger ${Boost_LIBRARIES})
 install(TARGETS Logger DESTINATION ${CMAKE_INSTALL_PREFIX})
 
-add_executable(${PROJECT_NAME} ${SRC_LIST})
+set(PROJECT_SRC_LIST main.cpp)
+set(PROJECT_LIBS logic MainWindowSample Logger GameBox TokenLoader)
+add_executable(${PROJECT_NAME} ${PROJECT_SRC_LIST})
+target_link_libraries(${PROJECT_NAME} ${PROJECT_LIBS})
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX})
 
-target_link_libraries(${PROJECT_NAME} logic MainWindowSample Logger)
+file(COPY moloch.json DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+  install(FILES moloch.json DESTINATION ${CMAKE_INSTALL_PREFIX})
+file(COPY outpost.json DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+  install(FILES outpost.json DESTINATION ${CMAKE_INSTALL_PREFIX})
 
 add_subdirectory(gui)
 add_subdirectory(logic)

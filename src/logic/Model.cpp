@@ -2,6 +2,7 @@
 
 Model::Model()
   : gameState(PAUSE), currentPlayerId(-1) {
+  this -> board = new Board;
 }
 
 Board* Model::getBoard() {

@@ -5,7 +5,7 @@
 #include "BoardField.hpp"
 #include "SideField.hpp"
 
-using namespace gui;
+namespace gui {
 
 Board::Board(ViewController* controller, Field* middleField, QGraphicsItem* parent) : QGraphicsItem(parent)
 {
@@ -88,3 +88,5 @@ void Board::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
 QRectF Board::boundingRect() const {
   return QRectF(0, 0, 0, 0);
 }
+
+}//: namespace gui

@@ -14,15 +14,18 @@ public:
 
   //getters
   Army getArmy(void);
+  Token* getTokenOnHand(int position);
+
+  void addTokens(std::vector<Token*> tokens);
 
   void killToken(BoardToken* token);
   void useToken(Token* token);
   void putOnBoard(BoardToken* token);
   void drawTokens(int amount = 3);
 
+  std::vector <Token*> hiddenTokens;
 private:
   Army army;
-  std::vector <Token*> hiddenTokens;
   std::vector <BoardToken*> tokensOnBoard;
   std::list <Token*> tokensOnHand;
   std::vector <Token*> usedTokens;

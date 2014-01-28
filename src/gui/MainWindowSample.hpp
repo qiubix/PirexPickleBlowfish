@@ -5,6 +5,8 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QTextBrowser>
+#include "logic/Board.hpp"
+#include "logic/Controller.hpp"
 
 namespace Ui {
   class MainWindowSample;
@@ -15,7 +17,7 @@ class MainWindowSample : public QWidget
   Q_OBJECT
 
 public:
-  explicit MainWindowSample(QWidget *parent = 0);
+  explicit MainWindowSample(Controller* modelController, QWidget *parent = 0);
   QLineEdit* getLineEdit();
   QPushButton* getNewGameButton();
   QPushButton* getQuitGameButton();
