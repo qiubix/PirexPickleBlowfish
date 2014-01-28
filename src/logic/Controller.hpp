@@ -11,6 +11,7 @@ public:
   Controller(Model* model);
   ~Controller(void) {}
 
+  Board* getModelBoard(void);
   void initializeNewPlayer(Army army);
 
   void setGameState(GameState newState);

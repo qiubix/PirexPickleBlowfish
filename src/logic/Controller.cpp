@@ -10,6 +10,10 @@ Controller::Controller(Model* model)
   : model(model) {
 }
 
+Board* Controller::getModelBoard() {
+  return model -> getBoard();
+}
+
 //TODO: write test
 void Controller::initializeNewPlayer(Army army) {
   Player* player = new Player(army);
