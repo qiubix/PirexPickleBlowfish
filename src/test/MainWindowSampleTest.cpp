@@ -2,7 +2,7 @@
 #include <QtTest/QtTest>
 
 #include "gui/MainWindowSample.hpp"
-#include "logic/Board.hpp"
+#include "logic/Controller.hpp"
 
 class MainWindowSampleTest : public QObject
 {
@@ -15,7 +15,7 @@ private slots:
 
 void MainWindowSampleTest::testLineEdit()
 {
-  MainWindowSample mainWindowSample(new Board);
+  MainWindowSample mainWindowSample(new Controller(new Model));
   QLineEdit* lineEdit = mainWindowSample.getLineEdit();
 
   QTest::keyClicks(lineEdit, "hello world");
@@ -24,7 +24,7 @@ void MainWindowSampleTest::testLineEdit()
 
 void MainWindowSampleTest::testNewGameButtonClick()
 {
-  MainWindowSample mainWindowSample(new Board);
+  MainWindowSample mainWindowSample(new Controller(new Model));
   QPushButton* newGameButton = mainWindowSample.getNewGameButton();
   QTextBrowser* textBrowser = mainWindowSample.getTextBrowser();
   QTest::mouseClick(newGameButton, Qt::LeftButton);

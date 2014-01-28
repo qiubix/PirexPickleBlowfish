@@ -1,8 +1,8 @@
 #include "ViewController.hpp"
 #include <QDebug>
 
-ViewController::ViewController(QObject *parent) : QObject(parent) {
-
+ViewController::ViewController(Controller* modelController, QObject *parent) : QObject(parent) {
+  this -> modelController = modelController;
 }
 
 void ViewController::fieldClicked(BoardField* field) {
