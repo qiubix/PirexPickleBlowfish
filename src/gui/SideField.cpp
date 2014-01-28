@@ -5,7 +5,15 @@ SideField::SideField(int player, int whichToken, float radius, QGraphicsItem* pa
 {
 }
 
+int SideField::getPlayer(void) {
+  return player;
+}
+
+int SideField::getWhichToken(void) {
+  return whichToken;
+}
+
 void SideField::mousePressEvent(QGraphicsSceneMouseEvent *event) {
   Q_UNUSED(event)
-  emit fieldClicked(player, whichToken);
+  emit fieldClicked(this);
 }

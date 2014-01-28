@@ -5,7 +5,11 @@ BoardField::BoardField(Field* field, float radius, QGraphicsItem* parent)
 {
 }
 
+Field* BoardField::getField(void) {
+  return field;
+}
+
 void BoardField::mousePressEvent(QGraphicsSceneMouseEvent *event) {
   Q_UNUSED(event)
-  emit fieldClicked(field);
+  emit fieldClicked(this);
 }

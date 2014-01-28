@@ -11,8 +11,11 @@ class SideField : public Hexagon
 public:
   SideField(int player, int whichToken, float radius = 50, QGraphicsItem *parent = 0);
 
+  int getPlayer(void);
+  int getWhichToken(void);
+
 signals:
-  void fieldClicked(int, int);
+  void fieldClicked(SideField*);
 
 protected:
   void mousePressEvent(QGraphicsSceneMouseEvent *event);

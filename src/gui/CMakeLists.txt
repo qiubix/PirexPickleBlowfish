@@ -19,4 +19,7 @@ add_library(MainWindowSample ${MAIN_WINDOW_SAMPLE_SRC_LIST} ${UI_H_LIST})
 target_link_libraries(MainWindowSample logic)
 install(TARGETS MainWindowSample DESTINATION ${CMAKE_INSTALL_PREFIX})
 
+file(COPY armies DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/..)
+install(DIRECTORY armies DESTINATION ${CMAKE_INSTALL_PREFIX})
+
 qt5_use_modules(MainWindowSample Widgets)
