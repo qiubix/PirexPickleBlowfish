@@ -18,6 +18,7 @@ void mainWindowInit(QApplication* app, Board* modelBoard)
 
 int main(int argc, char* argv[])
 {
+  std::srand (unsigned(std::time(0)));
   initLogging();
 
   Model* model = new Model;
@@ -27,6 +28,8 @@ int main(int argc, char* argv[])
   armyFiles.push_back("../documentation/moloch.json");
   armyFiles.push_back("../documentation/outpost.json");
 //  TokenLoader::getInstance() -> loadArmies(armyFiles, controller);
+  controller -> initializeNewPlayer(MOLOCH);
+  controller -> initializeNewPlayer(OUTPOST);
 
   QApplication app(argc, argv);
   mainWindowInit(&app, model -> getBoard());

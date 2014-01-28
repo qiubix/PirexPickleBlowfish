@@ -11,6 +11,8 @@ public:
   Controller(Model* model);
   ~Controller(void) {}
 
+  void initializeNewPlayer(Army army);
+
   void setGameState(GameState newState);
   void startBattle(void);
   void rotateClockwise(BoardToken* token);
@@ -24,6 +26,7 @@ public:
 
 private:
   Model* model;
+  int getRandomNumber(int i);
 };
 
 #endif //CONTROLLER_HPP

@@ -1,8 +1,22 @@
 #include "Controller.hpp"
+#include "setup/GameBox.hpp"
+#include <algorithm>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
 
 //TODO: implement
 Controller::Controller(Model* model)
   : model(model) {
+}
+
+//TODO: write test
+void Controller::initializeNewPlayer(Army army) {
+  Player* player = new Player(army);
+  std::vector<Token*> tokens = GameBox::getInstance() -> getArmy(army);
+  std::random_shuffle (tokens.begin(), tokens.end());
+  player -> addTokens(tokens);
+  model -> addPlayer(player);
 }
 
 void Controller::setGameState(GameState newState) {
@@ -62,4 +76,8 @@ void Controller::destroy(BoardToken* token) {
 
 void Controller::reset(void) {
   model -> reset();
+}
+
+int Controller::getRandomNumber(int i) {
+  return std::rand()%i;
 }

@@ -15,6 +15,8 @@ public:
   //getters
   Army getArmy(void);
 
+  void addTokens(std::vector<Token*> tokens);
+
   void killToken(BoardToken* token);
   void useToken(Token* token);
   void putOnBoard(BoardToken* token);

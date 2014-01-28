@@ -7,6 +7,10 @@ Army Player::getArmy() {
   return army;
 }
 
+void Player::addTokens(std::vector<Token*> tokens) {
+  this -> hiddenTokens = tokens;
+}
+
 void Player::killToken(BoardToken* token) {
   std::vector< BoardToken* >::iterator it = tokensOnBoard.begin();
   while (it != tokensOnBoard.end()) {
