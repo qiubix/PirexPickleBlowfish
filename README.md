@@ -17,6 +17,9 @@ http://qt-project.org/
 * CMake (minimum 2.8.8):
 http://www.cmake.org/
 
+* Boost (minimum 1.52):
+http://www.boost.org/
+
 Preparing environment
 ---------------------
 
@@ -47,6 +50,15 @@ Build project (from the 'build' directory):
 Install project (will be installed to 'bin' directory):
 
 `make install`
+
+Test project
+
+`make test`
+
+Running project
+---------------
+
+By default project is installed in PROJECT_DIRECTORY/bin. Main executable is `PirexPickleBlowfish`. You can also run all tests by executing `AllTests` program, or choose specific test for particular component. 
 
 
 Building and running on MS Windows
