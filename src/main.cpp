@@ -1,5 +1,7 @@
 #include <QtWidgets>
 #include <QObject>
+#include <QString>
+#include <QDebug>
 #include <iostream>
 #include <vector>
 #include "gui/MainWindowSample.hpp"
@@ -25,15 +27,19 @@ int main(int argc, char* argv[])
   Controller* controller = new Controller(model);
 
   std::vector<std::string> armyFiles;
-  armyFiles.push_back("../documentation/moloch.json");
-  armyFiles.push_back("../documentation/outpost.json");
-//  TokenLoader::getInstance() -> loadArmies(armyFiles, controller);
-//  controller -> initializeNewPlayer(MOLOCH);
-//  controller -> initializeNewPlayer(OUTPOST);
+  armyFiles.push_back("moloch.json");
+  armyFiles.push_back("outpost.json");
+  TokenLoader::getInstance() -> loadArmies(armyFiles, controller);
+  controller -> initializeNewPlayer(MOLOCH);
+  controller -> initializeNewPlayer(OUTPOST);
 
   QApplication app(argc, argv);
   mainWindowInit(&app, controller);
 
+  std::vector<Token*> tokens = model -> getCurrentPlayer() -> hiddenTokens;
+  for (unsigned i=0; i<tokens.size(); ++i) {
+    qDebug() << tokens.at(i) -> getName().c_str();
+  }
 
   return app.exec();
 }

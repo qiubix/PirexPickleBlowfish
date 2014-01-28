@@ -30,6 +30,10 @@ add_executable(${PROJECT_NAME} ${PROJECT_SRC_LIST})
 target_link_libraries(${PROJECT_NAME} ${PROJECT_LIBS})
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX})
 
+file(COPY moloch.json DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+  install(FILES moloch.json DESTINATION ${CMAKE_INSTALL_PREFIX})
+file(COPY outpost.json DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+  install(FILES outpost.json DESTINATION ${CMAKE_INSTALL_PREFIX})
 
 add_subdirectory(gui)
 add_subdirectory(logic)

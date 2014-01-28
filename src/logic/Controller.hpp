@@ -13,6 +13,7 @@ public:
 
   Board* getModelBoard(void);
   void initializeNewPlayer(Army army);
+  void drawTokensForActivePlayer(void);
 
   void setGameState(GameState newState);
   void startBattle(void);

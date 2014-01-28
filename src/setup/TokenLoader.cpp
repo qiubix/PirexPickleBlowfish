@@ -34,7 +34,7 @@ void TokenLoader::loadArmy(std::string armyFile, Controller* controller) {
   Army army = StringToEnumTranslator::getInstance() -> getArmy(armyJson -> getStringValue("army"));
 
   GameBox::getInstance() -> addEmptyArmy(army);
-  loadHeadquarters(army, armyJson -> getObject("headquarters"));
+//  loadHeadquarters(army, armyJson -> getObject("headquarters"));
   loadInstantTokens(army, armyJson -> getArray("instants"), controller);
   loadModuleTokens(army, armyJson -> getArray("modules"));
   loadUnitTokens(army, armyJson -> getArray("units"));

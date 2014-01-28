@@ -18,9 +18,14 @@ Board* Controller::getModelBoard() {
 void Controller::initializeNewPlayer(Army army) {
   Player* player = new Player(army);
   std::vector<Token*> tokens = GameBox::getInstance() -> getArmy(army);
-  std::random_shuffle (tokens.begin(), tokens.end());
+//  std::random_shuffle (tokens.begin()+1, tokens.end());
   player -> addTokens(tokens);
   model -> addPlayer(player);
+}
+
+void Controller::drawTokensForActivePlayer() {
+  Player* player = model -> getCurrentPlayer();
+  player -> drawTokens(1);
 }
 
 void Controller::setGameState(GameState newState) {

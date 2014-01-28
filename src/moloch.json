@@ -1,0 +1,234 @@
+{
+	"army": "Moloch",
+	"headquarters": {
+		"upgrade": {
+			"melee": 1,
+			"ranged": 1
+		}
+	},
+	"instants": [
+		{
+			"name": "Battle",
+			"namePl": "Bitwa",
+			"count": 4
+		},
+		{
+			"name": "Move",
+			"namePl": "Ruch",
+			"count": 1
+		},
+		{
+			"name": "Push back",
+			"namePl": "Odepchnięcie",
+			"count": 5
+		},
+		{
+			"name": "Air strike",
+			"namePl": "Bomba",
+			"count": 1
+		}
+	],
+	"modules": [
+		{
+			"name": "The Brain",
+			"namePl": "Mózg",
+			"count": 1,
+			"sides": ["north", "southEast", "southWest"],
+			"upgrades": [
+				{
+					"name": "melee",
+					"value": 1
+				},
+				{
+					"name": "ranged",
+					"value": 1
+				}
+			]
+		},
+		{
+			"name": "Officer",
+			"namePl": "Oficer",
+			"count": 1,
+			"sides": ["northEast", "south", "northWest"],
+			"upgrades": [
+				{
+					"name": "ranged",
+					"value": 1
+				}
+			]
+		},
+		{
+			"name": "Scout",
+			"namePl": "Zwiadowca",
+			"count": 1,
+			"sides": ["north", "southEast", "southWest"],
+			"upgrades": [
+				{
+					"name": "initiative",
+					"value": 1
+				}
+			]
+		},
+		{
+			"name": "Medic",
+			"namePl": "Medyk",
+			"count": 2,
+			"sides": ["north", "southEast", "southWest"],
+			"upgrades": [
+				{
+					"name": "medic"
+				}
+			]
+		},
+		{
+			"name": "Mother Module",
+			"namePl": "Matka",
+			"count": 1,
+			"sides": ["north"],
+			"upgrades": [
+				{
+					"name": "mother"
+				}
+			]
+		}
+	],
+	"units": [
+		{
+			"name": "Blocker",
+			"namePl": "Bloker",
+			"count": 2,
+			"toughness": 2,
+			"armor": ["north"]
+		},
+		{
+			"name": "Hybrid",
+			"namePl": "Cyborg",
+			"count": 2,
+			"initiative": [3],
+			"ranged": {
+				"north": 1
+			}
+		},
+		{
+			"name": "Gauss Cannon",
+			"namePl": "Działko Gaussa",
+			"count": 1,
+			"initiative": [1],
+			"toughness": 1,
+			"ranged": {
+				"north": 1
+			}
+		},
+		{
+			"name": "Juggernaut",
+			"namePl": "Juggernaut",
+			"count": 1,
+			"initiative": [1],
+			"toughness": 1,
+			"melee": {
+				"north": 2
+			},
+			"ranged": {
+				"northEast": 1
+			},
+			"armor": ["north", "southEast", "southWest"]
+		},
+		{
+			"name": "Clown",
+			"namePl": "Klaun",
+			"count": 1,
+			"initiative": [2],
+			"toughness": 1,
+			"melee": {
+				"north": 1,
+				"northWest": 1
+			},
+			"special": "explosion"
+		},
+		{
+			"name": "Hunter-killer",
+			"namePl": "Łowca",
+			"count": 2,
+			"initiative": [3],
+			"melee": {
+				"north": 1,
+				"northEast": 1,
+				"south": 1,
+				"northWest": 1
+			}
+		},
+		{
+			"name": "Protector",
+			"namePl": "Obrońca",
+			"count": 1,
+			"initiative": [1],
+			"toughness": 1,
+			"ranged": {
+				"north": 1,
+				"northEast": 1,
+				"northWest": 1
+			}
+		},
+		{
+			"name": "Armored Hunter",
+			"namePl": "Opancerzony Łowca",
+			"count": 2,
+			"initiative": [2],
+			"melee": {
+				"north": 1,
+				"northEast" : 1,
+				"southEast": 1,
+				"south": 1,
+				"southWest": 1,
+				"northWest": 1
+			},
+			"armor": ["north", "northWest"]
+		},
+		{
+			"name": "Armored Guard",
+			"namePl": "Opancerzony Wartownik",
+			"count": 1,
+			"initiative": [2],
+			"melee": {
+				"northEast": 1,
+				"northWest": 1
+			},
+			"armor": ["north"]
+		},
+		{
+			"name": "Hornet",
+			"namePl": "Rozpruwacz",
+			"count": 1,
+			"initiative": [2],
+			"melee": {
+				"north": 2
+			}
+		},
+		{
+			"name": "Net Fighter",
+			"namePl": "Sieciarz",
+			"count": 1,
+			"net": ["north", "northWest"]
+		},
+		{
+			"name": "Stormtrooper",
+			"namePl": "Szturmowiec",
+			"count": 1,
+			"initiative": [2, 1],
+			"toughness": 1,
+			"ranged": {
+				"north": 1
+			}
+		},
+		{
+			"name": "Guard",
+			"namePl": "Wartownik",
+			"count": 1,
+			"initiative": [2],
+			"ranged": {
+				"north": 1,
+				"northWest": 1
+			}
+		}
+	]
+}

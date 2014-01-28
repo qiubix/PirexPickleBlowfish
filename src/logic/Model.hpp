@@ -12,7 +12,9 @@
 enum GameState {
   GAME,
   PAUSE,
-  BATTLE
+  BATTLE,
+  HQ_SETTING,
+  TOKEN_PLACING
 };
 
 class Model

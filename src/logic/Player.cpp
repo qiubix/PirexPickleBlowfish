@@ -7,6 +7,16 @@ Army Player::getArmy() {
   return army;
 }
 
+Token* Player::getTokenOnHand(int position) {
+  if (position > 2) {
+    return NULL;
+  }
+  else {
+    //TODO: FIXME: Pick specific position!!
+    return tokensOnHand.front();
+  }
+}
+
 void Player::addTokens(std::vector<Token*> tokens) {
   this -> hiddenTokens = tokens;
 }
