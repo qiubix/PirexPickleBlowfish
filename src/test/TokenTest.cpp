@@ -87,5 +87,16 @@ TEST_F(AttributesTest, shouldCreateAttributesObjectWithNoAttributes) {
   ASSERT_TRUE(attributes -> empty());
 }
 
-//TODO: test adding and removing attribute
+TEST_F(AttributesTest, shouldRemoveAttribute) {
+  Attributes* attributes = new Attributes;
+  Attribute* initiative = new Attribute("initiative", 3);
+  attributes->addAttribute(INITIATIVE, initiative);
+  attributes->removeAttribute(INITIATIVE);
+  ASSERT_EQ(0, attributes->attributes.size());
+  std::map <AttributeName, Attribute*>::iterator it;
+  it = attributes->attributes.find(MELEE);
+  ASSERT_EQ(attributes->attributes.end(), it);
+  attributes->removeAttribute(MELEE);
+  ASSERT_EQ(0, attributes->attributes.size());
+}
 

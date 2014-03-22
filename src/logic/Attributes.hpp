@@ -2,6 +2,7 @@
 #define ATTRIBUTES_HPP
 
 #include <map>
+#include <gtest/gtest.h>
 #include "Attribute.hpp"
 #include "AttributeName.hpp"
 
@@ -20,6 +21,8 @@ public:
 
 private:
   std::map < AttributeName, Attribute*> attributes;
+  
+  FRIEND_TEST(AttributesTest, shouldRemoveAttribute);
 };
 
 #endif //ATTRIBUTES_HPP
