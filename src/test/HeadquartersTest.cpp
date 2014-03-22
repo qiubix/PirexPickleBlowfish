@@ -62,10 +62,8 @@ TEST_F(HeadquartersTest, shouldUpgradeUnitTokenEdgeAttribute) {
   EXPECT_EQ(2, token -> getEdgeAttributes(NORTH) -> getAttribute(MELEE) -> getValue());
 }
 
-//REVIEW: better name would be shouldAddAttributeToBoardToken
-//REVIEW: why outpostHQ is being initialized from hq which has HEGEMONY as army?
-TEST_F(HeadquartersTest, shouldAddAttributeToUnit) {
-  Module* outpostHQ = new AddAttributeUpgrader(hq, MOTHER, "mother");
+TEST_F(HeadquartersTest, shouldAddAttributeToBoardToken) {
+  Module* outpostHQ = new AddAttributeUpgrader(new HeadquartersToken(OUTPOST, "HQ", NULL), MOTHER, "mother");
   BoardToken* token = new BoardToken(OUTPOST, "token", new Attributes);
   outpostHQ -> addBoardToken(token);
   ASSERT_NE((Attribute*) NULL, token -> getAttribute(MOTHER));
