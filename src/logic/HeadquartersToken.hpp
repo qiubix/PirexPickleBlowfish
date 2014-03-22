@@ -15,7 +15,6 @@ class HeadquartersToken : public UnitToken, public ModuleToken
 public:
   //TODO: default NULL attributes, passed to constructors of base classes.
   HeadquartersToken(Army army, std::string name, Attributes* attributes, std::vector<Side> edges = HQ_EDGES);
-  //REVIEW: FIXME: UnitToken and ModuleToken destructors should be virtual
   ~HeadquartersToken() {}
 };
 

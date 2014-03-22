@@ -7,7 +7,7 @@ class UnitToken : public BoardToken
 {
 public:
   UnitToken(Army army, std::string name, Attributes* attributes = NULL);
-  ~UnitToken();
+  virtual ~UnitToken();
 
   //getters
   Attributes* getEdgeAttributes(Side edge);
