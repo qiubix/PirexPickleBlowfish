@@ -110,19 +110,19 @@ TEST_F(InstantTokenTest, shouldBombStrikeField) {
 }
 
 TEST_F(InstantTokenTest, shouldDestroyToken) {
-  GranadeToken* granade = new GranadeToken(BORGO, controller);
+  GrenadeToken* grenade = new GrenadeToken(BORGO, controller);
   Player* player = new Player(MOLOCH);
   model -> addPlayer(player);
   BoardToken* token = new BoardToken(MOLOCH, "soldier");
   Field* field = new Field;
   token -> setField(field);
   field -> setToken(token);
-  granade -> setTokenToDestroy(token);
-  granade -> action();
+  grenade -> setTokenToDestroy(token);
+  grenade -> action();
 //  ASSERT_FALSE(model -> usedTokens.empty());
 //  EXPECT_EQ(token, model -> usedTokens[0]);
   delete token;
-  delete granade;
+  delete grenade;
 }
 
 TEST_F(InstantTokenTest, shouldStrikeToken) {

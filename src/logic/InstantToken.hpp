@@ -78,12 +78,11 @@ private:
   Field* epicentrum;
 };
 
-//FIXME: grenade not granade
-class GranadeToken : public InstantToken
+class GrenadeToken : public InstantToken
 {
 public:
-  GranadeToken(Army army, Controller* controller);
-  ~GranadeToken() {}
+  GrenadeToken(Army army, Controller* controller);
+  ~GrenadeToken() {}
 
   void action(void);
   void setTokenToDestroy(BoardToken* toDestroy);

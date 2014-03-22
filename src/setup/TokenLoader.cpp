@@ -90,7 +90,7 @@ InstantToken* TokenLoader::createInstantToken(Army army, std::string name, Contr
     return new BombToken(army, controller);
   }
   if(name.compare("Grenade") == 0) {
-    return new GranadeToken(army, controller);
+    return new GrenadeToken(army, controller);
   }
   if(name.compare("Sniper") == 0) {
     return new SniperToken(army, controller);

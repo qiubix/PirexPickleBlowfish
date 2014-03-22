@@ -394,7 +394,7 @@ TEST_F(TokenLoaderTest, shouldCreateBombToken) {
 TEST_F(TokenLoaderTest, shouldCreateGrenadeToken) {
   Controller * controller = new Controller(new Model());
   InstantToken* token = TokenLoader::getInstance() -> createInstantToken(HEGEMONY, "Grenade", controller);
-  ASSERT_TRUE(dynamic_cast<GranadeToken *>(token));
+  ASSERT_TRUE(dynamic_cast<GrenadeToken *>(token));
   ASSERT_EQ(controller, token->controller);
   delete controller;
 }
