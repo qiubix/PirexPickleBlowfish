@@ -42,8 +42,7 @@ TEST_F(HeadquartersTest, shouldAttackInAllDirections) {
 }
 
 TEST_F(HeadquartersTest, shouldUpgradeBoardTokenBaseAttribute) {
-  //REVIEW: why borgoHQ is being initialized from hq which has HEGEMONY as army?
-  Module* borgoHQ = new ChangeAttributeUpgrader(hq, INITIATIVE, 1);
+  Module* borgoHQ = new ChangeAttributeUpgrader(new HeadquartersToken(BORGO, "HQ", NULL), INITIATIVE, 1);
   BoardToken* token = new BoardToken(BORGO, "token", new Attributes);
   Attribute* initiative = new Attribute("initiative", 1);
   token -> addAttribute(INITIATIVE, initiative);
