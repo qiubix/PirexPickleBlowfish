@@ -14,18 +14,8 @@ set(CMAKE_AUTOMOC ON)
 include_directories(SYSTEM ${GMOCK_DIR}/gtest/include ${GMOCK_DIR}/include)
 
 
-#to link dynamic boost libraries
-add_definitions(-DBOOST_LOG_DYN_LINK)
-
-find_package(Boost 1.55 COMPONENTS thread system log log_setup REQUIRED )
-include_directories(${Boost_INCLUDE_DIR} )
-
-add_library(Logger Logger.cpp)
-target_link_libraries(Logger ${Boost_LIBRARIES})
-install(TARGETS Logger DESTINATION ${CMAKE_INSTALL_PREFIX})
-
 set(PROJECT_SRC_LIST main.cpp)
-set(PROJECT_LIBS logic MainWindowSample Logger GameBox TokenLoader)
+set(PROJECT_LIBS logic MainWindowSample GameBox TokenLoader)
 add_executable(${PROJECT_NAME} ${PROJECT_SRC_LIST})
 target_link_libraries(${PROJECT_NAME} ${PROJECT_LIBS})
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX})

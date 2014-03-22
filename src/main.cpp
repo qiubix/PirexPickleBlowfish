@@ -4,8 +4,8 @@
 #include <QDebug>
 #include <iostream>
 #include <vector>
+#include <ctime>
 #include "gui/MainWindowSample.hpp"
-#include "Logger.hpp"
 
 #include "setup/TokenLoader.hpp"
 #include "setup/GameBox.hpp"
@@ -21,7 +21,6 @@ void mainWindowInit(QApplication* app, Controller* controller)
 int main(int argc, char* argv[])
 {
   std::srand (unsigned(std::time(0)));
-  initLogging();
 
   Model* model = new Model;
   Controller* controller = new Controller(model);
