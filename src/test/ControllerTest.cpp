@@ -75,23 +75,34 @@ TEST_F(ControllerTest, shouldBombStrikeAreaOfOneFieldRadius) {
   Field* epicentrum = new Field;
   Field* north = new Field;
   Field* south = new Field;
+  Field* farNorth = new Field;
+  Field* farSouth = new Field;
   epicentrum -> addNeighbour(north, NORTH);
   epicentrum -> addNeighbour(south, SOUTH);
   BoardToken* firstToken = createBoardTokenWithToughness();
   BoardToken* secondToken = createBoardTokenWithToughness();
   BoardToken* thirdToken = createBoardTokenWithToughness();
+  BoardToken* fourthToken = createBoardTokenWithToughness();
+  BoardToken* fifthToken = createBoardTokenWithToughness();
   controller -> putOnBoard(firstToken, epicentrum);
   controller -> putOnBoard(secondToken, north);
   controller -> putOnBoard(thirdToken, south);
+  controller -> putOnBoard(fourthToken, farNorth);
+  controller -> putOnBoard(fifthToken, farSouth);
 
   controller -> bombStrikeField(epicentrum);
   EXPECT_EQ(1, firstToken -> getAttribute(TOUGHNESS) -> getValue());
   EXPECT_EQ(1, secondToken -> getAttribute(TOUGHNESS) -> getValue());
   EXPECT_EQ(1, thirdToken -> getAttribute(TOUGHNESS) -> getValue());
-  //TODO: check if HQ or tokens outside bomb radius are stricken
+  EXPECT_EQ(2, fourthToken -> getAttribute(TOUGHNESS) -> getValue());
+  EXPECT_EQ(2, fifthToken -> getAttribute(TOUGHNESS) -> getValue());
+  delete fifthToken;
+  delete fourthToken;
   delete thirdToken;
   delete secondToken;
   delete firstToken;
+  delete farSouth;
+  delete farNorth;
   delete south;
   delete north;
   delete epicentrum;
