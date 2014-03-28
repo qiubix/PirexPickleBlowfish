@@ -31,7 +31,8 @@ TEST_F(GameBoxTest, shouldReturnArmiesCountInTheBox) {
   GameBox gameBox;
   ASSERT_EQ(0, gameBox.getArmiesCount());
   std::vector<Token *> army;
-  gameBox.armies.insert(std::make_pair<Army, std::vector<Token *> >(HEGEMONY, army));
+  gameBox.armies.insert(std::make_pair(HEGEMONY, army));
+//  gameBox.armies.insert(std::make_pair<Army, std::vector<Token *> >(HEGEMONY, army));
   ASSERT_EQ(1, gameBox.getArmiesCount());
 }
 
@@ -40,7 +41,8 @@ TEST_F(GameBoxTest, shouldCheckIfThereIsNoArmyInTheBox) {
   ASSERT_EQ(0, gameBox.getArmiesCount());
   ASSERT_TRUE(gameBox.isEmpty());
   std::vector<Token *> army;
-  gameBox.armies.insert(std::make_pair<Army, std::vector<Token *> >(HEGEMONY, army));
+  gameBox.armies.insert(std::make_pair(HEGEMONY, army));
+//  gameBox.armies.insert(std::make_pair<Army, std::vector<Token *> >(HEGEMONY, army));
   ASSERT_FALSE(gameBox.isEmpty());
 }
 
@@ -55,7 +57,8 @@ TEST_F(GameBoxTest, shouldGetArmyFromTheBox) {
   std::vector<Token*> army;
   army.push_back(tokenToInsert);
 
-  gameBox.armies.insert(std::make_pair<Army, std::vector<Token *> >(armyName, army));
+  gameBox.armies.insert(std::make_pair(armyName, army));
+//  gameBox.armies.insert(std::make_pair<Army, std::vector<Token *> >(armyName, army));
   std::vector<Token *> returnedArmy = gameBox.getArmy(armyName);
   ASSERT_EQ(army.size(), returnedArmy.size());
   ASSERT_EQ(armyName, returnedArmy[0] -> getArmy());
