@@ -14,7 +14,7 @@ Token* Field::getToken(void) {
 
 Field* Field::getNeighbour(Side side)
 {
-  return neighbours[side];
+  return neighbours[(int) side];
 }
 
 void Field::setToken(Token* token)
@@ -24,5 +24,5 @@ void Field::setToken(Token* token)
 
 void Field::addNeighbour(Field* field, Side side)
 {
-  neighbours[side] = field;
+  neighbours[(int) side] = field;
 }

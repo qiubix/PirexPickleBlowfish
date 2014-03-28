@@ -93,10 +93,10 @@ TEST_F(InstantTokenTest, shouldBombStrikeField) {
   BoardToken* secondToken = createBoardTokenWithToughness();
   Field* firstField = new Field;
   Field* secondField = new Field;
-  firstField -> addNeighbour(secondField, NORTH);
+  firstField -> addNeighbour(secondField, Side::NORTH);
   firstField -> setToken(firstToken);
   firstToken -> setField(firstField);
-  secondField -> addNeighbour(firstField, SOUTH);
+  secondField -> addNeighbour(firstField, Side::SOUTH);
   secondField -> setToken(secondToken);
   secondToken -> setField(secondField);
 

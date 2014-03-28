@@ -37,11 +37,11 @@ BoardToken* ControllerTest::createBoardTokenWithToughness() {
 
 TEST_F(ControllerTest, shouldRotateToken) {
   BoardToken* token = new BoardToken(MOLOCH, "soldier");
-  EXPECT_EQ(NORTH, token -> getOrientation());
+  EXPECT_EQ(Side::NORTH, token -> getOrientation());
   controller -> rotateClockwise(token);
-  EXPECT_EQ(NORTH_EAST, token -> getOrientation());
+  EXPECT_EQ(Side::NORTH_EAST, token -> getOrientation());
   controller -> rotateAnticlockwise(token);
-  EXPECT_EQ(NORTH, token -> getOrientation());
+  EXPECT_EQ(Side::NORTH, token -> getOrientation());
   delete token;
 }
 
@@ -77,8 +77,8 @@ TEST_F(ControllerTest, shouldBombStrikeAreaOfOneFieldRadius) {
   Field* south = new Field;
   Field* farNorth = new Field;
   Field* farSouth = new Field;
-  epicentrum -> addNeighbour(north, NORTH);
-  epicentrum -> addNeighbour(south, SOUTH);
+  epicentrum -> addNeighbour(north, Side::NORTH);
+  epicentrum -> addNeighbour(south, Side::SOUTH);
   BoardToken* firstToken = createBoardTokenWithToughness();
   BoardToken* secondToken = createBoardTokenWithToughness();
   BoardToken* thirdToken = createBoardTokenWithToughness();

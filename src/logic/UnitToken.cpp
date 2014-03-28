@@ -19,11 +19,11 @@ UnitToken::~UnitToken()
 }
 
 Attributes* UnitToken::getEdgeAttributes(Side edge) {
-  return this -> edges[edge];
+  return this -> edges[(int) edge];
 }
 
 void UnitToken::setEdgeAttributes(Side edge, Attributes* attributes)
 {
-  edges[edge] = attributes;
+  edges[(int) edge] = attributes;
 }
 

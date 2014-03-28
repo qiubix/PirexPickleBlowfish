@@ -52,22 +52,22 @@ TEST_F(BoardTokenTest, testRemoveAttribute) {
 }
 
 TEST_F(BoardTokenTest, testGetOrientation) {
-  ASSERT_EQ(NORTH, token -> getOrientation());
+  ASSERT_EQ(Side::NORTH, token -> getOrientation());
 }
 
 TEST_F(BoardTokenTest, testSetOrientation) {
-  token -> setOrientation(SOUTH);
-  ASSERT_EQ(SOUTH, token -> getOrientation());
+  token -> setOrientation(Side::SOUTH);
+  ASSERT_EQ(Side::SOUTH, token -> getOrientation());
 }
 
 TEST_F(BoardTokenTest, testRotateClockwise) {
-  token -> setOrientation(SOUTH);
+  token -> setOrientation(Side::SOUTH);
   token -> rotateClockwise();
-  ASSERT_EQ(SOUTH_WEST, token -> getOrientation());
+  ASSERT_EQ(Side::SOUTH_WEST, token -> getOrientation());
 }
 
 TEST_F(BoardTokenTest, testRotateAnticlockwise) {
-  token -> setOrientation(SOUTH);
+  token -> setOrientation(Side::SOUTH);
   token -> rotateAnticlockwise();
-  ASSERT_EQ(SOUTH_EAST, token -> getOrientation());
+  ASSERT_EQ(Side::SOUTH_EAST, token -> getOrientation());
 }

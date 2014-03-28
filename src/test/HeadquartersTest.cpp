@@ -24,9 +24,13 @@ protected:
 
 //REVIEW: TODO: refactor all such loops to for(Side side = NORTH; side <= NORTH_WEST; side++)
 TEST_F(HeadquartersTest, shouldHaveAllEdgesActiveByDefault) {
-  for (int i=0; i<6; ++i) {
-    EXPECT_TRUE(hq -> isEdgeActive((Side) i));
-  }
+//  for (int i=0; i<6; ++i) {
+//  for (Side side = Side::NORTH; side <= Side::NORTH_WEST; ++side) {
+  Side side = Side::NORTH;
+    do {
+    EXPECT_TRUE(hq -> isEdgeActive(side));
+    ++side;
+  } while (side != Side::NORTH);
 }
 
 TEST_F(HeadquartersTest, shouldHaveInitiativeZeroByDefault) {
@@ -56,9 +60,9 @@ TEST_F(HeadquartersTest, shouldUpgradeUnitTokenEdgeAttribute) {
   Attribute* melee = new Attribute("melee", 1);
   Attributes* northEdgeAttributes = new Attributes;
   northEdgeAttributes -> addAttribute(MELEE, melee);
-  token -> setEdgeAttributes(NORTH, northEdgeAttributes);
+  token -> setEdgeAttributes(Side::NORTH, northEdgeAttributes);
   hegemonyHQ -> addBoardToken(token);
-  EXPECT_EQ(2, token -> getEdgeAttributes(NORTH) -> getAttribute(MELEE) -> getValue());
+  EXPECT_EQ(2, token -> getEdgeAttributes(Side::NORTH) -> getAttribute(MELEE) -> getValue());
 }
 
 TEST_F(HeadquartersTest, shouldAddAttributeToBoardToken) {

@@ -26,8 +26,8 @@ void Board::createMiddleRing() {
 }
 
 void Board::linkMiddleRing() {
-  Side ringEdge = SOUTH_EAST;
-  Side centerEdge = NORTH;
+  Side ringEdge = Side::SOUTH_EAST;
+  Side centerEdge = Side::NORTH;
   Field* current = middle -> getNeighbour(centerEdge);
   Field* next = current -> getNeighbour(ringEdge);
   while (next == NULL) {
@@ -57,9 +57,9 @@ void Board::createOutsideRing() {
 }
 
 void Board::linkOutsideRing() {
-  Side ringEdge = SOUTH_EAST;
-  Side centerEdge = NORTH;
-  Side middleEdge = NORTH;
+  Side ringEdge = Side::SOUTH_EAST;
+  Side centerEdge = Side::NORTH;
+  Side middleEdge = Side::NORTH;
   Field* current = middle -> getNeighbour(centerEdge) -> getNeighbour(middleEdge);
   Field* next = current -> getNeighbour(ringEdge);
   while (next == NULL) {
@@ -79,18 +79,34 @@ void Board::linkOutsideRing() {
 }
 
 Side Board::getOppositeEdge(Side edge) {
-  return (Side) ((edge+3)%6);
+//  return (Side) ((edge+3)%6);
+  switch(edge) {
+  case Side::NORTH: 
+    return Side::SOUTH;
+  case Side::NORTH_EAST: 
+    return Side::SOUTH_WEST;
+  case Side::SOUTH_EAST: 
+    return Side::NORTH_WEST;
+  case Side::SOUTH: 
+    return Side::NORTH;
+  case Side::SOUTH_WEST: 
+    return Side::NORTH_EAST;
+  case Side::NORTH_WEST: 
+    return Side::SOUTH_EAST;
+  }
 }
 
 Side Board::incrementEdge(Side edge) {
-  return (Side) ((edge+1)%6);
+//  return (Side) ((edge+1)%6);
+  return ++edge;
 }
 
 Side Board::decrementEdge(Side edge) {
-  if (edge == NORTH) {
-    return NORTH_WEST;
-  }
-  else {
-    return (Side) (edge-1);
-  }
+//  if (edge == NORTH) {
+//    return NORTH_WEST;
+//  }
+//  else {
+//    return (Side) (edge-1);
+//  }
+  return --edge;
 }

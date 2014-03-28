@@ -1,10 +1,11 @@
 #ifndef HEADQUARTERSTOKEN_HPP
 #define HEADQUARTERSTOKEN_HPP
 
+#include "Side.hpp"
 #include "UnitToken.hpp"
 #include "ModuleToken.hpp"
 
-static Side hqSides[] = {NORTH, NORTH_WEST, NORTH_EAST, SOUTH, SOUTH_WEST, SOUTH_EAST};
+static Side hqSides[] = {Side::NORTH, Side::NORTH_WEST, Side::NORTH_EAST, Side::SOUTH, Side::SOUTH_WEST, Side::SOUTH_EAST};
 static std::vector<Side> HQ_EDGES(hqSides, hqSides+sizeof(hqSides)/sizeof(Side));
 
 //REVIEW: FIXME: such inheritance have negative consequences (duplicated BoardToken::attributes)
