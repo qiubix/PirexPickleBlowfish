@@ -10,6 +10,7 @@ class PlayerTest : public Test
 {
 protected:
   PlayerTest(void) {
+    //TODO: REVIEW: FIXME: Are this tests independent?
     player = new Player(MOLOCH);
   }
   ~PlayerTest(void) {
@@ -77,4 +78,25 @@ TEST_F(PlayerTest, shouldDrawTokens) {
   delete token2;
   delete token3;
   delete token4;
+}
+
+TEST_F(PlayerTest, shouldGetTokenFromHand) {
+  Token* token1 = new Token(MOLOCH, "token");
+  Token* token2 = new Token(MOLOCH, "token");
+  Token* token3 = new Token(MOLOCH, "token");
+  player -> tokensOnHand.push_back(token1);
+  player -> tokensOnHand.push_back(token2);
+  player -> tokensOnHand.push_back(token3);
+  Token* specificToken = player -> getTokenOnHand(3);
+  ASSERT_EQ(NULL, specificToken);
+  specificToken = player -> getTokenOnHand(0);
+  ASSERT_EQ(specificToken, token1);
+  specificToken = player -> getTokenOnHand(1);
+  ASSERT_EQ(specificToken, token2);
+  specificToken = player -> getTokenOnHand(2);
+  ASSERT_EQ(specificToken, token3);
+
+  delete token1;
+  delete token2;
+  delete token3;
 }

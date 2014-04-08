@@ -12,8 +12,7 @@ Token* Player::getTokenOnHand(int position) {
     return NULL;
   }
   else {
-    //TODO: FIXME: Pick specific position!!
-    return tokensOnHand.front();
+    return tokensOnHand[position];
   }
 }
 
@@ -34,7 +33,7 @@ void Player::killToken(BoardToken* token) {
 }
 
 void Player::useToken(Token* token) {
-  std::list < Token* >::iterator it = tokensOnHand.begin();
+  std::vector < Token* >::iterator it = tokensOnHand.begin();
   while (it != tokensOnHand.end()) {
     if(*it == token) {
       tokensOnHand.erase(it);
@@ -46,7 +45,7 @@ void Player::useToken(Token* token) {
 }
 
 void Player::putOnBoard(BoardToken* token) {
-  std::list < Token* >::iterator it = tokensOnHand.begin();
+  std::vector < Token* >::iterator it = tokensOnHand.begin();
   while (it != tokensOnHand.end()) {
     if(*it == token) {
       tokensOnHand.erase(it);

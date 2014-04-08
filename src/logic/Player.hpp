@@ -2,7 +2,6 @@
 #define PLAYER_HPP
 
 #include <vector>
-#include <list>
 #include <gtest/gtest.h>
 #include "BoardToken.hpp"
 
@@ -27,13 +26,14 @@ public:
 private:
   Army army;
   std::vector <BoardToken*> tokensOnBoard;
-  std::list <Token*> tokensOnHand;
+  std::vector <Token*> tokensOnHand;
   std::vector <Token*> usedTokens;
 
   FRIEND_TEST(PlayerTest, shouldKillToken);
   FRIEND_TEST(PlayerTest, shouldUseToken);
   FRIEND_TEST(PlayerTest, shouldPutTokenOnBoard);
   FRIEND_TEST(PlayerTest, shouldDrawTokens);
+  FRIEND_TEST(PlayerTest, shouldGetTokenFromHand);
   FRIEND_TEST(ControllerTest, shouldActivateToken);
   FRIEND_TEST(ModelTest, shouldDestroyToken);
 };
