@@ -16,6 +16,7 @@ public:
   Token* getTokenOnHand(int position);
 
   void addTokens(std::vector<Token*> tokens);
+  void shuffleTokens(void);
 
   void killToken(BoardToken* token);
   void useToken(Token* token);

@@ -1,4 +1,5 @@
 #include "Player.hpp"
+#include <algorithm>
 
 Player::Player(Army army)
   : army(army) {}
@@ -18,6 +19,10 @@ Token* Player::getTokenOnHand(int position) {
 
 void Player::addTokens(std::vector<Token*> tokens) {
   this -> hiddenTokens = tokens;
+}
+
+void Player::shuffleTokens() {
+  std::random_shuffle(hiddenTokens.begin(), hiddenTokens.end());
 }
 
 void Player::killToken(BoardToken* token) {
