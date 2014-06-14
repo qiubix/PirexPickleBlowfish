@@ -36,7 +36,8 @@ void GameBox::addArmy(Army armyName, std::vector<Token *> army) {
   if(!containsArmy(armyName))
     armies.insert(std::make_pair(armyName, army));
 //    armies.insert(std::make_pair<Army, std::vector<Token *> >(armyName, army));
-  //TODO: else: throw ThereIsAlreadySuchArmyInTheBoxException
+  else
+    throw ThereIsAlreadySuchArmyInTheBoxException();
 }
 
 void  GameBox::addTokenToArmy(Army armyName, Token* token) {

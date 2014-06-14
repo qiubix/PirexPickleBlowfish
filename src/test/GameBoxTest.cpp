@@ -95,6 +95,23 @@ TEST_F(GameBoxTest, shouldAddArmyToTheBox) {
   ASSERT_EQ(tokenName, dynamic_cast<BoardToken *>(returnedArmy[0]) -> getName());
 }
 
+TEST_F(GameBoxTest, shouldThrowExceptionWhenAlreadySuchArmyInTheBox) {
+  GameBox gameBox;
+
+  //TODO: wrap in into a method
+  Army armyName = HEGEMONY;
+  std::string tokenName = "someToken";
+  Attributes attributes;
+  Token* tokenToInsert = new BoardToken(armyName, tokenName, &attributes);
+  std::vector<Token*> army;
+  army.push_back(tokenToInsert);
+
+  gameBox.addArmy(armyName, army);
+  ASSERT_EQ(1, gameBox.getArmiesCount());
+  ASSERT_THROW(gameBox.addArmy(armyName, army), ThereIsAlreadySuchArmyInTheBoxException);
+  ASSERT_EQ(1, gameBox.getArmiesCount());
+}
+
 TEST_F(GameBoxTest, shouldAddTokenToTheArmy) {
   GameBox gameBox;
   Army armyName = HEGEMONY;
