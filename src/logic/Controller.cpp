@@ -14,10 +14,9 @@ Board* Controller::getModelBoard() {
   return model -> getBoard();
 }
 
-//TODO: write test
 void Controller::initializeNewPlayer(Army army) {
   Player* player = new Player(army);
-  std::vector<Token*> tokens = GameBox::getInstance() -> getArmy(army);
+	std::vector<Token*> tokens = GameBox::getInstance() -> getArmy(army);
 //  std::random_shuffle (tokens.begin()+1, tokens.end());
   player -> addTokens(tokens);
   model -> addPlayer(player);

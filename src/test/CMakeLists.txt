@@ -28,7 +28,7 @@ set(LOADING_TOKENS_TEST_LIBS StringToEnumTranslator Json JsonParser GameBox Toke
 create_test(LoadingTokensTest "${LOADING_TOKENS_TEST_SRC}" "${LOADING_TOKENS_TEST_LIBS}")
 
 # tests connected with game logic
-set(LOGIC_TEST_LIBS logic)
+set(LOGIC_TEST_LIBS logic TokenLoader)
 
 set(MODEL_TEST_SRC FieldTest.cpp BoardTest.cpp PlayerTest.cpp ModelTest.cpp)
 create_test(ModelTest "${MODEL_TEST_SRC}" "${LOGIC_TEST_LIBS}")
@@ -63,3 +63,7 @@ install_file(oneChangeAttributeOfEnemyUpgradeParameters.json)
 install_file(changeArmyUpgradeParameters.json)
 install_file(twoAddAttributeUpgradesParameters.json)
 install_file(oneAddAttributeAndOneChangeAttributeUpgradesParameters.json)
+
+
+#army files to ControllerTest
+install_file(moloch.json)

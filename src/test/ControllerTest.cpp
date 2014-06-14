@@ -6,6 +6,7 @@ using ::testing::Test;
 #include "logic/Controller.hpp"
 #include "logic/Model.hpp"
 #include "logic/BoardToken.hpp"
+#include "setup/TokenLoader.hpp"
 
 //TODO: create mocks
 class ControllerTest : public Test
@@ -33,6 +34,19 @@ BoardToken* ControllerTest::createBoardTokenWithToughness() {
   BoardToken* token = new BoardToken(MOLOCH, "soldier");
   token -> addAttribute(TOUGHNESS, toughness);
   return token;
+}
+
+TEST_F(ControllerTest, shouldInitPlayerWithTokens) {
+  std::vector<std::string> armyFiles;
+  armyFiles.push_back("moloch.json");
+  TokenLoader::getInstance() -> loadArmies(armyFiles, controller);
+  controller -> initializeNewPlayer(MOLOCH);
+  Player* player = model -> getPlayer(MOLOCH);
+  int numberOfTokens = player -> hiddenTokens.size();
+  ASSERT_EQ(34, numberOfTokens);
+  Token* firstToken = player -> hiddenTokens[0];
+  EXPECT_EQ("Battle", firstToken -> getName());
+  EXPECT_EQ(MOLOCH, firstToken -> getArmy());
 }
 
 TEST_F(ControllerTest, shouldRotateToken) {
