@@ -22,10 +22,7 @@ protected:
   HeadquartersToken* hq;
 };
 
-//REVIEW: TODO: refactor all such loops to for(Side side = NORTH; side <= NORTH_WEST; side++)
 TEST_F(HeadquartersTest, shouldHaveAllEdgesActiveByDefault) {
-//  for (int i=0; i<6; ++i) {
-//  for (Side side = Side::NORTH; side <= Side::NORTH_WEST; ++side) {
 	Side side = Side::NORTH;
 	do {
 		EXPECT_TRUE(hq -> isEdgeActive(side));
@@ -40,9 +37,10 @@ TEST_F(HeadquartersTest, shouldHaveInitiativeZeroByDefault) {
 }
 
 TEST_F(HeadquartersTest, shouldAttackInAllDirections) {
-  for (int i=0; i<6; ++i) {
-    EXPECT_EQ(1, hq -> getEdgeAttributes((Side) i) -> getAttribute(MELEE) -> getValue());
-  }
+	Side side = Side::NORTH;
+	do {
+    EXPECT_EQ(1, hq -> getEdgeAttributes(side) -> getAttribute(MELEE) -> getValue());
+  } while (side != Side::NORTH);
 }
 
 TEST_F(HeadquartersTest, shouldUpgradeBoardTokenBaseAttribute) {

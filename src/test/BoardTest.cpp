@@ -20,7 +20,6 @@ protected:
   virtual void TearDown(void) {}
   
 	Side oppositeEdge(Side edge) {
-		//    return (Side) ((edge+3)%6);
 		switch(edge) {
 		case Side::NORTH: 
 			return Side::SOUTH;
@@ -37,14 +36,9 @@ protected:
 		}
   }
   Side increment(Side edge) {
-//    return (Side) ((edge+1)%6);
     return ++edge;
   }
   Side decrement(Side edge) {
-//    if (edge == 0) {
-//      return (Side) 5;
-//    }
-//    return (Side) (edge-1);
     return --edge;
   }
 
@@ -53,8 +47,6 @@ protected:
 
 TEST_F(BoardTest, shouldCreateMiddleRing) {
   Field* middle = board -> getMiddleField();
-//  for (int i=0; i<6; ++i) {
-//  for (Side side = Side::NORTH; side <= Side::NORTH_WEST; ++side) {
   Side side = Side::NORTH;
   do {
     Field* neighbour = middle -> getNeighbour(side);
@@ -71,8 +63,6 @@ TEST_F(BoardTest, shouldCreateMiddleRing) {
 }
 
 TEST_F(BoardTest, shouldCreateOutsideRing) {
-//  for (int i=0; i<6; ++i) {
-//  for (Side side = Side::NORTH; side <= Side::NORTH_WEST; ++side) {
   Side side = Side::NORTH;
   do {
     Field* root = board -> getMiddleField() -> getNeighbour(side);
