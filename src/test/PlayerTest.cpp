@@ -10,15 +10,17 @@ class PlayerTest : public Test
 {
 protected:
   PlayerTest(void) {
-    //TODO: REVIEW: FIXME: Are this tests independent?
-    player = new Player(MOLOCH);
   }
   ~PlayerTest(void) {
-    delete player;
   }
 
-  virtual void SetUp(void) {}
-  virtual void TearDown(void) {}
+  virtual void SetUp(void) {
+    player = new Player(MOLOCH);
+  }
+
+  virtual void TearDown(void) {
+    delete player;
+  }
 
   Player* player;
 };
