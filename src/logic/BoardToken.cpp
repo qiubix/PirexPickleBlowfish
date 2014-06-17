@@ -38,18 +38,10 @@ void BoardToken::downgradeAttributeBy(AttributeName name, int downgradeValue) {
 }
 
 void BoardToken::rotateClockwise(void) {
-//  int newOrientation = orientation;
-//  ++newOrientation %= 6;
-//  orientation = static_cast<Side>(newOrientation);
   ++orientation;
 }
 
 void BoardToken::rotateAnticlockwise(void) {
-//  int newOrientation = orientation;
-//  if (--newOrientation == -1) {
-//    newOrientation = 5;
-//  }
-//  orientation = static_cast<Side>(newOrientation);
   --orientation;
 }
 
