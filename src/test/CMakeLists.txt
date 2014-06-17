@@ -6,10 +6,10 @@ macro(create_test name src libs)
 endmacro(create_test)
 
 #tests connected with token loading
-set(JSON_PARSER_TEST_SRC JsonParserTest.cpp)
+set(JSON_PARSER_TEST_SRC JsonParserTest.cpp JsonConstants.hpp)
 set(JSON_PARSER_TEST_LIBS JsonParser)
 create_test(JsonParserTest "${JSON_PARSER_TEST_SRC}" "${JSON_PARSER_TEST_LIBS}")
-set(JSON_TEST_SRC JsonTest.cpp)
+set(JSON_TEST_SRC JsonTest.cpp JsonConstants.hpp)
 set(JSON_TEST_LIBS Json)
 create_test(JsonTest "${JSON_TEST_SRC}" "${JSON_TEST_LIBS}")
 

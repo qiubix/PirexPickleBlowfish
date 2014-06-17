@@ -4,24 +4,9 @@ using ::testing::Eq;
 using ::testing::Test;
 
 #include "setup/JsonParser.hpp"
+#include "JsonConstants.hpp"
 
 #include <fstream>
-
-//TODO: maybe extract this consts into header file because we use them in two files
-const std::string STRING_KEY = "string";
-const std::string INTEGER_KEY = "integer";
-const std::string BOOLEAN_KEY = "boolean";
-const std::string OBJECT_KEY = "object";
-const std::string ARRAY_KEY = "array";
-const std::string STRING_ARRAY_KEY = "stringArray";
-const std::string INTEGER_ARRAY_KEY = "notPresentKey";
-
-const std::string STRING_VALUE = "stringValue";
-const int INTEGER_VALUE = 5;
-const bool BOOLEAN_VALUE = true;
-
-const std::string JSON_FILE_TO_READ = "jsonToRead.json";
-const int numberOfObjectsInArray = 3;
 
 class JsonParserTest : public Test {
 protected:
