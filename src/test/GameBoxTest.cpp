@@ -16,6 +16,15 @@ protected:
 
   virtual void SetUp() {}
   virtual void TearDown() {}
+  
+  std::vector<Token*> createNewArmy(Army armyName) {
+		std::string tokenName = "someToken";
+		Attributes attributes;
+		Token* tokenToInsert = new BoardToken(armyName, tokenName, &attributes);
+		std::vector<Token*> army;
+		army.push_back(tokenToInsert);
+    return army;
+  }
 
 };
 
