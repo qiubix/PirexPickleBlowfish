@@ -8,7 +8,7 @@
 class ModuleToken : public Module
 {
 public:
-  ModuleToken(Army army, std::string name, Attributes* attributes, std::vector<Side> activeEdges);
+  ModuleToken(Army army, std::string name, Attributes* attributes = NULL, std::vector<Side> activeEdges = NULL);
   virtual ~ModuleToken() {}
 
   void addBoardToken(BoardToken* token);

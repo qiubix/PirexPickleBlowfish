@@ -24,6 +24,6 @@ Attributes* UnitToken::getEdgeAttributes(Side edge) {
 
 void UnitToken::setEdgeAttributes(Side edge, Attributes* attributes)
 {
-  edges[(int) edge] = attributes;
+	edges[(int) edge] = attributes;
 }
 
