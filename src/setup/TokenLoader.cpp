@@ -228,10 +228,6 @@ void TokenLoader::loadMelee(UnitToken* token, Json& meleeParameters) {
   for(int currentSide = 0; currentSide < sides.size(); currentSide++) {
     Side side = StringToEnumTranslator::getInstance() -> getSide(sides[currentSide]);
     int value = meleeParameters.getIntegerValue(sides[currentSide]);
-    //FIXME: move this to Attributes class
-    if(token -> getEdgeAttributes(side) == NULL) {
-      token -> setEdgeAttributes(side, new Attributes());
-    }
     token -> getEdgeAttributes(side) -> addAttribute(attributeName, new Attribute("melee", value));
   }
 }
@@ -242,10 +238,6 @@ void TokenLoader::loadRanged(UnitToken* token, Json& rangedParameters) {
   for(int currentSide = 0; currentSide < sides.size(); currentSide++) {
     Side side = StringToEnumTranslator::getInstance() -> getSide(sides[currentSide]);
     int value = rangedParameters.getIntegerValue(sides[currentSide]);
-    //FIXME: move this to Attributes class
-    if(token -> getEdgeAttributes(side) == NULL) {
-      token -> setEdgeAttributes(side, new Attributes());
-    }
     token -> getEdgeAttributes(side) -> addAttribute(attributeName, new Attribute("ranged", value));
   }
 }
@@ -255,10 +247,6 @@ void TokenLoader::loadShield(UnitToken* token, std::vector<std::string> shieldPa
   AttributeName shield = StringToEnumTranslator::getInstance() -> getAttributeName("shield");
   for(int currentShieldParameter = 0; currentShieldParameter < shieldParameters.size(); currentShieldParameter++) {
     Side side = StringToEnumTranslator::getInstance() -> getSide(shieldParameters[currentShieldParameter]);
-    //FIXME: move this to Attributes class
-    if(token -> getEdgeAttributes(side) == NULL) {
-      token -> setEdgeAttributes(side, new Attributes());
-    }
     token -> getEdgeAttributes(side) -> addAttribute(shield, new Attribute("shield", 1));
   }
 }
@@ -267,10 +255,6 @@ void TokenLoader::loadNet(UnitToken* token, std::vector<std::string> netParamete
   AttributeName net = StringToEnumTranslator::getInstance() -> getAttributeName("net");
   for(int currentNetParameter = 0; currentNetParameter < netParameters.size(); currentNetParameter++) {
     Side side = StringToEnumTranslator::getInstance() -> getSide(netParameters[currentNetParameter]);
-    //FIXME: move this to Attributes class
-    if(token -> getEdgeAttributes(side) == NULL) {
-      token -> setEdgeAttributes(side, new Attributes());
-    }
     token -> getEdgeAttributes(side) -> addAttribute(net, new Attribute("net", 1));
   }
 }

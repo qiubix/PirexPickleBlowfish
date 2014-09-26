@@ -312,10 +312,6 @@ TEST_F(TokenLoaderTest, shouldAddShieldAttributesToToken) {
   Attributes* attributes = new Attributes();
   UnitToken* token = new UnitToken(army, name, attributes);
 
-  for(int side = 0; side < 6; side++) {
-    ASSERT_EQ(NULL, token -> getEdgeAttributes((Side)side));
-  }
-
   TokenLoader::getInstance() -> loadShield(token, shieldParameters);
 
   Attribute * northSideShieldAttribute = token -> getEdgeAttributes(Side::NORTH) -> getAttribute(SHIELD);
@@ -338,10 +334,6 @@ TEST_F(TokenLoaderTest, shouldAddNetAttributesToToken) {
   std::string name = "someName";
   Attributes* attributes = new Attributes();
   UnitToken* token = new UnitToken(army, name, attributes);
-
-  for(int side = 0; side < 6; side++) {
-    ASSERT_EQ(NULL, token -> getEdgeAttributes((Side)side));
-  }
 
   TokenLoader::getInstance() -> loadNet(token, netParameters);
 
