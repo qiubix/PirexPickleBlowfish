@@ -97,16 +97,9 @@ Side Board::getOppositeEdge(Side edge) {
 }
 
 Side Board::incrementEdge(Side edge) {
-//  return (Side) ((edge+1)%6);
   return ++edge;
 }
 
 Side Board::decrementEdge(Side edge) {
-//  if (edge == NORTH) {
-//    return NORTH_WEST;
-//  }
-//  else {
-//    return (Side) (edge-1);
-//  }
   return --edge;
 }
