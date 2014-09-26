@@ -21,7 +21,10 @@ build/
 *.autosave
 
 # User files from QtCreator
-CMakeLists.txt.user
+CMakeLists.txt.user*
+
+# IntelliJ files
+.idea/
 
 # cmake temp files
 cmake/
