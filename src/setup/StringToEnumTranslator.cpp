@@ -1,10 +1,10 @@
 #include "StringToEnumTranslator.hpp"
 
-StringToEnumTranslator * StringToEnumTranslator::instance = NULL;
+StringToEnumTranslator * StringToEnumTranslator::instance = nullptr;
 
 StringToEnumTranslator * StringToEnumTranslator::getInstance()
 {
-  if(instance == NULL) {
+  if(instance == nullptr) {
     instance = new StringToEnumTranslator();
   }
   return instance;

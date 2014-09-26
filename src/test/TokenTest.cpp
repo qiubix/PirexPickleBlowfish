@@ -83,7 +83,7 @@ protected:
 
 TEST_F(AttributesTest, shouldCreateAttributesObjectWithNoAttributes) {
   Attributes* attributes = new Attributes();
-  ASSERT_NE((Attributes *)NULL, attributes);
+  ASSERT_NE((Attributes *)nullptr, attributes);
   ASSERT_TRUE(attributes -> empty());
 }
 

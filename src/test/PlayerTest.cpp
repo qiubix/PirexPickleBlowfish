@@ -90,7 +90,7 @@ TEST_F(PlayerTest, shouldGetTokenFromHand) {
   player -> tokensOnHand.push_back(token2);
   player -> tokensOnHand.push_back(token3);
   Token* specificToken = player -> getTokenOnHand(3);
-  ASSERT_EQ(NULL, specificToken);
+  ASSERT_EQ(nullptr, specificToken);
   specificToken = player -> getTokenOnHand(0);
   ASSERT_EQ(specificToken, token1);
   specificToken = player -> getTokenOnHand(1);

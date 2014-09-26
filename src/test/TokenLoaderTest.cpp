@@ -67,7 +67,7 @@ TEST_F(TokenLoaderTest, shouldLoadModuleAttributes) {
   createShortJsonFile("moduleWithAttribute.json", "{\"attributes\": [{\"name\": \"" + ATTRIBUTE + "\", \"value\":1}]}");
   Json* moduleWithAttribute = JsonParser::getInstance() -> parse("moduleWithAttribute.json");
   Attributes* moduleWithAttributeAttributes = TokenLoader::getInstance() -> loadModuleAtrributes(moduleWithAttribute->getArray("attributes"));
-  ASSERT_NE((Attributes*)NULL, moduleWithAttributeAttributes);
+  ASSERT_NE((Attributes*)nullptr, moduleWithAttributeAttributes);
   ASSERT_FALSE(moduleWithAttributeAttributes -> empty());
   AttributeName attributeName = StringToEnumTranslator::getInstance() -> getAttributeName(ATTRIBUTE);
   Attribute* moduleAttribute = moduleWithAttributeAttributes -> getAttribute(attributeName);
@@ -76,7 +76,7 @@ TEST_F(TokenLoaderTest, shouldLoadModuleAttributes) {
   createShortJsonFile("moduleWithNoAttribute.json", "{}");
   Json* moduleWithNoAttribute = JsonParser::getInstance() -> parse("moduleWithNoAttribute.json");
   Attributes* moduleWithNoAttributeAttributes = TokenLoader::getInstance() -> loadModuleAtrributes(moduleWithNoAttribute->getArray("attributes"));
-  ASSERT_NE((Attributes*)NULL, moduleWithNoAttributeAttributes);
+  ASSERT_NE((Attributes*)nullptr, moduleWithNoAttributeAttributes);
   ASSERT_TRUE(moduleWithNoAttributeAttributes -> empty());
 }
 
@@ -162,12 +162,12 @@ TEST_F(TokenLoaderTest, shouldDecorateModuleWithTwoAddAttributeUpgrades) {
   ASSERT_FALSE(dynamic_cast<Upgrader *>(module) -> isAffectingEnemies());
 
   UnitToken* unit = createUnitToken();
-  ASSERT_EQ((Attribute *)NULL, unit -> getAttribute(MOTHER));
-  ASSERT_EQ((Attribute *)NULL, unit -> getAttribute(QUARTERMASTER));
+  ASSERT_EQ((Attribute *)nullptr, unit -> getAttribute(MOTHER));
+  ASSERT_EQ((Attribute *)nullptr, unit -> getAttribute(QUARTERMASTER));
 
   module -> addBoardToken(unit);
-  ASSERT_NE((Attribute *)NULL, unit -> getAttribute(MOTHER));
-  ASSERT_NE((Attribute *)NULL, unit -> getAttribute(QUARTERMASTER));
+  ASSERT_NE((Attribute *)nullptr, unit -> getAttribute(MOTHER));
+  ASSERT_NE((Attribute *)nullptr, unit -> getAttribute(QUARTERMASTER));
 }
 
 TEST_F(TokenLoaderTest, shouldDecorateModuleWithOneAddAttributeAndOneChangeAttributeUpgrades) {
@@ -181,11 +181,11 @@ TEST_F(TokenLoaderTest, shouldDecorateModuleWithOneAddAttributeAndOneChangeAttri
 
   UnitToken* unit = createUnitToken();
   ASSERT_EQ(1, unit -> getAttribute(INITIATIVE) -> getValue());
-  ASSERT_EQ((Attribute *)NULL, unit -> getAttribute(MOTHER));
+  ASSERT_EQ((Attribute *)nullptr, unit -> getAttribute(MOTHER));
 
   module -> addBoardToken(unit);
   ASSERT_EQ(2, unit -> getAttribute(INITIATIVE) -> getValue());
-  ASSERT_NE((Attribute *)NULL, unit -> getAttribute(MOTHER));
+  ASSERT_NE((Attribute *)nullptr, unit -> getAttribute(MOTHER));
 }
 
 //TODO: maybe split this test into three tests
@@ -315,12 +315,12 @@ TEST_F(TokenLoaderTest, shouldAddShieldAttributesToToken) {
   TokenLoader::getInstance() -> loadShield(token, shieldParameters);
 
   Attribute * northSideShieldAttribute = token -> getEdgeAttributes(Side::NORTH) -> getAttribute(SHIELD);
-  ASSERT_NE((Attribute*)NULL, northSideShieldAttribute);
+  ASSERT_NE((Attribute*)nullptr, northSideShieldAttribute);
   ASSERT_EQ("shield", northSideShieldAttribute -> getName());
   ASSERT_EQ(1, northSideShieldAttribute -> getValue());
 
   Attribute * northEastSideShieldAttribute = token -> getEdgeAttributes(Side::NORTH_EAST) -> getAttribute(SHIELD);
-  ASSERT_NE((Attribute*)NULL, northEastSideShieldAttribute);
+  ASSERT_NE((Attribute*)nullptr, northEastSideShieldAttribute);
   ASSERT_EQ("shield", northEastSideShieldAttribute -> getName());
   ASSERT_EQ(1, northEastSideShieldAttribute -> getValue());
 }
@@ -338,12 +338,12 @@ TEST_F(TokenLoaderTest, shouldAddNetAttributesToToken) {
   TokenLoader::getInstance() -> loadNet(token, netParameters);
 
   Attribute * northSideNetAttribute = token -> getEdgeAttributes(Side::NORTH) -> getAttribute(NET);
-  ASSERT_NE((Attribute*)NULL, northSideNetAttribute);
+  ASSERT_NE((Attribute*)nullptr, northSideNetAttribute);
   ASSERT_EQ("net", northSideNetAttribute -> getName());
   ASSERT_EQ(1, northSideNetAttribute -> getValue());
 
   Attribute * northEastSideNetAttribute = token -> getEdgeAttributes(Side::NORTH_EAST) -> getAttribute(NET);
-  ASSERT_NE((Attribute*)NULL, northEastSideNetAttribute);
+  ASSERT_NE((Attribute*)nullptr, northEastSideNetAttribute);
   ASSERT_EQ("net", northEastSideNetAttribute -> getName());
   ASSERT_EQ(1, northEastSideNetAttribute -> getValue());
 }

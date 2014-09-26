@@ -11,7 +11,7 @@ class HeadquartersTest : public Test
 {
 protected:
   HeadquartersTest(void) {
-    hq = new HeadquartersToken(HEGEMONY, "HQ", NULL);
+    hq = new HeadquartersToken(HEGEMONY, "HQ", nullptr);
   }
   ~HeadquartersTest(void) {
     delete hq;
@@ -23,28 +23,28 @@ protected:
 };
 
 TEST_F(HeadquartersTest, shouldHaveAllEdgesActiveByDefault) {
-	Side side = Side::NORTH;
-	do {
-		EXPECT_TRUE(hq -> isEdgeActive(side));
-		++side;
-	} while (side != Side::NORTH);
+  Side side = Side::NORTH;
+  do {
+    EXPECT_TRUE(hq -> isEdgeActive(side));
+    ++side;
+  } while (side != Side::NORTH);
 }
 
 TEST_F(HeadquartersTest, shouldHaveInitiativeZeroByDefault) {
   Attribute* initiative = hq -> UnitToken::getAttribute(INITIATIVE);
-  ASSERT_NE((Attribute*) NULL, initiative);
+  ASSERT_NE((Attribute*) nullptr, initiative);
   EXPECT_EQ(0, initiative -> getValue());
 }
 
 TEST_F(HeadquartersTest, shouldAttackInAllDirections) {
-	Side side = Side::NORTH;
-	do {
+  Side side = Side::NORTH;
+  do {
     EXPECT_EQ(1, hq -> getEdgeAttributes(side) -> getAttribute(MELEE) -> getValue());
   } while (side != Side::NORTH);
 }
 
 TEST_F(HeadquartersTest, shouldUpgradeBoardTokenBaseAttribute) {
-  Module* borgoHQ = new ChangeAttributeUpgrader(new HeadquartersToken(BORGO, "HQ", NULL), INITIATIVE, 1);
+  Module* borgoHQ = new ChangeAttributeUpgrader(new HeadquartersToken(BORGO, "HQ", nullptr), INITIATIVE, 1);
   BoardToken* token = new BoardToken(BORGO, "token", new Attributes);
   Attribute* initiative = new Attribute("initiative", 1);
   token -> addAttribute(INITIATIVE, initiative);
@@ -64,9 +64,9 @@ TEST_F(HeadquartersTest, shouldUpgradeUnitTokenEdgeAttribute) {
 }
 
 TEST_F(HeadquartersTest, shouldAddAttributeToBoardToken) {
-  Module* outpostHQ = new AddAttributeUpgrader(new HeadquartersToken(OUTPOST, "HQ", NULL), MOTHER, "mother");
+  Module* outpostHQ = new AddAttributeUpgrader(new HeadquartersToken(OUTPOST, "HQ", nullptr), MOTHER, "mother");
   BoardToken* token = new BoardToken(OUTPOST, "token", new Attributes);
   outpostHQ -> addBoardToken(token);
-  ASSERT_NE((Attribute*) NULL, token -> getAttribute(MOTHER));
+  ASSERT_NE((Attribute*) nullptr, token -> getAttribute(MOTHER));
   EXPECT_EQ(1, token -> getAttribute(MOTHER) -> getValue());
 }

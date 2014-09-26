@@ -32,7 +32,7 @@ void Board::linkMiddleRing() {
   Side centerEdge = Side::NORTH;
   Field* current = middle -> getNeighbour(centerEdge);
   Field* next = current -> getNeighbour(ringEdge);
-  while (next == NULL) {
+  while (next == nullptr) {
     ++centerEdge;
     next = middle -> getNeighbour(centerEdge);
     current -> addNeighbour(next, ringEdge);
@@ -69,7 +69,7 @@ void Board::linkOutsideRing() {
   Side middleEdge = Side::NORTH;
   Field* current = middle -> getNeighbour(centerEdge) -> getNeighbour(middleEdge);
   Field* next = current -> getNeighbour(ringEdge);
-  while (next == NULL) {
+  while (next == nullptr) {
     ++middleEdge;
     next = middle -> getNeighbour(centerEdge) -> getNeighbour(middleEdge);
     current -> addNeighbour(next, ringEdge);

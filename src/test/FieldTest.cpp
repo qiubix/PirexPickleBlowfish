@@ -56,7 +56,7 @@ TEST_F(FieldTest, shouldGetNeighbour) {
   EXPECT_EQ("first token", field -> getToken() -> getName());
   field -> addNeighbour(newNeighbour, Side::NORTH);
   Field* neighbour = field -> getNeighbour(Side::SOUTH);
-  EXPECT_EQ(NULL, neighbour);
+  EXPECT_EQ(nullptr, neighbour);
   neighbour = field -> getNeighbour(Side::NORTH);
   ASSERT_EQ(newNeighbour, neighbour);
   EXPECT_EQ("second token", neighbour -> getToken() -> getName());

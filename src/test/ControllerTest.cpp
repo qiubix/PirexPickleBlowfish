@@ -74,7 +74,7 @@ TEST_F(ControllerTest, shouldMoveToken) {
   token -> setField(field);
   field -> setToken(token);
   controller -> move(token, destination);
-  EXPECT_EQ(NULL, field -> getToken());
+  EXPECT_EQ(nullptr, field -> getToken());
   EXPECT_EQ(destination, token -> getField());
   EXPECT_EQ(token, destination -> getToken());
 }

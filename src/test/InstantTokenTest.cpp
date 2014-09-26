@@ -57,7 +57,7 @@ TEST_F(InstantTokenTest, shouldMoveToken) {
   movement -> setDestination(destination);
   movement -> action();
   EXPECT_NE(field, token -> getField());
-  EXPECT_EQ(NULL, field -> getToken());
+  EXPECT_EQ(nullptr, field -> getToken());
   EXPECT_EQ(destination, token -> getField());
   EXPECT_EQ(token, destination -> getToken());
   delete field;

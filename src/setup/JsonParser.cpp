@@ -3,11 +3,11 @@
 #include <QFile>
 #include <QJsonDocument>
 
-JsonParser * JsonParser::instance = NULL;
+JsonParser * JsonParser::instance = nullptr;
 
 JsonParser * JsonParser::getInstance()
 {
-  if(instance == NULL) {
+  if(instance == nullptr) {
     instance = new JsonParser();
   }
   return instance;

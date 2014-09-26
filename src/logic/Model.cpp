@@ -15,7 +15,7 @@ GameState Model::getGameState() {
 
 Player* Model::getCurrentPlayer() {
   if (players.empty()) {
-    return NULL;
+    return nullptr;
   }
   else {
     return players[currentPlayerId];
@@ -28,7 +28,7 @@ Player* Model::getPlayer(Army army) {
       return players.at(i);
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 int Model::getPlayersQuantity() {
@@ -52,10 +52,10 @@ void Model::moveToNextPlayer() {
 
 void Model::killToken(BoardToken* token) {
   Field* field = token -> getField();
-  if (field != NULL) {
-    field->setToken(NULL);
+  if (field != nullptr) {
+    field->setToken(nullptr);
   }
-  token->setField(NULL);
+  token->setField(nullptr);
   Player* player = getPlayer(token -> getArmy());
   player -> killToken(token);
 }

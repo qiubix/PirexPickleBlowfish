@@ -10,7 +10,7 @@ Army Player::getArmy() {
 
 Token* Player::getTokenOnHand(int position) {
   if (position > 2) {
-    return NULL;
+    return nullptr;
   }
   else {
     return tokensOnHand[position];

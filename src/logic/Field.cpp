@@ -1,10 +1,10 @@
 #include "Field.hpp"
 
 Field::Field(void) {
-  token = NULL;
+  token = nullptr;
   neighbours = new Field*[6];
   for (int i=0; i<6; ++i) {
-    neighbours[i] = NULL;
+    neighbours[i] = nullptr;
   }
 }
 

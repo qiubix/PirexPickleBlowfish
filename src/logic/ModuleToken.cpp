@@ -3,7 +3,7 @@
 ModuleToken::ModuleToken(Army army, std::string name, Attributes* attributes, std::vector<Side> activeEdges)
   : Module(army, name, attributes)
 {
-	this -> activeEdges = activeEdges;
+  this -> activeEdges = activeEdges;
 }
 
 void ModuleToken::addBoardToken(BoardToken* token)

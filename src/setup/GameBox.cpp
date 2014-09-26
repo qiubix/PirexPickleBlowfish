@@ -4,11 +4,11 @@
 
 #include <exception>
 
-GameBox * GameBox::instance = NULL;
+GameBox * GameBox::instance = nullptr;
 
 GameBox * GameBox::getInstance()
 {
-  if(instance == NULL) {
+  if(instance == nullptr) {
     instance = new GameBox();
   }
   return instance;

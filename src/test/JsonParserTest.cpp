@@ -11,11 +11,11 @@ using ::testing::Test;
 class JsonParserTest : public Test {
 protected:
   JsonParserTest() {
-    returnedJson = NULL;
+    returnedJson = nullptr;
   }
 
   virtual ~JsonParserTest() {
-    if (returnedJson != NULL)
+    if (returnedJson != nullptr)
       delete returnedJson;
   }
 

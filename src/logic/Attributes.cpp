@@ -16,7 +16,7 @@ Attribute* Attributes::getAttribute(AttributeName name) {
     return attributes.at(name);
   }
   else {
-    return NULL;
+    return nullptr;
   }
 }
 
@@ -34,7 +34,7 @@ void Attributes::removeAttribute(AttributeName name) {
   if (it == attributes.end()) {
     return;
   } else {
-		attributes.erase(attributes.find(name));
+    attributes.erase(attributes.find(name));
   }
 }
 

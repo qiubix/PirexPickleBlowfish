@@ -14,7 +14,7 @@ static std::vector<Side> HQ_EDGES(hqSides, hqSides+sizeof(hqSides)/sizeof(Side))
 class HeadquartersToken : public UnitToken, public ModuleToken
 {
 public:
-  HeadquartersToken(Army army, std::string name, Attributes* attributes = NULL, std::vector<Side> edges = HQ_EDGES);
+  HeadquartersToken(Army army, std::string name, Attributes* attributes = nullptr, std::vector<Side> edges = HQ_EDGES);
   ~HeadquartersToken() {}
 };
 

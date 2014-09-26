@@ -9,18 +9,18 @@ ChangeAttributeUpgrader::ChangeAttributeUpgrader(Module* module, AttributeName n
 void ChangeAttributeUpgrader::upgrade(BoardToken* token)
 {
   Attribute* attribute = token -> getAttribute(attributeToChange);
-  if (attribute != NULL) {
+  if (attribute != nullptr) {
     attribute -> upgradeBy(changeValue);
     return;
   }
   UnitToken* unit = dynamic_cast<UnitToken*>(token);
-  if (unit != NULL) {
+  if (unit != nullptr) {
     for (int i=0; i<6; ++i) {
       Attributes* sideAttributes = unit -> getEdgeAttributes(Side(i));
       Attribute* toUpgrade;
-      if (sideAttributes != NULL) {
+      if (sideAttributes != nullptr) {
         toUpgrade = sideAttributes -> getAttribute(attributeToChange);
-        if (toUpgrade != NULL) {
+        if (toUpgrade != nullptr) {
           toUpgrade -> upgradeBy(changeValue);
         }
       }
@@ -31,18 +31,18 @@ void ChangeAttributeUpgrader::upgrade(BoardToken* token)
 void ChangeAttributeUpgrader::downgrade(BoardToken* token)
 {
   Attribute* attribute = token -> getAttribute(attributeToChange);
-  if (attribute != NULL) {
+  if (attribute != nullptr) {
     attribute -> downgradeBy(changeValue);
     return;
   }
   UnitToken* unit = dynamic_cast<UnitToken*>(token);
-  if (unit != NULL) {
+  if (unit != nullptr) {
     for (int i=0; i<6; ++i) {
       Attributes* sideAttributes = unit -> getEdgeAttributes(Side(i));
       Attribute* toUpgrade;
-      if (sideAttributes != NULL) {
+      if (sideAttributes != nullptr) {
         toUpgrade = sideAttributes -> getAttribute(attributeToChange);
-        if (toUpgrade != NULL) {
+        if (toUpgrade != nullptr) {
           toUpgrade -> downgradeBy(changeValue);
         }
       }

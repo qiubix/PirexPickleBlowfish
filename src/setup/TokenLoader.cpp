@@ -1,7 +1,5 @@
 #include "TokenLoader.hpp"
 
-#include <cstdlib> //NULL
-
 #include "JsonParser.hpp"
 
 #include "logic/ChangeArmyUpgrader.hpp"
@@ -10,11 +8,11 @@
 
 #include "GameBox.hpp"
 
-TokenLoader * TokenLoader::instance = NULL;
+TokenLoader * TokenLoader::instance = nullptr;
 
 TokenLoader * TokenLoader::getInstance()
 {
-  if(instance == NULL) {
+  if(instance == nullptr) {
     instance = new TokenLoader();
   }
   return instance;
@@ -48,7 +46,7 @@ void TokenLoader::loadHeadquarters(Army army, Json headquartersParameters) {
 }
 
 Module* TokenLoader::createHeadquarters(Army army, Json& upgradeParameters) {
-  HeadquartersToken* headquarters = new HeadquartersToken(army, "Headquarters", NULL);
+  HeadquartersToken* headquarters = new HeadquartersToken(army, "Headquarters", nullptr);
   std::vector<std::string> upgrades = upgradeParameters.getKeys();
   AttributeName attributeName = StringToEnumTranslator::getInstance() -> getAttributeName(upgrades[0]);
   int value = upgradeParameters.getIntegerValue(upgrades[0]);
@@ -130,7 +128,7 @@ Attributes* TokenLoader::loadModuleAtrributes(std::vector<Json> attributes) {
 
 //TODO: add validation (name must exist)
 Attribute* TokenLoader::loadModuleAttribute(Json attribute) {
-  Attribute* moduleAttribute = NULL;
+  Attribute* moduleAttribute = nullptr;
   std::string name = attribute.getStringValue("name");
   int value = attribute.getIntegerValue("value");
   moduleAttribute = new Attribute(name, value);
