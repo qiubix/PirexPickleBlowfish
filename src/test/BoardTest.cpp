@@ -19,22 +19,6 @@ protected:
   virtual void SetUp(void) {}
   virtual void TearDown(void) {}
   
-	Side oppositeEdge(Side edge) {
-		switch(edge) {
-		case Side::NORTH: 
-			return Side::SOUTH;
-		case Side::NORTH_EAST: 
-			return Side::SOUTH_WEST;
-		case Side::SOUTH_EAST: 
-			return Side::NORTH_WEST;
-		case Side::SOUTH: 
-			return Side::NORTH;
-		case Side::SOUTH_WEST: 
-			return Side::NORTH_EAST;
-		case Side::NORTH_WEST: 
-			return Side::SOUTH_EAST;
-		}
-  }
   Side increment(Side edge) {
     return ++edge;
   }
@@ -50,7 +34,7 @@ TEST_F(BoardTest, shouldCreateMiddleRing) {
   Side side = Side::NORTH;
   do {
     Field* neighbour = middle -> getNeighbour(side);
-    Side neighbourEdge = oppositeEdge(side);
+    Side neighbourEdge = !side;
     EXPECT_EQ(middle, neighbour -> getNeighbour(neighbourEdge));
 
     Field* previousInRing = middle -> getNeighbour(decrement(side));
@@ -70,13 +54,13 @@ TEST_F(BoardTest, shouldCreateOutsideRing) {
     Field* first = root -> getNeighbour(side);
     Field* second = root -> getNeighbour(increment(side));
     Field* third = rootNext -> getNeighbour(increment(side));
-    EXPECT_EQ(root, first -> getNeighbour(oppositeEdge(side)));
-    EXPECT_EQ(root, second -> getNeighbour(oppositeEdge(increment(side))));
+    EXPECT_EQ(root, first -> getNeighbour(!side) );
+    EXPECT_EQ(root, second -> getNeighbour(!(increment(side))) );
 
-    EXPECT_EQ(second, first -> getNeighbour(oppositeEdge(decrement(side))));
-    EXPECT_EQ(first, second -> getNeighbour(decrement(side)));
-    EXPECT_EQ(third, second -> getNeighbour(oppositeEdge(decrement(side))));
-    EXPECT_EQ(second, third -> getNeighbour(decrement(side)));
+    EXPECT_EQ(second, first -> getNeighbour(!(decrement(side))) );
+    EXPECT_EQ(first, second -> getNeighbour(decrement(side)) );
+    EXPECT_EQ(third, second -> getNeighbour(!(decrement(side))) );
+    EXPECT_EQ(second, third -> getNeighbour(decrement(side)) );
     ++side;
   } while (side != Side::NORTH);
 }

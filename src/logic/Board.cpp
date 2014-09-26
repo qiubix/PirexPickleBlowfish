@@ -16,12 +16,14 @@ Field* Board::getMiddleField() {
 }
 
 void Board::createMiddleRing() {
-  for (int i=0; i<6; ++i) {
+  Side side = Side::NORTH;
+  do {
     Field* newField = new Field;
-    middle -> addNeighbour(newField, (Side) i);
-    newField -> addNeighbour(middle, getOppositeEdge((Side) i));
+    middle -> addNeighbour(newField, side);
+    newField -> addNeighbour(middle, !side);
     fields.push_back(newField);
-  }
+    ++side;
+  } while (side != Side::NORTH);
   linkMiddleRing();
 }
 
@@ -31,28 +33,33 @@ void Board::linkMiddleRing() {
   Field* current = middle -> getNeighbour(centerEdge);
   Field* next = current -> getNeighbour(ringEdge);
   while (next == NULL) {
-    centerEdge = incrementEdge(centerEdge);
+    ++centerEdge;
     next = middle -> getNeighbour(centerEdge);
     current -> addNeighbour(next, ringEdge);
-    next -> addNeighbour(current, getOppositeEdge(ringEdge));
+    next -> addNeighbour(current, !ringEdge);
     current = next;
-    ringEdge = incrementEdge(ringEdge);
+    ++ringEdge;
     next = current -> getNeighbour(ringEdge);
   }
 }
 
+//FIXME: incrementation side effects - should pass value as argument, not reference
 void Board::createOutsideRing() {
-  for (int i=0; i<6; ++i) {
-    Field* root = middle -> getNeighbour((Side) i);
+  Side side = Side::NORTH;
+  do {
+    Field* root = middle -> getNeighbour(side);
     Field* first = new Field;
     Field* second = new Field;
-    root -> addNeighbour(first, (Side) i);
-    root -> addNeighbour(second, incrementEdge((Side) i));
-    first -> addNeighbour(root, getOppositeEdge((Side) i));
-    second -> addNeighbour(root, getOppositeEdge(incrementEdge((Side) i)));
+    root -> addNeighbour(first, side);
+    root -> addNeighbour(second, ++side);
+    --side;
+    first -> addNeighbour(root, !side);
+    second -> addNeighbour(root, !(++side));
+    --side;
     fields.push_back(first);
     fields.push_back(second);
-  }
+    ++side;
+  } while (side != Side::NORTH);
   linkOutsideRing();
 }
 
@@ -63,43 +70,17 @@ void Board::linkOutsideRing() {
   Field* current = middle -> getNeighbour(centerEdge) -> getNeighbour(middleEdge);
   Field* next = current -> getNeighbour(ringEdge);
   while (next == NULL) {
-    middleEdge = incrementEdge(middleEdge);
+    ++middleEdge;
     next = middle -> getNeighbour(centerEdge) -> getNeighbour(middleEdge);
     current -> addNeighbour(next, ringEdge);
-    next -> addNeighbour(current, getOppositeEdge(ringEdge));
+    next -> addNeighbour(current, !ringEdge);
     current = next;
-    centerEdge = incrementEdge(centerEdge);
+    ++centerEdge;
     next = middle -> getNeighbour(centerEdge) -> getNeighbour(middleEdge);
     current -> addNeighbour(next, ringEdge);
-    next -> addNeighbour(current, getOppositeEdge(ringEdge));
+    next -> addNeighbour(current, !ringEdge);
     current = next;
-    ringEdge = incrementEdge(ringEdge);
+    ++ringEdge;
     next = current -> getNeighbour(ringEdge);
   }
-}
-
-Side Board::getOppositeEdge(Side edge) {
-//  return (Side) ((edge+3)%6);
-  switch(edge) {
-  case Side::NORTH: 
-    return Side::SOUTH;
-  case Side::NORTH_EAST: 
-    return Side::SOUTH_WEST;
-  case Side::SOUTH_EAST: 
-    return Side::NORTH_WEST;
-  case Side::SOUTH: 
-    return Side::NORTH;
-  case Side::SOUTH_WEST: 
-    return Side::NORTH_EAST;
-  case Side::NORTH_WEST: 
-    return Side::SOUTH_EAST;
-  }
-}
-
-Side Board::incrementEdge(Side edge) {
-  return ++edge;
-}
-
-Side Board::decrementEdge(Side edge) {
-  return --edge;
 }
