@@ -70,20 +70,20 @@ TEST_F(StringToEnumTranslatorTest, shouldReturnZeroByDefault) {
 
 TEST_F(StringToEnumTranslatorTest, shouldReturnSide) {
   Side side = StringToEnumTranslator::getInstance() -> getSide("north");
-  EXPECT_EQ(NORTH, side);
+  EXPECT_EQ(Side::NORTH, side);
 
   side = StringToEnumTranslator::getInstance() -> getSide("northEast");
-  EXPECT_EQ(NORTH_EAST, side);
+  EXPECT_EQ(Side::NORTH_EAST, side);
 
   side = StringToEnumTranslator::getInstance() -> getSide("southEast");
-  EXPECT_EQ(SOUTH_EAST, side);
+  EXPECT_EQ(Side::SOUTH_EAST, side);
 
   side = StringToEnumTranslator::getInstance() -> getSide("south");
-  EXPECT_EQ(SOUTH, side);
+  EXPECT_EQ(Side::SOUTH, side);
 
   side = StringToEnumTranslator::getInstance() -> getSide("southWest");
-  EXPECT_EQ(SOUTH_WEST, side);
+  EXPECT_EQ(Side::SOUTH_WEST, side);
 
   side = StringToEnumTranslator::getInstance() -> getSide("northWest");
-  EXPECT_EQ(NORTH_WEST, side);
+  EXPECT_EQ(Side::NORTH_WEST, side);
 }

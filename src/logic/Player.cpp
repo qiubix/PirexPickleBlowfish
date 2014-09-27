@@ -1,4 +1,5 @@
 #include "Player.hpp"
+#include <algorithm>
 
 Player::Player(Army army)
   : army(army) {}
@@ -9,16 +10,19 @@ Army Player::getArmy() {
 
 Token* Player::getTokenOnHand(int position) {
   if (position > 2) {
-    return NULL;
+    return nullptr;
   }
   else {
-    //TODO: FIXME: Pick specific position!!
-    return tokensOnHand.front();
+    return tokensOnHand[position];
   }
 }
 
 void Player::addTokens(std::vector<Token*> tokens) {
   this -> hiddenTokens = tokens;
+}
+
+void Player::shuffleTokens() {
+  std::random_shuffle(hiddenTokens.begin(), hiddenTokens.end());
 }
 
 void Player::killToken(BoardToken* token) {
@@ -34,7 +38,7 @@ void Player::killToken(BoardToken* token) {
 }
 
 void Player::useToken(Token* token) {
-  std::list < Token* >::iterator it = tokensOnHand.begin();
+  std::vector < Token* >::iterator it = tokensOnHand.begin();
   while (it != tokensOnHand.end()) {
     if(*it == token) {
       tokensOnHand.erase(it);
@@ -46,7 +50,7 @@ void Player::useToken(Token* token) {
 }
 
 void Player::putOnBoard(BoardToken* token) {
-  std::list < Token* >::iterator it = tokensOnHand.begin();
+  std::vector < Token* >::iterator it = tokensOnHand.begin();
   while (it != tokensOnHand.end()) {
     if(*it == token) {
       tokensOnHand.erase(it);

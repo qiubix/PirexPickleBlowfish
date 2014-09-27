@@ -9,4 +9,12 @@ class NoSuchArmyInBoxException: public std::exception
   }
 };
 
+class ThereIsAlreadySuchArmyInTheBoxException: public std::exception
+{
+  virtual const char* what() const throw()
+  {
+    return "There is already such army in box";
+  }
+};
+
 #endif // GAME_BOX_EXCEPTIONS_HPP

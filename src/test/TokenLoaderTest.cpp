@@ -53,7 +53,7 @@ UnitToken* TokenLoaderTest::createUnitToken(Army army) {
   baseAttributes -> addAttribute(INITIATIVE, new Attribute("initiative", 1));
 
   UnitToken* unit = new UnitToken(army, "someUnit", baseAttributes);
-  unit->setEdgeAttributes(NORTH, northSideAttributes);
+  unit->setEdgeAttributes(Side::NORTH, northSideAttributes);
   return unit;
 }
 
@@ -67,7 +67,7 @@ TEST_F(TokenLoaderTest, shouldLoadModuleAttributes) {
   createShortJsonFile("moduleWithAttribute.json", "{\"attributes\": [{\"name\": \"" + ATTRIBUTE + "\", \"value\":1}]}");
   Json* moduleWithAttribute = JsonParser::getInstance() -> parse("moduleWithAttribute.json");
   Attributes* moduleWithAttributeAttributes = TokenLoader::getInstance() -> loadModuleAtrributes(moduleWithAttribute->getArray("attributes"));
-  ASSERT_NE((Attributes*)NULL, moduleWithAttributeAttributes);
+  ASSERT_NE(nullptr, moduleWithAttributeAttributes);
   ASSERT_FALSE(moduleWithAttributeAttributes -> empty());
   AttributeName attributeName = StringToEnumTranslator::getInstance() -> getAttributeName(ATTRIBUTE);
   Attribute* moduleAttribute = moduleWithAttributeAttributes -> getAttribute(attributeName);
@@ -76,7 +76,7 @@ TEST_F(TokenLoaderTest, shouldLoadModuleAttributes) {
   createShortJsonFile("moduleWithNoAttribute.json", "{}");
   Json* moduleWithNoAttribute = JsonParser::getInstance() -> parse("moduleWithNoAttribute.json");
   Attributes* moduleWithNoAttributeAttributes = TokenLoader::getInstance() -> loadModuleAtrributes(moduleWithNoAttribute->getArray("attributes"));
-  ASSERT_NE((Attributes*)NULL, moduleWithNoAttributeAttributes);
+  ASSERT_NE(nullptr, moduleWithNoAttributeAttributes);
   ASSERT_TRUE(moduleWithNoAttributeAttributes -> empty());
 }
 
@@ -85,8 +85,8 @@ TEST_F(TokenLoaderTest, shouldLoadModuleActiveEdges) {
   createShortJsonFile("someActiveEdges.json", "{\"sides\": [\"north\", \"south\"]}");
   Json* someActiveEdges = JsonParser::getInstance() -> parse("someActiveEdges.json");
   std::vector<Side> expectedActiveEdges;
-  expectedActiveEdges.push_back(NORTH);
-  expectedActiveEdges.push_back(SOUTH);
+  expectedActiveEdges.push_back(Side::NORTH);
+  expectedActiveEdges.push_back(Side::SOUTH);
   std::vector<Side> activeEdges = TokenLoader::getInstance() -> loadModuleActiveEdges(someActiveEdges->getStringArray("sides"));
   ASSERT_EQ(expectedActiveEdges.size(), activeEdges.size());
   for(int currentActiveEdge = 0; currentActiveEdge < expectedActiveEdges.size(); currentActiveEdge++) {
@@ -107,13 +107,13 @@ TEST_F(TokenLoaderTest, shouldDecorateModuleWithTwoChangeAttributeUpgrades) {
 
   UnitToken* unit = createUnitToken();
   ASSERT_EQ(1, unit -> getAttribute(INITIATIVE) -> getValue());
-  ASSERT_EQ(1, unit -> getEdgeAttributes(NORTH) -> getAttribute(MELEE) -> getValue());
-  ASSERT_EQ(1, unit -> getEdgeAttributes(NORTH) -> getAttribute(RANGED) -> getValue());
+  ASSERT_EQ(1, unit -> getEdgeAttributes(Side::NORTH) -> getAttribute(MELEE) -> getValue());
+  ASSERT_EQ(1, unit -> getEdgeAttributes(Side::NORTH) -> getAttribute(RANGED) -> getValue());
 
   module -> addBoardToken(unit);
   ASSERT_EQ(3, unit -> getAttribute(INITIATIVE) -> getValue());
-  ASSERT_EQ(2, unit -> getEdgeAttributes(NORTH) -> getAttribute(MELEE) -> getValue());
-  ASSERT_EQ(1, unit -> getEdgeAttributes(NORTH) -> getAttribute(RANGED) -> getValue());
+  ASSERT_EQ(2, unit -> getEdgeAttributes(Side::NORTH) -> getAttribute(MELEE) -> getValue());
+  ASSERT_EQ(1, unit -> getEdgeAttributes(Side::NORTH) -> getAttribute(RANGED) -> getValue());
 }
 
 TEST_F(TokenLoaderTest, shouldDecorateModuleWithOneChangeAttributeOfEnemyUpgrade) {
@@ -127,13 +127,13 @@ TEST_F(TokenLoaderTest, shouldDecorateModuleWithOneChangeAttributeOfEnemyUpgrade
 
   UnitToken* unit = createUnitToken(OUTPOST);
   ASSERT_EQ(1, unit -> getAttribute(INITIATIVE) -> getValue());
-  ASSERT_EQ(1, unit -> getEdgeAttributes(NORTH) -> getAttribute(MELEE) -> getValue());
-  ASSERT_EQ(1, unit -> getEdgeAttributes(NORTH) -> getAttribute(RANGED) -> getValue());
+  ASSERT_EQ(1, unit -> getEdgeAttributes(Side::NORTH) -> getAttribute(MELEE) -> getValue());
+  ASSERT_EQ(1, unit -> getEdgeAttributes(Side::NORTH) -> getAttribute(RANGED) -> getValue());
 
   module -> addBoardToken(unit);
   ASSERT_EQ(0, unit -> getAttribute(INITIATIVE) -> getValue());
-  ASSERT_EQ(1, unit -> getEdgeAttributes(NORTH) -> getAttribute(MELEE) -> getValue());
-  ASSERT_EQ(1, unit -> getEdgeAttributes(NORTH) -> getAttribute(RANGED) -> getValue());
+  ASSERT_EQ(1, unit -> getEdgeAttributes(Side::NORTH) -> getAttribute(MELEE) -> getValue());
+  ASSERT_EQ(1, unit -> getEdgeAttributes(Side::NORTH) -> getAttribute(RANGED) -> getValue());
 }
 
 TEST_F(TokenLoaderTest, shouldDecorateModuleWithChangeArmyUpgrade) {
@@ -162,12 +162,12 @@ TEST_F(TokenLoaderTest, shouldDecorateModuleWithTwoAddAttributeUpgrades) {
   ASSERT_FALSE(dynamic_cast<Upgrader *>(module) -> isAffectingEnemies());
 
   UnitToken* unit = createUnitToken();
-  ASSERT_EQ((Attribute *)NULL, unit -> getAttribute(MOTHER));
-  ASSERT_EQ((Attribute *)NULL, unit -> getAttribute(QUARTERMASTER));
+  ASSERT_EQ(nullptr, unit -> getAttribute(MOTHER));
+  ASSERT_EQ(nullptr, unit -> getAttribute(QUARTERMASTER));
 
   module -> addBoardToken(unit);
-  ASSERT_NE((Attribute *)NULL, unit -> getAttribute(MOTHER));
-  ASSERT_NE((Attribute *)NULL, unit -> getAttribute(QUARTERMASTER));
+  ASSERT_NE(nullptr, unit -> getAttribute(MOTHER));
+  ASSERT_NE(nullptr, unit -> getAttribute(QUARTERMASTER));
 }
 
 TEST_F(TokenLoaderTest, shouldDecorateModuleWithOneAddAttributeAndOneChangeAttributeUpgrades) {
@@ -181,11 +181,11 @@ TEST_F(TokenLoaderTest, shouldDecorateModuleWithOneAddAttributeAndOneChangeAttri
 
   UnitToken* unit = createUnitToken();
   ASSERT_EQ(1, unit -> getAttribute(INITIATIVE) -> getValue());
-  ASSERT_EQ((Attribute *)NULL, unit -> getAttribute(MOTHER));
+  ASSERT_EQ(nullptr, unit -> getAttribute(MOTHER));
 
   module -> addBoardToken(unit);
   ASSERT_EQ(2, unit -> getAttribute(INITIATIVE) -> getValue());
-  ASSERT_NE((Attribute *)NULL, unit -> getAttribute(MOTHER));
+  ASSERT_NE(nullptr, unit -> getAttribute(MOTHER));
 }
 
 //TODO: maybe split this test into three tests
@@ -263,9 +263,9 @@ TEST_F(TokenLoaderTest, shouldAddMeleeAttributesToToken) {
   UnitToken* token = new UnitToken(army, name, attributes);
   TokenLoader::getInstance() -> loadMelee(token, json);
 
-  ASSERT_EQ(NORTH_VALUE, token -> getEdgeAttributes(NORTH) -> getAttribute(MELEE) -> getValue());
-  ASSERT_EQ(SOUTH_VALUE, token -> getEdgeAttributes(SOUTH) -> getAttribute(MELEE) -> getValue());
-  ASSERT_EQ(NORTH_WEST_VALUE, token -> getEdgeAttributes(NORTH_WEST) -> getAttribute(MELEE) -> getValue());
+  ASSERT_EQ(NORTH_VALUE, token -> getEdgeAttributes(Side::NORTH) -> getAttribute(MELEE) -> getValue());
+  ASSERT_EQ(SOUTH_VALUE, token -> getEdgeAttributes(Side::SOUTH) -> getAttribute(MELEE) -> getValue());
+  ASSERT_EQ(NORTH_WEST_VALUE, token -> getEdgeAttributes(Side::NORTH_WEST) -> getAttribute(MELEE) -> getValue());
 }
 
 TEST_F(TokenLoaderTest, shouldAddRangedAttributesToToken) {
@@ -296,9 +296,9 @@ TEST_F(TokenLoaderTest, shouldAddRangedAttributesToToken) {
   UnitToken* token = new UnitToken(army, name, attributes);
   TokenLoader::getInstance() -> loadRanged(token, json);
 
-  ASSERT_EQ(NORTH_VALUE, token -> getEdgeAttributes(NORTH) -> getAttribute(RANGED) -> getValue());
-  ASSERT_EQ(SOUTH_VALUE, token -> getEdgeAttributes(SOUTH) -> getAttribute(RANGED) -> getValue());
-  ASSERT_EQ(NORTH_WEST_VALUE, token -> getEdgeAttributes(NORTH_WEST) -> getAttribute(RANGED) -> getValue());
+  ASSERT_EQ(NORTH_VALUE, token -> getEdgeAttributes(Side::NORTH) -> getAttribute(RANGED) -> getValue());
+  ASSERT_EQ(SOUTH_VALUE, token -> getEdgeAttributes(Side::SOUTH) -> getAttribute(RANGED) -> getValue());
+  ASSERT_EQ(NORTH_WEST_VALUE, token -> getEdgeAttributes(Side::NORTH_WEST) -> getAttribute(RANGED) -> getValue());
 }
 
 //FIXME: REFACTOR: duplication in two tests below
@@ -312,19 +312,15 @@ TEST_F(TokenLoaderTest, shouldAddShieldAttributesToToken) {
   Attributes* attributes = new Attributes();
   UnitToken* token = new UnitToken(army, name, attributes);
 
-  for(int side = 0; side < 6; side++) {
-    ASSERT_EQ(NULL, token -> getEdgeAttributes((Side)side));
-  }
-
   TokenLoader::getInstance() -> loadShield(token, shieldParameters);
 
-  Attribute * northSideShieldAttribute = token -> getEdgeAttributes(NORTH) -> getAttribute(SHIELD);
-  ASSERT_NE((Attribute*)NULL, northSideShieldAttribute);
+  Attribute * northSideShieldAttribute = token -> getEdgeAttributes(Side::NORTH) -> getAttribute(SHIELD);
+  ASSERT_NE(nullptr, northSideShieldAttribute);
   ASSERT_EQ("shield", northSideShieldAttribute -> getName());
   ASSERT_EQ(1, northSideShieldAttribute -> getValue());
 
-  Attribute * northEastSideShieldAttribute = token -> getEdgeAttributes(NORTH_EAST) -> getAttribute(SHIELD);
-  ASSERT_NE((Attribute*)NULL, northEastSideShieldAttribute);
+  Attribute * northEastSideShieldAttribute = token -> getEdgeAttributes(Side::NORTH_EAST) -> getAttribute(SHIELD);
+  ASSERT_NE(nullptr, northEastSideShieldAttribute);
   ASSERT_EQ("shield", northEastSideShieldAttribute -> getName());
   ASSERT_EQ(1, northEastSideShieldAttribute -> getValue());
 }
@@ -339,19 +335,15 @@ TEST_F(TokenLoaderTest, shouldAddNetAttributesToToken) {
   Attributes* attributes = new Attributes();
   UnitToken* token = new UnitToken(army, name, attributes);
 
-  for(int side = 0; side < 6; side++) {
-    ASSERT_EQ(NULL, token -> getEdgeAttributes((Side)side));
-  }
-
   TokenLoader::getInstance() -> loadNet(token, netParameters);
 
-  Attribute * northSideNetAttribute = token -> getEdgeAttributes(NORTH) -> getAttribute(NET);
-  ASSERT_NE((Attribute*)NULL, northSideNetAttribute);
+  Attribute * northSideNetAttribute = token -> getEdgeAttributes(Side::NORTH) -> getAttribute(NET);
+  ASSERT_NE(nullptr, northSideNetAttribute);
   ASSERT_EQ("net", northSideNetAttribute -> getName());
   ASSERT_EQ(1, northSideNetAttribute -> getValue());
 
-  Attribute * northEastSideNetAttribute = token -> getEdgeAttributes(NORTH_EAST) -> getAttribute(NET);
-  ASSERT_NE((Attribute*)NULL, northEastSideNetAttribute);
+  Attribute * northEastSideNetAttribute = token -> getEdgeAttributes(Side::NORTH_EAST) -> getAttribute(NET);
+  ASSERT_NE(nullptr, northEastSideNetAttribute);
   ASSERT_EQ("net", northEastSideNetAttribute -> getName());
   ASSERT_EQ(1, northEastSideNetAttribute -> getValue());
 }
@@ -394,7 +386,7 @@ TEST_F(TokenLoaderTest, shouldCreateBombToken) {
 TEST_F(TokenLoaderTest, shouldCreateGrenadeToken) {
   Controller * controller = new Controller(new Model());
   InstantToken* token = TokenLoader::getInstance() -> createInstantToken(HEGEMONY, "Grenade", controller);
-  ASSERT_TRUE(dynamic_cast<GranadeToken *>(token));
+  ASSERT_TRUE(dynamic_cast<GrenadeToken *>(token));
   ASSERT_EQ(controller, token->controller);
   delete controller;
 }

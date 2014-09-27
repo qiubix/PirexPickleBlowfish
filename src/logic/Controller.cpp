@@ -14,11 +14,9 @@ Board* Controller::getModelBoard() {
   return model -> getBoard();
 }
 
-//TODO: write test
 void Controller::initializeNewPlayer(Army army) {
   Player* player = new Player(army);
   std::vector<Token*> tokens = GameBox::getInstance() -> getArmy(army);
-//  std::random_shuffle (tokens.begin()+1, tokens.end());
   player -> addTokens(tokens);
   model -> addPlayer(player);
 }
@@ -52,27 +50,27 @@ void Controller::putOnBoard(BoardToken* token, Field* field) {
 
 void Controller::move(BoardToken* token, Field* destination) {
   Field* oldField = token->getField();
-  oldField -> setToken(NULL);
+  oldField -> setToken(nullptr);
   token -> setField(destination);
   destination -> setToken(token);
 }
 
 void Controller::strikeToken(BoardToken* token, int strength) {
   Attribute* toughness = token -> getAttribute(TOUGHNESS);
-  if (toughness != NULL) {
+  if (toughness != nullptr) {
     toughness -> downgradeBy(strength);
   }
 }
 
 void Controller::bombStrikeField(Field* epicentrum) {
   BoardToken* token = dynamic_cast<BoardToken*>(epicentrum -> getToken());
-  if(token != NULL) {
+  if(token != nullptr) {
     token -> downgradeAttributeBy(TOUGHNESS);
   }
   Field* neighbour;
   for(int i=0; i<6; ++i) {
     neighbour = epicentrum -> getNeighbour((Side) i);
-    if(neighbour != NULL && neighbour -> getToken() != NULL) {
+    if(neighbour != nullptr && neighbour -> getToken() != nullptr) {
       token = dynamic_cast<BoardToken*>(neighbour -> getToken());
       token -> downgradeAttributeBy(TOUGHNESS);
     }

@@ -10,14 +10,17 @@ class PlayerTest : public Test
 {
 protected:
   PlayerTest(void) {
-    player = new Player(MOLOCH);
   }
   ~PlayerTest(void) {
-    delete player;
   }
 
-  virtual void SetUp(void) {}
-  virtual void TearDown(void) {}
+  virtual void SetUp(void) {
+    player = new Player(MOLOCH);
+  }
+
+  virtual void TearDown(void) {
+    delete player;
+  }
 
   Player* player;
 };
@@ -77,4 +80,28 @@ TEST_F(PlayerTest, shouldDrawTokens) {
   delete token2;
   delete token3;
   delete token4;
+}
+
+TEST_F(PlayerTest, shouldGetTokenFromHand) {
+  Token* token1 = new Token(MOLOCH, "token");
+  Token* token2 = new Token(MOLOCH, "token");
+  Token* token3 = new Token(MOLOCH, "token");
+  player -> tokensOnHand.push_back(token1);
+  player -> tokensOnHand.push_back(token2);
+  player -> tokensOnHand.push_back(token3);
+  ASSERT_EQ(token1, player -> getTokenOnHand(0));
+  ASSERT_EQ(token2, player -> getTokenOnHand(1));
+  ASSERT_EQ(token3, player -> getTokenOnHand(2));
+
+  delete token1;
+  delete token2;
+  delete token3;
+}
+
+//TODO: implement
+TEST_F(PlayerTest, DISABLED_shouldThrowExceptionWhenGettingNonExistingToken) {
+}
+
+//TODO: implement
+TEST_F(PlayerTest, DISABLED_shouldThrowExceptionWhenGettingTokenFromWrongPosition) {
 }

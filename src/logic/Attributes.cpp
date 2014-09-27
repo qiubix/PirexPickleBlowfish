@@ -16,7 +16,7 @@ Attribute* Attributes::getAttribute(AttributeName name) {
     return attributes.at(name);
   }
   else {
-    return NULL;
+    return nullptr;
   }
 }
 
@@ -25,12 +25,14 @@ int Attributes::getSize() {
 }
 
 void Attributes::addAttribute(AttributeName name, Attribute* attribute) {
-  attributes.insert(std::make_pair<AttributeName, Attribute*>(name, attribute));
+  attributes.insert(std::make_pair(name, attribute));
 }
 
-//TODO: TESTME: test for erasing attribute that is not present
 void Attributes::removeAttribute(AttributeName name) {
-  attributes.erase(attributes.find(name));
+  std::map <AttributeName, Attribute*>::iterator it = attributes.find(name);
+  if (it != attributes.end()) {
+    attributes.erase(it);
+  }
 }
 
 bool Attributes::empty(void) {

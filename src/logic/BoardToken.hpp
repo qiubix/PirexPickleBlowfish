@@ -9,7 +9,7 @@
 class BoardToken : public Token
 {
 public:
-  BoardToken(Army army, std::string name, Attributes* attributes = NULL);
+  BoardToken(Army army, std::string name, Attributes* attributes = nullptr);
   virtual ~BoardToken(void);
 
   void addAttribute(AttributeName name, Attribute* attribute);

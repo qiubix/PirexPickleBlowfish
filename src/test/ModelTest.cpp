@@ -31,7 +31,7 @@ TEST_F(ModelTest, shouldInitializeCurrentPlayerIdWithMinusOne) {
 
 TEST_F(ModelTest, shouldReturnNullForNoPlayers) {
   Player* player = model->getCurrentPlayer();
-  EXPECT_EQ(NULL, player);
+  EXPECT_EQ(nullptr, player);
 }
 
 TEST_F(ModelTest, shouldGetPlayersQuantity) {
@@ -99,7 +99,7 @@ TEST_F(ModelTest, shouldDestroyToken) {
   player -> tokensOnBoard.push_back(token);
   model -> killToken(token);
   EXPECT_TRUE(player -> tokensOnBoard.empty());
-  EXPECT_EQ(NULL, field -> getToken());
+  EXPECT_EQ(nullptr, field -> getToken());
 }
 
 TEST_F(ModelTest, shouldResetGame) {
@@ -109,5 +109,5 @@ TEST_F(ModelTest, shouldResetGame) {
   model -> reset();
   EXPECT_EQ(PAUSE, model -> getGameState());
   EXPECT_EQ(0, model -> getPlayersQuantity());
-  EXPECT_EQ(NULL, model -> getCurrentPlayer());
+  EXPECT_EQ(nullptr, model -> getCurrentPlayer());
 }

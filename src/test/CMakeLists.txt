@@ -6,10 +6,10 @@ macro(create_test name src libs)
 endmacro(create_test)
 
 #tests connected with token loading
-set(JSON_PARSER_TEST_SRC JsonParserTest.cpp)
+set(JSON_PARSER_TEST_SRC JsonParserTest.cpp JsonConstants.hpp)
 set(JSON_PARSER_TEST_LIBS JsonParser)
 create_test(JsonParserTest "${JSON_PARSER_TEST_SRC}" "${JSON_PARSER_TEST_LIBS}")
-set(JSON_TEST_SRC JsonTest.cpp)
+set(JSON_TEST_SRC JsonTest.cpp JsonConstants.hpp)
 set(JSON_TEST_LIBS Json)
 create_test(JsonTest "${JSON_TEST_SRC}" "${JSON_TEST_LIBS}")
 
@@ -28,7 +28,7 @@ set(LOADING_TOKENS_TEST_LIBS StringToEnumTranslator Json JsonParser GameBox Toke
 create_test(LoadingTokensTest "${LOADING_TOKENS_TEST_SRC}" "${LOADING_TOKENS_TEST_LIBS}")
 
 # tests connected with game logic
-set(LOGIC_TEST_LIBS logic)
+set(LOGIC_TEST_LIBS logic TokenLoader)
 
 set(MODEL_TEST_SRC FieldTest.cpp BoardTest.cpp PlayerTest.cpp ModelTest.cpp)
 create_test(ModelTest "${MODEL_TEST_SRC}" "${LOGIC_TEST_LIBS}")
@@ -63,3 +63,7 @@ install_file(oneChangeAttributeOfEnemyUpgradeParameters.json)
 install_file(changeArmyUpgradeParameters.json)
 install_file(twoAddAttributeUpgradesParameters.json)
 install_file(oneAddAttributeAndOneChangeAttributeUpgradesParameters.json)
+
+
+#army files to ControllerTest
+install_file(moloch.json)

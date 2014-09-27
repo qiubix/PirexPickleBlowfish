@@ -41,6 +41,7 @@ private:
   FRIEND_TEST(GameBoxTest, shouldAddArmyToTheBox);
   FRIEND_TEST(GameBoxTest, shouldAddTokenToTheArmy);
   FRIEND_TEST(GameBoxTest, shouldThrowExceptionWhenTryingToAddTokenOfArmyThatIsNotInTheBox);
+  FRIEND_TEST(GameBoxTest, shouldThrowExceptionWhenAlreadySuchArmyInTheBox);
   FRIEND_TEST(GameBoxTest, shouldAddEmptyArmyToTheBox);
 
 };

@@ -5,10 +5,12 @@
 #include <vector>
 #include "Module.hpp"
 
+static std::vector<Side> empty;
+
 class ModuleToken : public Module
 {
 public:
-  ModuleToken(Army army, std::string name, Attributes* attributes, std::vector<Side> activeEdges);
+  ModuleToken(Army army, std::string name, Attributes* attributes = nullptr, std::vector<Side> activeEdges = empty);
   virtual ~ModuleToken() {}
 
   void addBoardToken(BoardToken* token);

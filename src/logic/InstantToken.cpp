@@ -67,15 +67,15 @@ void BombToken::setEpicentrum(Field* epicentrum) {
 }
 
 
-GranadeToken::GranadeToken(Army army, Controller* controller)
+GrenadeToken::GrenadeToken(Army army, Controller* controller)
   : InstantToken(army, "Granade", controller) {
 }
 
-void GranadeToken::action() {
+void GrenadeToken::action() {
   controller -> destroy(toDestroy);
 }
 
-void GranadeToken::setTokenToDestroy(BoardToken* toDestroy) {
+void GrenadeToken::setTokenToDestroy(BoardToken* toDestroy) {
   this -> toDestroy = toDestroy;
 }
 

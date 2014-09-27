@@ -23,12 +23,12 @@ protected:
     northSideAttributes = new Attributes;
     northSideAttributes  ->  addAttribute(MELEE, melee);
     unit = new UnitToken(HEGEMONY, "UniversalSoldier", mainUnitAttributes);
-    unit -> setEdgeAttributes(NORTH, northSideAttributes);
+    unit -> setEdgeAttributes(Side::NORTH, northSideAttributes);
     toughness = new Attribute("toughness", 1);
     mainModuleAttributes = new Attributes;
     mainModuleAttributes -> addAttribute(TOUGHNESS, toughness);
-    activeEdges.push_back(NORTH);
-    activeEdges.push_back(SOUTH);
+    activeEdges.push_back(Side::NORTH);
+    activeEdges.push_back(Side::SOUTH);
   }
   ~ModuleTokenTest() {
     delete unit;
@@ -106,7 +106,7 @@ TEST_F(ModuleTokenTest, shouldDowngradeAttributeOnRemove) {
 
 TEST_F(ModuleTokenTest, shouldUpgradeEdgeAttribute) {
   Module* officer = new ChangeAttributeUpgrader(new ModuleToken(HEGEMONY, "Officer", mainModuleAttributes, activeEdges), MELEE, 1);
-  Attribute* melee = unit -> getEdgeAttributes(NORTH) -> getAttribute(MELEE);
+  Attribute* melee = unit -> getEdgeAttributes(Side::NORTH) -> getAttribute(MELEE);
   int oldMeleeValue = melee -> getValue();
   ASSERT_EQ(1, oldMeleeValue);
   officer -> addBoardToken(unit);
@@ -144,7 +144,7 @@ TEST_F(ModuleTokenTest, shouldCaptureEnemyModule) {
   scoper -> removeBoardToken(unit);
   EXPECT_EQ(HEGEMONY, unit -> getArmy());
   UnitToken* anotherUnit = new UnitToken(MOLOCH, "Gauss cannon", mainUnitAttributes);
-  anotherUnit -> setEdgeAttributes(NORTH, northSideAttributes);
+  anotherUnit -> setEdgeAttributes(Side::NORTH, northSideAttributes);
   EXPECT_EQ(MOLOCH, anotherUnit -> getArmy());
   scoper -> addBoardToken(anotherUnit);
   ASSERT_EQ(OUTPOST, anotherUnit -> getArmy());
@@ -152,11 +152,11 @@ TEST_F(ModuleTokenTest, shouldCaptureEnemyModule) {
 
 TEST_F(ModuleTokenTest, shouldApplyTwoDifferentUpgradesFromOneModule) {
   Module* boss = new ChangeAttributeUpgrader(new ChangeAttributeUpgrader(new ModuleToken(HEGEMONY, "Boss", mainModuleAttributes, activeEdges), MELEE, 1), INITIATIVE, 2);
-  ASSERT_EQ(1, unit -> getEdgeAttributes(NORTH) -> getAttribute(MELEE) -> getValue());
+  ASSERT_EQ(1, unit -> getEdgeAttributes(Side::NORTH) -> getAttribute(MELEE) -> getValue());
   ASSERT_EQ(2, unit -> getAttribute(INITIATIVE) -> getValue());
 
   boss -> addBoardToken(unit);
 
-  ASSERT_EQ(2, unit -> getEdgeAttributes(NORTH) -> getAttribute(MELEE) -> getValue());
+  ASSERT_EQ(2, unit -> getEdgeAttributes(Side::NORTH) -> getAttribute(MELEE) -> getValue());
   ASSERT_EQ(4, unit -> getAttribute(INITIATIVE) -> getValue());
 }

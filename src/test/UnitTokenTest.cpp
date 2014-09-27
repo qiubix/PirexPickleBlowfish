@@ -16,7 +16,7 @@ protected:
     northSideAttributes -> addAttribute(MELEE, melee);
     baseUnitAttributes = new Attributes;
     unit = new UnitToken(HEGEMONY, "UniversalSoldier", baseUnitAttributes);
-    unit -> setEdgeAttributes(NORTH, northSideAttributes);
+    unit -> setEdgeAttributes(Side::NORTH, northSideAttributes);
   }
   ~UnitTokenTest() {}
   void SetUp() {}
@@ -28,7 +28,7 @@ protected:
 };
 
 TEST_F(UnitTokenTest, testGetSideAttributes) {
-  Attributes* attributes = unit -> getEdgeAttributes(NORTH);
+  Attributes* attributes = unit -> getEdgeAttributes(Side::NORTH);
   Attribute* melee = northSideAttributes -> getAttribute(MELEE);
   ASSERT_EQ(northSideAttributes, attributes);
   ASSERT_EQ(melee, attributes -> getAttribute(MELEE));

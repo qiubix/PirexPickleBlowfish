@@ -6,6 +6,7 @@ using ::testing::Test;
 #include "logic/Controller.hpp"
 #include "logic/Model.hpp"
 #include "logic/BoardToken.hpp"
+#include "setup/TokenLoader.hpp"
 
 //TODO: create mocks
 class ControllerTest : public Test
@@ -35,13 +36,27 @@ BoardToken* ControllerTest::createBoardTokenWithToughness() {
   return token;
 }
 
+TEST_F(ControllerTest, shouldInitPlayerWithTokens) {
+  std::vector<std::string> armyFiles;
+  armyFiles.push_back("moloch.json");
+  TokenLoader::getInstance() -> loadArmies(armyFiles, controller);
+  controller -> initializeNewPlayer(MOLOCH);
+  Player* player = model -> getPlayer(MOLOCH);
+  int numberOfTokens = player -> hiddenTokens.size();
+  ASSERT_EQ(34, numberOfTokens);
+  for (int i=0; i<34; ++i) {
+    Token* token = player -> hiddenTokens[i];
+    EXPECT_EQ(MOLOCH, token -> getArmy());
+  }
+}
+
 TEST_F(ControllerTest, shouldRotateToken) {
   BoardToken* token = new BoardToken(MOLOCH, "soldier");
-  EXPECT_EQ(NORTH, token -> getOrientation());
+  EXPECT_EQ(Side::NORTH, token -> getOrientation());
   controller -> rotateClockwise(token);
-  EXPECT_EQ(NORTH_EAST, token -> getOrientation());
+  EXPECT_EQ(Side::NORTH_EAST, token -> getOrientation());
   controller -> rotateAnticlockwise(token);
-  EXPECT_EQ(NORTH, token -> getOrientation());
+  EXPECT_EQ(Side::NORTH, token -> getOrientation());
   delete token;
 }
 
@@ -60,7 +75,7 @@ TEST_F(ControllerTest, shouldMoveToken) {
   token -> setField(field);
   field -> setToken(token);
   controller -> move(token, destination);
-  EXPECT_EQ(NULL, field -> getToken());
+  EXPECT_EQ(nullptr, field -> getToken());
   EXPECT_EQ(destination, token -> getField());
   EXPECT_EQ(token, destination -> getToken());
 }
@@ -71,27 +86,39 @@ TEST_F(ControllerTest, shouldStrikeToken) {
   EXPECT_EQ(1, token -> getAttribute(TOUGHNESS) -> getValue());
 }
 
+//TODO: split into separate tests
 TEST_F(ControllerTest, shouldBombStrikeAreaOfOneFieldRadius) {
   Field* epicentrum = new Field;
   Field* north = new Field;
   Field* south = new Field;
-  epicentrum -> addNeighbour(north, NORTH);
-  epicentrum -> addNeighbour(south, SOUTH);
+  Field* farNorth = new Field;
+  Field* farSouth = new Field;
+  epicentrum -> addNeighbour(north, Side::NORTH);
+  epicentrum -> addNeighbour(south, Side::SOUTH);
   BoardToken* firstToken = createBoardTokenWithToughness();
   BoardToken* secondToken = createBoardTokenWithToughness();
   BoardToken* thirdToken = createBoardTokenWithToughness();
+  BoardToken* fourthToken = createBoardTokenWithToughness();
+  BoardToken* fifthToken = createBoardTokenWithToughness();
   controller -> putOnBoard(firstToken, epicentrum);
   controller -> putOnBoard(secondToken, north);
   controller -> putOnBoard(thirdToken, south);
+  controller -> putOnBoard(fourthToken, farNorth);
+  controller -> putOnBoard(fifthToken, farSouth);
 
   controller -> bombStrikeField(epicentrum);
   EXPECT_EQ(1, firstToken -> getAttribute(TOUGHNESS) -> getValue());
   EXPECT_EQ(1, secondToken -> getAttribute(TOUGHNESS) -> getValue());
   EXPECT_EQ(1, thirdToken -> getAttribute(TOUGHNESS) -> getValue());
-  //TODO: check if HQ or tokens outside bomb radius are stricken
+  EXPECT_EQ(2, fourthToken -> getAttribute(TOUGHNESS) -> getValue());
+  EXPECT_EQ(2, fifthToken -> getAttribute(TOUGHNESS) -> getValue());
+  delete fifthToken;
+  delete fourthToken;
   delete thirdToken;
   delete secondToken;
   delete firstToken;
+  delete farSouth;
+  delete farNorth;
   delete south;
   delete north;
   delete epicentrum;

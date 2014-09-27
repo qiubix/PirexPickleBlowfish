@@ -18,17 +18,12 @@ protected:
 
   virtual void SetUp(void) {}
   virtual void TearDown(void) {}
-  Side oppositeEdge(int edge) {
-    return (Side) ((edge+3)%6);
+  
+  Side increment(Side edge) {
+    return ++edge;
   }
-  Side increment(int edge) {
-    return (Side) ((edge+1)%6);
-  }
-  Side decrement(int edge) {
-    if (edge == 0) {
-      return (Side) 5;
-    }
-    return (Side) (edge-1);
+  Side decrement(Side edge) {
+    return --edge;
   }
 
   Board* board;
@@ -36,32 +31,38 @@ protected:
 
 TEST_F(BoardTest, shouldCreateMiddleRing) {
   Field* middle = board -> getMiddleField();
-  for (int i=0; i<6; ++i) {
-    Field* neighbour = middle -> getNeighbour((Side) i);
-    Side neighbourEdge = oppositeEdge(i);
+  //REVIEW: what is wrong with for(Side side = Side::NORTH; side <= Side::whatever; side++)
+  //TODO: override operator <= for Side to enable for loop usage
+  Side side = Side::NORTH;
+  do {
+    Field* neighbour = middle -> getNeighbour(side);
+    Side neighbourEdge = !side;
     EXPECT_EQ(middle, neighbour -> getNeighbour(neighbourEdge));
 
-    Field* previousInRing = middle -> getNeighbour(decrement(i));
+    Field* previousInRing = middle -> getNeighbour(decrement(side));
     EXPECT_EQ(previousInRing, neighbour -> getNeighbour(increment(neighbourEdge)) );
 
-    Field* nextInRing = middle -> getNeighbour(increment(i));
+    Field* nextInRing = middle -> getNeighbour(increment(side));
     EXPECT_EQ(nextInRing, neighbour -> getNeighbour(decrement(neighbourEdge)) );
-  }
+    ++side;
+  } while (side != Side::NORTH);
 }
 
 TEST_F(BoardTest, shouldCreateOutsideRing) {
-  for (int i=0; i<6; ++i) {
-    Field* root = board -> getMiddleField() -> getNeighbour((Side) i);
-    Field* rootNext = board -> getMiddleField() -> getNeighbour(increment(i));
-    Field* first = root -> getNeighbour((Side) i);
-    Field* second = root -> getNeighbour(increment(i));
-    Field* third = rootNext -> getNeighbour(increment(i));
-    EXPECT_EQ(root, first -> getNeighbour(oppositeEdge(i)));
-    EXPECT_EQ(root, second -> getNeighbour(oppositeEdge(increment(i))));
+  Side side = Side::NORTH;
+  do {
+    Field* root = board -> getMiddleField() -> getNeighbour(side);
+    Field* rootNext = board -> getMiddleField() -> getNeighbour(increment(side));
+    Field* first = root -> getNeighbour(side);
+    Field* second = root -> getNeighbour(increment(side));
+    Field* third = rootNext -> getNeighbour(increment(side));
+    EXPECT_EQ(root, first -> getNeighbour(!side) );
+    EXPECT_EQ(root, second -> getNeighbour(!(increment(side))) );
 
-    EXPECT_EQ(second, first -> getNeighbour(oppositeEdge(decrement(i))));
-    EXPECT_EQ(first, second -> getNeighbour(decrement(i)));
-    EXPECT_EQ(third, second -> getNeighbour(oppositeEdge(decrement(i))));
-    EXPECT_EQ(second, third -> getNeighbour(decrement(i)));
-  }
+    EXPECT_EQ(second, first -> getNeighbour(!(decrement(side))) );
+    EXPECT_EQ(first, second -> getNeighbour(decrement(side)) );
+    EXPECT_EQ(third, second -> getNeighbour(!(decrement(side))) );
+    EXPECT_EQ(second, third -> getNeighbour(decrement(side)) );
+    ++side;
+  } while (side != Side::NORTH);
 }

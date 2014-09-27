@@ -19,7 +19,7 @@ Board::Board(ViewController* controller, Field* middleField, QGraphicsItem* pare
   BoardField * boardField;
   int counter = 0;
   Field * currentField = middleField;
-  Side currentSide = SOUTH_WEST;
+  Side currentSide = Side::SOUTH_WEST;
 
   //TODO: clean this mess
   //TODO: change to clockwise (easier with currentSide)
@@ -37,12 +37,13 @@ Board::Board(ViewController* controller, Field* middleField, QGraphicsItem* pare
         changeCoordinates(x, y, xDiff, yDiff, i);
         currentField = currentField -> getNeighbour(currentSide);
         if(k == j - 1) {
-          currentSide = static_cast<Side>((currentSide + 5) % 6);
+//          currentSide = static_cast<Side>((currentSide + 5) % 6);
+          --currentSide;
         }
       }
     }
     changeCoordinates(x, y, xDiff, yDiff, 4);
-    currentField = currentField -> getNeighbour(NORTH);
+    currentField = currentField -> getNeighbour(Side::NORTH);
   }
 
   SideField * sideField;

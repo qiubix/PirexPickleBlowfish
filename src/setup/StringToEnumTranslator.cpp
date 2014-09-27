@@ -1,38 +1,38 @@
 #include "StringToEnumTranslator.hpp"
 
-StringToEnumTranslator * StringToEnumTranslator::instance = NULL;
+StringToEnumTranslator * StringToEnumTranslator::instance = nullptr;
 
 StringToEnumTranslator * StringToEnumTranslator::getInstance()
 {
-  if(instance == NULL) {
+  if(instance == nullptr) {
     instance = new StringToEnumTranslator();
   }
   return instance;
 }
 
 StringToEnumTranslator::StringToEnumTranslator() {
-  armiesDictionary.insert(std::make_pair<std::string, Army>("Moloch", MOLOCH));
-  armiesDictionary.insert(std::make_pair<std::string, Army>("Borgo", BORGO));
-  armiesDictionary.insert(std::make_pair<std::string, Army>("Outpost", OUTPOST));
-  armiesDictionary.insert(std::make_pair<std::string, Army>("Hegemony", HEGEMONY));
+  armiesDictionary.insert(std::make_pair("Moloch", MOLOCH));
+  armiesDictionary.insert(std::make_pair("Borgo", BORGO));
+  armiesDictionary.insert(std::make_pair("Outpost", OUTPOST));
+  armiesDictionary.insert(std::make_pair("Hegemony", HEGEMONY));
 
-  attributesDictionary.insert(std::make_pair<std::string, AttributeName>("initiative", INITIATIVE));
-  attributesDictionary.insert(std::make_pair<std::string, AttributeName>("toughness", TOUGHNESS));
-  attributesDictionary.insert(std::make_pair<std::string, AttributeName>("melee", MELEE));
-  attributesDictionary.insert(std::make_pair<std::string, AttributeName>("ranged", RANGED));
-  attributesDictionary.insert(std::make_pair<std::string, AttributeName>("shield", SHIELD));
-  attributesDictionary.insert(std::make_pair<std::string, AttributeName>("net", NET));
-  attributesDictionary.insert(std::make_pair<std::string, AttributeName>("medic", MEDIC));
-  attributesDictionary.insert(std::make_pair<std::string, AttributeName>("mother", MOTHER));
-  attributesDictionary.insert(std::make_pair<std::string, AttributeName>("mobility", MOBILITY));
-  attributesDictionary.insert(std::make_pair<std::string, AttributeName>("quartermaster", QUARTERMASTER));
+  attributesDictionary.insert(std::make_pair("initiative", INITIATIVE));
+  attributesDictionary.insert(std::make_pair("toughness", TOUGHNESS));
+  attributesDictionary.insert(std::make_pair("melee", MELEE));
+  attributesDictionary.insert(std::make_pair("ranged", RANGED));
+  attributesDictionary.insert(std::make_pair("shield", SHIELD));
+  attributesDictionary.insert(std::make_pair("net", NET));
+  attributesDictionary.insert(std::make_pair("medic", MEDIC));
+  attributesDictionary.insert(std::make_pair("mother", MOTHER));
+  attributesDictionary.insert(std::make_pair("mobility", MOBILITY));
+  attributesDictionary.insert(std::make_pair("quartermaster", QUARTERMASTER));
 
-  sidesDictionary.insert(std::make_pair<std::string, Side>("north", NORTH));
-  sidesDictionary.insert(std::make_pair<std::string, Side>("northEast", NORTH_EAST));
-  sidesDictionary.insert(std::make_pair<std::string, Side>("southEast", SOUTH_EAST));
-  sidesDictionary.insert(std::make_pair<std::string, Side>("south", SOUTH));
-  sidesDictionary.insert(std::make_pair<std::string, Side>("southWest", SOUTH_WEST));
-  sidesDictionary.insert(std::make_pair<std::string, Side>("northWest", NORTH_WEST));
+  sidesDictionary.insert(std::make_pair("north", Side::NORTH));
+  sidesDictionary.insert(std::make_pair("northEast", Side::NORTH_EAST));
+  sidesDictionary.insert(std::make_pair("southEast", Side::SOUTH_EAST));
+  sidesDictionary.insert(std::make_pair("south", Side::SOUTH));
+  sidesDictionary.insert(std::make_pair("southWest", Side::SOUTH_WEST));
+  sidesDictionary.insert(std::make_pair("northWest", Side::NORTH_WEST));
 
 }
 

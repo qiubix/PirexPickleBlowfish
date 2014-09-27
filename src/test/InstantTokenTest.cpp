@@ -57,7 +57,7 @@ TEST_F(InstantTokenTest, shouldMoveToken) {
   movement -> setDestination(destination);
   movement -> action();
   EXPECT_NE(field, token -> getField());
-  EXPECT_EQ(NULL, field -> getToken());
+  EXPECT_EQ(nullptr, field -> getToken());
   EXPECT_EQ(destination, token -> getField());
   EXPECT_EQ(token, destination -> getToken());
   delete field;
@@ -93,10 +93,10 @@ TEST_F(InstantTokenTest, shouldBombStrikeField) {
   BoardToken* secondToken = createBoardTokenWithToughness();
   Field* firstField = new Field;
   Field* secondField = new Field;
-  firstField -> addNeighbour(secondField, NORTH);
+  firstField -> addNeighbour(secondField, Side::NORTH);
   firstField -> setToken(firstToken);
   firstToken -> setField(firstField);
-  secondField -> addNeighbour(firstField, SOUTH);
+  secondField -> addNeighbour(firstField, Side::SOUTH);
   secondField -> setToken(secondToken);
   secondToken -> setField(secondField);
 
@@ -110,19 +110,19 @@ TEST_F(InstantTokenTest, shouldBombStrikeField) {
 }
 
 TEST_F(InstantTokenTest, shouldDestroyToken) {
-  GranadeToken* granade = new GranadeToken(BORGO, controller);
+  GrenadeToken* grenade = new GrenadeToken(BORGO, controller);
   Player* player = new Player(MOLOCH);
   model -> addPlayer(player);
   BoardToken* token = new BoardToken(MOLOCH, "soldier");
   Field* field = new Field;
   token -> setField(field);
   field -> setToken(token);
-  granade -> setTokenToDestroy(token);
-  granade -> action();
+  grenade -> setTokenToDestroy(token);
+  grenade -> action();
 //  ASSERT_FALSE(model -> usedTokens.empty());
 //  EXPECT_EQ(token, model -> usedTokens[0]);
   delete token;
-  delete granade;
+  delete grenade;
 }
 
 TEST_F(InstantTokenTest, shouldStrikeToken) {

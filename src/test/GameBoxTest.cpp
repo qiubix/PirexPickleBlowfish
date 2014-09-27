@@ -17,6 +17,14 @@ protected:
   virtual void SetUp() {}
   virtual void TearDown() {}
 
+  //TODO: use it
+  std::vector<Token*> createNewArmy(Army armyName) {
+    Token* someToken = new BoardToken(armyName, "someToken", new Attributes);
+    std::vector<Token*> army;
+    army.push_back(someToken);
+    return army;
+  }
+
 };
 
 //TODO: these tests are somehow betonized, think of changing them
@@ -31,7 +39,7 @@ TEST_F(GameBoxTest, shouldReturnArmiesCountInTheBox) {
   GameBox gameBox;
   ASSERT_EQ(0, gameBox.getArmiesCount());
   std::vector<Token *> army;
-  gameBox.armies.insert(std::make_pair<Army, std::vector<Token *> >(HEGEMONY, army));
+  gameBox.armies.insert(std::make_pair(HEGEMONY, army));
   ASSERT_EQ(1, gameBox.getArmiesCount());
 }
 
@@ -40,7 +48,7 @@ TEST_F(GameBoxTest, shouldCheckIfThereIsNoArmyInTheBox) {
   ASSERT_EQ(0, gameBox.getArmiesCount());
   ASSERT_TRUE(gameBox.isEmpty());
   std::vector<Token *> army;
-  gameBox.armies.insert(std::make_pair<Army, std::vector<Token *> >(HEGEMONY, army));
+  gameBox.armies.insert(std::make_pair(HEGEMONY, army));
   ASSERT_FALSE(gameBox.isEmpty());
 }
 
@@ -55,7 +63,7 @@ TEST_F(GameBoxTest, shouldGetArmyFromTheBox) {
   std::vector<Token*> army;
   army.push_back(tokenToInsert);
 
-  gameBox.armies.insert(std::make_pair<Army, std::vector<Token *> >(armyName, army));
+  gameBox.armies.insert(std::make_pair(armyName, army));
   std::vector<Token *> returnedArmy = gameBox.getArmy(armyName);
   ASSERT_EQ(army.size(), returnedArmy.size());
   ASSERT_EQ(armyName, returnedArmy[0] -> getArmy());
@@ -90,6 +98,23 @@ TEST_F(GameBoxTest, shouldAddArmyToTheBox) {
   ASSERT_TRUE(dynamic_cast<BoardToken *>(returnedArmy[0]));
   ASSERT_EQ(&attributes, dynamic_cast<BoardToken *>(returnedArmy[0]) -> getAttributes());
   ASSERT_EQ(tokenName, dynamic_cast<BoardToken *>(returnedArmy[0]) -> getName());
+}
+
+TEST_F(GameBoxTest, shouldThrowExceptionWhenAlreadySuchArmyInTheBox) {
+  GameBox gameBox;
+
+  //TODO: wrap in into a method
+  Army armyName = HEGEMONY;
+  std::string tokenName = "someToken";
+  Attributes attributes;
+  Token* tokenToInsert = new BoardToken(armyName, tokenName, &attributes);
+  std::vector<Token*> army;
+  army.push_back(tokenToInsert);
+
+  gameBox.addArmy(armyName, army);
+  ASSERT_EQ(1, gameBox.getArmiesCount());
+  ASSERT_THROW(gameBox.addArmy(armyName, army), ThereIsAlreadySuchArmyInTheBoxException);
+  ASSERT_EQ(1, gameBox.getArmiesCount());
 }
 
 TEST_F(GameBoxTest, shouldAddTokenToTheArmy) {
