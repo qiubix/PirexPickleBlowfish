@@ -43,7 +43,6 @@ void Board::linkMiddleRing() {
   }
 }
 
-//FIXME: incrementation side effects - should pass value as argument, not reference
 void Board::createOutsideRing() {
   Side side = Side::NORTH;
   do {
@@ -51,11 +50,9 @@ void Board::createOutsideRing() {
     Field* first = new Field;
     Field* second = new Field;
     root -> addNeighbour(first, side);
-    root -> addNeighbour(second, ++side);
-    --side;
+    root -> addNeighbour(second, side+1);
     first -> addNeighbour(root, !side);
-    second -> addNeighbour(root, !(++side));
-    --side;
+    second -> addNeighbour(root, !(side+1));
     fields.push_back(first);
     fields.push_back(second);
     ++side;

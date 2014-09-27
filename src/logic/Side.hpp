@@ -44,6 +44,11 @@ inline Side& operator--(Side& side) {
   }
 }
 
+inline Side operator+(Side side, int amount) {
+  int value = (static_cast<int>(side)+amount)%6; 
+  return static_cast<Side>(value);
+}
+
 inline Side operator!(Side side) {
 //  return (Side) ((edge+3)%6);
   switch(side) {

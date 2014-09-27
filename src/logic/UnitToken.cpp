@@ -19,7 +19,7 @@ UnitToken::~UnitToken()
 }
 
 Attributes* UnitToken::getEdgeAttributes(Side edge) {
-  int index = static_cast <int> (edge);
+  int index = static_cast<int>(edge);
   if ( edges[index] == nullptr) {
     edges[index] = new Attributes;
   }
@@ -28,6 +28,6 @@ Attributes* UnitToken::getEdgeAttributes(Side edge) {
 
 void UnitToken::setEdgeAttributes(Side edge, Attributes* attributes)
 {
-  edges[static_cast <int> (edge)] = attributes;
+  edges[static_cast<int>(edge)] = attributes;
 }
 
