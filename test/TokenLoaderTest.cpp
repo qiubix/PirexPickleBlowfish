@@ -5,13 +5,13 @@ using ::testing::Return;
 using ::testing::Test;
 using ::testing::_;
 
-#include "setup/TokenLoader.hpp"
+#include "../src/setup/TokenLoader.hpp"
 #include "MockJson.hpp"
 
-#include "setup/JsonParser.hpp"
+#include "../src/setup/JsonParser.hpp"
 
-#include "logic/ChangeAttributeUpgrader.hpp"
-#include "logic/AddAttributeUpgrader.hpp"
+#include "../src/logic/ChangeAttributeUpgrader.hpp"
+#include "../src/logic/AddAttributeUpgrader.hpp"
 
 #include <fstream>
 

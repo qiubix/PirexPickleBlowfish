@@ -3,10 +3,10 @@ using ::testing::Eq;
 #include <gtest/gtest.h>
 using ::testing::Test;
 
-#include "logic/Controller.hpp"
-#include "logic/Model.hpp"
-#include "logic/BoardToken.hpp"
-#include "setup/TokenLoader.hpp"
+#include "../src/logic/Controller.hpp"
+#include "../src/logic/Model.hpp"
+#include "../src/logic/BoardToken.hpp"
+#include "../src/setup/TokenLoader.hpp"
 
 //TODO: create mocks
 class ControllerTest : public Test

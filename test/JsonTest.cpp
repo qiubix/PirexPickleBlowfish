@@ -3,7 +3,7 @@ using ::testing::Eq;
 #include <gtest/gtest.h>
 using ::testing::Test;
 
-#include "setup/Json.hpp"
+#include "../src/setup/Json.hpp"
 #include "JsonConstants.hpp"
 
 class JsonTest : public Test {

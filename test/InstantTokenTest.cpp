@@ -4,10 +4,10 @@ using ::testing::Eq;
 using ::testing::Test;
 
 #include <cstdlib>
-#include "logic/Attribute.hpp"
-#include "logic/Field.hpp"
-#include "logic/BoardToken.hpp"
-#include "logic/InstantToken.hpp"
+#include "../src/logic/Attribute.hpp"
+#include "../src/logic/Field.hpp"
+#include "../src/logic/BoardToken.hpp"
+#include "../src/logic/InstantToken.hpp"
 #include "MockController.hpp"
 
 //TODO: create mocks

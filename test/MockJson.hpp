@@ -2,7 +2,7 @@
 #define MOCK_JSON_HPP
 
 #include "gmock/gmock.h"
-#include "setup/Json.hpp"
+#include "../src/setup/Json.hpp"
 
 #include <string>
 #include <vector>

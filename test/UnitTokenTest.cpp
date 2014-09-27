@@ -4,8 +4,8 @@ using ::testing::Eq;
 using ::testing::Test;
 
 #include <cstdlib>
-#include "logic/Attributes.hpp"
-#include "logic/UnitToken.hpp"
+#include "../src/logic/Attributes.hpp"
+#include "../src/logic/UnitToken.hpp"
 
 class UnitTokenTest : public Test
 {

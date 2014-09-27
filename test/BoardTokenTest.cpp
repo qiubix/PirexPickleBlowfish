@@ -4,8 +4,8 @@ using ::testing::Eq;
 using ::testing::Test;
 
 #include <cstdlib>
-#include "logic/Attribute.hpp"
-#include "logic/BoardToken.hpp"
+#include "../src/logic/Attribute.hpp"
+#include "../src/logic/BoardToken.hpp"
 
 const int ATTRIBUTE_VALUE = 4;
 

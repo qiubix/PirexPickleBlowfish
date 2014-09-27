@@ -5,8 +5,8 @@ using ::testing::Test;
 
 #include <cstdlib>
 
-#include "logic/Attribute.hpp"
-#include "logic/Attributes.hpp"
+#include "../src/logic/Attribute.hpp"
+#include "../src/logic/Attributes.hpp"
 
 const int ATTRIBUTE_VALUE = 4;
 

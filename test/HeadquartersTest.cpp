@@ -3,9 +3,9 @@ using ::testing::Eq;
 #include <gtest/gtest.h>
 using ::testing::Test;
 
-#include "logic/HeadquartersToken.hpp"
-#include "logic/ChangeAttributeUpgrader.hpp"
-#include "logic/AddAttributeUpgrader.hpp"
+#include "../src/logic/HeadquartersToken.hpp"
+#include "../src/logic/ChangeAttributeUpgrader.hpp"
+#include "../src/logic/AddAttributeUpgrader.hpp"
 
 class HeadquartersTest : public Test
 {

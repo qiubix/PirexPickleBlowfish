@@ -2,7 +2,7 @@
 #define MOCK_CONTROLLER_HPP
 
 #include "gmock/gmock.h"
-#include "logic/Controller.hpp"
+#include "../src/logic/Controller.hpp"
 
 class MockController : public Controller
 {

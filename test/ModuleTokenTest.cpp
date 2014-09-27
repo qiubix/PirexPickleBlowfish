@@ -5,12 +5,12 @@ using ::testing::Test;
 
 #include <cstdlib>
 #include <vector>
-#include "logic/ModuleToken.hpp"
-#include "logic/UnitToken.hpp"
-#include "logic/Upgrader.hpp"
-#include "logic/AddAttributeUpgrader.hpp"
-#include "logic/ChangeArmyUpgrader.hpp"
-#include "logic/ChangeAttributeUpgrader.hpp"
+#include "../src/logic/ModuleToken.hpp"
+#include "../src/logic/UnitToken.hpp"
+#include "../src/logic/Upgrader.hpp"
+#include "../src/logic/AddAttributeUpgrader.hpp"
+#include "../src/logic/ChangeArmyUpgrader.hpp"
+#include "../src/logic/ChangeAttributeUpgrader.hpp"
 
 class ModuleTokenTest : public Test
 {

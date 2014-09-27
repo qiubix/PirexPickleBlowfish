@@ -3,10 +3,10 @@ using ::testing::Eq;
 #include <gtest/gtest.h>
 using ::testing::Test;
 
-#include "setup/GameBox.hpp"
+#include "../src/setup/GameBox.hpp"
 
-#include "logic/Attributes.hpp"
-#include "logic/BoardToken.hpp"
+#include "../src/logic/Attributes.hpp"
+#include "../src/logic/BoardToken.hpp"
 
 class GameBoxTest : public Test {
 protected:

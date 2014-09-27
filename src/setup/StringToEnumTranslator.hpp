@@ -1,8 +1,8 @@
 #ifndef STRING_TO_ENUM_TRANSLATOR_HPP
 #define STRING_TO_ENUM_TRANSLATOR_HPP
 
-#include "logic/Token.hpp"
-#include "logic/BoardToken.hpp"
+#include "../logic/Token.hpp"
+#include "../logic/BoardToken.hpp"
 
 #include <map>
 #include <string>

@@ -3,7 +3,7 @@ using ::testing::Eq;
 #include <gtest/gtest.h>
 using ::testing::Test;
 
-#include "logic/Model.hpp"
+#include "../src/logic/Model.hpp"
 
 class ModelTest : public Test
 {

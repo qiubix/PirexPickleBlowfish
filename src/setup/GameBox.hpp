@@ -4,8 +4,8 @@
 #include <map>
 #include <vector>
 
-#include "logic/Army.hpp"
-#include "logic/Token.hpp"
+#include "../logic/Army.hpp"
+#include "../logic/Token.hpp"
 
 #include <gtest/gtest.h>
 

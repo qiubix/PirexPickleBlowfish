@@ -1,8 +1,8 @@
 #include <QtGui>
 #include <QtTest/QtTest>
 
-#include "gui/MainWindowSample.hpp"
-#include "logic/Controller.hpp"
+#include "../src/gui/MainWindowSample.hpp"
+#include "../src/logic/Controller.hpp"
 
 class MainWindowSampleTest : public QObject
 {

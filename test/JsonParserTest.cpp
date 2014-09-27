@@ -3,7 +3,7 @@ using ::testing::Eq;
 #include <gtest/gtest.h>
 using ::testing::Test;
 
-#include "setup/JsonParser.hpp"
+#include "../src/setup/JsonParser.hpp"
 #include "JsonConstants.hpp"
 
 #include <fstream>

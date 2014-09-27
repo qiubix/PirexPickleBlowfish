@@ -3,8 +3,8 @@ using ::testing::Eq;
 #include <gtest/gtest.h>
 using ::testing::Test;
 
-#include "logic/Board.hpp"
-#include "logic/Field.hpp"
+#include "../src/logic/Board.hpp"
+#include "../src/logic/Field.hpp"
 
 class BoardTest : public Test
 {

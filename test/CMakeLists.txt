@@ -1,3 +1,7 @@
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+
+find_package(Qt5Widgets REQUIRED)
+
 macro(create_test name src libs)
   add_executable(${name} ${src})
   target_link_libraries(${name} ${libs} gmock_main)

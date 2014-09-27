@@ -8,12 +8,6 @@ find_package(Qt5Widgets REQUIRED)
 
 set(GMOCK_DIR $ENV{GMOCK_ROOT})
 
-add_subdirectory(${GMOCK_DIR} ${CMAKE_BINARY_DIR}/gmock)
-set(CMAKE_AUTOMOC ON)
-
-include_directories(SYSTEM ${GMOCK_DIR}/gtest/include ${GMOCK_DIR}/include)
-
-
 set(PROJECT_SRC_LIST main.cpp)
 set(PROJECT_LIBS logic MainWindowSample GameBox TokenLoader)
 add_executable(${PROJECT_NAME} ${PROJECT_SRC_LIST})
@@ -27,5 +21,4 @@ file(COPY outpost.json DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 add_subdirectory(gui)
 add_subdirectory(logic)
-add_subdirectory(test)
 add_subdirectory(setup)

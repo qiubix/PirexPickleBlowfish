@@ -5,8 +5,8 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QTextBrowser>
-#include "logic/Board.hpp"
-#include "logic/Controller.hpp"
+#include "../logic/Board.hpp"
+#include "../logic/Controller.hpp"
 
 namespace Ui {
   class MainWindowSample;

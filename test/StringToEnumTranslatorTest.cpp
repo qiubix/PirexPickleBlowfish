@@ -3,7 +3,7 @@ using ::testing::Eq;
 #include <gtest/gtest.h>
 using ::testing::Test;
 
-#include "setup/StringToEnumTranslator.hpp"
+#include "../src/setup/StringToEnumTranslator.hpp"
 
 class StringToEnumTranslatorTest : public Test {
 protected:

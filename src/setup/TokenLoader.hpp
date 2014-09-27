@@ -9,14 +9,14 @@
 #include "Json.hpp"
 #include "StringToEnumTranslator.hpp"
 
-#include "logic/ModuleToken.hpp"
-#include "logic/UnitToken.hpp"
-#include "logic/InstantToken.hpp"
-#include "logic/HeadquartersToken.hpp"
+#include "../logic/ModuleToken.hpp"
+#include "../logic/UnitToken.hpp"
+#include "../logic/InstantToken.hpp"
+#include "../logic/HeadquartersToken.hpp"
 
-#include "logic/Upgrader.hpp"
+#include "../logic/Upgrader.hpp"
 
-#include "logic/Controller.hpp"
+#include "../logic/Controller.hpp"
 
 class TokenLoader
 {

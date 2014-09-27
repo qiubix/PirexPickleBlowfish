@@ -3,8 +3,8 @@ using ::testing::Eq;
 #include <gtest/gtest.h>
 using ::testing::Test;
 
-#include "logic/Player.hpp"
-#include "logic/BoardToken.hpp"
+#include "../src/logic/Player.hpp"
+#include "../src/logic/BoardToken.hpp"
 
 class PlayerTest : public Test
 {
