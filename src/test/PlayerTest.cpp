@@ -89,16 +89,19 @@ TEST_F(PlayerTest, shouldGetTokenFromHand) {
   player -> tokensOnHand.push_back(token1);
   player -> tokensOnHand.push_back(token2);
   player -> tokensOnHand.push_back(token3);
-  Token* specificToken = player -> getTokenOnHand(3);
-  ASSERT_EQ(nullptr, specificToken);
-  specificToken = player -> getTokenOnHand(0);
-  ASSERT_EQ(specificToken, token1);
-  specificToken = player -> getTokenOnHand(1);
-  ASSERT_EQ(specificToken, token2);
-  specificToken = player -> getTokenOnHand(2);
-  ASSERT_EQ(specificToken, token3);
+  ASSERT_EQ(token1, player -> getTokenOnHand(0));
+  ASSERT_EQ(token2, player -> getTokenOnHand(1));
+  ASSERT_EQ(token3, player -> getTokenOnHand(2));
 
   delete token1;
   delete token2;
   delete token3;
+}
+
+//TODO: implement
+TEST_F(PlayerTest, DISABLED_shouldThrowExceptionWhenGettingNonExistingToken) {
+}
+
+//TODO: implement
+TEST_F(PlayerTest, DISABLED_shouldThrowExceptionWhenGettingTokenFromWrongPosition) {
 }

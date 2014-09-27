@@ -44,6 +44,7 @@ TEST_F(ControllerTest, shouldInitPlayerWithTokens) {
   Player* player = model -> getPlayer(MOLOCH);
   int numberOfTokens = player -> hiddenTokens.size();
   ASSERT_EQ(34, numberOfTokens);
+  //REVIEW: why?
   Token* firstToken = player -> hiddenTokens[0];
   EXPECT_EQ("Battle", firstToken -> getName());
   EXPECT_EQ(MOLOCH, firstToken -> getArmy());
@@ -85,6 +86,7 @@ TEST_F(ControllerTest, shouldStrikeToken) {
   EXPECT_EQ(1, token -> getAttribute(TOUGHNESS) -> getValue());
 }
 
+//TODO: split into separate tests
 TEST_F(ControllerTest, shouldBombStrikeAreaOfOneFieldRadius) {
   Field* epicentrum = new Field;
   Field* north = new Field;

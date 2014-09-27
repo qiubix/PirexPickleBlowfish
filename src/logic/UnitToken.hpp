@@ -16,7 +16,7 @@ public:
   void setEdgeAttributes(Side edge, Attributes* attributes);
 
 private:
-  //TODO: two derefferentions - messy, wrap it into class with overloaded [] operator
+  //REVIEW: avoid **
   Attributes** edges;
 };
 

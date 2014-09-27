@@ -24,6 +24,7 @@ protected:
 
 TEST_F(HeadquartersTest, shouldHaveAllEdgesActiveByDefault) {
   Side side = Side::NORTH;
+  //TODO: custom matcher from gmock https://code.google.com/p/googlemock/wiki/V1_7_CookBook#Writing_New_Matchers_Quickly
   do {
     EXPECT_TRUE(hq -> isEdgeActive(side));
     ++side;
@@ -32,7 +33,7 @@ TEST_F(HeadquartersTest, shouldHaveAllEdgesActiveByDefault) {
 
 TEST_F(HeadquartersTest, shouldHaveInitiativeZeroByDefault) {
   Attribute* initiative = hq -> UnitToken::getAttribute(INITIATIVE);
-  ASSERT_NE((Attribute*) nullptr, initiative);
+  ASSERT_NE(nullptr, initiative);
   EXPECT_EQ(0, initiative -> getValue());
 }
 
@@ -67,6 +68,6 @@ TEST_F(HeadquartersTest, shouldAddAttributeToBoardToken) {
   Module* outpostHQ = new AddAttributeUpgrader(new HeadquartersToken(OUTPOST, "HQ", nullptr), MOTHER, "mother");
   BoardToken* token = new BoardToken(OUTPOST, "token", new Attributes);
   outpostHQ -> addBoardToken(token);
-  ASSERT_NE((Attribute*) nullptr, token -> getAttribute(MOTHER));
+  ASSERT_NE(nullptr, token -> getAttribute(MOTHER));
   EXPECT_EQ(1, token -> getAttribute(MOTHER) -> getValue());
 }

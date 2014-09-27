@@ -42,7 +42,6 @@ TEST_F(FieldTest, shouldGetToken) {
 TEST_F(FieldTest, shouldAddNeighbour) {
   Field* neighbour = new Field;
   field -> addNeighbour(neighbour, Side::NORTH);
-//  EXPECT_EQ(neighbour, field -> neighbours[Side::NORTH]);
   EXPECT_EQ(neighbour, field -> getNeighbour(Side::NORTH));
   delete neighbour;
 }

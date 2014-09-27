@@ -83,20 +83,26 @@ protected:
 
 TEST_F(AttributesTest, shouldCreateAttributesObjectWithNoAttributes) {
   Attributes* attributes = new Attributes();
-  ASSERT_NE((Attributes *)nullptr, attributes);
+  ASSERT_NE(nullptr, attributes);
   ASSERT_TRUE(attributes -> empty());
+}
+
+TEST_F(AttributesTest, shouldAddAttribute) {
+  Attributes* attributes = new Attributes;
+  attributes->addAttribute(INITIATIVE, new Attribute("initiative", 3));
+  ASSERT_EQ(1, attributes->getSize());
+  ASSERT_EQ(3, attributes->getAttribute(INITIATIVE)->getValue());
 }
 
 TEST_F(AttributesTest, shouldRemoveAttribute) {
   Attributes* attributes = new Attributes;
-  Attribute* initiative = new Attribute("initiative", 3);
-  attributes->addAttribute(INITIATIVE, initiative);
+  attributes->addAttribute(INITIATIVE, new Attribute("initiative", 3));
   attributes->removeAttribute(INITIATIVE);
-  ASSERT_EQ(0, attributes->attributes.size());
-  std::map <AttributeName, Attribute*>::iterator it;
-  it = attributes->attributes.find(MELEE);
-  ASSERT_EQ(attributes->attributes.end(), it);
-  attributes->removeAttribute(MELEE);
-  ASSERT_EQ(0, attributes->attributes.size());
+  ASSERT_EQ(0, attributes->getSize());
 }
 
+TEST_F(AttributesTest, shouldRemoveAttributeEvenIfItDoesNotExist) {
+  Attributes* attributes = new Attributes;
+  attributes->removeAttribute(INITIATIVE);
+  ASSERT_EQ(0, attributes->getSize());
+}

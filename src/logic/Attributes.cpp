@@ -29,12 +29,9 @@ void Attributes::addAttribute(AttributeName name, Attribute* attribute) {
 }
 
 void Attributes::removeAttribute(AttributeName name) {
-  std::map <AttributeName, Attribute*>::iterator it;
-  it = attributes.find(name);
-  if (it == attributes.end()) {
-    return;
-  } else {
-    attributes.erase(attributes.find(name));
+  std::map <AttributeName, Attribute*>::iterator it = attributes.find(name);
+  if (it != attributes.end()) {
+    attributes.erase(it);
   }
 }
 
