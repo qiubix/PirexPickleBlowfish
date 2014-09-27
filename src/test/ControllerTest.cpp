@@ -44,10 +44,10 @@ TEST_F(ControllerTest, shouldInitPlayerWithTokens) {
   Player* player = model -> getPlayer(MOLOCH);
   int numberOfTokens = player -> hiddenTokens.size();
   ASSERT_EQ(34, numberOfTokens);
-  //REVIEW: why?
-  Token* firstToken = player -> hiddenTokens[0];
-  EXPECT_EQ("Battle", firstToken -> getName());
-  EXPECT_EQ(MOLOCH, firstToken -> getArmy());
+  for (int i=0; i<34; ++i) {
+    Token* token = player -> hiddenTokens[i];
+    EXPECT_EQ(MOLOCH, token -> getArmy());
+  }
 }
 
 TEST_F(ControllerTest, shouldRotateToken) {

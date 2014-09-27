@@ -19,8 +19,9 @@ protected:
 
   //TODO: use it
   std::vector<Token*> createNewArmy(Army armyName) {
-		std::vector<Token*> army;
-		army.emplace_back(armyName, "someToken", new Attributes());
+    Token* someToken = new BoardToken(armyName, "someToken", new Attributes);
+    std::vector<Token*> army;
+    army.push_back(someToken);
     return army;
   }
 

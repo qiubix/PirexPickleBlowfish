@@ -17,6 +17,7 @@ public:
 
 private:
   //REVIEW: avoid **
+  //TODO: change to map indexed with edges
   Attributes** edges;
 };
 

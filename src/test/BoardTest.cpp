@@ -32,6 +32,7 @@ protected:
 TEST_F(BoardTest, shouldCreateMiddleRing) {
   Field* middle = board -> getMiddleField();
   //REVIEW: what is wrong with for(Side side = Side::NORTH; side <= Side::whatever; side++)
+  //TODO: override operator <= for Side to enable for loop usage
   Side side = Side::NORTH;
   do {
     Field* neighbour = middle -> getNeighbour(side);
