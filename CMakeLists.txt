@@ -2,8 +2,12 @@ project(PirexPickleBlowfish)
 
 cmake_minimum_required(VERSION 2.8)
 
-include(setCpp11CompilerFlagIfSupported.cmake)
-set_cpp11_compiler_flag_if_supported()
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+
+include(C++11Compiling)
+include(DefaultBuildType)
+
+setDefaultBuildType(Debug)
 
 enable_testing()
 

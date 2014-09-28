@@ -26,8 +26,5 @@ CMakeLists.txt.user*
 # IntelliJ files
 .idea/
 
-# cmake temp files
-cmake/
-
 # logs
 logs/
