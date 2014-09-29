@@ -12,3 +12,11 @@ void AddAttributeUpgrader::upgrade(BoardToken* token) {
 void AddAttributeUpgrader::downgrade(BoardToken* token) {
   token->removeAttribute(newAttributeId);
 }
+
+AttributeName AddAttributeUpgrader::getNewAttributeId() const {
+  return newAttributeId;
+}
+
+std::string AddAttributeUpgrader::getNewAttributeName() const {
+  return newAttributeName;
+}

@@ -9,6 +9,9 @@ public:
   AddAttributeUpgrader(Module* module, AttributeName attributeId, std::string name, bool affectsEnemies = false);
   ~AddAttributeUpgrader() {}
 
+  AttributeName getNewAttributeId() const;
+  std::string getNewAttributeName() const;
+
 protected:
   void upgrade(BoardToken *token);
   void downgrade(BoardToken *token);
@@ -16,9 +19,6 @@ protected:
 private:
   AttributeName newAttributeId;
   std::string newAttributeName;
-
-  FRIEND_TEST(TokenLoaderTest, shouldCreateHeadquartersTokenAddingAttribute);
-
 };
 
 #endif //ADDATTRIBUTEUPGRADER_HPP

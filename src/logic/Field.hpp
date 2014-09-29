@@ -1,8 +1,6 @@
 #ifndef FIELD_HPP
 #define FIELD_HPP
 
-#include <gtest/gtest.h>
-
 #include "Token.hpp"
 #include "Side.hpp"
 
@@ -22,9 +20,6 @@ public:
 private:
   Token* token;
   Field** neighbours;
-
-  FRIEND_TEST(FieldTest, shouldSetToken);
-  FRIEND_TEST(FieldTest, shouldAddNeighbour);
 };
 
 #endif //FIELD_HPP

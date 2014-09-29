@@ -4,7 +4,11 @@ find_package(Qt5Widgets REQUIRED)
 
 macro(create_test name src libs)
   add_executable(${name} ${src})
-  target_link_libraries(${name} ${libs} gmock_main)
+  target_link_libraries(${name} ${GMOCK_LIBRARIES} ${GMOCK_MAIN_LIBRARIES} ${libs})
+  add_dependencies(${name} gmock)
+  if(CMAKE_COMPILER_IS_GNUC OR CMAKE_COMPILER_IS_GNUCXX)
+    target_link_libraries(${name} pthread)
+  endif(CMAKE_COMPILER_IS_GNUC OR CMAKE_COMPILER_IS_GNUCXX)
   install(TARGETS ${name} DESTINATION ${CMAKE_INSTALL_PREFIX})
   add_test(${name} ${name})
 endmacro(create_test)
@@ -67,7 +71,6 @@ install_file(oneChangeAttributeOfEnemyUpgradeParameters.json)
 install_file(changeArmyUpgradeParameters.json)
 install_file(twoAddAttributeUpgradesParameters.json)
 install_file(oneAddAttributeAndOneChangeAttributeUpgradesParameters.json)
-
 
 #army files to ControllerTest
 install_file(moloch.json)

@@ -49,3 +49,11 @@ void ChangeAttributeUpgrader::downgrade(BoardToken* token)
     }
   }
 }
+
+AttributeName ChangeAttributeUpgrader::getAttributeToChange() const{
+  return attributeToChange;
+}
+
+int ChangeAttributeUpgrader::getChangeValue() const {
+  return changeValue;
+}
