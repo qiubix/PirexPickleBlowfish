@@ -1,6 +1,7 @@
 # Binary and build directories
 bin/
 build/
+ext/
 
 # Compiled Object files
 *.slo

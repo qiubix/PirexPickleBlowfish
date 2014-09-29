@@ -419,8 +419,8 @@ TEST_F(TokenLoaderTest, shouldCreateHeadquartersTokenUpgradingAttribute) {
 
 //  ASSERT_TRUE(dynamic_cast<HeadquartersToken *>(headquarters));
   ASSERT_TRUE(dynamic_cast<ChangeAttributeUpgrader *>(headquarters));
-  EXPECT_EQ(INITIATIVE, dynamic_cast<ChangeAttributeUpgrader *>(headquarters) -> attributeToChange);
-  EXPECT_EQ(1, dynamic_cast<ChangeAttributeUpgrader *>(headquarters) -> changeValue);
+  EXPECT_EQ(INITIATIVE, dynamic_cast<ChangeAttributeUpgrader *>(headquarters) -> getAttributeToChange());
+  EXPECT_EQ(1, dynamic_cast<ChangeAttributeUpgrader *>(headquarters) -> getChangeValue());
 }
 
 TEST_F(TokenLoaderTest, shouldCreateHeadquartersTokenAddingAttribute) {
@@ -437,7 +437,7 @@ TEST_F(TokenLoaderTest, shouldCreateHeadquartersTokenAddingAttribute) {
 
 //  ASSERT_TRUE(dynamic_cast<HeadquartersToken *>(headquarters));
   ASSERT_TRUE(dynamic_cast<AddAttributeUpgrader *>(headquarters));
-  EXPECT_EQ(MOTHER, dynamic_cast<AddAttributeUpgrader *>(headquarters) -> newAttributeId);
-  EXPECT_EQ("mother", dynamic_cast<AddAttributeUpgrader *>(headquarters) -> newAttributeName);
+  EXPECT_EQ(MOTHER, dynamic_cast<AddAttributeUpgrader *>(headquarters) -> getNewAttributeId());
+  EXPECT_EQ("mother", dynamic_cast<AddAttributeUpgrader *>(headquarters) -> getNewAttributeName());
 }
 

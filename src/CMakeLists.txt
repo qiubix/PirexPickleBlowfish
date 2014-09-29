@@ -6,8 +6,6 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 find_package(Qt5Widgets REQUIRED)
 
-set(GMOCK_DIR $ENV{GMOCK_ROOT})
-
 set(PROJECT_SRC_LIST main.cpp)
 set(PROJECT_LIBS logic MainWindowSample GameBox TokenLoader)
 add_executable(${PROJECT_NAME} ${PROJECT_SRC_LIST})

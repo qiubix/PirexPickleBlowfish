@@ -9,6 +9,9 @@ public:
   ChangeAttributeUpgrader(Module* module, AttributeName name, int changeValue, bool affectsEnemies = false);
   ~ChangeAttributeUpgrader() {}
 
+  AttributeName getAttributeToChange() const;
+  int getChangeValue() const;
+
 protected:
   void upgrade(BoardToken *token);
   void downgrade(BoardToken *token);
@@ -16,8 +19,6 @@ protected:
 private:
   AttributeName attributeToChange;
   int changeValue;
-
-  FRIEND_TEST(TokenLoaderTest, shouldCreateHeadquartersTokenUpgradingAttribute);
 };
 
 

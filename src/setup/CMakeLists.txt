@@ -12,7 +12,9 @@ target_link_libraries(JsonParser Json)
 
 set(GAME_BOX_SRC GameBox.cpp GameBoxExceptions.hpp)
 add_library(GameBox ${GAME_BOX_SRC})
-target_link_libraries(GameBox gmock_main)
+target_link_libraries(GameBox ${GTEST_LIBRARIES})
+add_dependencies(GameBox gmock)
 
 add_library(TokenLoader TokenLoader.cpp)
-target_link_libraries(TokenLoader JsonParser StringToEnumTranslator GameBox logic gmock_main)
+target_link_libraries(TokenLoader JsonParser StringToEnumTranslator GameBox logic ${GTEST_LIBRARIES})
+add_dependencies(TokenLoader gmock)
