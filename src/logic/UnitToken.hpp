@@ -1,6 +1,8 @@
 #ifndef UNITTOKEN_HPP
 #define UNITTOKEN_HPP
 
+#include <map>
+
 #include "BoardToken.hpp"
 
 class UnitToken : public BoardToken
@@ -10,15 +12,13 @@ public:
   virtual ~UnitToken();
 
   //getters
-  Attributes* getEdgeAttributes(Side edge);
+  Attributes* getEdgeAttributes(const Side& edge);
 
   //TODO: make private
-  void setEdgeAttributes(Side edge, Attributes* attributes);
+  void setEdgeAttributes(const Side& edge, Attributes* attributes);
 
 private:
-  //REVIEW: avoid **
-  //TODO: change to map indexed with edges
-  Attributes** edges;
+  std::map<Side, Attributes*> edges;
 };
 
 #endif //UNITTOKEN_HPP
