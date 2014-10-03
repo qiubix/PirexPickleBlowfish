@@ -26,9 +26,9 @@ void Player::shuffleTokens() {
 }
 
 void Player::killToken(BoardToken* token) {
-  std::vector< BoardToken* >::iterator it = tokensOnBoard.begin();
+  auto it = tokensOnBoard.begin();
   while (it != tokensOnBoard.end()) {
-    if(*it == token) {
+    if (*it == token) {
       tokensOnBoard.erase(it);
       break;
     }
@@ -38,9 +38,9 @@ void Player::killToken(BoardToken* token) {
 }
 
 void Player::useToken(Token* token) {
-  std::vector < Token* >::iterator it = tokensOnHand.begin();
+  auto it = tokensOnHand.begin();
   while (it != tokensOnHand.end()) {
-    if(*it == token) {
+    if (*it == token) {
       tokensOnHand.erase(it);
       break;
     }
@@ -50,9 +50,9 @@ void Player::useToken(Token* token) {
 }
 
 void Player::putOnBoard(BoardToken* token) {
-  std::vector < Token* >::iterator it = tokensOnHand.begin();
+  auto it = tokensOnHand.begin();
   while (it != tokensOnHand.end()) {
-    if(*it == token) {
+    if (*it == token) {
       tokensOnHand.erase(it);
       break;
     }

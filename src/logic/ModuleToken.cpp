@@ -13,9 +13,8 @@ void ModuleToken::addBoardToken(BoardToken* token)
 
 void ModuleToken::removeBoardToken(BoardToken* token)
 {
-  std::vector<BoardToken*>::iterator it = boardTokens.begin();
-  for (;it != boardTokens.end(); ++it) {
-    if(*it == token) {
+  for (auto it = boardTokens.begin(); it != boardTokens.end(); ++it) {
+    if (*it == token) {
       boardTokens.erase(it);
       break;
     }
