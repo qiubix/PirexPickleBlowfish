@@ -24,8 +24,8 @@ void ModuleToken::removeBoardToken(BoardToken* token)
 bool ModuleToken::isEdgeActive(Side edge)
 {
   //TODO: checking orientation and comparing to global reference
-  for (int i=0; i<activeEdges.size(); ++i) {
-    if (activeEdges[i] == edge) {
+  for (Side const &a : activeEdges) {
+    if (a == edge) {
       return true;
     }
   }
