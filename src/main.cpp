@@ -36,8 +36,8 @@ int main(int argc, char* argv[])
   mainWindowInit(&app, controller);
 
   std::vector<Token*> tokens = model -> getCurrentPlayer() -> hiddenTokens;
-  for (unsigned i=0; i<tokens.size(); ++i) {
-    qDebug() << tokens.at(i) -> getName().c_str();
+  for (Token* token : tokens) {
+    qDebug() << token -> getName().c_str();
   }
 
   return app.exec();
