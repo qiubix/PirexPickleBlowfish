@@ -1,6 +1,8 @@
 #ifndef FIELD_HPP
 #define FIELD_HPP
 
+#include <map>
+
 #include "Token.hpp"
 #include "Side.hpp"
 
@@ -12,14 +14,14 @@ public:
 
   //getters
   Token* getToken(void);
-  Field* getNeighbour(Side side);
+  Field* getNeighbour(const Side& side);
 
   void setToken(Token* token);
-  void addNeighbour(Field* field, Side side);
+  void addNeighbour(Field* field, const Side& side);
 
 private:
   Token* token;
-  Field** neighbours;
+  std::map<Side, Field*> neighbours;
 };
 
 #endif //FIELD_HPP
