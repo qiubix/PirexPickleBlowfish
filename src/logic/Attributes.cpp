@@ -4,15 +4,14 @@ Attributes::Attributes(void) {
 }
 
 Attributes::~Attributes(void) {
-  std::map<AttributeName, Attribute*>::iterator iterator;
-  for(iterator = attributes.begin(); iterator != attributes.end(); iterator++) {
-    delete iterator->second;
+  for (auto it = attributes.begin(); it != attributes.end(); it++) {
+    delete it->second;
   }
 }
 
 Attribute* Attributes::getAttribute(AttributeName name) {
-  std::map<AttributeName, Attribute*>::iterator it = attributes.find(name);
-  if(it != attributes.end()) {
+  auto it = attributes.find(name);
+  if (it != attributes.end()) {
     return attributes.at(name);
   }
   else {
@@ -29,7 +28,7 @@ void Attributes::addAttribute(AttributeName name, Attribute* attribute) {
 }
 
 void Attributes::removeAttribute(AttributeName name) {
-  std::map <AttributeName, Attribute*>::iterator it = attributes.find(name);
+  auto it = attributes.find(name);
   if (it != attributes.end()) {
     attributes.erase(it);
   }

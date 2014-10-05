@@ -23,9 +23,9 @@ Player* Model::getCurrentPlayer() {
 }
 
 Player* Model::getPlayer(Army army) {
-  for (unsigned i=0; i<players.size(); ++i) {
-    if(players.at(i) -> getArmy() == army) {
-      return players.at(i);
+  for (Player* p: players) {
+    if (p -> getArmy() == army) {
+      return p;
     }
   }
   return nullptr;

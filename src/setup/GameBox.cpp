@@ -47,9 +47,8 @@ void  GameBox::addTokenToArmy(Army armyName, Token* token) {
 }
 
 bool GameBox::containsArmy(Army armyName) {
-  std::map<Army, std::vector<Token *> >::iterator it;
-  it = armies.find(armyName);
-  if(it == armies.end())
+  auto it = armies.find(armyName);
+  if (it == armies.end())
     return false;
   return true;
 }
