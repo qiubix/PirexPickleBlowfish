@@ -14,7 +14,7 @@ public:
 
   //getters
   Token* getToken(void);
-  Field* getNeighbour(const Side& side) const;
+  Field* getNeighbour(const Side& side);
 
   void setToken(Token* token);
   void addNeighbour(Field* field, const Side& side);

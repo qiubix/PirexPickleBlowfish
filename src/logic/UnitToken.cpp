@@ -1,9 +1,7 @@
 #include "UnitToken.hpp"
 
 UnitToken::UnitToken(Army army, std::string name, Attributes* attributes)
-  : BoardToken(army, name, attributes),
-    edges({{Side::NORTH, nullptr},{Side::NORTH_EAST, nullptr},{Side::NORTH_WEST, nullptr},
-          {Side::SOUTH, nullptr},{Side::SOUTH_EAST, nullptr},{Side::SOUTH_WEST, nullptr},})
+  : BoardToken(army, name, attributes)
 {
 }
 
