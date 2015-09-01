@@ -26,7 +26,7 @@ TEST_F(ModelTest, shouldReturnNullForNoPlayers) {
 }
 
 TEST_F(ModelTest, shouldGetPlayersQuantity) {
-  Player* player = new Player(MOLOCH);
+  Player* player = new Player(Army::MOLOCH);
   model.players.push_back(player);
   EXPECT_EQ(1, model.getPlayersQuantity());
   delete player;
@@ -38,7 +38,7 @@ TEST_F(ModelTest, shouldInitializePlayerQuantityWithZero) {
 }
 
 TEST_F(ModelTest, shouldAddPlayer) {
-  Player* newPlayer = new Player(MOLOCH);
+  Player* newPlayer = new Player(Army::MOLOCH);
   model.addPlayer(newPlayer);
   EXPECT_EQ(newPlayer, model.getCurrentPlayer());
   EXPECT_EQ(1, model.getPlayersQuantity());
@@ -46,8 +46,8 @@ TEST_F(ModelTest, shouldAddPlayer) {
 }
 
 TEST_F(ModelTest, shouldSetCurrentPlayerIdToZeroWhenAddingFirstPlayer) {
-  Player* firstPlayer = new Player(MOLOCH);
-  Player* secondPlayer = new Player(OUTPOST);
+  Player* firstPlayer = new Player(Army::MOLOCH);
+  Player* secondPlayer = new Player(Army::OUTPOST);
   model.addPlayer(firstPlayer);
   model.addPlayer(secondPlayer);
   EXPECT_EQ(0, model.currentPlayerId);
@@ -56,18 +56,18 @@ TEST_F(ModelTest, shouldSetCurrentPlayerIdToZeroWhenAddingFirstPlayer) {
 }
 
 TEST_F(ModelTest, shouldGetPlayerByArmy) {
-  Player* molochPlayer = new Player(MOLOCH);
-  Player* outpostPlayer = new Player(OUTPOST);
+  Player* molochPlayer = new Player(Army::MOLOCH);
+  Player* outpostPlayer = new Player(Army::OUTPOST);
   model.addPlayer(molochPlayer);
   model.addPlayer(outpostPlayer);
-  EXPECT_EQ(molochPlayer, model.getPlayer(MOLOCH));
+  EXPECT_EQ(molochPlayer, model.getPlayer(Army::MOLOCH));
   delete molochPlayer;
   delete outpostPlayer;
 }
 
 TEST_F(ModelTest, shouldMoveToNextPlayer) {
-  Player* firstPlayer = new Player(MOLOCH);
-  Player* secondPlayer = new Player(OUTPOST);
+  Player* firstPlayer = new Player(Army::MOLOCH);
+  Player* secondPlayer = new Player(Army::OUTPOST);
   model.addPlayer(firstPlayer);
   model.addPlayer(secondPlayer);
   EXPECT_EQ(firstPlayer, model.getCurrentPlayer());
@@ -81,9 +81,9 @@ TEST_F(ModelTest, shouldMoveToNextPlayer) {
 
 //FIXME: move most of this test to PlayerTest
 TEST_F(ModelTest, shouldDestroyToken) {
-  Player* player = new Player(MOLOCH);
+  Player* player = new Player(Army::MOLOCH);
   model.addPlayer(player);
-  BoardToken* token = new BoardToken(MOLOCH, "token");
+  BoardToken* token = new BoardToken(Army::MOLOCH, "token");
   Field* field = new Field;
   field -> setToken(token);
   token -> setField(field);
@@ -94,7 +94,7 @@ TEST_F(ModelTest, shouldDestroyToken) {
 }
 
 TEST_F(ModelTest, shouldResetGame) {
-  Player* player = new Player(MOLOCH);
+  Player* player = new Player(Army::MOLOCH);
   model.addPlayer(player);
   model.setGameState(GAME);
   model.reset();

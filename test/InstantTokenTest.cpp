@@ -22,21 +22,21 @@ protected:
 
 BoardToken* InstantTokenTest::createBoardTokenWithToughness() {
   Attribute* toughness = new Attribute("toughness", 2);
-  BoardToken* token = new BoardToken(MOLOCH, "soldier");
+  BoardToken* token = new BoardToken(Army::MOLOCH, "soldier");
   token -> addAttribute(TOUGHNESS, toughness);
   return token;
 }
 
 TEST_F(InstantTokenTest, shouldCauseBattle) {
-  BattleToken battle {MOLOCH, &controller};
+  BattleToken battle {Army::MOLOCH, &controller};
   ASSERT_EQ(PAUSE, model.getGameState());
   battle.action();
   EXPECT_EQ(BATTLE, model.getGameState());
 };
 
 TEST_F(InstantTokenTest, shouldMoveToken) {
-  MovementToken* movement = new MovementToken(MOLOCH, &controller);
-  BoardToken* token = new BoardToken(MOLOCH, "soldier");
+  MovementToken* movement = new MovementToken(Army::MOLOCH, &controller);
+  BoardToken* token = new BoardToken(Army::MOLOCH, "soldier");
   Field* field = new Field;
   Field* destination = new Field;
   token -> setField(field);
@@ -52,9 +52,9 @@ TEST_F(InstantTokenTest, shouldMoveToken) {
 }
 
 TEST_F(InstantTokenTest, shouldPushToken) {
-  PushToken* push = new PushToken(MOLOCH, &controller);
-  BoardToken* pusher = new BoardToken(MOLOCH, "soldier");
-  BoardToken* pushee = new BoardToken(OUTPOST, "soldier");
+  PushToken* push = new PushToken(Army::MOLOCH, &controller);
+  BoardToken* pusher = new BoardToken(Army::MOLOCH, "soldier");
+  BoardToken* pushee = new BoardToken(Army::OUTPOST, "soldier");
   Field* pusherField = new Field;
   Field* pusheeField = new Field;
   Field* destination = new Field;
@@ -75,7 +75,7 @@ TEST_F(InstantTokenTest, shouldPushToken) {
 }
 
 TEST_F(InstantTokenTest, shouldBombStrikeField) {
-  BombToken* bomb = new BombToken(MOLOCH, &controller);
+  BombToken* bomb = new BombToken(Army::MOLOCH, &controller);
   BoardToken* firstToken = createBoardTokenWithToughness();
   BoardToken* secondToken = createBoardTokenWithToughness();
   Field* firstField = new Field;
@@ -97,10 +97,10 @@ TEST_F(InstantTokenTest, shouldBombStrikeField) {
 }
 
 TEST_F(InstantTokenTest, shouldDestroyToken) {
-  GrenadeToken* grenade = new GrenadeToken(BORGO, &controller);
-  Player* player = new Player(MOLOCH);
+  GrenadeToken* grenade = new GrenadeToken(Army::BORGO, &controller);
+  Player* player = new Player(Army::MOLOCH);
   model.addPlayer(player);
-  BoardToken* token = new BoardToken(MOLOCH, "soldier");
+  BoardToken* token = new BoardToken(Army::MOLOCH, "soldier");
   Field* field = new Field;
   token -> setField(field);
   field -> setToken(token);
@@ -116,7 +116,7 @@ TEST_F(InstantTokenTest, shouldDestroyToken) {
 TEST_F(InstantTokenTest, shouldStrikeToken) {
 //  Controller* controller = new Controller(new Model);
 //  MockController controller;
-  SniperToken* sniper = new SniperToken(OUTPOST, &controller);
+  SniperToken* sniper = new SniperToken(Army::OUTPOST, &controller);
   BoardToken* token = createBoardTokenWithToughness();
   sniper -> setTokenToStrike(token);
   sniper->action();

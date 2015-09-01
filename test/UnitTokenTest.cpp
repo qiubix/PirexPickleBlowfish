@@ -15,7 +15,7 @@ protected:
     Attribute* melee = new Attribute("melee", 1);
     northSideAttributes -> addAttribute(MELEE, melee);
     baseUnitAttributes = new Attributes;
-    unit = new UnitToken(HEGEMONY, "UniversalSoldier", baseUnitAttributes);
+    unit = new UnitToken(Army::HEGEMONY, "UniversalSoldier", baseUnitAttributes);
     unit -> setEdgeAttributes(Side::NORTH, northSideAttributes);
   }
 

@@ -32,7 +32,7 @@ TEST_F(GameBoxTest, shouldReturnArmiesCountInTheBox) {
   GameBox gameBox;
   ASSERT_EQ(0, gameBox.getArmiesCount());
   std::vector<Token *> army;
-  gameBox.armies.insert(std::make_pair(HEGEMONY, army));
+  gameBox.armies.insert(std::make_pair(Army::HEGEMONY, army));
   ASSERT_EQ(1, gameBox.getArmiesCount());
 }
 
@@ -41,7 +41,7 @@ TEST_F(GameBoxTest, shouldCheckIfThereIsNoArmyInTheBox) {
   ASSERT_EQ(0, gameBox.getArmiesCount());
   ASSERT_TRUE(gameBox.isEmpty());
   std::vector<Token *> army;
-  gameBox.armies.insert(std::make_pair(HEGEMONY, army));
+  gameBox.armies.insert(std::make_pair(Army::HEGEMONY, army));
   ASSERT_FALSE(gameBox.isEmpty());
 }
 
@@ -49,7 +49,7 @@ TEST_F(GameBoxTest, shouldGetArmyFromTheBox) {
   GameBox gameBox;
 
   //TODO: wrap in into a method
-  Army armyName = HEGEMONY;
+  Army armyName = Army::HEGEMONY;
   std::string tokenName = "someToken";
   Attributes attributes;
   Token* tokenToInsert = new BoardToken(armyName, tokenName, &attributes);
@@ -67,7 +67,7 @@ TEST_F(GameBoxTest, shouldGetArmyFromTheBox) {
 
 TEST_F(GameBoxTest, shouldThrowExceptionWhenNoSuchArmyInTheBox) {
   ASSERT_TRUE(GameBox::getInstance()->isEmpty());
-  ASSERT_THROW(GameBox::getInstance() -> getArmy(OUTPOST), NoSuchArmyInBoxException);
+  ASSERT_THROW(GameBox::getInstance() -> getArmy(Army::OUTPOST), NoSuchArmyInBoxException);
   ASSERT_TRUE(GameBox::getInstance()->isEmpty());
 }
 
@@ -75,7 +75,7 @@ TEST_F(GameBoxTest, shouldAddArmyToTheBox) {
   GameBox gameBox;
 
   //TODO: wrap in into a method
-  Army armyName = HEGEMONY;
+  Army armyName = Army::HEGEMONY;
   std::string tokenName = "someToken";
   Attributes attributes;
   Token* tokenToInsert = new BoardToken(armyName, tokenName, &attributes);
@@ -97,7 +97,7 @@ TEST_F(GameBoxTest, shouldThrowExceptionWhenAlreadySuchArmyInTheBox) {
   GameBox gameBox;
 
   //TODO: wrap in into a method
-  Army armyName = HEGEMONY;
+  Army armyName = Army::HEGEMONY;
   std::string tokenName = "someToken";
   Attributes attributes;
   Token* tokenToInsert = new BoardToken(armyName, tokenName, &attributes);
@@ -112,7 +112,7 @@ TEST_F(GameBoxTest, shouldThrowExceptionWhenAlreadySuchArmyInTheBox) {
 
 TEST_F(GameBoxTest, shouldAddTokenToTheArmy) {
   GameBox gameBox;
-  Army armyName = HEGEMONY;
+  Army armyName = Army::HEGEMONY;
   std::vector<Token*> army;
   gameBox.addArmy(armyName, army);
   std::vector<Token*> returnedArmy = gameBox.getArmy(armyName);
@@ -133,7 +133,7 @@ TEST_F(GameBoxTest, shouldAddTokenToTheArmy) {
 
 TEST_F(GameBoxTest, shouldThrowExceptionWhenTryingToAddTokenOfArmyThatIsNotInTheBox) {
   GameBox gameBox;
-  Army armyName = HEGEMONY;
+  Army armyName = Army::HEGEMONY;
   std::string tokenName = "someToken";
   Attributes attributes;
   Token* tokenToInsert = new BoardToken(armyName, tokenName, &attributes);
@@ -143,7 +143,7 @@ TEST_F(GameBoxTest, shouldThrowExceptionWhenTryingToAddTokenOfArmyThatIsNotInThe
 
 TEST_F(GameBoxTest, shouldAddEmptyArmyToTheBox) {
   GameBox gameBox;
-  Army armyName = HEGEMONY;
+  Army armyName = Army::HEGEMONY;
   gameBox.addEmptyArmy(armyName);
   ASSERT_EQ(1, gameBox.getArmiesCount());
   ASSERT_EQ(0, gameBox.getArmy(armyName).size());

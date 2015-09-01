@@ -12,16 +12,16 @@ class StringToEnumTranslatorTest : public Test {
 //or just make tables with arguments and expected values and execute this tests in a loop
 TEST_F(StringToEnumTranslatorTest, shouldReturnArmy) {
   Army army = StringToEnumTranslator::getInstance() -> getArmy("Moloch");
-  EXPECT_EQ(MOLOCH, army);
+  EXPECT_EQ(Army::MOLOCH, army);
 
   army = StringToEnumTranslator::getInstance() -> getArmy("Borgo");
-  EXPECT_EQ(BORGO, army);
+  EXPECT_EQ(Army::BORGO, army);
 
   army = StringToEnumTranslator::getInstance() -> getArmy("Outpost");
-  EXPECT_EQ(OUTPOST, army);
+  EXPECT_EQ(Army::OUTPOST, army);
 
   army = StringToEnumTranslator::getInstance() -> getArmy("Hegemony");
-  EXPECT_EQ(HEGEMONY, army);
+  EXPECT_EQ(Army::HEGEMONY, army);
 }
 
 TEST_F(StringToEnumTranslatorTest, shouldReturnAttributeName) {

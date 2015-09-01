@@ -11,10 +11,10 @@ StringToEnumTranslator * StringToEnumTranslator::getInstance()
 }
 
 StringToEnumTranslator::StringToEnumTranslator() {
-  armiesDictionary.insert(std::make_pair("Moloch", MOLOCH));
-  armiesDictionary.insert(std::make_pair("Borgo", BORGO));
-  armiesDictionary.insert(std::make_pair("Outpost", OUTPOST));
-  armiesDictionary.insert(std::make_pair("Hegemony", HEGEMONY));
+  armiesDictionary.insert(std::make_pair("Moloch", Army::MOLOCH));
+  armiesDictionary.insert(std::make_pair("Borgo", Army::BORGO));
+  armiesDictionary.insert(std::make_pair("Outpost", Army::OUTPOST));
+  armiesDictionary.insert(std::make_pair("Hegemony", Army::HEGEMONY));
 
   attributesDictionary.insert(std::make_pair("initiative", INITIATIVE));
   attributesDictionary.insert(std::make_pair("toughness", TOUGHNESS));
