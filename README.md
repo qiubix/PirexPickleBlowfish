@@ -5,6 +5,10 @@ Description
 
 Permission to land.
 
+master: [![Build Status](https://travis-ci.org/qiubix/PirexPickleBlowfish.svg?branch=master)](https://travis-ci.org/qiubix/PirexPickleBlowfish)
+
+develop: [![Build Status](https://travis-ci.org/qiubix/PirexPickleBlowfish.svg?branch=develop)](https://travis-ci.org/qiubix/PirexPickleBlowfish)
+
 Dependencies
 ------------
 
