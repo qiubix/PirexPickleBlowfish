@@ -54,7 +54,7 @@ Side BoardToken::getOrientation() {
 }
 
 void BoardToken::setArmy(Army army) {
-  this -> army -> upgradeTo(army);
+  this -> army -> upgradeTo(static_cast<int>(army));
 }
 
 void BoardToken::resetArmy() {

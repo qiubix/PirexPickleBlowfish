@@ -16,7 +16,7 @@ protected:
     Attributes* attributes = new Attributes;
     initiative = new Attribute("initiative", ATTRIBUTE_VALUE);
     attributes -> addAttribute(INITIATIVE, initiative);
-    token = new BoardToken(HEGEMONY, "test board token", attributes);
+    token = new BoardToken(Army::HEGEMONY, "test board token", attributes);
   }
 
   ~BoardTokenTest() {

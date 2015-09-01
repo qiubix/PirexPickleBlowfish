@@ -10,7 +10,7 @@ using ::testing::Test;
 class HeadquartersTest : public Test
 {
 protected:
-  HeadquartersToken hq {HEGEMONY, "HQ", nullptr};
+  HeadquartersToken hq {Army::HEGEMONY, "HQ", nullptr};
 };
 
 TEST_F(HeadquartersTest, shouldHaveAllEdgesActiveByDefault) {
@@ -36,8 +36,8 @@ TEST_F(HeadquartersTest, shouldAttackInAllDirections) {
 }
 
 TEST_F(HeadquartersTest, shouldUpgradeBoardTokenBaseAttribute) {
-  Module* borgoHQ = new ChangeAttributeUpgrader(new HeadquartersToken(BORGO, "HQ", nullptr), INITIATIVE, 1);
-  BoardToken* token = new BoardToken(BORGO, "token", new Attributes);
+  Module* borgoHQ = new ChangeAttributeUpgrader(new HeadquartersToken(Army::BORGO, "HQ", nullptr), INITIATIVE, 1);
+  BoardToken* token = new BoardToken(Army::BORGO, "token", new Attributes);
   Attribute* initiative = new Attribute("initiative", 1);
   token -> addAttribute(INITIATIVE, initiative);
   borgoHQ -> addBoardToken(token);
@@ -46,7 +46,7 @@ TEST_F(HeadquartersTest, shouldUpgradeBoardTokenBaseAttribute) {
 
 TEST_F(HeadquartersTest, shouldUpgradeUnitTokenEdgeAttribute) {
   Module* hegemonyHQ = new ChangeAttributeUpgrader(&hq, MELEE, 1);
-  UnitToken* token = new UnitToken(HEGEMONY, "token", new Attributes);
+  UnitToken* token = new UnitToken(Army::HEGEMONY, "token", new Attributes);
   Attribute* melee = new Attribute("melee", 1);
   Attributes* northEdgeAttributes = new Attributes;
   northEdgeAttributes -> addAttribute(MELEE, melee);
@@ -56,8 +56,8 @@ TEST_F(HeadquartersTest, shouldUpgradeUnitTokenEdgeAttribute) {
 }
 
 TEST_F(HeadquartersTest, shouldAddAttributeToBoardToken) {
-  Module* outpostHQ = new AddAttributeUpgrader(new HeadquartersToken(OUTPOST, "HQ", nullptr), MOTHER, "mother");
-  BoardToken* token = new BoardToken(OUTPOST, "token", new Attributes);
+  Module* outpostHQ = new AddAttributeUpgrader(new HeadquartersToken(Army::OUTPOST, "HQ", nullptr), MOTHER, "mother");
+  BoardToken* token = new BoardToken(Army::OUTPOST, "token", new Attributes);
   outpostHQ -> addBoardToken(token);
   ASSERT_NE(nullptr, token -> getAttribute(MOTHER));
   EXPECT_EQ(1, token->getAttribute(MOTHER)->getValue());

@@ -19,13 +19,13 @@ protected:
 
 BoardToken* ControllerTest::createBoardTokenWithToughness() {
   Attribute* toughness = new Attribute("toughness", 2);
-  BoardToken* token = new BoardToken(MOLOCH, "soldier");
+  BoardToken* token = new BoardToken(Army::MOLOCH, "soldier");
   token -> addAttribute(TOUGHNESS, toughness);
   return token;
 }
 
 TEST_F(ControllerTest, shouldRotateToken) {
-  BoardToken token {MOLOCH, "soldier"};
+  BoardToken token {Army::MOLOCH, "soldier"};
   EXPECT_EQ(Side::NORTH, token.getOrientation());
   controller.rotateClockwise(&token);
   EXPECT_EQ(Side::NORTH_EAST, token.getOrientation());
@@ -35,14 +35,14 @@ TEST_F(ControllerTest, shouldRotateToken) {
 
 TEST_F(ControllerTest, shouldPutTokenOnBoard) {
   Field field;
-  BoardToken token {MOLOCH, "solder"};
+  BoardToken token {Army::MOLOCH, "solder"};
   controller.putOnBoard(&token, &field);
   EXPECT_EQ(&token, field.getToken());
   EXPECT_EQ(&field, token.getField());
 };
 
 TEST_F(ControllerTest, shouldMoveToken) {
-  BoardToken token {MOLOCH, "solder"};
+  BoardToken token {Army::MOLOCH, "solder"};
   Field field;
   Field destination;
   token.setField(&field);
@@ -98,7 +98,7 @@ TEST_F(ControllerTest, shouldBombStrikeAreaOfOneFieldRadius) {
 }
 
 TEST_F(ControllerTest, shouldResetGame) {
-  Player player {MOLOCH};
+  Player player {Army::MOLOCH};
   model.addPlayer(&player);
   controller.setGameState(GAME);
   EXPECT_EQ(GAME, model.getGameState());

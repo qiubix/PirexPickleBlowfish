@@ -13,13 +13,13 @@ protected:
 };
 
 TEST_F(FieldTest, shouldSetToken) {
-  BoardToken token {MOLOCH, "soldier"};
+  BoardToken token {Army::MOLOCH, "soldier"};
   field.setToken(&token);
   EXPECT_EQ(&token, field.getToken());
 };
 
 TEST_F(FieldTest, shouldGetToken) {
-  Token newToken {MOLOCH, "soldier"};
+  Token newToken {Army::MOLOCH, "soldier"};
   field.setToken(&newToken);
   Token* token = field.getToken();
   EXPECT_EQ(&newToken, token);
@@ -33,8 +33,8 @@ TEST_F(FieldTest, shouldAddNeighbour) {
 }
 
 TEST_F(FieldTest, shouldGetNeighbour) {
-  Token firstToken {MOLOCH, "first token"};
-  Token secondToken {MOLOCH, "second token"};
+  Token firstToken {Army::MOLOCH, "first token"};
+  Token secondToken {Army::MOLOCH, "second token"};
   Field newNeighbour;
   newNeighbour.setToken(&secondToken);
   field.setToken(&firstToken);

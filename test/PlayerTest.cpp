@@ -9,11 +9,11 @@ using ::testing::Test;
 class PlayerTest : public Test
 {
 protected:
-  Player player {MOLOCH};
+  Player player {Army::MOLOCH};
 };
 
 TEST_F(PlayerTest, shouldKillToken) {
-  BoardToken token {MOLOCH, "token"};
+  BoardToken token {Army::MOLOCH, "token"};
   player.tokensOnBoard.push_back(&token);
   player.killToken(&token);
   EXPECT_TRUE(player.tokensOnBoard.empty());
@@ -22,7 +22,7 @@ TEST_F(PlayerTest, shouldKillToken) {
 };
 
 TEST_F(PlayerTest, shouldUseToken) {
-  Token token {MOLOCH, "token"};
+  Token token {Army::MOLOCH, "token"};
   player.tokensOnHand.push_back(&token);
   player.useToken(&token);
   EXPECT_TRUE(player.tokensOnHand.empty());
@@ -31,7 +31,7 @@ TEST_F(PlayerTest, shouldUseToken) {
 };
 
 TEST_F(PlayerTest, shouldPutTokenOnBoard) {
-  BoardToken token {MOLOCH, "token"};
+  BoardToken token {Army::MOLOCH, "token"};
   player.tokensOnHand.push_back(&token);
   player.putOnBoard(&token);
   EXPECT_TRUE(player.tokensOnHand.empty());
@@ -40,10 +40,10 @@ TEST_F(PlayerTest, shouldPutTokenOnBoard) {
 };
 
 TEST_F(PlayerTest, shouldDrawTokens) {
-  Token token1 {MOLOCH, "token"};
-  Token token2 {MOLOCH, "token"};
-  Token token3 {MOLOCH, "token"};
-  Token token4 {MOLOCH, "token"};
+  Token token1 {Army::MOLOCH, "token"};
+  Token token2 {Army::MOLOCH, "token"};
+  Token token3 {Army::MOLOCH, "token"};
+  Token token4 {Army::MOLOCH, "token"};
   player.hiddenTokens.push_back(&token1);
   player.hiddenTokens.push_back(&token2);
   player.hiddenTokens.push_back(&token3);
@@ -62,9 +62,9 @@ TEST_F(PlayerTest, shouldDrawTokens) {
 };
 
 TEST_F(PlayerTest, shouldGetTokenFromHand) {
-  Token token1 {MOLOCH, "token"};
-  Token token2 {MOLOCH, "token"};
-  Token token3 {MOLOCH, "token"};
+  Token token1 {Army::MOLOCH, "token"};
+  Token token2 {Army::MOLOCH, "token"};
+  Token token3 {Army::MOLOCH, "token"};
   player.tokensOnHand.push_back(&token1);
   player.tokensOnHand.push_back(&token2);
   player.tokensOnHand.push_back(&token3);
