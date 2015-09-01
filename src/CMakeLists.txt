@@ -7,7 +7,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 find_package(Qt5Widgets REQUIRED)
 
 set(PROJECT_SRC_LIST main.cpp)
-set(PROJECT_LIBS logic MainWindowSample GameBox TokenLoader)
+set(PROJECT_LIBS logic MainWindowSample GameBox)
 add_executable(${PROJECT_NAME} ${PROJECT_SRC_LIST})
 target_link_libraries(${PROJECT_NAME} ${PROJECT_LIBS})
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX})
