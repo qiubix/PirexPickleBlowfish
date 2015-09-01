@@ -7,11 +7,11 @@ class Upgrader : public Module
 {
 public:
   Upgrader(Module* module, bool affectsEnemies);
-  virtual ~Upgrader();
+  ~Upgrader();
 
   virtual void addBoardToken(BoardToken* token);
   virtual void removeBoardToken(BoardToken* token);
-  bool isAffectingEnemies(void);
+  bool isAffectingEnemies();
 
 protected:
   virtual void upgrade(BoardToken *token);
@@ -19,7 +19,6 @@ protected:
 
   bool affectsEnemies;
   Module* module;
-
 };
 
 #endif //UPGRADER_HPP

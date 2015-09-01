@@ -9,11 +9,11 @@ class Token
 {
 public:
   Token(Army army, std::string name);
-  virtual ~Token(void) {}
+  virtual ~Token() {}
 
   //getters
-  Army getArmy(void);
-  std::string getName(void);
+  Army getArmy();
+  std::string getName();
 
 protected:
   Attribute* army;

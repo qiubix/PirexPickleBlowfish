@@ -7,7 +7,6 @@ class ChangeAttributeUpgrader : public Upgrader
 {
 public:
   ChangeAttributeUpgrader(Module* module, AttributeName name, int changeValue, bool affectsEnemies = false);
-  ~ChangeAttributeUpgrader() {}
 
   AttributeName getAttributeToChange() const;
   int getChangeValue() const;

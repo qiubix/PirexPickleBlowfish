@@ -17,11 +17,11 @@ GameBox * GameBox::getInstance()
 GameBox::GameBox() {
 }
 
-int GameBox::getArmiesCount(void) {
+int GameBox::getArmiesCount() {
   return armies.size();
 }
 
-bool GameBox::isEmpty(void) {
+bool GameBox::isEmpty() {
   return getArmiesCount() == 0;
 }
 

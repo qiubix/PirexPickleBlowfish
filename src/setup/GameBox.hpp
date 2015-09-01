@@ -17,8 +17,8 @@ class GameBox
 public:
   static GameBox * getInstance();
 
-  int getArmiesCount(void);
-  bool isEmpty(void);
+  int getArmiesCount();
+  bool isEmpty();
   std::vector<Token *> getArmy(Army armyName);
 
 protected:
@@ -43,7 +43,6 @@ private:
   FRIEND_TEST(GameBoxTest, shouldThrowExceptionWhenTryingToAddTokenOfArmyThatIsNotInTheBox);
   FRIEND_TEST(GameBoxTest, shouldThrowExceptionWhenAlreadySuchArmyInTheBox);
   FRIEND_TEST(GameBoxTest, shouldAddEmptyArmyToTheBox);
-
 };
 
 #endif // GAME_BOX_H

@@ -5,11 +5,11 @@ Attribute::Attribute(std::string name, int baseValue)
   this->currentValue = baseValue;
 }
 
-std::string Attribute::getName(void) {
+std::string Attribute::getName() {
   return name;
 }
 
-int Attribute::getValue(void) {
+int Attribute::getValue() {
   return currentValue;
 }
 
@@ -25,7 +25,7 @@ void Attribute::upgradeTo(int newValue) {
   currentValue = newValue;
 }
 
-void Attribute::resetValue(void) {
+void Attribute::resetValue() {
   currentValue = baseValue;
 }
 

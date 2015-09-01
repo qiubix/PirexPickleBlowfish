@@ -20,21 +20,20 @@ enum GameState {
 class Model
 {
 public:
-  Model(void);
-  ~Model(void) {}
+  Model();
 
   //getters
-  Board* getBoard(void);
-  GameState getGameState(void);
-  Player* getCurrentPlayer(void);
+  Board *getBoard();
+  GameState getGameState();
+  Player *getCurrentPlayer();
   Player* getPlayer(Army army);
-  int getPlayersQuantity(void);
+  int getPlayersQuantity();
 
   void setGameState(GameState newState);
   void addPlayer(Player* newPlayer);
-  void moveToNextPlayer(void);
+  void moveToNextPlayer();
   void killToken(BoardToken* token);
-  void reset(void);
+  void reset();
 
 private:
   Board* board;

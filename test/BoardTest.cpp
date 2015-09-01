@@ -9,16 +9,6 @@ using ::testing::Test;
 class BoardTest : public Test
 {
 protected:
-  BoardTest(void) {
-    board = new Board;
-  }
-  ~BoardTest(void) {
-    delete board;
-  }
-
-  virtual void SetUp(void) {}
-  virtual void TearDown(void) {}
-  
   Side increment(Side edge) {
     return ++edge;
   }
@@ -26,11 +16,11 @@ protected:
     return --edge;
   }
 
-  Board* board;
+  Board board;
 };
 
 TEST_F(BoardTest, shouldCreateMiddleRing) {
-  Field* middle = board -> getMiddleField();
+  Field* middle = board.getMiddleField();
   //REVIEW: what is wrong with for(Side side = Side::NORTH; side <= Side::whatever; side++)
   //TODO: override operator <= for Side to enable for loop usage
   Side side = Side::NORTH;
@@ -51,8 +41,8 @@ TEST_F(BoardTest, shouldCreateMiddleRing) {
 TEST_F(BoardTest, shouldCreateOutsideRing) {
   Side side = Side::NORTH;
   do {
-    Field* root = board -> getMiddleField() -> getNeighbour(side);
-    Field* rootNext = board -> getMiddleField() -> getNeighbour(increment(side));
+    Field* root = board.getMiddleField()-> getNeighbour(side);
+    Field* rootNext = board.getMiddleField()-> getNeighbour(increment(side));
     Field* first = root -> getNeighbour(side);
     Field* second = root -> getNeighbour(increment(side));
     Field* third = rootNext -> getNeighbour(increment(side));

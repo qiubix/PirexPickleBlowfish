@@ -1,11 +1,6 @@
 #include "Field.hpp"
 
-Field::Field(void)
-{
-  token = nullptr;
-}
-
-Token* Field::getToken(void) {
+Token * Field::getToken() {
   return token;
 }
 

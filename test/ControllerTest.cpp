@@ -11,19 +11,8 @@ using ::testing::Test;
 class ControllerTest : public Test
 {
 protected:
-  ControllerTest(void) {
-    model = new Model;
-    controller = new Controller(model);
-  }
-  ~ControllerTest(void) {
-    delete controller;
-    delete model;
-  }
-  Controller* controller;
-  Model* model;
-
-  virtual void SetUp(void) {}
-  virtual void TearDown(void) {}
+  Model model;
+  Controller controller {&model};
 
   BoardToken* createBoardTokenWithToughness();
 };
@@ -36,39 +25,38 @@ BoardToken* ControllerTest::createBoardTokenWithToughness() {
 }
 
 TEST_F(ControllerTest, shouldRotateToken) {
-  BoardToken* token = new BoardToken(MOLOCH, "soldier");
-  EXPECT_EQ(Side::NORTH, token -> getOrientation());
-  controller -> rotateClockwise(token);
-  EXPECT_EQ(Side::NORTH_EAST, token -> getOrientation());
-  controller -> rotateAnticlockwise(token);
-  EXPECT_EQ(Side::NORTH, token -> getOrientation());
-  delete token;
-}
+  BoardToken token {MOLOCH, "soldier"};
+  EXPECT_EQ(Side::NORTH, token.getOrientation());
+  controller.rotateClockwise(&token);
+  EXPECT_EQ(Side::NORTH_EAST, token.getOrientation());
+  controller.rotateAnticlockwise(&token);
+  EXPECT_EQ(Side::NORTH, token.getOrientation());
+};
 
 TEST_F(ControllerTest, shouldPutTokenOnBoard) {
-  Field* field = new Field;
-  BoardToken* token = new BoardToken(MOLOCH, "solder");
-  controller -> putOnBoard(token, field);
-  EXPECT_EQ(token, field -> getToken());
-  EXPECT_EQ(field, token -> getField());
-}
+  Field field;
+  BoardToken token {MOLOCH, "solder"};
+  controller.putOnBoard(&token, &field);
+  EXPECT_EQ(&token, field.getToken());
+  EXPECT_EQ(&field, token.getField());
+};
 
 TEST_F(ControllerTest, shouldMoveToken) {
-  BoardToken* token = new BoardToken(MOLOCH, "solder");
-  Field* field = new Field;
-  Field* destination = new Field;
-  token -> setField(field);
-  field -> setToken(token);
-  controller -> move(token, destination);
-  EXPECT_EQ(nullptr, field -> getToken());
-  EXPECT_EQ(destination, token -> getField());
-  EXPECT_EQ(token, destination -> getToken());
-}
+  BoardToken token {MOLOCH, "solder"};
+  Field field;
+  Field destination;
+  token.setField(&field);
+  field.setToken(&token);
+  controller.move(&token, &destination);
+  EXPECT_EQ(nullptr, field.getToken());
+  EXPECT_EQ(&destination, token.getField());
+  EXPECT_EQ(&token, destination.getToken());
+};
 
 TEST_F(ControllerTest, shouldStrikeToken) {
   BoardToken* token = createBoardTokenWithToughness();
-  controller -> strikeToken(token, 1);
-  EXPECT_EQ(1, token -> getAttribute(TOUGHNESS) -> getValue());
+  controller.strikeToken(token, 1);
+  EXPECT_EQ(1, token->getAttribute(TOUGHNESS)->getValue());
 }
 
 //TODO: split into separate tests
@@ -85,18 +73,18 @@ TEST_F(ControllerTest, shouldBombStrikeAreaOfOneFieldRadius) {
   BoardToken* thirdToken = createBoardTokenWithToughness();
   BoardToken* fourthToken = createBoardTokenWithToughness();
   BoardToken* fifthToken = createBoardTokenWithToughness();
-  controller -> putOnBoard(firstToken, epicentrum);
-  controller -> putOnBoard(secondToken, north);
-  controller -> putOnBoard(thirdToken, south);
-  controller -> putOnBoard(fourthToken, farNorth);
-  controller -> putOnBoard(fifthToken, farSouth);
+  controller.putOnBoard(firstToken, epicentrum);
+  controller.putOnBoard(secondToken, north);
+  controller.putOnBoard(thirdToken, south);
+  controller.putOnBoard(fourthToken, farNorth);
+  controller.putOnBoard(fifthToken, farSouth);
 
-  controller -> bombStrikeField(epicentrum);
-  EXPECT_EQ(1, firstToken -> getAttribute(TOUGHNESS) -> getValue());
-  EXPECT_EQ(1, secondToken -> getAttribute(TOUGHNESS) -> getValue());
-  EXPECT_EQ(1, thirdToken -> getAttribute(TOUGHNESS) -> getValue());
-  EXPECT_EQ(2, fourthToken -> getAttribute(TOUGHNESS) -> getValue());
-  EXPECT_EQ(2, fifthToken -> getAttribute(TOUGHNESS) -> getValue());
+  controller.bombStrikeField(epicentrum);
+  EXPECT_EQ(1, firstToken->getAttribute(TOUGHNESS)->getValue());
+  EXPECT_EQ(1, secondToken->getAttribute(TOUGHNESS)->getValue());
+  EXPECT_EQ(1, thirdToken->getAttribute(TOUGHNESS)->getValue());
+  EXPECT_EQ(2, fourthToken->getAttribute(TOUGHNESS)->getValue());
+  EXPECT_EQ(2, fifthToken->getAttribute(TOUGHNESS)->getValue());
   delete fifthToken;
   delete fourthToken;
   delete thirdToken;
@@ -110,13 +98,12 @@ TEST_F(ControllerTest, shouldBombStrikeAreaOfOneFieldRadius) {
 }
 
 TEST_F(ControllerTest, shouldResetGame) {
-  Player* player = new Player(MOLOCH);
-  model -> addPlayer(player);
-  controller -> setGameState(GAME);
-  EXPECT_EQ(GAME, model -> getGameState());
-  EXPECT_FALSE(model -> players.empty());
-  controller -> reset();
-  EXPECT_EQ(PAUSE, model -> getGameState());
-  EXPECT_TRUE(model -> players.empty());
-  delete player;
-}
+  Player player {MOLOCH};
+  model.addPlayer(&player);
+  controller.setGameState(GAME);
+  EXPECT_EQ(GAME, model.getGameState());
+  EXPECT_FALSE(model.players.empty());
+  controller.reset();
+  EXPECT_EQ(PAUSE, model.getGameState());
+  EXPECT_TRUE(model.players.empty());
+};

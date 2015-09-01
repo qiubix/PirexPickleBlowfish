@@ -2,7 +2,7 @@
 
 Model::Model()
   : gameState(PAUSE), currentPlayerId(-1) {
-  this -> board = new Board;
+  this -> board = new Board();
 }
 
 Board* Model::getBoard() {
@@ -24,7 +24,7 @@ Player* Model::getCurrentPlayer() {
 
 Player* Model::getPlayer(Army army) {
   for (Player* p: players) {
-    if (p -> getArmy() == army) {
+    if (p->getArmy() == army) {
       return p;
     }
   }
@@ -51,12 +51,12 @@ void Model::moveToNextPlayer() {
 }
 
 void Model::killToken(BoardToken* token) {
-  Field* field = token -> getField();
+  Field* field = token->getField();
   if (field != nullptr) {
     field->setToken(nullptr);
   }
   token->setField(nullptr);
-  Player* player = getPlayer(token -> getArmy());
+  Player* player = getPlayer(token->getArmy());
   player -> killToken(token);
 }
 

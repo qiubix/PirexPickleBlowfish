@@ -9,7 +9,7 @@ BoardToken::BoardToken(Army army, std::string name, Attributes* attributes)
   }
 }
 
-BoardToken::~BoardToken(void) {
+BoardToken::~BoardToken() {
   delete attributes;
 }
 
@@ -37,19 +37,19 @@ void BoardToken::downgradeAttributeBy(AttributeName name, int downgradeValue) {
   getAttribute(name) -> downgradeBy(downgradeValue);
 }
 
-void BoardToken::rotateClockwise(void) {
+void BoardToken::rotateClockwise() {
   ++orientation;
 }
 
-void BoardToken::rotateAnticlockwise(void) {
+void BoardToken::rotateAnticlockwise() {
   --orientation;
 }
 
-Field* BoardToken::getField(void) {
+Field * BoardToken::getField() {
   return field;
 }
 
-Side BoardToken::getOrientation(void) {
+Side BoardToken::getOrientation() {
   return orientation;
 }
 
@@ -58,7 +58,7 @@ void BoardToken::setArmy(Army army) {
 }
 
 void BoardToken::resetArmy() {
-  this -> army -> resetValue();
+  this->army->resetValue();
 }
 
 void BoardToken::setField(Field* field) {

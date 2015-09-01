@@ -7,14 +7,14 @@
 class Board
 {
 public:
-  Board(void);
-  ~Board(void);
-  Field* getMiddleField(void);
+  Board();
+  ~Board();
+  Field *getMiddleField();
 
 private:
-  void createMiddleRing(void);
+  void createMiddleRing();
   void linkMiddleRing();
-  void createOutsideRing(void);
+  void createOutsideRing();
   void linkOutsideRing();
 
   std::vector <Field* > fields;

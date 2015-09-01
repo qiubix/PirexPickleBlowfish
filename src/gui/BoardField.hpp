@@ -12,7 +12,7 @@ class BoardField : public Hexagon
 public:
   BoardField(Field* field, float radius = 50, QGraphicsItem *parent = 0);
 
-  Field* getField(void);
+  Field *getField();
 
 signals:
   void fieldClicked(BoardField*);

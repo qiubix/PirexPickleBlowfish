@@ -1,7 +1,7 @@
 #include "Upgrader.hpp"
 
 Upgrader::Upgrader(Module* module, bool affectsEnemies)
-  : Module(module -> getArmy(), module -> getName(), module -> getAttributes()), affectsEnemies(affectsEnemies) {
+  : Module(module->getArmy(), module->getName(), module -> getAttributes()), affectsEnemies(affectsEnemies) {
   this -> module = module;
 }
 
@@ -15,7 +15,7 @@ void Upgrader::upgrade(BoardToken* token) {
 void Upgrader::downgrade(BoardToken* token) {
 }
 
-bool Upgrader::isAffectingEnemies(void) {
+bool Upgrader::isAffectingEnemies() {
   return affectsEnemies;
 }
 

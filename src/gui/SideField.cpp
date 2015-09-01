@@ -5,11 +5,11 @@ SideField::SideField(int player, int whichToken, float radius, QGraphicsItem* pa
 {
 }
 
-int SideField::getPlayer(void) {
+int SideField::getPlayer() {
   return player;
 }
 
-int SideField::getWhichToken(void) {
+int SideField::getWhichToken() {
   return whichToken;
 }
 

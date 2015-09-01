@@ -11,7 +11,6 @@ class ModuleToken : public Module
 {
 public:
   ModuleToken(Army army, std::string name, Attributes* attributes = nullptr, std::vector<Side> activeEdges = empty);
-  virtual ~ModuleToken() {}
 
   void addBoardToken(BoardToken* token);
   void removeBoardToken(BoardToken* token);
