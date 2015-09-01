@@ -11,9 +11,8 @@
 class Json : public QJsonObject
 {
 public:
-  Json(void);
+  Json();
   Json(QJsonObject object);
-  ~Json(void);
 
   std::string getStringValue(std::string key);
   virtual int getIntegerValue(std::string key);
@@ -24,7 +23,7 @@ public:
   std::vector<int> getIntegerArray(std::string key);
 
   bool contains(std::string key);
-  virtual std::vector<std::string> getKeys(void);
+  virtual std::vector <std::string> getKeys();
 
 protected:
   QJsonValue takeFromJson(std::string key);

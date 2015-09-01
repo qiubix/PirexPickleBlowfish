@@ -11,7 +11,7 @@ Controller::Controller(Model* model)
 }
 
 Board* Controller::getModelBoard() {
-  return model -> getBoard();
+  return model->getBoard();
 }
 
 void Controller::initializeNewPlayer(Army army) {
@@ -22,7 +22,7 @@ void Controller::initializeNewPlayer(Army army) {
 }
 
 void Controller::drawTokensForActivePlayer() {
-  Player* player = model -> getCurrentPlayer();
+  Player* player = model->getCurrentPlayer();
   player -> drawTokens(1);
 }
 
@@ -35,17 +35,17 @@ void Controller::startBattle() {
 }
 
 void Controller::rotateClockwise(BoardToken* token) {
-  token -> rotateClockwise();
+  token->rotateClockwise();
 }
 
 void Controller::rotateAnticlockwise(BoardToken* token) {
-  token -> rotateAnticlockwise();
+  token->rotateAnticlockwise();
 }
 
 void Controller::putOnBoard(BoardToken* token, Field* field) {
   field -> setToken(token);
   token -> setField(field);
-  model -> getPlayer(token -> getArmy());
+  model -> getPlayer(token->getArmy());
 }
 
 void Controller::move(BoardToken* token, Field* destination) {
@@ -63,15 +63,15 @@ void Controller::strikeToken(BoardToken* token, int strength) {
 }
 
 void Controller::bombStrikeField(Field* epicentrum) {
-  BoardToken* token = dynamic_cast<BoardToken*>(epicentrum -> getToken());
+  BoardToken* token = dynamic_cast<BoardToken*>(epicentrum->getToken());
   if(token != nullptr) {
     token -> downgradeAttributeBy(TOUGHNESS);
   }
   Field* neighbour;
   for(int i=0; i<6; ++i) {
     neighbour = epicentrum -> getNeighbour((Side) i);
-    if(neighbour != nullptr && neighbour -> getToken() != nullptr) {
-      token = dynamic_cast<BoardToken*>(neighbour -> getToken());
+    if(neighbour != nullptr && neighbour->getToken() != nullptr) {
+      token = dynamic_cast<BoardToken*>(neighbour->getToken());
       token -> downgradeAttributeBy(TOUGHNESS);
     }
   }
@@ -81,8 +81,8 @@ void Controller::destroy(BoardToken* token) {
   model -> killToken(token);
 }
 
-void Controller::reset(void) {
-  model -> reset();
+void Controller::reset() {
+  model->reset();
 }
 
 int Controller::getRandomNumber(int i) {

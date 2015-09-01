@@ -9,56 +9,40 @@ using ::testing::Test;
 class FieldTest : public Test
 {
 protected:
-  FieldTest(void) {
-    field = new Field;
-  }
-  ~FieldTest(void) {
-    delete field;
-  }
-
-  virtual void SetUp(void) {}
-  virtual void TearDown(void) {}
-
-  Field* field;
+  Field field;
 };
 
 TEST_F(FieldTest, shouldSetToken) {
-  BoardToken* token = new BoardToken(MOLOCH, "soldier");
-  field -> setToken(token);
-  EXPECT_EQ(token, field -> getToken());
-  delete token;
-}
+  BoardToken token {MOLOCH, "soldier"};
+  field.setToken(&token);
+  EXPECT_EQ(&token, field.getToken());
+};
 
 TEST_F(FieldTest, shouldGetToken) {
-  Token* newToken = new Token(MOLOCH, "soldier");
-  field -> setToken(newToken);
-  Token* token = field -> getToken();
-  EXPECT_EQ(newToken, token);
-  EXPECT_EQ(newToken -> getName(), token -> getName());
-  delete token;
-}
+  Token newToken {MOLOCH, "soldier"};
+  field.setToken(&newToken);
+  Token* token = field.getToken();
+  EXPECT_EQ(&newToken, token);
+  EXPECT_EQ(newToken.getName(), token->getName());
+};
 
 TEST_F(FieldTest, shouldAddNeighbour) {
-  Field* neighbour = new Field;
-  field -> addNeighbour(neighbour, Side::NORTH);
-  EXPECT_EQ(neighbour, field -> getNeighbour(Side::NORTH));
-  delete neighbour;
+  Field neighbour;
+  field.addNeighbour(&neighbour, Side::NORTH);
+  EXPECT_EQ(&neighbour, field.getNeighbour(Side::NORTH));
 }
 
 TEST_F(FieldTest, shouldGetNeighbour) {
-  Token* firstToken = new Token(MOLOCH, "first token");
-  Token* secondToken = new Token(MOLOCH, "second token");
-  Field* newNeighbour = new Field;
-  newNeighbour -> setToken(secondToken);
-  field -> setToken(firstToken);
-  EXPECT_EQ("first token", field -> getToken() -> getName());
-  field -> addNeighbour(newNeighbour, Side::NORTH);
-  Field* neighbour = field -> getNeighbour(Side::SOUTH);
+  Token firstToken {MOLOCH, "first token"};
+  Token secondToken {MOLOCH, "second token"};
+  Field newNeighbour;
+  newNeighbour.setToken(&secondToken);
+  field.setToken(&firstToken);
+  EXPECT_EQ("first token", field.getToken() -> getName());
+  field.addNeighbour(&newNeighbour, Side::NORTH);
+  Field* neighbour = field.getNeighbour(Side::SOUTH);
   EXPECT_EQ(nullptr, neighbour);
-  neighbour = field -> getNeighbour(Side::NORTH);
-  ASSERT_EQ(newNeighbour, neighbour);
-  EXPECT_EQ("second token", neighbour -> getToken() -> getName());
-  delete neighbour;
-  delete secondToken;
-  delete firstToken;
-}
+  neighbour = field.getNeighbour(Side::NORTH);
+  ASSERT_EQ(&newNeighbour, neighbour);
+  EXPECT_EQ("second token", neighbour->getToken()->getName());
+};

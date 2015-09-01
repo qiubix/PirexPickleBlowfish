@@ -9,14 +9,13 @@ class Player
 {
 public:
   Player(Army army);
-  ~Player(void) {}
 
   //getters
-  Army getArmy(void);
+  Army getArmy();
   Token* getTokenOnHand(int position);
 
   void addTokens(std::vector<Token*> tokens);
-  void shuffleTokens(void);
+  void shuffleTokens();
 
   void killToken(BoardToken* token);
   void useToken(Token* token);
@@ -24,6 +23,7 @@ public:
   void drawTokens(int amount = 3);
 
   std::vector <Token*> hiddenTokens;
+
 private:
   Army army;
   std::vector <BoardToken*> tokensOnBoard;

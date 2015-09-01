@@ -7,7 +7,6 @@ class Module : public BoardToken
 {
 public:
   Module(Army army, std::string name, Attributes* attributes = nullptr);
-  virtual ~Module() {}
 
   virtual void addBoardToken(BoardToken* token) = 0;
   virtual void removeBoardToken(BoardToken* token) = 0;

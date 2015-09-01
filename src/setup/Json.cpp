@@ -3,13 +3,10 @@
 #include <QStringList>
 #include <QVector>
 
-Json::Json(void) : QJsonObject() {
+Json::Json() : QJsonObject() {
 }
 
 Json::Json(QJsonObject object) : QJsonObject(object) {
-}
-
-Json::~Json(void) {
 }
 
 std::string Json::getStringValue(std::string key) {
@@ -62,7 +59,7 @@ bool Json::contains(std::string key) {
   return QJsonObject::contains(QString::fromStdString(key));
 }
 
-std::vector<std::string> Json::getKeys(void) {
+std::vector <std::string> Json::getKeys() {
   std::vector<QString> qstringKeys = keys().toVector().toStdVector();
   std::vector<std::string> keys;
   for(int currentKey = 0; currentKey < qstringKeys.size(); currentKey++) {

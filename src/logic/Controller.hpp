@@ -9,14 +9,13 @@ class Controller
 {
 public:
   Controller(Model* model);
-  ~Controller(void) {}
 
-  Board* getModelBoard(void);
+  Board *getModelBoard();
   void initializeNewPlayer(Army army);
-  void drawTokensForActivePlayer(void);
+  void drawTokensForActivePlayer();
 
   void setGameState(GameState newState);
-  void startBattle(void);
+  void startBattle();
   void rotateClockwise(BoardToken* token);
   void rotateAnticlockwise(BoardToken* token);
   void putOnBoard(BoardToken* token, Field* field);
@@ -24,7 +23,7 @@ public:
   void strikeToken(BoardToken* token, int strength);
   void bombStrikeField(Field* epicentrum);
   void destroy(BoardToken* token);
-  void reset(void);
+  void reset();
 
 private:
   Model* model;

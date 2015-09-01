@@ -9,11 +9,8 @@
 class Field
 {
 public:
-  Field(void);
-  ~Field(void) {}
-
   //getters
-  Token* getToken(void);
+  Token *getToken();
   Field* getNeighbour(const Side& side);
 
   void setToken(Token* token);

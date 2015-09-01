@@ -10,24 +10,24 @@ class BoardToken : public Token
 {
 public:
   BoardToken(Army army, std::string name, Attributes* attributes = nullptr);
-  virtual ~BoardToken(void);
+  virtual ~BoardToken();
 
   void addAttribute(AttributeName name, Attribute* attribute);
   void removeAttribute(AttributeName name);
   void upgradeAttributeBy(AttributeName name, int upgradeValue = 1);
   void downgradeAttributeBy(AttributeName name, int downgradeValue = 1);
-  void rotateClockwise(void);
-  void rotateAnticlockwise(void);
+  void rotateClockwise();
+  void rotateAnticlockwise();
 
   //getters
   Attribute* getAttribute(AttributeName name);
   Attributes* getAttributes();
-  Field* getField(void);
-  Side getOrientation(void);
+  Field *getField();
+  Side getOrientation();
 
   //setters
   void setArmy(Army army);
-  void resetArmy(void);
+  void resetArmy();
   void setField(Field* field);
   void setOrientation(Side orientation);
 

@@ -15,7 +15,6 @@ class HeadquartersToken : public UnitToken, public ModuleToken
 {
 public:
   HeadquartersToken(Army army, std::string name, Attributes* attributes = nullptr, std::vector<Side> edges = HQ_EDGES);
-  ~HeadquartersToken() {}
 };
 
 #endif //HEADQUARTERSTOKEN_HPP

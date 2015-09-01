@@ -5,9 +5,9 @@ ChangeArmyUpgrader::ChangeArmyUpgrader(Module* module, bool affectsEnemies)
 }
 
 void ChangeArmyUpgrader::upgrade(BoardToken* token) {
-  token -> setArmy(module -> getArmy());
+  token -> setArmy(module->getArmy());
 }
 
 void ChangeArmyUpgrader::downgrade(BoardToken* token) {
-  token -> resetArmy();
+  token->resetArmy();
 }

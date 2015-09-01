@@ -6,13 +6,6 @@ using ::testing::Test;
 #include "../src/setup/StringToEnumTranslator.hpp"
 
 class StringToEnumTranslatorTest : public Test {
-protected:
-  StringToEnumTranslatorTest() {}
-
-  virtual ~StringToEnumTranslatorTest() {}
-
-  virtual void SetUp() {}
-  virtual void TearDown() {}
 };
 
 //TODO: read about value parametrized tests and maybe use them here

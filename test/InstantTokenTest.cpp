@@ -14,22 +14,10 @@ using ::testing::Test;
 class InstantTokenTest : public Test
 {
 protected:
-  InstantTokenTest(void) {
-    model = new Model();
-    controller = new Controller(model);
-  }
-  ~InstantTokenTest(void) {
-    delete controller;
-    delete model;
-  }
-
-  virtual void SetUp(void) {}
-  virtual void TearDown(void) {}
-
   BoardToken* createBoardTokenWithToughness();
 
-  Model* model;
-  Controller* controller;
+  Model model;
+  Controller controller {&model};
 };
 
 BoardToken* InstantTokenTest::createBoardTokenWithToughness() {
@@ -40,32 +28,31 @@ BoardToken* InstantTokenTest::createBoardTokenWithToughness() {
 }
 
 TEST_F(InstantTokenTest, shouldCauseBattle) {
-  BattleToken* battle = new BattleToken(MOLOCH, controller);
-  ASSERT_EQ(PAUSE, model -> getGameState());
-  battle -> action();
-  EXPECT_EQ(BATTLE, model -> getGameState());
-  delete battle;
-}
+  BattleToken battle {MOLOCH, &controller};
+  ASSERT_EQ(PAUSE, model.getGameState());
+  battle.action();
+  EXPECT_EQ(BATTLE, model.getGameState());
+};
 
 TEST_F(InstantTokenTest, shouldMoveToken) {
-  MovementToken* movement = new MovementToken(MOLOCH, controller);
+  MovementToken* movement = new MovementToken(MOLOCH, &controller);
   BoardToken* token = new BoardToken(MOLOCH, "soldier");
   Field* field = new Field;
   Field* destination = new Field;
   token -> setField(field);
   movement -> setTokenToMove(token);
   movement -> setDestination(destination);
-  movement -> action();
-  EXPECT_NE(field, token -> getField());
-  EXPECT_EQ(nullptr, field -> getToken());
-  EXPECT_EQ(destination, token -> getField());
-  EXPECT_EQ(token, destination -> getToken());
+  movement->action();
+  EXPECT_NE(field, token->getField());
+  EXPECT_EQ(nullptr, field->getToken());
+  EXPECT_EQ(destination, token->getField());
+  EXPECT_EQ(token, destination->getToken());
   delete field;
   delete movement;
 }
 
 TEST_F(InstantTokenTest, shouldPushToken) {
-  PushToken* push = new PushToken(MOLOCH, controller);
+  PushToken* push = new PushToken(MOLOCH, &controller);
   BoardToken* pusher = new BoardToken(MOLOCH, "soldier");
   BoardToken* pushee = new BoardToken(OUTPOST, "soldier");
   Field* pusherField = new Field;
@@ -76,10 +63,10 @@ TEST_F(InstantTokenTest, shouldPushToken) {
   push -> setPushingToken(pusher);
   push -> setPushedToken(pushee);
   push -> setDestination(destination);
-  push -> action();
-  EXPECT_NE(pusheeField, pushee -> getField());
-  EXPECT_EQ(destination, pushee -> getField());
-  EXPECT_EQ(pushee, destination -> getToken());
+  push->action();
+  EXPECT_NE(pusheeField, pushee->getField());
+  EXPECT_EQ(destination, pushee->getField());
+  EXPECT_EQ(pushee, destination->getToken());
   delete pusherField;
   delete pusheeField;
   delete pusher;
@@ -88,7 +75,7 @@ TEST_F(InstantTokenTest, shouldPushToken) {
 }
 
 TEST_F(InstantTokenTest, shouldBombStrikeField) {
-  BombToken* bomb = new BombToken(MOLOCH, controller);
+  BombToken* bomb = new BombToken(MOLOCH, &controller);
   BoardToken* firstToken = createBoardTokenWithToughness();
   BoardToken* secondToken = createBoardTokenWithToughness();
   Field* firstField = new Field;
@@ -100,25 +87,26 @@ TEST_F(InstantTokenTest, shouldBombStrikeField) {
   secondField -> setToken(secondToken);
   secondToken -> setField(secondField);
 
-  bomb -> setEpicentrum(firstToken -> getField());
-  bomb -> action();
-  EXPECT_EQ(1, firstToken -> getAttribute(TOUGHNESS) -> getValue());
-  EXPECT_EQ(1, secondToken -> getAttribute(TOUGHNESS) -> getValue());
+  bomb -> setEpicentrum(firstToken->getField());
+  bomb->action();
+  EXPECT_EQ(1, firstToken->getAttribute(TOUGHNESS)->getValue());
+  EXPECT_EQ(1, secondToken->getAttribute(TOUGHNESS)->getValue());
   delete firstField;
   delete secondField;
   delete bomb;
 }
 
 TEST_F(InstantTokenTest, shouldDestroyToken) {
-  GrenadeToken* grenade = new GrenadeToken(BORGO, controller);
+  GrenadeToken* grenade = new GrenadeToken(BORGO, &controller);
   Player* player = new Player(MOLOCH);
-  model -> addPlayer(player);
+  model.addPlayer(player);
   BoardToken* token = new BoardToken(MOLOCH, "soldier");
   Field* field = new Field;
   token -> setField(field);
   field -> setToken(token);
   grenade -> setTokenToDestroy(token);
-  grenade -> action();
+  grenade->action();
+  //FIXME: uncomment this lines
 //  ASSERT_FALSE(model -> usedTokens.empty());
 //  EXPECT_EQ(token, model -> usedTokens[0]);
   delete token;
@@ -128,12 +116,12 @@ TEST_F(InstantTokenTest, shouldDestroyToken) {
 TEST_F(InstantTokenTest, shouldStrikeToken) {
 //  Controller* controller = new Controller(new Model);
 //  MockController controller;
-  SniperToken* sniper = new SniperToken(OUTPOST, controller);
+  SniperToken* sniper = new SniperToken(OUTPOST, &controller);
   BoardToken* token = createBoardTokenWithToughness();
   sniper -> setTokenToStrike(token);
-  sniper -> action();
+  sniper->action();
 //  EXPECT_CALL(controller, strikeToken(token,1))
 //      .Times(1);
-  EXPECT_EQ(1, token -> getAttribute(TOUGHNESS) -> getValue());
+  EXPECT_EQ(1, token->getAttribute(TOUGHNESS)->getValue());
   delete sniper;
 }

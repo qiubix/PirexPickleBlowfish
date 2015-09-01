@@ -18,7 +18,6 @@ namespace gui {
     QRectF boundingRect() const;
 
     void changeCoordinates(float& x, float& y, float xDiff, float yDiff, int numberHardToName);
-
   };
 }
 

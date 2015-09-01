@@ -7,16 +7,15 @@
 
 class Attributes {
 public:
-  Attributes(void);
-  ~Attributes(void);
+  ~Attributes();
 
   //getters
   Attribute* getAttribute(AttributeName name);
-  int getSize(void);
+  int getSize();
 
   void addAttribute(AttributeName name, Attribute* attribute);
   void removeAttribute(AttributeName name);
-  bool empty(void);
+  bool empty();
 
 private:
   std::map < AttributeName, Attribute*> attributes;

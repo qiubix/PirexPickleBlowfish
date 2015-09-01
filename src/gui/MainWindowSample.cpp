@@ -15,7 +15,7 @@ MainWindowSample::MainWindowSample(Controller* modelController, QWidget *parent)
   QGraphicsScene * scene = new QGraphicsScene(this);
   scene->setBackgroundBrush(Qt::darkGray);
 
-  Field * middleField = modelController -> getModelBoard() -> getMiddleField();
+  Field * middleField = modelController->getModelBoard()->getMiddleField();
 
   gui::Board * board = new gui::Board(controller, middleField);
   board -> setPos(0, 0);

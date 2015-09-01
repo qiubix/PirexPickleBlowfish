@@ -1,9 +1,6 @@
 #include "Attributes.hpp"
 
-Attributes::Attributes(void) {
-}
-
-Attributes::~Attributes(void) {
+Attributes::~Attributes() {
   for (auto it = attributes.begin(); it != attributes.end(); it++) {
     delete it->second;
   }
@@ -34,6 +31,6 @@ void Attributes::removeAttribute(AttributeName name) {
   }
 }
 
-bool Attributes::empty(void) {
+bool Attributes::empty() {
   return attributes.empty();
 }

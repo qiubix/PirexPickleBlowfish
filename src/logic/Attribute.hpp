@@ -11,18 +11,17 @@ public:
   void upgradeBy(int amount = 1);
   void downgradeBy(int amount = 1);
   void upgradeTo(int newValue);
-  void resetValue(void);
   void downgradeTo(int newValue);
+  void resetValue();
 
   //getters
-  std::string getName(void);
-  int getValue(void);
+  std::string getName();
+  int getValue();
 
 private:
   std::string name;
   int baseValue;
   int currentValue;
-
 };
 
 #endif //ATTRIBUTE_HPP

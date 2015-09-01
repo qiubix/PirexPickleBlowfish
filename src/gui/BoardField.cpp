@@ -5,7 +5,7 @@ BoardField::BoardField(Field* field, float radius, QGraphicsItem* parent)
 {
 }
 
-Field* BoardField::getField(void) {
+Field * BoardField::getField() {
   return field;
 }
 

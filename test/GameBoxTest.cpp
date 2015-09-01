@@ -10,13 +10,6 @@ using ::testing::Test;
 
 class GameBoxTest : public Test {
 protected:
-  GameBoxTest() {}
-
-  virtual ~GameBoxTest() {}
-
-  virtual void SetUp() {}
-  virtual void TearDown() {}
-
   //TODO: use it
   std::vector<Token*> createNewArmy(Army armyName) {
     Token* someToken = new BoardToken(armyName, "someToken", new Attributes);
@@ -66,16 +59,16 @@ TEST_F(GameBoxTest, shouldGetArmyFromTheBox) {
   gameBox.armies.insert(std::make_pair(armyName, army));
   std::vector<Token *> returnedArmy = gameBox.getArmy(armyName);
   ASSERT_EQ(army.size(), returnedArmy.size());
-  ASSERT_EQ(armyName, returnedArmy[0] -> getArmy());
+  ASSERT_EQ(armyName, returnedArmy[0]->getArmy());
   ASSERT_TRUE(dynamic_cast<BoardToken *>(returnedArmy[0]));
   ASSERT_EQ(&attributes, dynamic_cast<BoardToken *>(returnedArmy[0]) -> getAttributes());
-  ASSERT_EQ(tokenName, dynamic_cast<BoardToken *>(returnedArmy[0]) -> getName());
+  ASSERT_EQ(tokenName, dynamic_cast<BoardToken *>(returnedArmy[0])->getName());
 }
 
 TEST_F(GameBoxTest, shouldThrowExceptionWhenNoSuchArmyInTheBox) {
-  ASSERT_TRUE(GameBox::getInstance() -> isEmpty());
+  ASSERT_TRUE(GameBox::getInstance()->isEmpty());
   ASSERT_THROW(GameBox::getInstance() -> getArmy(OUTPOST), NoSuchArmyInBoxException);
-  ASSERT_TRUE(GameBox::getInstance() -> isEmpty());
+  ASSERT_TRUE(GameBox::getInstance()->isEmpty());
 }
 
 TEST_F(GameBoxTest, shouldAddArmyToTheBox) {
@@ -94,10 +87,10 @@ TEST_F(GameBoxTest, shouldAddArmyToTheBox) {
 
   std::vector<Token*> returnedArmy = gameBox.getArmy(armyName);
   ASSERT_EQ(army.size(), returnedArmy.size());
-  ASSERT_EQ(armyName, returnedArmy[0] -> getArmy());
+  ASSERT_EQ(armyName, returnedArmy[0]->getArmy());
   ASSERT_TRUE(dynamic_cast<BoardToken *>(returnedArmy[0]));
   ASSERT_EQ(&attributes, dynamic_cast<BoardToken *>(returnedArmy[0]) -> getAttributes());
-  ASSERT_EQ(tokenName, dynamic_cast<BoardToken *>(returnedArmy[0]) -> getName());
+  ASSERT_EQ(tokenName, dynamic_cast<BoardToken *>(returnedArmy[0])->getName());
 }
 
 TEST_F(GameBoxTest, shouldThrowExceptionWhenAlreadySuchArmyInTheBox) {
@@ -135,7 +128,7 @@ TEST_F(GameBoxTest, shouldAddTokenToTheArmy) {
   //TODO: these three assertions are used in some tests, wrap them into a method but first read the googletest documentation
   ASSERT_TRUE(dynamic_cast<BoardToken *>(returnedArmy[0]));
   ASSERT_EQ(&attributes, dynamic_cast<BoardToken *>(returnedArmy[0]) -> getAttributes());
-  ASSERT_EQ(tokenName, dynamic_cast<BoardToken *>(returnedArmy[0]) -> getName());
+  ASSERT_EQ(tokenName, dynamic_cast<BoardToken *>(returnedArmy[0])->getName());
 }
 
 TEST_F(GameBoxTest, shouldThrowExceptionWhenTryingToAddTokenOfArmyThatIsNotInTheBox) {
