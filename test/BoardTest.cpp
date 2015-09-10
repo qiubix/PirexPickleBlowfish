@@ -21,38 +21,32 @@ protected:
 
 TEST_F(BoardTest, shouldCreateMiddleRing) {
   Field* middle = board.getMiddleField();
-  //REVIEW: what is wrong with for(Side side = Side::NORTH; side <= Side::whatever; side++)
-  //TODO: override operator <= for Side to enable for loop usage
-  Side side = Side::NORTH;
-  do {
-    Field* neighbour = middle -> getNeighbour(side);
+  for (Side side = Side::NORTH; side <= Side::NORTH; ++side) {
+    Field *neighbour = middle->getNeighbour(side);
     Side neighbourEdge = !side;
-    EXPECT_EQ(middle, neighbour -> getNeighbour(neighbourEdge));
+    EXPECT_THAT(middle, Eq(neighbour -> getNeighbour(neighbourEdge)));
 
-    Field* previousInRing = middle -> getNeighbour(decrement(side));
-    EXPECT_EQ(previousInRing, neighbour -> getNeighbour(increment(neighbourEdge)) );
+    Field *previousInRing = middle -> getNeighbour(decrement(side));
+    EXPECT_THAT(previousInRing, Eq(neighbour -> getNeighbour(increment(neighbourEdge))));
 
-    Field* nextInRing = middle -> getNeighbour(increment(side));
-    EXPECT_EQ(nextInRing, neighbour -> getNeighbour(decrement(neighbourEdge)) );
-    ++side;
-  } while (side != Side::NORTH);
+    Field *nextInRing = middle -> getNeighbour(increment(side));
+    EXPECT_THAT(nextInRing, Eq(neighbour -> getNeighbour(decrement(neighbourEdge))));
+  }
 }
 
 TEST_F(BoardTest, shouldCreateOutsideRing) {
-  Side side = Side::NORTH;
-  do {
+  for (Side side = Side::NORTH; side <= Side::NORTH; ++side) {
     Field* root = board.getMiddleField()-> getNeighbour(side);
     Field* rootNext = board.getMiddleField()-> getNeighbour(increment(side));
     Field* first = root -> getNeighbour(side);
     Field* second = root -> getNeighbour(increment(side));
     Field* third = rootNext -> getNeighbour(increment(side));
-    EXPECT_EQ(root, first -> getNeighbour(!side) );
-    EXPECT_EQ(root, second -> getNeighbour(!(increment(side))) );
+    EXPECT_THAT(root, Eq(first -> getNeighbour(!side)) );
+    EXPECT_THAT(root, Eq(second -> getNeighbour(!(increment(side)))) );
 
-    EXPECT_EQ(second, first -> getNeighbour(!(decrement(side))) );
-    EXPECT_EQ(first, second -> getNeighbour(decrement(side)) );
-    EXPECT_EQ(third, second -> getNeighbour(!(decrement(side))) );
-    EXPECT_EQ(second, third -> getNeighbour(decrement(side)) );
-    ++side;
-  } while (side != Side::NORTH);
+    EXPECT_THAT(second, Eq(first -> getNeighbour(!(decrement(side)))) );
+    EXPECT_THAT(first, Eq(second -> getNeighbour(decrement(side))) );
+    EXPECT_THAT(third, Eq(second -> getNeighbour(!(decrement(side)))) );
+    EXPECT_THAT(second, Eq(third -> getNeighbour(decrement(side))) );
+  }
 }
