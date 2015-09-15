@@ -45,6 +45,10 @@ create_test(TokenTest "${TOKEN_TEST_SRC}" "${LOGIC_TEST_LIBS}")
 set(LOGIC_TEST_SRC ${CONTROLLER_TEST_SRC} ${MODEL_TEST_SRC} ${TOKEN_TEST_SRC})
 create_test(LogicTest "${LOGIC_TEST_SRC}" "${LOGIC_TEST_LIBS}")
 
+# console UI
+set(CONSOLE_UI_TEST_SRC ConsoleUITest.cpp)
+create_test(ConsoleUITest "${CONSOLE_UI_TEST_SRC}" "${LOGIC_TEST_LIBS}")
+
 # test connected with gui
 set(GUI_TEST_SRC MainWindowSampleTest.cpp)
 set(GUI_TEST_LIBS MainWindowSample ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES})
@@ -52,7 +56,7 @@ create_test(GuiTest "${GUI_TEST_SRC}" "${GUI_TEST_LIBS}")
 qt5_use_modules(GuiTest Test)
 
 # suite containing all tests
-set(ALL_TESTS_SRC ${LOADING_TOKENS_TEST_SRC} ${LOGIC_TEST_SRC})
+set(ALL_TESTS_SRC ${LOADING_TOKENS_TEST_SRC} ${LOGIC_TEST_SRC} ${CONSOLE_UI_TEST_SRC})
 set(ALL_TESTS_LIBS ${LOADING_TOKENS_TEST_LIBS} ${LOGIC_TEST_LIBS})
 create_test(AllTests "${ALL_TESTS_SRC}" "${ALL_TESTS_LIBS}")
 
